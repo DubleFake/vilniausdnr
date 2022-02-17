@@ -3,7 +3,7 @@
   "version": "5.0.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set PORT=3001 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -11,9 +11,11 @@
   "dependencies": {
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
+    "@mui/icons-material": "^5.4.2",
     "@mui/material": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "latest"
   },
   "browserslist": {
