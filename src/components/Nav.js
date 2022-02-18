@@ -1,10 +1,13 @@
 import React, { useState } from "react"
 import { Outlet, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+
+import { ReactComponent as vlnIcon } from "../homeIcons/header_vln_700.svg"
 import Home from "../pages/Home"
 
 import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
+import Grid from "@mui/material/Grid"
 import Toolbar from "@mui/material/Toolbar"
 import IconButton from "@mui/material/IconButton"
 import Collapse from "@mui/material/Collapse"
@@ -14,6 +17,8 @@ import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
+import SvgIcon from "@mui/material/SvgIcon"
+import Divider from "@mui/material/Divider"
 
 const Nav = () => {
 	const { t, i18n } = useTranslation()
@@ -30,35 +35,58 @@ const Nav = () => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
-				<AppBar position="static">
-					<Toolbar>
+				<AppBar position="static" sx={{ backgroundColor: "black", height: "10vh" }}>
+					<Toolbar className="homeNav">
+						<SvgIcon
+							component={vlnIcon}
+							inheritViewBox
+							sx={{ mt: "0.5vh", color: "#D42323", fontSize: "9vh" }}
+						/>
 						{location.pathname !== "/" && (
-							<IconButton
-								onClick={() => setMenuOpen(!menuOpen)}
-								size="large"
-								edge="start"
-								color="inherit"
-								aria-label="menu"
-								sx={{ mr: 2 }}
-							>
-								{menuOpen ? <CloseIcon /> : <MenuIcon />}
-							</IconButton>
+							<Divider
+								sx={{ mr: 2, backgroundColor: "#D42323" }}
+								orientation="vertical"
+								variant="middle"
+								flexItem
+							/>
 						)}
-						<FormControl>
-							<InputLabel id="simple-select-label">{t("language_select")}</InputLabel>
-							<Select
-								variant="outlined"
-								autoWidth
-								labelId="simple-select-label"
-								id="simple-select"
-								value={language}
-								label={t("language_select")}
-								onChange={handleLanguageChange}
-							>
-								<MenuItem value={"lt"}>Lietuvių</MenuItem>
-								<MenuItem value={"en"}>English</MenuItem>
-							</Select>
-						</FormControl>
+
+						<Grid container direction="row" justifyContent="space-between" alignItems="center">
+							{location.pathname !== "/" ? (
+								<IconButton
+									onClick={() => setMenuOpen(!menuOpen)}
+									size="large"
+									edge="start"
+									color="inherit"
+									aria-label="menu"
+								>
+									{menuOpen ? (
+										<CloseIcon style={{ color: "#D42323", fontSize: 50 }} />
+									) : (
+										<MenuIcon style={{ color: "#D42323", fontSize: 50 }} />
+									)}
+								</IconButton>
+							) : (
+								<Box></Box>
+							)}
+							<FormControl variant="filled" sx={{ mr: 3, backgroundColor: "white", minWidth: 120 }}>
+								<InputLabel id="demo-simple-select-filled-label">{t("language_select")}</InputLabel>
+								<Select
+									sx={{ fontSize: 20 }}
+									labelId="demo-simple-select-filled-label"
+									id="demo-simple-select-filled"
+									value={language}
+									onChange={handleLanguageChange}
+								>
+									<MenuItem sx={{ fontSize: 15 }} value={"lt"}>
+										Lietuvių
+									</MenuItem>
+									<MenuItem sx={{ fontSize: 15 }} value={"en"}>
+										English
+									</MenuItem>
+								</Select>
+							</FormControl>
+						</Grid>
 					</Toolbar>
 				</AppBar>
 			</Box>
