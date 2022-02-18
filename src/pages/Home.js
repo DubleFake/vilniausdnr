@@ -61,8 +61,14 @@ const Home = (props) => {
 				sx={{
 					display: "grid",
 					gap: 0,
-					gridTemplateColumns: matchesLg ? "repeat(5, 1fr)" : matchesMd ? "repeat(4, 1fr)" : "repeat(3, 1fr)",
-					gridTemplateRows: `repeat(3, ${window.innerHeight / 3}px)`,
+					gridTemplateColumns: matchesLg
+						? "repeat(5, 1fr)"
+						: matchesMd
+						? "repeat(4, 1fr)"
+						: matchesSm
+						? "repeat(3, 1fr)"
+						: "repeat(2, 1fr)",
+					gridTemplateRows: matchesSm ? `repeat(3, ${window.innerHeight / 3}px)` : `repeat(5, 300px)`,
 					gridTemplateAreas: matchesLg
 						? `
           "periodai   periodai  lentos  asmenybes asmenybes"
@@ -75,10 +81,18 @@ const Home = (props) => {
           "zemelapiai gatves    dalys  asmenybes"
           "adresai    pastatai  dalys  ivykiai"
           `
-						: `
+						: matchesSm
+						? `
           "periodai   lentos    asmenybes"
           "zemelapiai gatves    dalys"
           "adresai    pastatai  ivykiai"
+          `
+						: `
+          "periodai   asmenybes"
+          "lentos     asmenybes"
+          "zemelapiai gatves"
+          "adresai    pastatai"
+          "dalys      ivykiai"
           `,
 				}}
 			>
