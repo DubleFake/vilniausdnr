@@ -1,9 +1,10 @@
-import React from 'react'
+import React from "react"
+import { useTranslation } from "react-i18next"
 
 const Maps = () => {
-  return (
-    <h2>Maps</h2>
-  )
+	const { t, i18n } = useTranslation()
+
+	return <h2>{t("maps")}</h2>
 }
 
 export default Maps

@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 import { useTheme } from "@mui/material/styles"
 import Grid from "@mui/material/Grid"
@@ -10,12 +11,13 @@ import Button from "@mui/material/Button"
 import MuseumIcon from "@mui/icons-material/Museum"
 
 function Tile(props) {
+	const location = useLocation()
 	const { setMenuOpen, sx, ...other } = props
 
 	return (
 		<Button
 			component={Link}
-			onClick={() => setMenuOpen(false)}
+			onClick={() => location.pathname !== "/" && setMenuOpen(false)}
 			to={`/${sx.gridArea}`}
 			variant="contained"
 			sx={{
@@ -46,6 +48,8 @@ Tile.propTypes = {
 }
 
 const Home = (props) => {
+	const { t, i18n } = useTranslation()
+
 	const theme = useTheme()
 	const matchesLg = useMediaQuery(theme.breakpoints.up("lg"))
 	const matchesMd = useMediaQuery(theme.breakpoints.up("md"))
@@ -83,7 +87,7 @@ const Home = (props) => {
 						<Grid item>
 							<MuseumIcon sx={{ fontSize: 50 }} />
 						</Grid>
-						<Grid item>Miestas atskirais istoriniais periodais</Grid>
+						<Grid item>{t("periods")}</Grid>
 					</Grid>
 				</Tile>
 				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#4d0539", gridArea: "lentos" }}>
@@ -91,7 +95,7 @@ const Home = (props) => {
 						<Grid item>
 							<MuseumIcon sx={{ fontSize: 50 }} />
 						</Grid>
-						<Grid item>Skulptūros ir atminimo lentos</Grid>
+						<Grid item>{t("signs")}</Grid>
 					</Grid>
 				</Tile>
 				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#753092", gridArea: "asmenybes" }}>
@@ -99,7 +103,7 @@ const Home = (props) => {
 						<Grid item>
 							<MuseumIcon sx={{ fontSize: 50 }} />
 						</Grid>
-						<Grid item>Asmenybės ir jų atminimo ženklai</Grid>
+						<Grid item>{t("persons")}</Grid>
 					</Grid>
 				</Tile>
 				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#ec7c22", gridArea: "zemelapiai" }}>
@@ -107,7 +111,7 @@ const Home = (props) => {
 						<Grid item>
 							<MuseumIcon sx={{ fontSize: 50 }} />
 						</Grid>
-						<Grid item>Istoriniai planai ir žemėlapiai</Grid>
+						<Grid item>{t("maps")}</Grid>
 					</Grid>
 				</Tile>
 				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#fcca0a", gridArea: "gatves" }}>
@@ -115,7 +119,7 @@ const Home = (props) => {
 						<Grid item>
 							<MuseumIcon sx={{ fontSize: 50 }} />
 						</Grid>
-						<Grid item>Miesto gatvės</Grid>
+						<Grid item>{t("streets")}</Grid>
 					</Grid>
 				</Tile>
 				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#6cb38f", gridArea: "dalys" }}>
@@ -123,7 +127,7 @@ const Home = (props) => {
 						<Grid item>
 							<MuseumIcon sx={{ fontSize: 50 }} />
 						</Grid>
-						<Grid item>Miesto dalys</Grid>
+						<Grid item>{t("parts")}</Grid>
 					</Grid>
 				</Tile>
 				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#b51d52", gridArea: "adresai" }}>
@@ -131,7 +135,7 @@ const Home = (props) => {
 						<Grid item>
 							<MuseumIcon sx={{ fontSize: 50 }} />
 						</Grid>
-						<Grid item>Adresai</Grid>
+						<Grid item>{t("addresses")}</Grid>
 					</Grid>
 				</Tile>
 				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#009bd8", gridArea: "pastatai" }}>
@@ -139,7 +143,7 @@ const Home = (props) => {
 						<Grid item>
 							<MuseumIcon sx={{ fontSize: 50 }} />
 						</Grid>
-						<Grid item>Pastatai</Grid>
+						<Grid item>{t("buildings")}</Grid>
 					</Grid>
 				</Tile>
 				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#6c8ec9", gridArea: "ivykiai" }}>
@@ -147,7 +151,7 @@ const Home = (props) => {
 						<Grid item>
 							<MuseumIcon sx={{ fontSize: 50 }} />
 						</Grid>
-						<Grid item>Istoriniai įvykiai</Grid>
+						<Grid item>{t("events")}</Grid>
 					</Grid>
 				</Tile>
 			</Box>

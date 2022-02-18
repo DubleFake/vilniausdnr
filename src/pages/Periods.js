@@ -1,9 +1,10 @@
-import React from 'react'
+import React from "react"
+import { useTranslation } from "react-i18next"
 
 const Periods = () => {
-  return (
-    <h2>Periods</h2>
-  )
+	const { t, i18n } = useTranslation()
+
+	return <h2>{t("periods")}</h2>
 }
 
 export default Periods

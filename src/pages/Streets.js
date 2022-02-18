@@ -1,9 +1,10 @@
-import React from 'react'
+import React from "react"
+import { useTranslation } from "react-i18next"
 
 const Streets = () => {
-  return (
-    <h2>Streets</h2>
-  )
+	const { t, i18n } = useTranslation()
+
+	return <h2>{t("streets")}</h2>
 }
 
 export default Streets
