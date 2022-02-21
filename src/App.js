@@ -11,7 +11,7 @@ import Parts from "./pages/Parts"
 import Addresses from "./pages/Addresses"
 import Buildings from "./pages/Buildings"
 import Events from "./pages/Events"
-import Nav from "./components/Nav"
+import Nav from "./components/Nav/Nav"
 
 const App = () => {
 	return (
