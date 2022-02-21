@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next"
 import { ReactComponent as vlnIcon } from "../homeIcons/header_vln_700.svg"
 import Home from "../pages/Home"
 
+import ClickAwayListener from "@mui/material/ClickAwayListener"
 import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
@@ -13,23 +14,28 @@ import IconButton from "@mui/material/IconButton"
 import Collapse from "@mui/material/Collapse"
 import MenuIcon from "@mui/icons-material/Menu"
 import CloseIcon from "@mui/icons-material/Close"
-import InputLabel from "@mui/material/InputLabel"
-import MenuItem from "@mui/material/MenuItem"
-import FormControl from "@mui/material/FormControl"
-import Select from "@mui/material/Select"
 import SvgIcon from "@mui/material/SvgIcon"
 import Divider from "@mui/material/Divider"
+import Typography from "@mui/material/Typography"
+import Paper from "@mui/material/Paper"
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem"
+import ListItemButton from "@mui/material/ListItemButton"
 
 const Nav = () => {
 	const { t, i18n } = useTranslation()
 	const location = useLocation()
 
-	const [language, setLanguage] = useState(i18n.resolvedLanguage)
 	const [menuOpen, setMenuOpen] = useState(false)
+	const [languageOpen, setLanguageOpen] = useState(false)
 
-	const handleLanguageChange = (event) => {
-		i18n.changeLanguage(event.target.value)
-		setLanguage(event.target.value)
+	const handleLanguageChange = (lan) => {
+		i18n.changeLanguage(lan)
+		setLanguageOpen(false)
+	}
+
+	const handleClickAway = () => {
+		setLanguageOpen(false)
 	}
 
 	return (
@@ -69,27 +75,45 @@ const Nav = () => {
 							) : (
 								<Box></Box>
 							)}
-							<FormControl variant="filled" sx={{ mr: 3, backgroundColor: "white", minWidth: 120 }}>
-								<InputLabel id="demo-simple-select-filled-label">{t("language_select")}</InputLabel>
-								<Select
-									sx={{ fontSize: 20 }}
-									labelId="demo-simple-select-filled-label"
-									id="demo-simple-select-filled"
-									value={language}
-									onChange={handleLanguageChange}
-								>
-									<MenuItem sx={{ fontSize: 15 }} value={"lt"}>
-										Lietuvių
-									</MenuItem>
-									<MenuItem sx={{ fontSize: 15 }} value={"en"}>
-										English
-									</MenuItem>
-								</Select>
-							</FormControl>
+							<IconButton
+								size="large"
+								sx={{ mr: 1, color: "#D42323", minWidth: 68 }}
+								onClick={() => setLanguageOpen(!languageOpen)}
+							>
+								<Typography variant="h4" sx={{ ml: 0.3, mt: 0.3 }}>
+									{i18n.language.toUpperCase()}
+								</Typography>
+							</IconButton>
 						</Grid>
 					</Toolbar>
 				</AppBar>
 			</Box>
+			<ClickAwayListener mouseEvent="onMouseDown" touchEvent="onTouchStart" onClickAway={handleClickAway}>
+				<Collapse sx={{ position: "absolute", zIndex: 50, right: 0 }} in={languageOpen}>
+					<Paper square>
+						<List sx={{ p: 0 }}>
+							<ListItem
+								disablePadding
+								selected={i18n.language === "lt"}
+								onClick={() => handleLanguageChange("lt")}
+							>
+								<ListItemButton>
+									<Typography variant="h5">Lietuvių</Typography>
+								</ListItemButton>
+							</ListItem>
+							<ListItem
+								disablePadding
+								selected={i18n.language === "en"}
+								onClick={() => handleLanguageChange("en")}
+							>
+								<ListItemButton>
+									<Typography variant="h5">English</Typography>
+								</ListItemButton>
+							</ListItem>
+						</List>
+					</Paper>
+				</Collapse>
+			</ClickAwayListener>
 			{location.pathname !== "/" && (
 				<Collapse in={menuOpen}>
 					<Home setMenuOpen={setMenuOpen} />

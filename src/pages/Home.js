@@ -97,7 +97,7 @@ const Home = (props) => {
 							<SvgIcon component={periodsIcon} inheritViewBox sx={{ color: "#FBBF11", fontSize: iconSize }} />
 						</Grid>
 						<Grid item>
-							<Typography variant="body1" fontSize={fontSize}>
+							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
 								{t("periods")}
 							</Typography>
 						</Grid>
@@ -109,7 +109,7 @@ const Home = (props) => {
 							<SvgIcon component={signsIcon} inheritViewBox sx={{ color: "#EE2858", fontSize: iconSize }} />
 						</Grid>
 						<Grid item>
-							<Typography variant="body1" fontSize={fontSize}>
+							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
 								{t("signs")}
 							</Typography>
 						</Grid>
@@ -121,7 +121,7 @@ const Home = (props) => {
 							<SvgIcon component={personsIcon} inheritViewBox sx={{ color: "#58C8DF", fontSize: iconSize }} />
 						</Grid>
 						<Grid item>
-							<Typography variant="body1" fontSize={fontSize}>
+							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
 								{t("persons")}
 							</Typography>
 						</Grid>
@@ -133,7 +133,7 @@ const Home = (props) => {
 							<SvgIcon component={mapsIcon} inheritViewBox sx={{ color: "#861618", fontSize: iconSize }} />
 						</Grid>
 						<Grid item>
-							<Typography variant="body1" fontSize={fontSize}>
+							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
 								{t("maps")}
 							</Typography>
 						</Grid>
@@ -145,7 +145,7 @@ const Home = (props) => {
 							<SvgIcon component={streetsIcon} inheritViewBox sx={{ color: "#4D0539", fontSize: iconSize }} />
 						</Grid>
 						<Grid item>
-							<Typography variant="body1" fontSize={fontSize}>
+							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
 								{t("streets")}
 							</Typography>
 						</Grid>
@@ -157,7 +157,7 @@ const Home = (props) => {
 							<SvgIcon component={partsIcon} inheritViewBox sx={{ color: "#FCC011", fontSize: iconSize }} />
 						</Grid>
 						<Grid item>
-							<Typography variant="body1" fontSize={fontSize}>
+							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
 								{t("parts")}
 							</Typography>
 						</Grid>
@@ -173,7 +173,7 @@ const Home = (props) => {
 							/>
 						</Grid>
 						<Grid item>
-							<Typography variant="body1" fontSize={fontSize}>
+							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
 								{t("addresses")}
 							</Typography>
 						</Grid>
@@ -189,7 +189,7 @@ const Home = (props) => {
 							/>
 						</Grid>
 						<Grid item>
-							<Typography variant="body1" fontSize={fontSize}>
+							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
 								{t("buildings")}
 							</Typography>
 						</Grid>
@@ -201,7 +201,7 @@ const Home = (props) => {
 							<SvgIcon component={eventsIcon} inheritViewBox sx={{ color: "#4D0539", fontSize: iconSize }} />
 						</Grid>
 						<Grid item>
-							<Typography variant="body1" fontSize={fontSize}>
+							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
 								{t("events")}
 							</Typography>
 						</Grid>
