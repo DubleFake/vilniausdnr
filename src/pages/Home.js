@@ -40,8 +40,8 @@ function Tile(props) {
 				opacity: 1,
 				"&:hover": {
 					boxShadow: "none",
-					backgroundColor: sx.backgroundColor,
-					opacity: 0.9,
+					// backgroundColor: sx.backgroundColor,
+					// opacity: 0.9,
 				},
 				...sx,
 			}}
@@ -75,7 +75,7 @@ const Home = (props) => {
 					display: "grid",
 					gap: 0,
 					gridTemplateColumns: matchesLg ? "repeat(5, 1fr)" : "repeat(2, 1fr)",
-					gridTemplateRows: matchesLg ? `repeat(3, ${(window.innerHeight * 0.9) / 3}px)` : `repeat(5, 300px)`,
+					gridTemplateRows: matchesLg ? `repeat(3, ${(window.innerHeight - 90) / 3}px)` : `repeat(5, 300px)`,
 					gridTemplateAreas: matchesLg
 						? `
             "periodai   periodai  lentos  asmenybes asmenybes"

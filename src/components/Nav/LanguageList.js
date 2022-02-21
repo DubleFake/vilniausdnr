@@ -1,7 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 
-import ClickAwayListener from "@mui/material/ClickAwayListener"
 import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
 import List from "@mui/material/List"
@@ -17,16 +16,17 @@ const LanguageList = (props) => {
 		props.setLanguageOpen(false)
 	}
 
-	const handleClickAway = () => {
-		props.setLanguageOpen(false)
-	}
-
 	return (
-		<ClickAwayListener mouseEvent="onMouseDown" touchEvent="onTouchStart" onClickAway={handleClickAway}>
-			<Collapse sx={{ position: "absolute", zIndex: 50, right: 0 }} in={props.languageOpen}>
-				<Paper square>
+		
+			<Collapse sx={{ position: "absolute", zIndex: 100, right: 0 }} in={props.languageOpen}>
+				<Paper sx={{ backgroundColor: "black" }} square>
 					<List sx={{ p: 0 }}>
 						<ListItem
+							sx={{
+								"&&.Mui-selected": {
+									backgroundColor: "#1f1f1f",
+								},
+							}}
 							disablePadding
 							selected={i18n.language === "lt"}
 							onClick={() => handleLanguageChange("lt")}
@@ -38,6 +38,11 @@ const LanguageList = (props) => {
 							</ListItemButton>
 						</ListItem>
 						<ListItem
+							sx={{
+								"&&.Mui-selected": {
+									backgroundColor: "#1f1f1f",
+								},
+							}}
 							disablePadding
 							selected={i18n.language === "en"}
 							onClick={() => handleLanguageChange("en")}
@@ -51,7 +56,6 @@ const LanguageList = (props) => {
 					</List>
 				</Paper>
 			</Collapse>
-		</ClickAwayListener>
 	)
 }
 

@@ -11,7 +11,7 @@ const HomeIcon = () => {
 		<SvgIcon
 			component={vlnIcon}
 			inheritViewBox
-			sx={{ mt: "0.5vh", color: "#D42323", fontSize: "9vh", cursor: "pointer" }}
+			sx={{ mt: 0.75, color: "#D42323", fontSize: 78, cursor: "pointer" }}
 			onClick={() => navigate("/")}
 		/>
 	)
