@@ -100,7 +100,9 @@ const Nav = () => {
 								onClick={() => handleLanguageChange("lt")}
 							>
 								<ListItemButton>
-									<Typography variant="h5">Lietuvių</Typography>
+									<Typography sx={{ color: "#D42323" }} variant="h5">
+										Lietuvių
+									</Typography>
 								</ListItemButton>
 							</ListItem>
 							<ListItem
@@ -109,7 +111,9 @@ const Nav = () => {
 								onClick={() => handleLanguageChange("en")}
 							>
 								<ListItemButton>
-									<Typography variant="h5">English</Typography>
+									<Typography sx={{ color: "#D42323" }} variant="h5">
+										English
+									</Typography>
 								</ListItemButton>
 							</ListItem>
 						</List>
