@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Outlet, useLocation } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
 import { ReactComponent as vlnIcon } from "../homeIcons/header_vln_700.svg"
@@ -25,6 +25,7 @@ import ListItemButton from "@mui/material/ListItemButton"
 const Nav = () => {
 	const { t, i18n } = useTranslation()
 	const location = useLocation()
+	const navigate = useNavigate()
 
 	const [menuOpen, setMenuOpen] = useState(false)
 	const [languageOpen, setLanguageOpen] = useState(false)
@@ -46,7 +47,8 @@ const Nav = () => {
 						<SvgIcon
 							component={vlnIcon}
 							inheritViewBox
-							sx={{ mt: "0.5vh", color: "#D42323", fontSize: "9vh" }}
+							sx={{ mt: "0.5vh", color: "#D42323", fontSize: "9vh", cursor: "pointer" }}
+							onClick={() => navigate("/")}
 						/>
 						{location.pathname !== "/" && (
 							<Divider
