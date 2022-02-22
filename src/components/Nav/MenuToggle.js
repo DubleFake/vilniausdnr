@@ -12,6 +12,12 @@ const MenuToggle = (props) => {
 			edge="start"
 			color="inherit"
 			aria-label="menu"
+			sx={{
+				"&:hover": {
+					transition: "0.3s",
+					backgroundColor: "#1f1f1f",
+				},
+			}}
 		>
 			{props.menuOpen ? (
 				<CloseIcon style={{ color: "#D42323", fontSize: 50 }} />
