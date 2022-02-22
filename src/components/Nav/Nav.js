@@ -25,7 +25,7 @@ const Nav = () => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
-				<AppBar position="static" sx={{ backgroundColor: "black", height: 90}}>
+				<AppBar position="static" sx={{ backgroundColor: "black", height: 90 }}>
 					<Toolbar className="homeNav">
 						<HomeIcon />
 
@@ -54,7 +54,7 @@ const Nav = () => {
 			<LanguageList languageOpen={languageOpen} setLanguageOpen={setLanguageOpen} />
 
 			{location.pathname !== "/" && (
-				<Collapse sx={{ position: "absolute", zIndex: 99 }} in={menuOpen}>
+				<Collapse sx={{ width: "100%", position: "absolute", zIndex: 99 }} in={menuOpen}>
 					<Home setMenuOpen={setMenuOpen} />
 				</Collapse>
 			)}
