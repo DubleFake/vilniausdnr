@@ -4,12 +4,19 @@ import { useNavigate } from "react-router-dom"
 import { view, objects, bgExpand, locateWidget } from "../../../utils/signsArcgisItems"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
 
+const viewHandles = []
+
 const ObjectMap = (props) => {
 	const navigate = useNavigate()
 	const mapDiv = useRef(null)
 
 	useEffect(() => {
 		view.container = mapDiv.current
+
+		viewHandles.forEach((handle) => {
+			handle.remove()
+		})
+		viewHandles.length = 0
 
 		view.ui.add(bgExpand, "top-left")
 		view.ui.add(locateWidget, "top-left")
@@ -44,33 +51,40 @@ const ObjectMap = (props) => {
 		// 	}
 		// })
 
-		view.on("click", (event) => {
-			bgExpand.collapse()
+		viewHandles.push(
+			view.on("click", (event) => {
+				bgExpand.collapse()
 
-			view.whenLayerView(objects).then((objectsView) => {
-				watchUtils
-					.whenNotOnce(objectsView, "updating")
-					.then(() => {
-						return objectsView.queryFeatures({
-							geometry: event.mapPoint,
-							where: objectsView.filter.where,
-							distance: view.resolution <= 7 ? view.resolution * 15 : 100,
-							spatialRelationship: "intersects",
-							outFields: ["GlobalID"],
+				view.whenLayerView(objects).then((objectsView) => {
+					watchUtils
+						.whenNotOnce(objectsView, "updating")
+						.then(() => {
+							return objectsView.queryFeatures({
+								geometry: event.mapPoint,
+								where: objectsView.filter.where,
+								distance: view.resolution <= 7 ? view.resolution * 15 : 100,
+								spatialRelationship: "intersects",
+								outFields: ["GlobalID"],
+							})
 						})
-					})
-					.then((response) => {
-						if (response.features.length > 0) {
-							props.setMapQuery(response.features)
-							navigate(`objektas/${response.features[0].attributes.GlobalID.replace(/[{}]/g, "")}`)
-						}
-					})
+						.then((response) => {
+							if (response.features.length > 0) {
+								props.setMapQuery(response.features)
+								navigate(`objektas/${response.features[0].attributes.GlobalID.replace(/[{}]/g, "")}`)
+							}
+						})
+				})
 			})
-		})
+		)
 	}, [])
 
 	useEffect(() => {
 		return () => {
+			viewHandles.forEach((handle) => {
+				handle.remove()
+			})
+			viewHandles.length = 0
+
 			view.container = null
 		}
 	}, [])
