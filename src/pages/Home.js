@@ -69,7 +69,13 @@ const Home = (props) => {
 	const fontSize = 25
 
 	return (
-		<div style={{ width: "100%" }}>
+		<div
+			style={{
+				overflowY: "auto",
+				maxHeight: window.innerHeight - 90,
+				width: "100%",
+			}}
+		>
 			<Box
 				sx={{
 					display: "grid",
