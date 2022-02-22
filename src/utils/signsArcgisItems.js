@@ -142,7 +142,7 @@ const basemap1 = new Basemap({
 	],
 	title: "Šviesus žemėlapis",
 	id: "Šviesus žemėlapis",
-	thumbnailUrl: "basemap_light.png",
+	thumbnailUrl: `${origin}/signIcons/basemap_light.png`,
 })
 const basemap2 = new Basemap({
 	baseLayers: [
@@ -152,7 +152,7 @@ const basemap2 = new Basemap({
 	],
 	title: "Tamsus žemėlapis",
 	id: "Tamsus žemėlapis",
-	thumbnailUrl: "basemap_dark.png",
+	thumbnailUrl: `${origin}/signIcons/basemap_dark.png`,
 })
 
 const basemapGallery = new BasemapGallery({
