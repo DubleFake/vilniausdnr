@@ -43,7 +43,7 @@ const Filter = (props) => {
 		setSelectedObjectFilter("")
 		setSelectedMemoryFilter("")
 		setExtentCheck(false)
-		viewHandles.forEach(function (handle) {
+		viewHandles.forEach((handle) => {
 			handle.remove()
 		})
 		viewHandles.length = 0
@@ -135,7 +135,7 @@ const Filter = (props) => {
 	}, [selectedObjectFilter, selectedMemoryFilter])
 
 	useEffect(() => {
-		viewHandles.forEach(function (handle) {
+		viewHandles.forEach((handle) => {
 			handle.remove()
 		})
 		viewHandles.length = 0
@@ -174,6 +174,15 @@ const Filter = (props) => {
 			}
 		})
 	}, [extentCheck])
+
+	useEffect(() => {
+		return () => {
+			viewHandles.forEach((handle) => {
+				handle.remove()
+			})
+			viewHandles.length = 0
+		}
+	}, [])
 
 	return (
 		<>

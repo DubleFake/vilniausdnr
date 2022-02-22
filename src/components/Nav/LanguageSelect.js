@@ -7,8 +7,7 @@ import Typography from "@mui/material/Typography"
 const LanguageSelect = (props) => {
 	const { t, i18n } = useTranslation()
 
-	const handleLanguageClick = (event) => {
-		console.log(event)
+	const handleLanguageClick = () => {
 		props.setLanguageOpen(!props.languageOpen)
 	}
 

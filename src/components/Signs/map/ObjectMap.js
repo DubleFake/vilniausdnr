@@ -69,6 +69,12 @@ const ObjectMap = (props) => {
 		})
 	}, [])
 
+	useEffect(() => {
+		return () => {
+			view.container = null
+		}
+	}, [])
+
 	return <div className="map" ref={mapDiv}></div>
 }
 
