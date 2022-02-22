@@ -1,6 +1,7 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 
+import ClickAwayListener from "@mui/material/ClickAwayListener"
 import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
 import List from "@mui/material/List"
@@ -16,14 +17,24 @@ const LanguageList = (props) => {
 		props.setLanguageOpen(false)
 	}
 
+	const handleClickAway = (event) => {
+		if (event.target.id !== "languageSelect") {
+			props.setLanguageOpen(false)
+		}
+	}
+
 	return (
-		
+		<ClickAwayListener mouseEvent="onMouseDown" touchEvent="onTouchStart" onClickAway={handleClickAway}>
 			<Collapse sx={{ position: "absolute", zIndex: 100, right: 0 }} in={props.languageOpen}>
 				<Paper sx={{ backgroundColor: "black" }} square>
 					<List sx={{ p: 0 }}>
 						<ListItem
 							sx={{
+								transition: "0.3s",
 								"&&.Mui-selected": {
+									backgroundColor: "#1f1f1f",
+								},
+								"&:hover": {
 									backgroundColor: "#1f1f1f",
 								},
 							}}
@@ -39,7 +50,11 @@ const LanguageList = (props) => {
 						</ListItem>
 						<ListItem
 							sx={{
+								transition: "0.3s",
 								"&&.Mui-selected": {
+									backgroundColor: "#1f1f1f",
+								},
+								"&:hover": {
 									backgroundColor: "#1f1f1f",
 								},
 							}}
@@ -56,6 +71,7 @@ const LanguageList = (props) => {
 					</List>
 				</Paper>
 			</Collapse>
+		</ClickAwayListener>
 	)
 }
 
