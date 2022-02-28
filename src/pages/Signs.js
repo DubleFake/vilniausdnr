@@ -2,10 +2,10 @@ import React, { useState } from "react"
 import { Routes, Route, Outlet } from "react-router-dom"
 
 import ObjectMap from "../components/Signs/map/ObjectMap"
-import Table from "../components/Signs/table/Table"
 import ObjectPopup from "../components/Signs/popup/ObjectPopup"
 import PersonPopup from "../components/Signs/popup/PersonPopup"
-import TableToggle from "../components/Signs/table/TableToggle"
+import TableToggle from "../components/Signs/options/OptionsToggle"
+import Options from "../components/Signs/options/Options"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
@@ -31,10 +31,13 @@ const Signs = () => {
 								sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
 								open={initialLoading}
 							>
-								<CircularProgress sx={{ position: "fixed", top: window.innerHeight / 2 + 25 }} color="inherit" />
+								<CircularProgress
+									sx={{ position: "fixed", top: window.innerHeight / 2 + 25 }}
+									color="inherit"
+								/>
 							</Backdrop>
 							<Collapse sx={{ maxWidth: 350 }} orientation="horizontal" in={visible}>
-								<Table
+								<Options
 									initialObjectsList={initialObjectsList}
 									setSelectedObject={setSelectedObject}
 									selectedObject={selectedObject}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Filter from "./Filter"
-import TableItems from "./TableItems"
+import TableItems from "./SearchItems"
 import Search from "./Search"
 import { matchSorter } from "match-sorter"
 
