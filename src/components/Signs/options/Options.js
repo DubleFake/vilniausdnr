@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import SwipeableViews from "react-swipeable-views"
 
 import SearchTab from "./searchTab/SearchTab"
+import VisualizationTab from "./visualizationTab/VisualizationTab"
 
 import { useTheme } from "@mui/material/styles"
 import AppBar from "@mui/material/AppBar"
@@ -84,7 +85,7 @@ const Options = (props) => {
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
 					<Box sx={{ width: 350, height: "100vh", display: "flex", flexDirection: "column" }}>
-						Vaizdavimas
+						<VisualizationTab initialObjectsList={props.initialObjectsList} />
 					</Box>
 				</TabPanel>
 			</SwipeableViews>

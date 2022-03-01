@@ -1,9 +1,10 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 
-import { ReactComponent as vlnIcon } from "../../homeIcons/header_vln_700.svg"
+import { ReactComponent as vlnIcon } from "../../utils/icons/homeIcons/header_vln_700.svg"
 
 import SvgIcon from "@mui/material/SvgIcon"
+
 const HomeIcon = () => {
 	const navigate = useNavigate()
 

@@ -175,14 +175,15 @@ const Filter = (props) => {
 		})
 	}, [extentCheck])
 
-	useEffect(() => {
-		return () => {
-			viewHandles.forEach((handle) => {
-				handle.remove()
-			})
-			viewHandles.length = 0
-		}
-	}, [])
+	// useEffect(() => {
+	// 	return () => {
+	//     console.log("first")
+	// 		viewHandles.forEach((handle) => {
+	// 			handle.remove()
+	// 		})
+	// 		viewHandles.length = 0
+	// 	}
+	// }, [])
 
 	return (
 		<>

@@ -1,7 +1,9 @@
 import React from "react"
 
-const VisualizationTab = () => {
-	return <div>VisualizationTab</div>
+import Legends from "./Legends"
+
+const VisualizationTab = (props) => {
+	return <Legends initialObjectsList={props.initialObjectsList}/>
 }
 
 export default VisualizationTab
