@@ -83,7 +83,9 @@ const Options = (props) => {
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
-					Vaizdavimas
+					<Box sx={{ width: 350, height: "100vh", display: "flex", flexDirection: "column" }}>
+						Vaizdavimas
+					</Box>
 				</TabPanel>
 			</SwipeableViews>
 		</Box>
