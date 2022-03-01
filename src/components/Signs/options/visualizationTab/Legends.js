@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { view, objects } from "../../../../utils/signsArcgisItems"
 
 import { ReactComponent as Code1 } from "../../../../utils/icons/legendIcons/Atmint_atminimo_lenta.svg"
 import { ReactComponent as Code2 } from "../../../../utils/icons/legendIcons/Atmint_skulptura.svg"
@@ -16,9 +17,11 @@ import Divider from "@mui/material/Divider"
 import Typography from "@mui/material/Typography"
 import SvgIcon from "@mui/material/SvgIcon"
 
+const viewHandles = []
+
 const Legends = (props) => {
 	const [legendsList, setLegendsList] = useState([])
-	const iconList = {
+	const iconMap = {
 		Code1: Code1,
 		Code2: Code2,
 		Code3: Code3,
@@ -30,7 +33,6 @@ const Legends = (props) => {
 	}
 
 	useEffect(() => {
-		console.log(props.initialObjectsList[0])
 		const tempObjectAlias = []
 		for (let field in props.initialObjectsList[0].layer.fields) {
 			if (props.initialObjectsList[0].layer.fields[field].name === "TIPAS") {
@@ -41,23 +43,35 @@ const Legends = (props) => {
 					tempObjectAlias.push(objCodeAlias)
 				}
 				setLegendsList(tempObjectAlias)
-				console.log(tempObjectAlias)
 			}
 		}
+
+		viewHandles.forEach((handle) => {
+			handle.remove()
+		})
+		viewHandles.length = 0
+
+		view.whenLayerView(objects).then((objectsView) => {
+			viewHandles.push(
+				objectsView.watch("filter", (newFilter) => {
+					console.log(newFilter.where.split(" "))
+				})
+			)
+		})
 	}, [])
 
 	return (
 		<Box sx={{ width: 350, bgcolor: "background.paper" }}>
 			<Typography sx={{ m: 1, mb: 0 }} variant="subtitle1">
-				Legenda:
+				Žymėjimas:
 			</Typography>
 			<List>
 				{legendsList.map((legend) => (
-					<>
-						<ListItem sx={{ my: 0.3 }} disablePadding key={legend.code}>
+					<div key={legend.code}>
+						<ListItem sx={{ my: 0.3 }} disablePadding>
 							<SvgIcon
 								sx={{ ml: 2, mr: 2, fontSize: 35 }}
-								component={iconList[`Code${legend.code}`]}
+								component={iconMap[`Code${legend.code}`]}
 								inheritViewBox
 							/>
 							<Typography sx={{ mr: 1 }} variant="body2">
@@ -65,7 +79,7 @@ const Legends = (props) => {
 							</Typography>
 						</ListItem>
 						{legend.code !== 8 && <Divider light variant="middle" />}
-					</>
+					</div>
 				))}
 			</List>
 		</Box>
