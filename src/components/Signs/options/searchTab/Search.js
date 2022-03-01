@@ -18,6 +18,7 @@ const Search = (props) => {
 	return (
 		<Box sx={{ ml: 0.5, mr: 0.5 }}>
 			<TextField
+				variant="standard"
 				size="small"
 				sx={{ mt: 1 }}
 				fullWidth

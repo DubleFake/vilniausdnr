@@ -192,7 +192,7 @@ const Filter = (props) => {
 				</Alert>
 			</Snackbar>
 			<Box sx={{ ml: 0.5, mr: 0.5 }}>
-				<FormControl size="small" sx={{ mt: 1, width: "100%" }}>
+				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
 					<InputLabel id="object-select-label">Objekto tipas</InputLabel>
 					<Select
 						labelId="object-select-label"
@@ -213,7 +213,7 @@ const Filter = (props) => {
 					</Select>
 				</FormControl>
 
-				<FormControl size="small" sx={{ mt: 1, width: "100%" }}>
+				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
 					<InputLabel id="memory-select-label">Atminimo tipas</InputLabel>
 					<Select
 						labelId="memory-select-label"
