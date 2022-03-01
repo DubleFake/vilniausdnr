@@ -37,7 +37,7 @@ const Table = (props) => {
 	}, [searchObjectsList])
 
 	return (
-		<Box sx={{ width: 350, height: "100vh", display: "flex", flexDirection: "column" }}>
+		<Box sx={{ width: 350, height: "calc(100vh - 135px)", display: "flex", flexDirection: "column" }}>
 			{objectsList.length ? (
 				<>
 					<Search
