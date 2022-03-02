@@ -22,26 +22,24 @@ const viewHandles = []
 const Filter = (props) => {
 	const [objectAlias, setObjectAlias] = useState([])
 	const [memoryAlias, setMemoryAlias] = useState([])
-	const [selectedObjectFilter, setSelectedObjectFilter] = useState("")
-	const [selectedMemoryFilter, setSelectedMemoryFilter] = useState("")
 	const [showAlert, setShowAlert] = useState(false)
 	const [extentCheck, setExtentCheck] = useState(false)
 
 	const handleObjectSelect = (event) => {
 		props.setSelectedObject("")
 		props.setSearchInputValue("")
-		setSelectedObjectFilter(event.target.value)
+		props.setSelectedObjectFilter(event.target.value)
 	}
 	const handleMemorySelect = (event) => {
 		props.setSelectedObject("")
 		props.setSearchInputValue("")
-		setSelectedMemoryFilter(event.target.value)
+		props.setSelectedMemoryFilter(event.target.value)
 	}
 	const handleClearFilters = () => {
 		props.setSelectedObject("")
 		props.setSearchInputValue("")
-		setSelectedObjectFilter("")
-		setSelectedMemoryFilter("")
+		props.setSelectedObjectFilter("")
+		props.setSelectedMemoryFilter("")
 		setExtentCheck(false)
 		viewHandles.forEach((handle) => {
 			handle.remove()
@@ -99,21 +97,24 @@ const Filter = (props) => {
 	useEffect(() => {
 		let query
 
-		if (selectedObjectFilter !== "" && selectedMemoryFilter === "") {
-			query = `TIPAS = ${selectedObjectFilter}`
-		} else if (selectedObjectFilter === "" && selectedMemoryFilter !== "") {
-			query = `ATMINT_TIP = ${selectedMemoryFilter}`
-		} else if (selectedObjectFilter !== "" && selectedMemoryFilter !== "") {
-			query = `ATMINT_TIP = ${selectedMemoryFilter} AND TIPAS = ${selectedObjectFilter}`
-		} else if (selectedObjectFilter === "" && selectedMemoryFilter === "") {
+		if (props.selectedObjectFilter !== "" && props.selectedMemoryFilter === "") {
+			query = `TIPAS = ${props.selectedObjectFilter}`
+		} else if (props.selectedObjectFilter === "" && props.selectedMemoryFilter !== "") {
+			query = `ATMINT_TIP = ${props.selectedMemoryFilter}`
+		} else if (props.selectedObjectFilter !== "" && props.selectedMemoryFilter !== "") {
+			query = `ATMINT_TIP = ${props.selectedMemoryFilter} AND TIPAS = ${props.selectedObjectFilter}`
+		} else if (props.selectedObjectFilter === "" && props.selectedMemoryFilter === "") {
 			query = ""
 		}
 
 		view.whenLayerView(objects).then((objectsView) => {
+			props.setCurrentFilter(query)
+
 			objectsView.filter = {
 				//geometry: extentCheck ? view.extent : null,
 				where: query,
 			}
+
 			if (!extentCheck) {
 				objectsView
 					.queryFeatures({
@@ -126,13 +127,13 @@ const Filter = (props) => {
 							props.setSearchObjectsList(response.features)
 						} else {
 							setShowAlert(true)
-							setSelectedObjectFilter("")
-							setSelectedMemoryFilter("")
+							props.setSelectedObjectFilter("")
+							props.setSelectedMemoryFilter("")
 						}
 					})
 			}
 		})
-	}, [selectedObjectFilter, selectedMemoryFilter])
+	}, [props.selectedObjectFilter, props.selectedMemoryFilter])
 
 	useEffect(() => {
 		viewHandles.forEach((handle) => {
@@ -199,7 +200,7 @@ const Filter = (props) => {
 						labelId="object-select-label"
 						name="object-select"
 						id="object-select"
-						value={selectedObjectFilter}
+						value={props.selectedObjectFilter}
 						label="Objekto tipas"
 						onChange={handleObjectSelect}
 					>
@@ -220,7 +221,7 @@ const Filter = (props) => {
 						labelId="memory-select-label"
 						name="memory-select"
 						id="memory-select"
-						value={selectedMemoryFilter}
+						value={props.selectedMemoryFilter}
 						label="Atminimo tipas"
 						onChange={handleMemorySelect}
 					>

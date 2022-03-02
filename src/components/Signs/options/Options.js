@@ -48,6 +48,9 @@ function a11yProps(index) {
 const Options = (props) => {
 	const theme = useTheme()
 	const [value, setValue] = useState(0)
+	const [currentFilter, setCurrentFilter] = useState("")
+	const [selectedObjectFilter, setSelectedObjectFilter] = useState("")
+	const [selectedMemoryFilter, setSelectedMemoryFilter] = useState("")
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue)
@@ -81,11 +84,19 @@ const Options = (props) => {
 						initialObjectsList={props.initialObjectsList}
 						setSelectedObject={props.setSelectedObject}
 						selectedObject={props.selectedObject}
+						setCurrentFilter={setCurrentFilter}
+						selectedObjectFilter={selectedObjectFilter}
+						setSelectedObjectFilter={setSelectedObjectFilter}
+						selectedMemoryFilter={selectedMemoryFilter}
+						setSelectedMemoryFilter={setSelectedMemoryFilter}
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
 					<Box sx={{ width: 350, height: "100vh", display: "flex", flexDirection: "column" }}>
-						<VisualizationTab initialObjectsList={props.initialObjectsList} />
+						<VisualizationTab
+							initialObjectsList={props.initialObjectsList}
+							selectedObjectFilter={selectedObjectFilter}
+						/>
 					</Box>
 				</TabPanel>
 			</SwipeableViews>

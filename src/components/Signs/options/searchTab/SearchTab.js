@@ -27,7 +27,7 @@ const Table = (props) => {
 				})
 			)
 		} else {
-      setTableObjectsList(
+			setTableObjectsList(
 				matchSorter(searchObjectsList, "", {
 					keys: [(item) => item.attributes.OBJ_PAV],
 					threshold: matchSorter.rankings.MATCHES,
@@ -52,6 +52,11 @@ const Table = (props) => {
 						setSelectedObject={props.setSelectedObject}
 						setObjectsList={setObjectsList}
 						setSearchObjectsList={setSearchObjectsList}
+						setCurrentFilter={props.setCurrentFilter}
+						selectedObjectFilter={props.selectedObjectFilter}
+						setSelectedObjectFilter={props.setSelectedObjectFilter}
+						selectedMemoryFilter={props.selectedMemoryFilter}
+						setSelectedMemoryFilter={props.setSelectedMemoryFilter}
 					/>
 					<TableItems
 						tableObjectsList={tableObjectsList}
