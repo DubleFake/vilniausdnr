@@ -13,10 +13,11 @@ const TableToggle = (props) => {
 				height: "20vh",
 				top: "calc(40vh + 45px)",
 				width: "25px",
-				bgcolor: "primary.main",
+				bgcolor: "secondary.main",
 				borderRadius: 0,
+				transition: "0.3s",
 				"&:hover": {
-					bgcolor: "primary.main",
+					bgcolor: "secondary.dark",
 				},
 			}}
 			value="check"
@@ -25,7 +26,11 @@ const TableToggle = (props) => {
 				props.setVisible(!props.visible)
 			}}
 		>
-			{props.visible ? <ArrowBackIosNewIcon /> : <ArrowForwardIosIcon />}
+			{props.visible ? (
+				<ArrowBackIosNewIcon sx={{ color: "#FFFFFF" }} />
+			) : (
+				<ArrowForwardIosIcon sx={{ color: "#FFFFFF" }} />
+			)}
 		</ToggleButton>
 	)
 }

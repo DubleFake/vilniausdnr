@@ -20,7 +20,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles"
 const App = () => {
 	const theme = createTheme({
 		palette: {
-			mode: "light",
+      primary: {
+        main: "#000000",
+      },
+      secondary: {
+        main: "#D42323",
+      },
 		},
 	})
 

@@ -243,6 +243,7 @@ const Filter = (props) => {
 
 				<Button
 					variant="contained"
+					color="secondary"
 					disableElevation
 					sx={{ mb: 1, width: "100%" }}
 					onClick={handleClearFilters}

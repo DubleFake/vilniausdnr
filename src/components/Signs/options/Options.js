@@ -67,11 +67,31 @@ const Options = (props) => {
 					value={value}
 					onChange={handleChange}
 					indicatorColor="secondary"
-					textColor="inherit"
+					textColor="secondary"
 					variant="fullWidth"
 				>
-					<Tab label="Paieška" {...a11yProps(0)} />
-					<Tab label="Vaizdavimas" {...a11yProps(1)} />
+					<Tab
+						sx={{
+							color: "secondary.dark",
+							transition: "0.3s",
+							"&:hover": {
+								bgcolor: "primary.light",
+							},
+						}}
+						label="Paieška"
+						{...a11yProps(0)}
+					/>
+					<Tab
+						sx={{
+							color: "secondary.dark",
+							transition: "0.3s",
+							"&:hover": {
+								bgcolor: "primary.light",
+							},
+						}}
+						label="Vaizdavimas"
+						{...a11yProps(1)}
+					/>
 				</Tabs>
 			</AppBar>
 			<SwipeableViews
@@ -95,7 +115,7 @@ const Options = (props) => {
 						<VisualizationTab
 							initialObjectsList={props.initialObjectsList}
 							selectedObjectFilter={selectedObjectFilter}
-              selectedMemoryFilter={selectedMemoryFilter}
+							selectedMemoryFilter={selectedMemoryFilter}
 							visualizationType={visualizationType}
 							setVisualizationType={setVisualizationType}
 						/>
