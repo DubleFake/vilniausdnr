@@ -108,8 +108,6 @@ const Filter = (props) => {
 		}
 
 		view.whenLayerView(objects).then((objectsView) => {
-			props.setCurrentFilter(query)
-
 			objectsView.filter = {
 				//geometry: extentCheck ? view.extent : null,
 				where: query,

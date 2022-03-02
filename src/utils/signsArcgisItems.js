@@ -9,7 +9,8 @@ import Locate from "@arcgis/core/widgets/Locate"
 
 const url = window.location.href
 const origin = new URL(url).origin
-const objectsRenderer = {
+
+export const objectRenderer = {
 	type: "unique-value",
 	field: "TIPAS",
 	uniqueValueInfos: [
@@ -85,11 +86,87 @@ const objectsRenderer = {
 	],
 }
 
+export const memoryRenderer = {
+	type: "unique-value",
+	field: "ATMINT_TIP",
+	uniqueValueInfos: [
+		{
+			value: "1",
+			symbol: {
+				type: "picture-marker",
+				url: `${origin}/signIcons/Atmint_asmuo.svg`,
+			},
+		},
+		{
+			value: "2",
+			symbol: {
+				type: "picture-marker",
+				url: `${origin}/signIcons/Atmint_asmenu_grupe.svg`,
+			},
+		},
+		{
+			value: "3",
+			symbol: {
+				type: "picture-marker",
+				url: `${origin}/signIcons/Atmint_abstraktus.svg`,
+			},
+		},
+		{
+			value: "4",
+			symbol: {
+				type: "picture-marker",
+				url: `${origin}/signIcons/Atmint_organizacija.svg`,
+			},
+		},
+		{
+			value: "5",
+			symbol: {
+				type: "picture-marker",
+				url: `${origin}/signIcons/Atmint_istoriniai_ivykiai.svg`,
+			},
+		},
+		{
+			value: "6",
+			symbol: {
+				type: "picture-marker",
+				url: `${origin}/signIcons/Atmint_palaidojimo_vieta.svg`,
+			},
+		},
+		{
+			value: "7",
+			symbol: {
+				type: "picture-marker",
+				url: `${origin}/signIcons/Atmint_meninis_simbolis.svg`,
+			},
+		},
+		{
+			value: "8",
+			symbol: {
+				type: "picture-marker",
+				url: `${origin}/signIcons/Atmint_istorinis_statinys.svg`,
+			},
+		},
+	],
+	visualVariables: [
+		{
+			type: "size",
+			valueExpression: "$view.scale",
+			stops: [
+				{ size: 24, value: 500 },
+				{ size: 21, value: 1000 },
+				{ size: 18, value: 2000 },
+				{ size: 15, value: 5000 },
+				{ size: 12, value: 10000 },
+			],
+		},
+	],
+}
+
 export const objects = new FeatureLayer({
 	url: "https://utility.arcgis.com/usrsvcs/servers/14627426b83f4fcf8198764db38287f3/rest/services/VilniausDNR/VilniausDNR/MapServer/0",
 	outFields: ["*"],
 	title: "Lentelės",
-	renderer: objectsRenderer,
+	renderer: objectRenderer,
 })
 
 export const persons = new FeatureLayer({

@@ -52,7 +52,6 @@ const Table = (props) => {
 						setSelectedObject={props.setSelectedObject}
 						setObjectsList={setObjectsList}
 						setSearchObjectsList={setSearchObjectsList}
-						setCurrentFilter={props.setCurrentFilter}
 						selectedObjectFilter={props.selectedObjectFilter}
 						setSelectedObjectFilter={props.setSelectedObjectFilter}
 						selectedMemoryFilter={props.selectedMemoryFilter}

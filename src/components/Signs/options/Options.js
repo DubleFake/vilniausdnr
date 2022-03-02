@@ -48,9 +48,9 @@ function a11yProps(index) {
 const Options = (props) => {
 	const theme = useTheme()
 	const [value, setValue] = useState(0)
-	const [currentFilter, setCurrentFilter] = useState("")
 	const [selectedObjectFilter, setSelectedObjectFilter] = useState("")
 	const [selectedMemoryFilter, setSelectedMemoryFilter] = useState("")
+	const [visualizationType, setVisualizationType] = useState("0")
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue)
@@ -84,7 +84,6 @@ const Options = (props) => {
 						initialObjectsList={props.initialObjectsList}
 						setSelectedObject={props.setSelectedObject}
 						selectedObject={props.selectedObject}
-						setCurrentFilter={setCurrentFilter}
 						selectedObjectFilter={selectedObjectFilter}
 						setSelectedObjectFilter={setSelectedObjectFilter}
 						selectedMemoryFilter={selectedMemoryFilter}
@@ -96,6 +95,9 @@ const Options = (props) => {
 						<VisualizationTab
 							initialObjectsList={props.initialObjectsList}
 							selectedObjectFilter={selectedObjectFilter}
+              selectedMemoryFilter={selectedMemoryFilter}
+							visualizationType={visualizationType}
+							setVisualizationType={setVisualizationType}
 						/>
 					</Box>
 				</TabPanel>
