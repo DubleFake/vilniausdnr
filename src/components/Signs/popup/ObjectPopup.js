@@ -219,6 +219,7 @@ const ObjectPopup = (props) => {
 			<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
 				<Card
 					sx={{
+            borderRadius: "0px",
 						maxWidth: matches ? "auto" : 995,
 						width: matches ? 600 : "100vw",
 						mt: matches ? 1.5 : 0,
