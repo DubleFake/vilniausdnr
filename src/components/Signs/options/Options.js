@@ -51,6 +51,8 @@ const Options = (props) => {
 	const [selectedObjectFilter, setSelectedObjectFilter] = useState("")
 	const [selectedMemoryFilter, setSelectedMemoryFilter] = useState("")
 	const [visualizationType, setVisualizationType] = useState("0")
+	const [visibleObjectIcons, setVisibleObjectIcons] = useState([])
+	const [visibleMemoryIcons, setVisibleMemoryIcons] = useState([])
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue)
@@ -108,6 +110,8 @@ const Options = (props) => {
 						setSelectedObjectFilter={setSelectedObjectFilter}
 						selectedMemoryFilter={selectedMemoryFilter}
 						setSelectedMemoryFilter={setSelectedMemoryFilter}
+            setVisibleObjectIcons={setVisibleObjectIcons}
+            setVisibleMemoryIcons={setVisibleMemoryIcons}
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
@@ -118,6 +122,8 @@ const Options = (props) => {
 							selectedMemoryFilter={selectedMemoryFilter}
 							visualizationType={visualizationType}
 							setVisualizationType={setVisualizationType}
+							visibleObjectIcons={visibleObjectIcons}
+							visibleMemoryIcons={visibleMemoryIcons}
 						/>
 					</Box>
 				</TabPanel>

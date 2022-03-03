@@ -84,32 +84,76 @@ const Legends = (props) => {
 				{props.visualizationType === "0"
 					? objectLegendsList.map((legend) => (
 							<div key={legend.code}>
-								<ListItem sx={{ my: 0.3 }} disablePadding>
-									<SvgIcon
-										sx={{ ml: 2, mr: 2, fontSize: 35 }}
-										component={objectIconMap[`Code${legend.code}`]}
-										inheritViewBox
-									/>
-									<Typography sx={{ mr: 1 }} variant="body2">
-										{legend.alias}
-									</Typography>
-								</ListItem>
-								{legend.code !== 8 && <Divider light variant="middle" />}
+								{props.visibleObjectIcons.length ? (
+									props.visibleObjectIcons.includes(legend.code) && (
+										<>
+											<ListItem sx={{ my: 0.3 }} disablePadding>
+												<SvgIcon
+													sx={{ ml: 2, mr: 2, fontSize: 35 }}
+													component={objectIconMap[`Code${legend.code}`]}
+													inheritViewBox
+												/>
+												<Typography sx={{ mr: 1 }} variant="body2">
+													{legend.alias}
+												</Typography>
+											</ListItem>
+											{legend.code !== props.visibleObjectIcons[props.visibleObjectIcons.length - 1] && (
+												<Divider light variant="middle" />
+											)}
+										</>
+									)
+								) : (
+									<>
+										<ListItem sx={{ my: 0.3 }} disablePadding>
+											<SvgIcon
+												sx={{ ml: 2, mr: 2, fontSize: 35 }}
+												component={objectIconMap[`Code${legend.code}`]}
+												inheritViewBox
+											/>
+											<Typography sx={{ mr: 1 }} variant="body2">
+												{legend.alias}
+											</Typography>
+										</ListItem>
+										{legend.code !== 8 && <Divider light variant="middle" />}
+									</>
+								)}
 							</div>
 					  ))
 					: memoryLegendsList.map((legend) => (
 							<div key={legend.code}>
-								<ListItem sx={{ my: 0.3 }} disablePadding>
-									<SvgIcon
-										sx={{ ml: 2, mr: 2, fontSize: 35 }}
-										component={memoryIconCode[`Code${legend.code}`]}
-										inheritViewBox
-									/>
-									<Typography sx={{ mr: 1 }} variant="body2">
-										{legend.alias}
-									</Typography>
-								</ListItem>
-								{legend.code !== 8 && <Divider light variant="middle" />}
+								{props.visibleMemoryIcons.length ? (
+									props.visibleMemoryIcons.includes(legend.code) && (
+										<>
+											<ListItem sx={{ my: 0.3 }} disablePadding>
+												<SvgIcon
+													sx={{ ml: 2, mr: 2, fontSize: 35 }}
+													component={memoryIconCode[`Code${legend.code}`]}
+													inheritViewBox
+												/>
+												<Typography sx={{ mr: 1 }} variant="body2">
+													{legend.alias}
+												</Typography>
+											</ListItem>
+											{legend.code !== props.visibleMemoryIcons[props.visibleMemoryIcons.length - 1] && (
+												<Divider light variant="middle" />
+											)}
+										</>
+									)
+								) : (
+									<>
+										<ListItem sx={{ my: 0.3 }} disablePadding>
+											<SvgIcon
+												sx={{ ml: 2, mr: 2, fontSize: 35 }}
+												component={memoryIconCode[`Code${legend.code}`]}
+												inheritViewBox
+											/>
+											<Typography sx={{ mr: 1 }} variant="body2">
+												{legend.alias}
+											</Typography>
+										</ListItem>
+										{legend.code !== 8 && <Divider light variant="middle" />}
+									</>
+								)}
 							</div>
 					  ))}
 			</List>

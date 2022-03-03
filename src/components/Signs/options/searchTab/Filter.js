@@ -121,8 +121,31 @@ const Filter = (props) => {
 						returnGeometry: false,
 					})
 					.then((response) => {
+						const objectTypes = new Set()
+						const memoryTypes = new Set()
+
 						if (response.features.length) {
 							props.setSearchObjectsList(response.features)
+							if (query !== "") {
+								for (let feature in response.features) {
+									for (let attribute in response.features[feature].attributes) {
+										if (attribute === "TIPAS") {
+											if (response.features[feature].attributes[attribute] !== null) {
+												objectTypes.add(response.features[feature].attributes[attribute])
+											}
+										} else if (attribute === "ATMINT_TIP") {
+											if (response.features[feature].attributes[attribute] !== null) {
+												memoryTypes.add(response.features[feature].attributes[attribute])
+											}
+										}
+									}
+								}
+								props.setVisibleObjectIcons([...objectTypes])
+								props.setVisibleMemoryIcons([...memoryTypes])
+							} else {
+								props.setVisibleObjectIcons([])
+								props.setVisibleMemoryIcons([])
+							}
 						} else {
 							setShowAlert(true)
 							props.setSelectedObjectFilter("")
@@ -187,7 +210,11 @@ const Filter = (props) => {
 	return (
 		<>
 			<Snackbar open={showAlert} autoHideDuration={4000} onClose={() => setShowAlert(false)}>
-				<Alert onClose={() => setShowAlert(false)} severity="info" sx={{ width: "100%", zIndex: 3 }}>
+				<Alert
+					onClose={() => setShowAlert(false)}
+					severity="info"
+					sx={{ backgroundColor: "#D42323", width: "100%", zIndex: 3 }}
+				>
 					Objektų nerasta. Filtrai išvalyti.
 				</Alert>
 			</Snackbar>
