@@ -13,7 +13,6 @@ const VisualizationTab = (props) => {
 				setVisualizationType={props.setVisualizationType}
 			/>
 			<Legends
-				initialObjectsList={props.initialObjectsList}
 				selectedObjectFilter={props.selectedObjectFilter}
 				selectedMemoryFilter={props.selectedMemoryFilter}
 				visualizationType={props.visualizationType}

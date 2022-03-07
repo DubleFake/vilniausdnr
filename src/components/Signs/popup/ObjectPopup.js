@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { view, objects } from "../../../utils/signsArcgisItems"
 import MuiLinkify from "material-ui-linkify"
+import { useTranslation } from "react-i18next"
+
+import { view, objects } from "../../../utils/plaquesArcgisItems"
 
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
@@ -25,6 +27,9 @@ import Backdrop from "@mui/material/Backdrop"
 let highlight
 const ObjectPopup = (props) => {
 	const { globalID } = useParams()
+	const navigate = useNavigate()
+  const { t, i18n } = useTranslation()
+
 	const [objectAttr, setObjectAttr] = useState([])
 	const [objectPer, setObjectPer] = useState([])
 	const [objectAtt, setObjectAtt] = useState([])
@@ -33,7 +38,6 @@ const ObjectPopup = (props) => {
 	const [popupOpen, setPopupOpen] = useState(false)
 	const [page, setPage] = useState(1)
 	const [pageCount, setPageCount] = useState(1)
-	const navigate = useNavigate()
 
 	const handlePage = (event, value) => {
 		navigate(`/lentos/objektas/${queryObjects[value - 1].attributes.GlobalID.replace(/[{}]/g, "")}`)
@@ -250,7 +254,7 @@ const ObjectPopup = (props) => {
 										<IconButton
 											aria-label="close"
 											onClick={() => {
-												navigate("/lentos")
+												navigate(`/${i18n.language}/plaques`)
 											}}
 										>
 											<CloseIcon />
@@ -317,7 +321,7 @@ const ObjectPopup = (props) => {
 														component="button"
 														variant="body2"
 														onClick={() => {
-															navigate(`/lentos/asmuo/${objectPer[per].attributes.GlobalID.replace(/[{}]/g, "")}`)
+															navigate(`/${i18n.language}/plaques/person/${objectPer[per].attributes.GlobalID.replace(/[{}]/g, "")}`)
 														}}
 													>{`${objectPer[per].attributes.Vardas__liet_} ${objectPer[per].attributes.Pavardė__liet_}`}</Link>
 													<br></br>

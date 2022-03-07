@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { persons } from "../../../utils/signsArcgisItems"
+import { useTranslation } from "react-i18next"
 import MuiLinkify from "material-ui-linkify"
+
+import { persons } from "../../../utils/plaquesArcgisItems"
 
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
@@ -23,11 +25,13 @@ import Backdrop from "@mui/material/Backdrop"
 
 const PersonPopup = (props) => {
 	const { globalID } = useParams()
+	const navigate = useNavigate()
+  const { t, i18n } = useTranslation()
+
 	const [personAttr, setPersonAttr] = useState([])
 	const [personObj, setPersonObj] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [popupOpen, setPopupOpen] = useState(false)
-	const navigate = useNavigate()
 
 	useEffect(() => {
 		if (!props.initialLoading) {
@@ -178,7 +182,7 @@ const PersonPopup = (props) => {
 										<IconButton
 											aria-label="close"
 											onClick={() => {
-												navigate("/lentos")
+												navigate(`/${i18n.language}/plaques`)
 											}}
 										>
 											<CloseIcon />
@@ -258,7 +262,7 @@ const PersonPopup = (props) => {
 														component="button"
 														variant="body2"
 														onClick={() => {
-															navigate(`/lentos/objektas/${personObj[obj].attributes.GlobalID.replace(/[{}]/g, "")}`)
+															navigate(`/${i18n.language}/plaques/object/${personObj[obj].attributes.GlobalID.replace(/[{}]/g, "")}`)
 														}}
 													>
 														{personObj[obj].attributes.OBJ_PAV}{" "}

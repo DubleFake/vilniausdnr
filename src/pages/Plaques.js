@@ -13,7 +13,7 @@ import Collapse from "@mui/material/Collapse"
 import CircularProgress from "@mui/material/CircularProgress"
 import Backdrop from "@mui/material/Backdrop"
 
-const Signs = () => {
+const Plaques = () => {
 	const [selectedObject, setSelectedObject] = useState("")
 	const [initialLoading, setInitialLoading] = useState(true)
 	const [initialObjectsList, setInitialObjectsList] = useState([])
@@ -58,7 +58,7 @@ const Signs = () => {
 				}
 			>
 				<Route
-					path="objektas/:globalID"
+					path="object/:globalID"
 					element={
 						<ObjectPopup
 							mapQuery={mapQuery}
@@ -68,10 +68,10 @@ const Signs = () => {
 					}
 				/>
 
-				<Route path="asmuo/:globalID" element={<PersonPopup initialLoading={initialLoading} />} />
+				<Route path="person/:globalID" element={<PersonPopup initialLoading={initialLoading} />} />
 			</Route>
 		</Routes>
 	)
 }
 
-export default Signs
+export default Plaques

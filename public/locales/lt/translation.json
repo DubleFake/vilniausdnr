@@ -1,12 +1,45 @@
 {
-  "periods": "Miestas atskirais istoriniais periodais",
-  "signs": "Skulptūros ir atminimo lentos",
-  "persons": "Asmenybės ir jų atminimo ženklai",
-  "maps": "Istoriniai planai ir žemėlapiai",
-  "streets": "Miesto gatvės",
-  "parts": "Miesto dalys",
-  "addresses": "Adresai",
-  "buildings": "Pastatai",
-  "events": "Istoriniai įvykiai",
-  "language_select": "Kalba"
+  "home": {
+    "periods": "Miestas atskirais istoriniais periodais",
+    "plaques": "Skulptūros ir atminimo lentos",
+    "persons": "Asmenybės ir jų atminimo ženklai",
+    "maps": "Istoriniai planai ir žemėlapiai",
+    "streets": "Miesto gatvės",
+    "parts": "Miesto dalys",
+    "addresses": "Adresai",
+    "buildings": "Pastatai",
+    "events": "Istoriniai įvykiai"
+  },
+  "plaques": {
+    "map": {
+      "basemapLight": "Šviesus žemėlapis",
+      "basemapDark": "Tamsus žemėlapis"
+    },
+    "options": {
+      "visualizeBy": "Vaizduoti pagal",
+      "objectType": "Objekto tipą",
+      "memoryType": "Atminimo tipą",
+      "legend": "Sutartiniai ženklai",
+      "objects": {
+        "plaquePerson": "Atminimo arba memorealinė lenta su tekstu",
+        "sculpture": "Skulptūra, paminklas, skulptūrinė kompozicija",
+        "plaqueOther": "Atminimo lenta su bareljefu ar kitais meniniais elementais",
+        "mural": "Freska, pano, mozaika, sieninė tapyba",
+        "plaqueTitle": "Pavadinimo lentelė (pavadinimas, kuris suteiktas pastatui, statiniui ar kitam objektui)",
+        "sign": "Užrašas, ženklas grindinyje, ant laiptų, akmenų",
+        "marker": "Vietos pažymėjimo ženklas mažosios architektūros priemonėmis",
+        "monument": "Paminklas, antkapis palaidojimo vietose"
+      },
+      "memories": {
+        "person": "Žymaus asmens atminimui",
+        "group": "Žymių asmenų grupės atminimui",
+        "abstract": "Abstraktus objektas",
+        "organisation": "Organizacijos atminimui",
+        "event": "Reikšmingo (istorinio) įvykio atminimui",
+        "burial": "Žymaus asmens palaidojimo vietai žymėti",
+        "art": "Meninis idėjos simbolis",
+        "building": "Istorinio statinio vietos pažymėjimas"
+      }
+    }
+  }
 }

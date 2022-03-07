@@ -175,18 +175,27 @@ export const persons = new FeatureLayer({
 	title: "Asmenys",
 })
 
-let basemap = new Basemap({
+const basemap1 = new Basemap({
 	baseLayers: [
 		new TileLayer({
 			url: "https://atviras.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_light_LKS/MapServer",
 		}),
 	],
-	title: "Šviesus",
-	id: "Šviesus",
+	id: "light",
+	thumbnailUrl: `${origin}/signIcons/basemap_light.png`,
+})
+const basemap2 = new Basemap({
+	baseLayers: [
+		new TileLayer({
+			url: "https://atviras.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_dark_LKS/MapServer",
+		}),
+	],
+	id: "dark",
+	thumbnailUrl: `${origin}/signIcons/basemap_dark.png`,
 })
 
 export const map = new Map({
-	basemap: basemap,
+	basemap: basemap1,
 	layers: [objects],
 })
 
@@ -211,27 +220,6 @@ export const view = new MapView({
 	},
 })
 
-const basemap1 = new Basemap({
-	baseLayers: [
-		new TileLayer({
-			url: "https://atviras.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_light_LKS/MapServer",
-		}),
-	],
-	title: "Šviesus žemėlapis",
-	id: "Šviesus žemėlapis",
-	thumbnailUrl: `${origin}/signIcons/basemap_light.png`,
-})
-const basemap2 = new Basemap({
-	baseLayers: [
-		new TileLayer({
-			url: "https://atviras.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_dark_LKS/MapServer",
-		}),
-	],
-	title: "Tamsus žemėlapis",
-	id: "Tamsus žemėlapis",
-	thumbnailUrl: `${origin}/signIcons/basemap_dark.png`,
-})
-
 const basemapGallery = new BasemapGallery({
 	view: view,
 	source: [basemap1, basemap2],
@@ -242,8 +230,8 @@ export const bgExpand = new Expand({
 	content: basemapGallery,
 	autoCollapse: true,
 	collapseIconClass: "esri-icon-left",
-	collapseTooltip: "Suskleisti",
-	expandTooltip: "Išskleisti bazinius žemėlapius",
+	//collapseTooltip: "Suskleisti",
+	//expandTooltip: "Išskleisti bazinius žemėlapius",
 })
 
 export const locateWidget = new Locate({

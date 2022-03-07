@@ -1,9 +1,11 @@
-import React, { Suspense } from "react"
+import React from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
+import * as intl from "@arcgis/core/intl"
 
 import Home from "./pages/Home"
 import Periods from "./pages/Periods"
-import Signs from "./pages/Signs"
+import Plaques from "./pages/Plaques"
 import Persons from "./pages/Persons"
 import Maps from "./pages/Maps"
 import Streets from "./pages/Streets"
@@ -18,6 +20,9 @@ import "./css/index.css"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 
 const App = () => {
+	const { t, i18n } = useTranslation()
+	intl.setLocale(`${i18n.language}`)
+
 	const theme = createTheme({
 		palette: {
 			primary: {
@@ -30,27 +35,25 @@ const App = () => {
 	})
 
 	return (
-		<Suspense fallback="kraunasi...">
-			<ThemeProvider theme={theme}>
-				<BrowserRouter>
-					<Routes>
-						<Route path=":lng" element={<Nav />}>
-							<Route index element={<Home />} />
-							<Route path="periods/*" element={<Periods />} />
-							<Route path="signs/*" element={<Signs />} />
-							<Route path="persons/*" element={<Persons />} />
-							<Route path="maps/*" element={<Maps />} />
-							<Route path="streets/*" element={<Streets />} />
-							<Route path="parts/*" element={<Parts />} />
-							<Route path="addresses/*" element={<Addresses />} />
-							<Route path="buildings/*" element={<Buildings />} />
-							<Route path="events/*" element={<Events />} />
-						</Route>
-						<Route path="*" element={<Navigate to="/lt" />} />
-					</Routes>
-				</BrowserRouter>
-			</ThemeProvider>
-		</Suspense>
+		<ThemeProvider theme={theme}>
+			<BrowserRouter>
+				<Routes>
+					<Route path=":lng" element={<Nav />}>
+						<Route index element={<Home />} />
+						<Route path="periods/*" element={<Periods />} />
+						<Route path="plaques/*" element={<Plaques />} />
+						<Route path="persons/*" element={<Persons />} />
+						<Route path="maps/*" element={<Maps />} />
+						<Route path="streets/*" element={<Streets />} />
+						<Route path="parts/*" element={<Parts />} />
+						<Route path="addresses/*" element={<Addresses />} />
+						<Route path="buildings/*" element={<Buildings />} />
+						<Route path="events/*" element={<Events />} />
+					</Route>
+					<Route path="*" element={<Navigate to={`/${i18n.language}`} />} />
+				</Routes>
+			</BrowserRouter>
+		</ThemeProvider>
 	)
 }
 

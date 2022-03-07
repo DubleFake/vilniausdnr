@@ -1,13 +1,15 @@
 import React, { useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-
-import { view, objects, bgExpand, locateWidget } from "../../../utils/signsArcgisItems"
+import { useTranslation } from "react-i18next"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
+
+import { view, objects, bgExpand, locateWidget } from "../../../utils/plaquesArcgisItems"
 
 const viewHandles = []
 
 const ObjectMap = (props) => {
 	const navigate = useNavigate()
+	const { t, i18n } = useTranslation()
 	const mapDiv = useRef(null)
 
 	useEffect(() => {
@@ -17,9 +19,6 @@ const ObjectMap = (props) => {
 			handle.remove()
 		})
 		viewHandles.length = 0
-
-		view.ui.add(bgExpand, "top-left")
-		view.ui.add(locateWidget, "top-left")
 
 		view.whenLayerView(objects).then((objectsView) => {
 			watchUtils.whenFalseOnce(objectsView, "updating").then(() => {
@@ -70,13 +69,23 @@ const ObjectMap = (props) => {
 						.then((response) => {
 							if (response.features.length > 0) {
 								props.setMapQuery(response.features)
-								navigate(`objektas/${response.features[0].attributes.GlobalID.replace(/[{}]/g, "")}`)
+								navigate(`object/${response.features[0].attributes.GlobalID.replace(/[{}]/g, "")}`)
 							}
 						})
 				})
 			})
 		)
 	}, [])
+
+	useEffect(() => {
+		bgExpand.content.source.basemaps.items[0].title = t("plaques.map.basemapLight")
+		bgExpand.content.source.basemaps.items[1].title = t("plaques.map.basemapDark")
+
+		view.ui.empty("top-left")
+
+		view.ui.add(bgExpand, "top-left")
+		view.ui.add(locateWidget, "top-left")
+	}, [i18n.language])
 
 	useEffect(() => {
 		return () => {

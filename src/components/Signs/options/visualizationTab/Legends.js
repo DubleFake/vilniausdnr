@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
 import { ReactComponent as ObjectCode1 } from "../../../../utils/icons/legendIcons/Atmint_atminimo_lenta.svg"
 import { ReactComponent as ObjectCode2 } from "../../../../utils/icons/legendIcons/Atmint_skulptura.svg"
@@ -48,37 +49,82 @@ const memoryIconCode = {
 }
 
 const Legends = (props) => {
-	const [objectLegendsList, setObjectLegendList] = useState([])
-	const [memoryLegendsList, setMemoryLegendList] = useState([])
+	const { t, i18n } = useTranslation()
 
-	useEffect(() => {
-		for (let field in props.initialObjectsList[0].layer.fields) {
-			if (props.initialObjectsList[0].layer.fields[field].name === "TIPAS") {
-				const tempObjectAlias = []
-				for (let code in props.initialObjectsList[0].layer.fields[field].domain.codedValues) {
-					const objCodeAlias = {}
-					objCodeAlias.alias = props.initialObjectsList[0].layer.fields[field].domain.codedValues[code].name
-					objCodeAlias.code = props.initialObjectsList[0].layer.fields[field].domain.codedValues[code].code
-					tempObjectAlias.push(objCodeAlias)
-				}
-				setObjectLegendList(tempObjectAlias)
-			} else if (props.initialObjectsList[0].layer.fields[field].name === "ATMINT_TIP") {
-				const tempObjectAlias = []
-				for (let code in props.initialObjectsList[0].layer.fields[field].domain.codedValues) {
-					const objCodeAlias = {}
-					objCodeAlias.alias = props.initialObjectsList[0].layer.fields[field].domain.codedValues[code].name
-					objCodeAlias.code = props.initialObjectsList[0].layer.fields[field].domain.codedValues[code].code
-					tempObjectAlias.push(objCodeAlias)
-				}
-				setMemoryLegendList(tempObjectAlias)
-			}
-		}
-	}, [])
+	const objectLegendsList = [
+		{
+			alias: t("plaques.options.objects.plaquePerson"),
+			code: 1,
+		},
+		{
+			alias: t("plaques.options.objects.sculpture"),
+			code: 2,
+		},
+		{
+			alias: t("plaques.options.objects.plaqueOther"),
+			code: 3,
+		},
+		{
+			alias: t("plaques.options.objects.mural"),
+			code: 4,
+		},
+		{
+			alias: t("plaques.options.objects.plaqueTitle"),
+			code: 5,
+		},
+		{
+			alias: t("plaques.options.objects.sign"),
+			code: 6,
+		},
+		{
+			alias: t("plaques.options.objects.marker"),
+			code: 7,
+		},
+		{
+			alias: t("plaques.options.objects.monument"),
+			code: 8,
+		},
+	]
+
+  const memoryLegendsList = [
+		{
+			alias: t("plaques.options.memories.person"),
+			code: 1,
+		},
+		{
+			alias: t("plaques.options.memories.group"),
+			code: 2,
+		},
+		{
+			alias: t("plaques.options.memories.abstract"),
+			code: 3,
+		},
+		{
+			alias: t("plaques.options.memories.organisation"),
+			code: 4,
+		},
+		{
+			alias: t("plaques.options.memories.event"),
+			code: 5,
+		},
+		{
+			alias: t("plaques.options.memories.burial"),
+			code: 6,
+		},
+		{
+			alias: t("plaques.options.memories.art"),
+			code: 7,
+		},
+		{
+			alias: t("plaques.options.memories.building"),
+			code: 8,
+		},
+	]
 
 	return (
 		<Box sx={{ width: 350, bgcolor: "background.paper" }}>
 			<Typography sx={{ m: 1, mb: 0 }} variant="subtitle1">
-				Sutartiniai ženklai:
+				{t("plaques.options.legend") + ":"}
 			</Typography>
 			<List>
 				{props.visualizationType === "0"

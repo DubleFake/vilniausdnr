@@ -117,7 +117,6 @@ const Options = (props) => {
 				<TabPanel value={value} index={1} dir={theme.direction}>
 					<Box sx={{ width: 350, height: "100vh", display: "flex", flexDirection: "column" }}>
 						<VisualizationTab
-							initialObjectsList={props.initialObjectsList}
 							selectedObjectFilter={selectedObjectFilter}
 							selectedMemoryFilter={selectedMemoryFilter}
 							visualizationType={visualizationType}

@@ -1,12 +1,45 @@
 {
-  "periods": "The city in separate historical periods",
-  "signs": "Sculptures and memorial plaques",
-  "persons": "Personalities and their signs of remembrance",
-  "maps": "Historical plans and maps",
-  "streets": "City streets",
-  "parts": "Parts of the city",
-  "addresses": "Addresses",
-  "buildings": "Buildings",
-  "events": "Historical events",
-  "language_select": "Language"
+  "home": {
+    "periods": "The city in separate historical periods",
+    "plaques": "Sculptures and memorial plaques",
+    "persons": "Personalities and their signs of remembrance",
+    "maps": "Historical plans and maps",
+    "streets": "City streets",
+    "parts": "Parts of the city",
+    "addresses": "Addresses",
+    "buildings": "Buildings",
+    "events": "Historical events"
+  },
+  "plaques": {
+    "map": {
+      "basemapLight": "Light basemap",
+      "basemapDark": "Dark basemap"
+    },
+    "options": {
+      "visualizeBy": "Visualize by",
+      "objectType": "Object type",
+      "memoryType": "Memory type",
+      "legend": "Legend",
+      "objects": {
+        "plaquePerson": "Commemorative or memorial plaque with text",
+        "sculpture": "Sculpture, monument, sculptural composition",
+        "plaqueOther": "Commemorative plaque with bas-relief or other artistic elements",
+        "mural": "Fresco, panel, mosaic, wall painting",
+        "plaqueTitle": "Title sign (name given to the building, structure or other object)",
+        "sign": "Inscription, sign on pavement, stairs, stones",
+        "marker": "Place marking by means of small architectural means",
+        "monument": "Monument, tombstone at burial sites"
+      },
+      "memories": {
+        "person": "In memory of a famous person",
+        "group": "In memory of a group of famous persons",
+        "abstract": "Abstract object",
+        "organisation": "In memory of an organisation",
+        "event": "In commemoration of a significant (historical) event",
+        "burial": "Burial place of a famous person",
+        "art": "Artistic symbol of an idea",
+        "building": "Place mark of a historic building"
+      }
+    }
+  }
 }

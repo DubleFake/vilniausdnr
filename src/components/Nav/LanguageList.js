@@ -15,7 +15,6 @@ const LanguageList = (props) => {
 	const navigate = useNavigate()
 
 	const handleLanguageChange = (lng) => {
-		//console.log(window.location.pathname.slice(4), lng, i18n.language)
 		navigate(`/${lng}/${window.location.pathname.slice(4)}`)
 		i18n.changeLanguage(lng)
 		props.setLanguageOpen(false)

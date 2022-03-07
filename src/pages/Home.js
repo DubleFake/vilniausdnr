@@ -10,7 +10,7 @@ import { ReactComponent as mapsIcon } from "../utils/icons/homeIcons/maps.svg"
 import { ReactComponent as partsIcon } from "../utils/icons/homeIcons/parts.svg"
 import { ReactComponent as periodsIcon } from "../utils/icons/homeIcons/periods.svg"
 import { ReactComponent as personsIcon } from "../utils/icons/homeIcons/persons.svg"
-import { ReactComponent as signsIcon } from "../utils/icons/homeIcons/signs.svg"
+import { ReactComponent as signsIcon } from "../utils/icons/homeIcons/plaques.svg"
 import { ReactComponent as streetsIcon } from "../utils/icons/homeIcons/streets.svg"
 
 import { useTheme } from "@mui/material/styles"
@@ -84,13 +84,13 @@ const Home = (props) => {
 					gridTemplateRows: matchesLg ? `repeat(3, ${(window.innerHeight - 90) / 3}px)` : `repeat(5, 300px)`,
 					gridTemplateAreas: matchesLg
 						? `
-            "periods    periods   signs persons persons"
-            "maps       streets   parts persons persons"
-            "addresses  buildings parts events  events"
+            "periods    periods   plaques persons persons"
+            "maps       streets   parts   persons persons"
+            "addresses  buildings parts   events  events"
           `
 						: `
             "periods    persons"
-            "signs      persons"
+            "plaques    persons"
             "maps       streets"
             "addresses  buildings"
             "parts      events"
@@ -104,19 +104,19 @@ const Home = (props) => {
 						</Grid>
 						<Grid item>
 							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
-								{t("periods")}
+								{t("home.periods")}
 							</Typography>
 						</Grid>
 					</Grid>
 				</Tile>
-				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#4d0539", gridArea: "signs" }}>
+				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#4d0539", gridArea: "plaques" }}>
 					<Grid container direction="column" justifyContent="center" alignItems="center">
 						<Grid item>
 							<SvgIcon component={signsIcon} inheritViewBox sx={{ color: "#EE2858", fontSize: iconSize }} />
 						</Grid>
 						<Grid item>
 							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
-								{t("signs")}
+								{t("home.plaques")}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -128,7 +128,7 @@ const Home = (props) => {
 						</Grid>
 						<Grid item>
 							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
-								{t("persons")}
+								{t("home.persons")}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -140,7 +140,7 @@ const Home = (props) => {
 						</Grid>
 						<Grid item>
 							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
-								{t("maps")}
+								{t("home.maps")}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -152,7 +152,7 @@ const Home = (props) => {
 						</Grid>
 						<Grid item>
 							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
-								{t("streets")}
+								{t("home.streets")}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -164,7 +164,7 @@ const Home = (props) => {
 						</Grid>
 						<Grid item>
 							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
-								{t("parts")}
+								{t("home.parts")}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -180,7 +180,7 @@ const Home = (props) => {
 						</Grid>
 						<Grid item>
 							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
-								{t("addresses")}
+								{t("home.addresses")}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -196,7 +196,7 @@ const Home = (props) => {
 						</Grid>
 						<Grid item>
 							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
-								{t("buildings")}
+								{t("home.buildings")}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -208,7 +208,7 @@ const Home = (props) => {
 						</Grid>
 						<Grid item>
 							<Typography sx={{ color: "white" }} variant="body1" fontSize={fontSize}>
-								{t("events")}
+								{t("home.events")}
 							</Typography>
 						</Grid>
 					</Grid>
