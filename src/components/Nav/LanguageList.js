@@ -1,5 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 
 import ClickAwayListener from "@mui/material/ClickAwayListener"
 import Typography from "@mui/material/Typography"
@@ -11,9 +12,12 @@ import Collapse from "@mui/material/Collapse"
 
 const LanguageList = (props) => {
 	const { t, i18n } = useTranslation()
+	const navigate = useNavigate()
 
-	const handleLanguageChange = (lan) => {
-		i18n.changeLanguage(lan)
+	const handleLanguageChange = (lng) => {
+		//console.log(window.location.pathname.slice(4), lng, i18n.language)
+		navigate(`/${lng}/${window.location.pathname.slice(4)}`)
+		i18n.changeLanguage(lng)
 		props.setLanguageOpen(false)
 	}
 

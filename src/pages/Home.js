@@ -29,7 +29,7 @@ function Tile(props) {
 		<Button
 			component={Link}
 			onClick={() => location.pathname !== "/" && setMenuOpen(false)}
-			to={`/${sx.gridArea}`}
+			to={`${sx.gridArea}`}
 			variant="contained"
 			sx={{
 				borderRadius: 0,
@@ -84,20 +84,20 @@ const Home = (props) => {
 					gridTemplateRows: matchesLg ? `repeat(3, ${(window.innerHeight - 90) / 3}px)` : `repeat(5, 300px)`,
 					gridTemplateAreas: matchesLg
 						? `
-            "periodai   periodai  lentos  asmenybes asmenybes"
-            "zemelapiai gatves    dalys   asmenybes asmenybes"
-            "adresai    pastatai  dalys   ivykiai   ivykiai"
+            "periods    periods   signs persons persons"
+            "maps       streets   parts persons persons"
+            "addresses  buildings parts events  events"
           `
 						: `
-            "periodai   asmenybes"
-            "lentos     asmenybes"
-            "zemelapiai gatves"
-            "adresai    pastatai"
-            "dalys      ivykiai"
+            "periods    persons"
+            "signs      persons"
+            "maps       streets"
+            "addresses  buildings"
+            "parts      events"
           `,
 				}}
 			>
-				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#861618", gridArea: "periodai" }}>
+				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#861618", gridArea: "periods" }}>
 					<Grid container direction="column" justifyContent="center" alignItems="center">
 						<Grid item>
 							<SvgIcon component={periodsIcon} inheritViewBox sx={{ color: "#FBBF11", fontSize: iconSize }} />
@@ -109,7 +109,7 @@ const Home = (props) => {
 						</Grid>
 					</Grid>
 				</Tile>
-				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#4d0539", gridArea: "lentos" }}>
+				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#4d0539", gridArea: "signs" }}>
 					<Grid container direction="column" justifyContent="center" alignItems="center">
 						<Grid item>
 							<SvgIcon component={signsIcon} inheritViewBox sx={{ color: "#EE2858", fontSize: iconSize }} />
@@ -121,7 +121,7 @@ const Home = (props) => {
 						</Grid>
 					</Grid>
 				</Tile>
-				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#753092", gridArea: "asmenybes" }}>
+				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#753092", gridArea: "persons" }}>
 					<Grid container direction="column" justifyContent="center" alignItems="center">
 						<Grid item>
 							<SvgIcon component={personsIcon} inheritViewBox sx={{ color: "#58C8DF", fontSize: iconSize }} />
@@ -133,7 +133,7 @@ const Home = (props) => {
 						</Grid>
 					</Grid>
 				</Tile>
-				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#ec7c22", gridArea: "zemelapiai" }}>
+				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#ec7c22", gridArea: "maps" }}>
 					<Grid container direction="column" justifyContent="center" alignItems="center">
 						<Grid item>
 							<SvgIcon component={mapsIcon} inheritViewBox sx={{ color: "#861618", fontSize: iconSize }} />
@@ -145,7 +145,7 @@ const Home = (props) => {
 						</Grid>
 					</Grid>
 				</Tile>
-				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#fcca0a", gridArea: "gatves" }}>
+				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#fcca0a", gridArea: "streets" }}>
 					<Grid container direction="column" justifyContent="center" alignItems="center">
 						<Grid item>
 							<SvgIcon component={streetsIcon} inheritViewBox sx={{ color: "#4D0539", fontSize: iconSize }} />
@@ -157,7 +157,7 @@ const Home = (props) => {
 						</Grid>
 					</Grid>
 				</Tile>
-				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#6cb38f", gridArea: "dalys" }}>
+				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#6cb38f", gridArea: "parts" }}>
 					<Grid container direction="column" justifyContent="center" alignItems="center">
 						<Grid item>
 							<SvgIcon component={partsIcon} inheritViewBox sx={{ color: "#FCC011", fontSize: iconSize }} />
@@ -169,7 +169,7 @@ const Home = (props) => {
 						</Grid>
 					</Grid>
 				</Tile>
-				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#b51d52", gridArea: "adresai" }}>
+				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#b51d52", gridArea: "addresses" }}>
 					<Grid container direction="column" justifyContent="center" alignItems="center">
 						<Grid item>
 							<SvgIcon
@@ -185,7 +185,7 @@ const Home = (props) => {
 						</Grid>
 					</Grid>
 				</Tile>
-				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#009bd8", gridArea: "pastatai" }}>
+				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#009bd8", gridArea: "buildings" }}>
 					<Grid container direction="column" justifyContent="center" alignItems="center">
 						<Grid item>
 							<SvgIcon
@@ -201,7 +201,7 @@ const Home = (props) => {
 						</Grid>
 					</Grid>
 				</Tile>
-				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#6c8ec9", gridArea: "ivykiai" }}>
+				<Tile setMenuOpen={props.setMenuOpen} sx={{ backgroundColor: "#6c8ec9", gridArea: "events" }}>
 					<Grid container direction="column" justifyContent="center" alignItems="center">
 						<Grid item>
 							<SvgIcon component={eventsIcon} inheritViewBox sx={{ color: "#4D0539", fontSize: iconSize }} />
