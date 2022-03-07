@@ -25,7 +25,9 @@ const TableItems = (props) => {
 							style={{ paddingLeft: 5, paddingRight: 5 }}
 							onClick={() => {
 								setSelectedObject(`${tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "")}`)
-								navigate(`objektas/${tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "")}`)
+								navigate(
+									`${t("nav.object")}/${tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "")}`
+								)
 							}}
 							selected={tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "") === selectedObject}
 						>

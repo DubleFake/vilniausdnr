@@ -69,7 +69,9 @@ const ObjectMap = (props) => {
 						.then((response) => {
 							if (response.features.length > 0) {
 								props.setMapQuery(response.features)
-								navigate(`object/${response.features[0].attributes.GlobalID.replace(/[{}]/g, "")}`)
+								navigate(
+									`${t("nav.object")}/${response.features[0].attributes.GlobalID.replace(/[{}]/g, "")}`
+								)
 							}
 						})
 				})

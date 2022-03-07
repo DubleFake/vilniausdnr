@@ -1,4 +1,17 @@
 {
+  "nav": {
+    "periods": "periodai",
+    "plaques": "objektai",
+    "object": "objektas",
+    "persons": "asmenys",
+    "person": "asmuo",
+    "maps": "zemelapiai",
+    "streets": "gatves",
+    "parts": "dalys",
+    "addresses": "adresai",
+    "buildings": "pastatai",
+    "events": "ivykiai"
+  },
   "home": {
     "periods": "Miestas atskirais istoriniais periodais",
     "plaques": "Skulptūros ir atminimo lentos",
@@ -16,10 +29,16 @@
       "basemapDark": "Tamsus žemėlapis"
     },
     "options": {
+      "search": "Paieška",
+      "visualization": "Vaizdavimas",
       "visualizeBy": "Vaizduoti pagal",
       "objectType": "Objekto tipą",
       "memoryType": "Atminimo tipą",
+      "extent": "Rodyti tik matomus objektus",
       "legend": "Sutartiniai ženklai",
+      "clearFilters": "Išvalyti filtrus",
+      "all": "Visi",
+      "notFound": "Objektų nerasta, filtrai išvalyti",
       "objects": {
         "plaquePerson": "Atminimo arba memorealinė lenta su tekstu",
         "sculpture": "Skulptūra, paminklas, skulptūrinė kompozicija",

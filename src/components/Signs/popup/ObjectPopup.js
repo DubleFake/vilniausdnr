@@ -28,7 +28,7 @@ let highlight
 const ObjectPopup = (props) => {
 	const { globalID } = useParams()
 	const navigate = useNavigate()
-  const { t, i18n } = useTranslation()
+	const { t, i18n } = useTranslation()
 
 	const [objectAttr, setObjectAttr] = useState([])
 	const [objectPer, setObjectPer] = useState([])
@@ -40,7 +40,12 @@ const ObjectPopup = (props) => {
 	const [pageCount, setPageCount] = useState(1)
 
 	const handlePage = (event, value) => {
-		navigate(`/lentos/objektas/${queryObjects[value - 1].attributes.GlobalID.replace(/[{}]/g, "")}`)
+		navigate(
+			`/${t("nav.plaques")}/${t("nav.object")}/${queryObjects[value - 1].attributes.GlobalID.replace(
+				/[{}]/g,
+				""
+			)}`
+		)
 	}
 
 	useEffect(() => {
@@ -78,7 +83,7 @@ const ObjectPopup = (props) => {
 							}
 
 							if (response.features.length === 0) {
-								navigate("/lentos")
+								navigate(`/${i18n.language}/${t("nav.plaques")}`)
 								return
 							}
 
@@ -223,7 +228,7 @@ const ObjectPopup = (props) => {
 			<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
 				<Card
 					sx={{
-            borderRadius: "0px",
+						borderRadius: "0px",
 						maxWidth: matches ? "auto" : 995,
 						width: matches ? 600 : "100vw",
 						mt: matches ? 1.5 : 0,
@@ -254,7 +259,7 @@ const ObjectPopup = (props) => {
 										<IconButton
 											aria-label="close"
 											onClick={() => {
-												navigate(`/${i18n.language}/plaques`)
+												navigate(`/${i18n.language}/${t("nav.plaques")}`)
 											}}
 										>
 											<CloseIcon />
@@ -321,7 +326,11 @@ const ObjectPopup = (props) => {
 														component="button"
 														variant="body2"
 														onClick={() => {
-															navigate(`/${i18n.language}/plaques/person/${objectPer[per].attributes.GlobalID.replace(/[{}]/g, "")}`)
+															navigate(
+																`/${i18n.language}/${t("nav.plaques")}/${t("nav.person")}/${objectPer[
+																	per
+																].attributes.GlobalID.replace(/[{}]/g, "")}`
+															)
 														}}
 													>{`${objectPer[per].attributes.Vardas__liet_} ${objectPer[per].attributes.Pavardė__liet_}`}</Link>
 													<br></br>
