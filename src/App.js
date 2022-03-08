@@ -32,6 +32,13 @@ const App = () => {
 				main: "#D42323",
 			},
 		},
+		components: {
+			MuiLink: {
+				defaultProps: {
+					color: "secondary",
+				},
+			},
+		},
 	})
 
 	return (
