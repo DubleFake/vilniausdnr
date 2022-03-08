@@ -16,10 +16,16 @@
       "basemapDark": "Tamsus žemėlapis"
     },
     "options": {
+      "search": "Paieška",
+      "visualization": "Vaizdavimas",
       "visualizeBy": "Vaizduoti pagal",
       "objectType": "Objekto tipą",
       "memoryType": "Atminimo tipą",
+      "extent": "Rodyti tik matomus objektus",
       "legend": "Sutartiniai ženklai",
+      "clearFilters": "Išvalyti filtrus",
+      "all": "Visi",
+      "notFound": "Objektų nerasta, filtrai išvalyti",
       "objects": {
         "plaquePerson": "Atminimo arba memorealinė lenta su tekstu",
         "sculpture": "Skulptūra, paminklas, skulptūrinė kompozicija",

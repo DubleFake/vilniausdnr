@@ -16,10 +16,16 @@
       "basemapDark": "Dark basemap"
     },
     "options": {
+      "search": "Search",
+      "visualization": "Visualization",
       "visualizeBy": "Visualize by",
       "objectType": "Object type",
       "memoryType": "Memory type",
+      "extent": "Show only visible objects",
       "legend": "Legend",
+      "clearFilters": "Clear filters",
+      "all": "All",
+      "notFound": "No objects found, filters cleared",
       "objects": {
         "plaquePerson": "Commemorative or memorial plaque with text",
         "sculpture": "Sculpture, monument, sculptural composition",
