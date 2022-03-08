@@ -23,15 +23,13 @@ import SvgIcon from "@mui/material/SvgIcon"
 
 function Tile(props) {
 	const location = useLocation()
-  const { t, i18n } = useTranslation()
-
 	const { setMenuOpen, sx, ...other } = props
 
 	return (
 		<Button
 			component={Link}
-			onClick={() => location.pathname !== `/${i18n.language}` && setMenuOpen(false)}
-			to={t(`nav.${sx.gridArea}`)}
+			onClick={() => location.pathname !== "/" && setMenuOpen(false)}
+			to={`${sx.gridArea}`}
 			variant="contained"
 			sx={{
 				borderRadius: 0,

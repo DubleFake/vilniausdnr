@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 import SwipeableViews from "react-swipeable-views"
-import { useTranslation } from "react-i18next"
 
 import SearchTab from "./searchTab/SearchTab"
 import VisualizationTab from "./visualizationTab/VisualizationTab"
@@ -47,9 +46,7 @@ function a11yProps(index) {
 }
 
 const Options = (props) => {
-  const { t, i18n } = useTranslation()
 	const theme = useTheme()
-
 	const [value, setValue] = useState(0)
 	const [selectedObjectFilter, setSelectedObjectFilter] = useState("")
 	const [selectedMemoryFilter, setSelectedMemoryFilter] = useState("")
@@ -83,7 +80,7 @@ const Options = (props) => {
 								bgcolor: "primary.light",
 							},
 						}}
-						label={t("plaques.options.search")}
+						label="Paieška"
 						{...a11yProps(0)}
 					/>
 					<Tab
@@ -94,7 +91,7 @@ const Options = (props) => {
 								bgcolor: "primary.light",
 							},
 						}}
-						label={t("plaques.options.visualization")}
+						label="Vaizdavimas"
 						{...a11yProps(1)}
 					/>
 				</Tabs>

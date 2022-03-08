@@ -15,7 +15,7 @@ const Persons = () => {
 
 	return (
 		<Box sx={{ maxHeight: window.innerHeight - 90, overflowY: "auto" }}>
-			<h2>{t("nav.persons")}</h2>
+			<h2>{t("persons")}</h2>
 			<h2 style={{ textAlign: "center" }}>test timeline</h2>
 			<Timeline>
 				<TimelineItem>

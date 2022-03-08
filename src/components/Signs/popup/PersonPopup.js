@@ -26,7 +26,7 @@ import Backdrop from "@mui/material/Backdrop"
 const PersonPopup = (props) => {
 	const { globalID } = useParams()
 	const navigate = useNavigate()
-	const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
 
 	const [personAttr, setPersonAttr] = useState([])
 	const [personObj, setPersonObj] = useState([])
@@ -182,7 +182,7 @@ const PersonPopup = (props) => {
 										<IconButton
 											aria-label="close"
 											onClick={() => {
-												navigate(`/${i18n.language}/${t("nav.plaques")}`)
+												navigate(`/${i18n.language}/plaques`)
 											}}
 										>
 											<CloseIcon />
@@ -262,11 +262,7 @@ const PersonPopup = (props) => {
 														component="button"
 														variant="body2"
 														onClick={() => {
-															navigate(
-																`/${i18n.language}/${t("nav.plaques")}/${t("nav.object")}/${personObj[
-																	obj
-																].attributes.GlobalID.replace(/[{}]/g, "")}`
-															)
+															navigate(`/${i18n.language}/plaques/object/${personObj[obj].attributes.GlobalID.replace(/[{}]/g, "")}`)
 														}}
 													>
 														{personObj[obj].attributes.OBJ_PAV}{" "}

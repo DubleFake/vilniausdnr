@@ -40,17 +40,17 @@ const App = () => {
 				<Routes>
 					<Route path=":lng" element={<Nav />}>
 						<Route index element={<Home />} />
-						<Route path={t(`nav.periods`) + "/*"} element={<Periods />} />
-						<Route path={t(`nav.plaques`) + "/*"} element={<Plaques />} />
-						<Route path={t(`nav.persons`) + "/*"} element={<Persons />} />
-						<Route path={t(`nav.maps`) + "/*"} element={<Maps />} />
-						<Route path={t(`nav.streets`) + "/*"} element={<Streets />} />
-						<Route path={t(`nav.parts`) + "/*"} element={<Parts />} />
-						<Route path={t(`nav.addresses`) + "/*"} element={<Addresses />} />
-						<Route path={t(`nav.buildings`) + "/*"} element={<Buildings />} />
-						<Route path={t(`nav.events`) + "/*"} element={<Events />} />
+						<Route path="periods/*" element={<Periods />} />
+						<Route path="plaques/*" element={<Plaques />} />
+						<Route path="persons/*" element={<Persons />} />
+						<Route path="maps/*" element={<Maps />} />
+						<Route path="streets/*" element={<Streets />} />
+						<Route path="parts/*" element={<Parts />} />
+						<Route path="addresses/*" element={<Addresses />} />
+						<Route path="buildings/*" element={<Buildings />} />
+						<Route path="events/*" element={<Events />} />
 					</Route>
-					{/* <Route path="*" element={<Navigate to={`/${i18n.language}`} />} /> */}
+					<Route path="*" element={<Navigate to={`/${i18n.language}`} />} />
 				</Routes>
 			</BrowserRouter>
 		</ThemeProvider>

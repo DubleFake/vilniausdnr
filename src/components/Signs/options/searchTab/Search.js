@@ -1,13 +1,10 @@
 import React, { useEffect } from "react"
 import { matchSorter } from "match-sorter"
-import { useTranslation } from "react-i18next"
 
 import TextField from "@mui/material/TextField"
 import Box from "@mui/material/Box"
 
 const Search = (props) => {
-	const { t, i18n } = useTranslation()
-
 	const handleSearch = (event) => {
 		props.setSearchInputValue(event.target.value)
 		props.setTableObjectsList(
@@ -26,7 +23,7 @@ const Search = (props) => {
 				sx={{ mt: 1 }}
 				fullWidth
 				id="outlined-search"
-				label={t("plaques.options.search")+".."}
+				label="Paieška"
 				type="search"
 				value={props.searchInputValue}
 				onChange={handleSearch}
