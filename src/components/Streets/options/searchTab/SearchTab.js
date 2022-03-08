@@ -15,7 +15,6 @@ const Table = (props) => {
 	const [searchInputValue, setSearchInputValue] = useState("")
 
 	useEffect(() => {
-    console.log(props.initialObjectsList)
 		setObjectsList(props.initialObjectsList)
 	}, [props.initialObjectsList])
 

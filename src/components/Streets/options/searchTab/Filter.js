@@ -26,7 +26,7 @@ const Filter = (props) => {
 	const { t, i18n } = useTranslation()
 
 	const [showAlert, setShowAlert] = useState(false)
-	const [extentCheck, setExtentCheck] = useState(false)
+	const [extentCheck, setExtentCheck] = useState(true)
 
 	const objectFilter = [
 		{
@@ -266,18 +266,18 @@ const Filter = (props) => {
 					</Select>
 				</FormControl>
 
-				<FormGroup>
+				{/* <FormGroup>
 					<FormControlLabel
 						control={<Checkbox checked={extentCheck} onChange={handleExtent} />}
 						label={t("plaques.options.extent")}
 					/>
-				</FormGroup>
+				</FormGroup> */}
 
 				<Button
 					variant="contained"
 					color="secondary"
 					disableElevation
-					sx={{ mb: 1, width: "100%" }}
+					sx={{ mt: 1, mb: 1, width: "100%" }}
 					onClick={handleClearFilters}
 				>
 					{t("plaques.options.clearFilters")}

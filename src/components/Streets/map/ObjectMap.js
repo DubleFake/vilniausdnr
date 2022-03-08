@@ -39,7 +39,6 @@ const ObjectMap = (props) => {
 					})
 			})
 		})
-    ["OBJECTID","GKODAS","GAT_ID","KATEGOR","TVRDOK","TVDOKNR","TVRDOKDA","PASTABOS","PAV","GlobalID"]
 
 		// view.watch("scale", (newScale) => {
 		// 	for (let stop in map.layers.items[0].renderer.visualVariables[0].stops) {
