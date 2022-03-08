@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import MuiLinkify from "material-ui-linkify"
 import { useTranslation } from "react-i18next"
 
-import { view, objects } from "../../../utils/plaquesArcgisItems"
+import { view, objects } from "../../../utils/streetsArcgisItems"
 
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
@@ -28,7 +28,7 @@ let highlight
 const ObjectPopup = (props) => {
 	const { globalID } = useParams()
 	const navigate = useNavigate()
-  const { t, i18n } = useTranslation()
+	const { t, i18n } = useTranslation()
 
 	const [objectAttr, setObjectAttr] = useState([])
 	const [objectPer, setObjectPer] = useState([])
@@ -40,7 +40,9 @@ const ObjectPopup = (props) => {
 	const [pageCount, setPageCount] = useState(1)
 
 	const handlePage = (event, value) => {
-		navigate(`/${i18n.language}/plaques/object/${queryObjects[value - 1].attributes.GlobalID.replace(/[{}]/g, "")}`)
+		navigate(
+			`/${i18n.language}/streets/object/${queryObjects[value - 1].attributes.GlobalID.replace(/[{}]/g, "")}`
+		)
 	}
 
 	useEffect(() => {
@@ -67,18 +69,22 @@ const ObjectPopup = (props) => {
 			view
 				.whenLayerView(objects)
 				.then((objectsView) => {
-					let query = objectsView.createQuery()
-					query.where = `GlobalID = '{${globalID}}'`
+					// let query = objectsView.createQuery()
+					// query.where = `GlobalID = '{${globalID}}'`
 
-					objectsView
-						.queryFeatures(query)
+					objects
+						.queryFeatures({
+							where: `GlobalID = '{${globalID}}'`,
+							outFields: ["*"],
+							returnGeometry: true,
+						})
 						.then((response) => {
 							if (highlight) {
 								highlight.remove()
 							}
 
 							if (response.features.length === 0) {
-								navigate(`/${i18n.language}/plaques`)
+								navigate(`/${i18n.language}/streets`)
 								return
 							}
 
@@ -142,52 +148,51 @@ const ObjectPopup = (props) => {
 							return response.features[0].attributes.OBJECTID
 						})
 						.then((OBJECTID) => {
-							const allPersons = []
-							objects
-								.queryRelatedFeatures({
-									outFields: ["GlobalID", "Pavardė__liet_", "Vardas__liet_"],
-									relationshipId: 0,
-									objectIds: OBJECTID,
-								})
-								.then((response) => {
-									if (Object.keys(response).length === 0) {
-										setObjectPer([])
-										return
-									}
-									Object.keys(response).forEach((objectId) => {
-										const person = response[objectId].features
-										person.forEach((person) => {
-											allPersons.push(person)
-										})
-									})
-									setObjectPer(allPersons)
-								})
-								.catch((error) => {
-									console.error(error)
-								})
-
-							const allAttachments = []
-							objects
-								.queryAttachments({
-									attachmentTypes: ["image/jpeg"],
-									objectIds: OBJECTID,
-								})
-								.then((response) => {
-									if (Object.keys(response).length === 0) {
-										setObjectAtt([])
-										return
-									}
-									Object.keys(response).forEach((objectId) => {
-										const attachment = response[objectId]
-										attachment.forEach((attachment) => {
-											allAttachments.push(attachment)
-										})
-									})
-									setObjectAtt(allAttachments)
-								})
-								.catch((error) => {
-									console.error(error)
-								})
+							// const allPersons = []
+							// objects
+							// 	.queryRelatedFeatures({
+							// 		outFields: ["GlobalID", "Pavardė__liet_", "Vardas__liet_"],
+							// 		relationshipId: 0,
+							// 		objectIds: OBJECTID,
+							// 	})
+							// 	.then((response) => {
+							// 		if (Object.keys(response).length === 0) {
+							// 			setObjectPer([])
+							// 			return
+							// 		}
+							// 		Object.keys(response).forEach((objectId) => {
+							// 			const person = response[objectId].features
+							// 			person.forEach((person) => {
+							// 				allPersons.push(person)
+							// 			})
+							// 		})
+							// 		setObjectPer(allPersons)
+							// 	})
+							// 	.catch((error) => {
+							// 		console.error(error)
+							// 	})
+							// const allAttachments = []
+							// objects
+							// 	.queryAttachments({
+							// 		attachmentTypes: ["image/jpeg"],
+							// 		objectIds: OBJECTID,
+							// 	})
+							// 	.then((response) => {
+							// 		if (Object.keys(response).length === 0) {
+							// 			setObjectAtt([])
+							// 			return
+							// 		}
+							// 		Object.keys(response).forEach((objectId) => {
+							// 			const attachment = response[objectId]
+							// 			attachment.forEach((attachment) => {
+							// 				allAttachments.push(attachment)
+							// 			})
+							// 		})
+							// 		setObjectAtt(allAttachments)
+							// 	})
+							// 	.catch((error) => {
+							// 		console.error(error)
+							// 	})
 						})
 						.then(() => {
 							setLoading(false)
@@ -223,7 +228,7 @@ const ObjectPopup = (props) => {
 			<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
 				<Card
 					sx={{
-            borderRadius: "0px",
+						borderRadius: "0px",
 						maxWidth: matches ? "auto" : 995,
 						width: matches ? 600 : "100vw",
 						mt: matches ? 1.5 : 0,
@@ -254,7 +259,7 @@ const ObjectPopup = (props) => {
 										<IconButton
 											aria-label="close"
 											onClick={() => {
-												navigate(`/${i18n.language}/plaques`)
+												navigate(`/${i18n.language}/streets`)
 											}}
 										>
 											<CloseIcon />
@@ -321,7 +326,11 @@ const ObjectPopup = (props) => {
 														component="button"
 														variant="body2"
 														onClick={() => {
-															navigate(`/${i18n.language}/plaques/person/${objectPer[per].attributes.GlobalID.replace(/[{}]/g, "")}`)
+															navigate(
+																`/${i18n.language}/streets/person/${objectPer[
+																	per
+																].attributes.GlobalID.replace(/[{}]/g, "")}`
+															)
 														}}
 													>{`${objectPer[per].attributes.Vardas__liet_} ${objectPer[per].attributes.Pavardė__liet_}`}</Link>
 													<br></br>

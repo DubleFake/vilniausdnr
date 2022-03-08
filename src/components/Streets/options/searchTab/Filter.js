@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
 
-import { objects, view } from "../../../../utils/plaquesArcgisItems"
+import { objects, view } from "../../../../utils/streetsArcgisItems"
 
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -30,71 +30,60 @@ const Filter = (props) => {
 
 	const objectFilter = [
 		{
-			alias: t("plaques.options.objects.plaquePerson"),
+			alias: "D1",
+			code: 0,
+		},
+		{
+			alias: "D2",
 			code: 1,
 		},
 		{
-			alias: t("plaques.options.objects.sculpture"),
+			alias: "D",
 			code: 2,
 		},
 		{
-			alias: t("plaques.options.objects.plaqueOther"),
+			alias: "C2",
 			code: 3,
 		},
 		{
-			alias: t("plaques.options.objects.mural"),
+			alias: "D3",
 			code: 4,
 		},
 		{
-			alias: t("plaques.options.objects.plaqueTitle"),
+			alias: "AS",
 			code: 5,
 		},
 		{
-			alias: t("plaques.options.objects.sign"),
+			alias: "C1",
 			code: 6,
 		},
 		{
-			alias: t("plaques.options.objects.marker"),
+			alias: "B1",
 			code: 7,
 		},
 		{
-			alias: t("plaques.options.objects.monument"),
+			alias: "F1",
 			code: 8,
 		},
-	]
-
-	const memoryFilter = [
 		{
-			alias: t("plaques.options.memories.person"),
-			code: 1,
+			alias: "B2",
+			code: 9,
 		},
 		{
-			alias: t("plaques.options.memories.group"),
-			code: 2,
+			alias: "P",
+			code: 10,
 		},
 		{
-			alias: t("plaques.options.memories.abstract"),
-			code: 3,
+			alias: "E2",
+			code: 11,
 		},
 		{
-			alias: t("plaques.options.memories.organisation"),
-			code: 4,
+			alias: "S",
+			code: 12,
 		},
 		{
-			alias: t("plaques.options.memories.event"),
-			code: 5,
-		},
-		{
-			alias: t("plaques.options.memories.burial"),
-			code: 6,
-		},
-		{
-			alias: t("plaques.options.memories.art"),
-			code: 7,
-		},
-		{
-			alias: t("plaques.options.memories.building"),
-			code: 8,
+			alias: "A2",
+			code: 13,
 		},
 	]
 
@@ -103,16 +92,11 @@ const Filter = (props) => {
 		props.setSearchInputValue("")
 		props.setSelectedObjectFilter(event.target.value)
 	}
-	const handleMemorySelect = (event) => {
-		props.setSelectedObject("")
-		props.setSearchInputValue("")
-		props.setSelectedMemoryFilter(event.target.value)
-	}
+
 	const handleClearFilters = () => {
 		props.setSelectedObject("")
 		props.setSearchInputValue("")
 		props.setSelectedObjectFilter("")
-		props.setSelectedMemoryFilter("")
 		setExtentCheck(false)
 		viewHandles.forEach((handle) => {
 			handle.remove()
@@ -125,7 +109,7 @@ const Filter = (props) => {
 			if (!extentCheck) {
 				objectsView
 					.queryFeatures({
-						outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
+						outFields: ["GKODAS", "KATEGOR", "PAV", "GlobalID"],
 						where: objectsView.filter.where,
 						geometry: view.extent,
 						returnGeometry: false,
@@ -144,67 +128,57 @@ const Filter = (props) => {
 	useEffect(() => {
 		let query
 
-		if (props.selectedObjectFilter !== "" && props.selectedMemoryFilter === "") {
-			query = `TIPAS = ${props.selectedObjectFilter}`
-		} else if (props.selectedObjectFilter === "" && props.selectedMemoryFilter !== "") {
-			query = `ATMINT_TIP = ${props.selectedMemoryFilter}`
-		} else if (props.selectedObjectFilter !== "" && props.selectedMemoryFilter !== "") {
-			query = `ATMINT_TIP = ${props.selectedMemoryFilter} AND TIPAS = ${props.selectedObjectFilter}`
-		} else if (props.selectedObjectFilter === "" && props.selectedMemoryFilter === "") {
+		if (props.selectedObjectFilter !== "") {
+			query = `KATEGOR = '${props.selectedObjectFilter}'`
+		} else if (props.selectedObjectFilter === "") {
 			query = ""
 		}
 
 		view.whenLayerView(objects).then((objectsView) => {
-			watchUtils.whenNotOnce(objectsView, "updating").then(() => {
-				console.log("asdasd")
-				objectsView.filter = {
-					//geometry: extentCheck ? view.extent : null,
-					where: query,
-				}
+			objectsView.filter = {
+				//geometry: extentCheck ? view.extent : null,
+				where: query,
+			}
 
+      console.log(objectsView.filter)
+
+			watchUtils.whenNotOnce(objectsView, "updating").then(() => {
 				if (!extentCheck) {
 					objectsView
 						.queryFeatures({
-							outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
+							outFields: ["GKODAS", "KATEGOR", "PAV", "GlobalID"],
+							//outFields: objectsView.availableFields,
 							where: objectsView.filter.where,
 							returnGeometry: false,
 						})
 						.then((response) => {
 							const objectTypes = new Set()
-							const memoryTypes = new Set()
 
 							if (response.features.length) {
 								props.setSearchObjectsList(response.features)
 								if (query !== "") {
 									for (let feature in response.features) {
 										for (let attribute in response.features[feature].attributes) {
-											if (attribute === "TIPAS") {
+											if (attribute === "KATEGOR") {
 												if (response.features[feature].attributes[attribute] !== null) {
 													objectTypes.add(response.features[feature].attributes[attribute])
-												}
-											} else if (attribute === "ATMINT_TIP") {
-												if (response.features[feature].attributes[attribute] !== null) {
-													memoryTypes.add(response.features[feature].attributes[attribute])
 												}
 											}
 										}
 									}
 									props.setVisibleObjectIcons([...objectTypes])
-									props.setVisibleMemoryIcons([...memoryTypes])
 								} else {
 									props.setVisibleObjectIcons([])
-									props.setVisibleMemoryIcons([])
 								}
 							} else {
 								setShowAlert(true)
 								props.setSelectedObjectFilter("")
-								props.setSelectedMemoryFilter("")
 							}
 						})
 				}
 			})
 		})
-	}, [props.selectedObjectFilter, props.selectedMemoryFilter])
+	}, [props.selectedObjectFilter])
 
 	useEffect(() => {
 		viewHandles.forEach((handle) => {
@@ -219,7 +193,7 @@ const Filter = (props) => {
 						if (!updating) {
 							objectsView
 								.queryFeatures({
-									outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
+									outFields: ["GKODAS", "KATEGOR", "PAV", "GlobalID"],
 									where: objectsView.filter.where,
 									geometry: view.extent,
 									returnGeometry: false,
@@ -231,18 +205,20 @@ const Filter = (props) => {
 					})
 				)
 			} else {
-				objectsView
-					.queryFeatures({
-						outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
-						where: objectsView.filter.where,
-						geometry: null,
-						returnGeometry: false,
-					})
-					.then((response) => {
-						if (response.features.length) {
-							props.setSearchObjectsList(response.features)
-						}
-					})
+				watchUtils.whenNotOnce(objectsView, "updating").then(() => {
+					objectsView
+						.queryFeatures({
+							outFields: ["GKODAS", "KATEGOR", "PAV", "GlobalID"],
+							where: objectsView.filter.where,
+							geometry: null,
+							returnGeometry: false,
+						})
+						.then((response) => {
+							if (response.features.length) {
+								props.setSearchObjectsList(response.features)
+							}
+						})
+				})
 			}
 		})
 	}, [extentCheck])
@@ -283,28 +259,7 @@ const Filter = (props) => {
 							<em>{t("plaques.options.all")}</em>
 						</MenuItem>
 						{objectFilter.map((object) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={object.code} value={object.code}>
-								{object.alias}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
-
-				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
-					<InputLabel id="memory-select-label">{t("plaques.options.memoryType")}</InputLabel>
-					<Select
-						labelId="memory-select-label"
-						name="memory-select"
-						id="memory-select"
-						value={props.selectedMemoryFilter}
-						label={t("plaques.options.memoryType")}
-						onChange={handleMemorySelect}
-					>
-						<MenuItem value="">
-							<em>{t("plaques.options.all")}</em>
-						</MenuItem>
-						{memoryFilter.map((object) => (
-							<MenuItem key={object.code} value={object.code}>
+							<MenuItem sx={{ whiteSpace: "unset" }} key={object.code} value={object.alias}>
 								{object.alias}
 							</MenuItem>
 						))}

@@ -195,7 +195,7 @@ const basemap2 = new Basemap({
 })
 
 export const map = new Map({
-	basemap: basemap1,
+	basemap: basemap2,
 	layers: [objects],
 })
 
