@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Outlet, useLocation } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 import Home from "../../pages/Home"
 import HomeIcon from "./HomeIcon"
@@ -18,6 +19,7 @@ import "../../css/nav.css"
 
 const Nav = () => {
 	const location = useLocation()
+	const { t, i18n } = useTranslation()
 
 	const [menuOpen, setMenuOpen] = useState(false)
 	const [languageOpen, setLanguageOpen] = useState(false)
@@ -29,7 +31,7 @@ const Nav = () => {
 					<Toolbar className="homeNav">
 						<HomeIcon />
 
-						{location.pathname !== "/" && (
+						{location.pathname !== `/${i18n.language}` && (
 							<Divider
 								sx={{ mr: 2, backgroundColor: "#D42323" }}
 								orientation="vertical"
@@ -39,7 +41,7 @@ const Nav = () => {
 						)}
 
 						<Grid container direction="row" justifyContent="space-between" alignItems="center">
-							{location.pathname !== "/" ? (
+							{location.pathname !== `/${i18n.language}` ? (
 								<MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 							) : (
 								<Box></Box>

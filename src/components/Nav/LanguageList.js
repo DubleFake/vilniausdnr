@@ -16,9 +16,10 @@ const LanguageList = (props) => {
 
 	const handleLanguageChange = (lng) => {
 		if (i18n.language !== lng) {
-			console.log(window.location.pathname, t("nav.plaques"))
-			i18n.changeLanguage(lng)
-			navigate(`/${lng}${window.location.pathname.slice(3)}`)
+			//window.location.replace(`/${lng}${window.location.pathname.slice(3)}`)
+			window.location = `/${lng}${window.location.pathname.slice(3)}`
+			//i18n.changeLanguage(lng)
+			//navigate(`/${lng}${window.location.pathname.slice(3)}`)
 		}
 		props.setLanguageOpen(false)
 	}
