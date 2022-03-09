@@ -156,7 +156,6 @@ const Filter = (props) => {
 
 		view.whenLayerView(objects).then((objectsView) => {
 			watchUtils.whenNotOnce(objectsView, "updating").then(() => {
-				console.log("asdasd")
 				objectsView.filter = {
 					//geometry: extentCheck ? view.extent : null,
 					where: query,
@@ -212,6 +211,8 @@ const Filter = (props) => {
 		})
 		viewHandles.length = 0
 
+    console.log(extentCheck)
+
 		view.whenLayerView(objects).then((objectsView) => {
 			if (extentCheck) {
 				viewHandles.push(
@@ -234,7 +235,7 @@ const Filter = (props) => {
 				objectsView
 					.queryFeatures({
 						outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
-						where: objectsView.filter.where,
+						where: objectsView.filter ? objectsView.filter.where : null,
 						geometry: null,
 						returnGeometry: false,
 					})
