@@ -145,7 +145,7 @@ export const objectRenderer = {
 			symbol: {
 				type: "simple-line",
 				cap: "butt",
-				color: colors[17],
+				color: colors[19],
 			},
 		},
 	],
