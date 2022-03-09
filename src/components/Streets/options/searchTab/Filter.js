@@ -140,8 +140,6 @@ const Filter = (props) => {
 				where: query,
 			}
 
-      console.log(objectsView.filter)
-
 			watchUtils.whenNotOnce(objectsView, "updating").then(() => {
 				if (!extentCheck) {
 					objectsView
