@@ -13,7 +13,6 @@ import ColorLensIcon from "@mui/icons-material/ColorLens"
 const Legends = (props) => {
 	const { t, i18n } = useTranslation()
 	const uniqueValues = objectRenderer.uniqueValueInfos
-	console.log(uniqueValues)
 
 	return (
 		<Box sx={{ width: 350, bgcolor: "background.paper" }}>
