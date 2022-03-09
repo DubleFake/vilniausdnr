@@ -1,3 +1,13 @@
 body {
 	margin: 0;
 }
+
+.calcite-theme-light {
+	--calcite-ui-brand: #d42323;
+}
+.esri-basemap-gallery__item--selected,
+.esri-basemap-gallery__item.esri-basemap-gallery__item--selected:hover,
+.esri-basemap-gallery__item.esri-basemap-gallery__item--selected:focus {
+	border-left-color: #d42323;
+	background-color: #d423230f;
+}
