@@ -11,7 +11,7 @@ const url = window.location.href
 const origin = new URL(url).origin
 
 export const objects = new FeatureLayer({
-	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/1",
+	url: "https://utility.arcgis.com/usrsvcs/servers/23aa84d7de1145d0848d2adc03bc4757/rest/services/VilniausDNR/VilniausDNR/MapServer/1",
 	outFields: ["*"],
 	title: "Gatvės",
 })
