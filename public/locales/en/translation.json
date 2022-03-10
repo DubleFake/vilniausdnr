@@ -46,6 +46,39 @@
         "7": "Artistic symbol of an idea",
         "8": "Place mark of a historic building"
       }
+    },
+    "objectPopup": {
+      "TIPAS": "Object type",
+      "ATMINT_TIP": "Memory type",
+      "OBJEKT_TXT": "Writing on the object",
+      "VIETA": "Indicative location",
+      "KONSTRUKC": "Object construction",
+      "METAI_PRAD": "Start of installation",
+      "METAI_PAB": "End of installation",
+      "OBJ_LAIK_TIP": "Object type by installation period",
+      "OBJ_APRAS": "Object description",
+      "AUTORIUS": "Author",
+      "SALTINIS": "Sources (Author, title, web page)",
+      "relatedOne": "Related person",
+      "relatedMany": "Related persons"
+    },
+    "personPopup": {
+      "Vardas__liet_": "Name",
+      "Pavardė__liet_": "Last name",
+      "Gimimo_data": "Date of birth",
+      "Gimimo_vieta": "Place of birth",
+      "Mirties_data": "Date of death",
+      "Mirties_vieta": "Place of death",
+      "Palaidojimo_vieta": "Place of burial",
+      "Veikla__profesija": "Activity, profession",
+      "Veikla__kūryba__trumpai": "Activities (works) in brief",
+      "Asmens__įamžinto_pavadinime_ryš": "Personal connection to Vilnius",
+      "Biografija___bendroji_informaci": "Biography, general information",
+      "Veikla_plačiau__kūriniai__istor": "Activities (works, historical deeds, etc.)",
+      "Apdovanojimai": "Awards",
+      "Šaltiniai__Autorius__pavadinima": "Sources [Author, title, www]",
+      "relatedOne": "Related object",
+      "relatedMany": "Related objects"
     }
   }
 }

@@ -26,7 +26,7 @@ import Backdrop from "@mui/material/Backdrop"
 const PersonPopup = (props) => {
 	const { globalID } = useParams()
 	const navigate = useNavigate()
-  const { t, i18n } = useTranslation()
+	const { t, i18n } = useTranslation()
 
 	const [personAttr, setPersonAttr] = useState([])
 	const [personObj, setPersonObj] = useState([])
@@ -210,7 +210,7 @@ const PersonPopup = (props) => {
 														sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
 													>
 														<TableCell component="th" scope="row">
-															{personAttr[attr].alias}
+															{t(`plaques.personPopup.${personAttr[attr].field}`)}
 														</TableCell>
 														<TableCell align="right">{personAttr[attr].value}</TableCell>
 													</TableRow>
@@ -231,7 +231,7 @@ const PersonPopup = (props) => {
 									personAttr[attr].field === "Šaltiniai__Autorius__pavadinima" ||
 									personAttr[attr].field === "Veikla__profesija" ? null : (
 										<Typography variant="h6" component="div" key={personAttr[attr].field}>
-											{personAttr[attr].alias}
+											{t(`plaques.personPopup.${personAttr[attr].field}`)}
 											<Typography variant="body2" component="div">
 												{personAttr[attr].value}
 											</Typography>
@@ -241,7 +241,7 @@ const PersonPopup = (props) => {
 								{Object.keys(personAttr).map((attr) =>
 									personAttr[attr].field === "Šaltiniai__Autorius__pavadinima" ? (
 										<Typography variant="h6" component="div" key={personAttr[attr].field}>
-											{personAttr[attr].alias}
+											{t(`plaques.personPopup.${personAttr[attr].field}`)}
 											<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
 												<Typography variant="body2" component="div">
 													{personAttr[attr].value}
@@ -252,7 +252,9 @@ const PersonPopup = (props) => {
 								)}
 								{personObj.length ? (
 									<Typography variant="h6" component="div">
-										{personObj.length > 1 ? "Susiję objektai" : "Susijęs objektas"}
+										{personObj.length > 1
+											? t("plaques.personPopup.relatedMany")
+											: t("plaques.personPopup.relatedOne")}
 										<Typography component="div">
 											{Object.keys(personObj).map((obj) => (
 												<div key={obj}>
@@ -262,7 +264,11 @@ const PersonPopup = (props) => {
 														component="button"
 														variant="body2"
 														onClick={() => {
-															navigate(`/${i18n.language}/plaques/object/${personObj[obj].attributes.GlobalID.replace(/[{}]/g, "")}`)
+															navigate(
+																`/${i18n.language}/plaques/object/${personObj[
+																	obj
+																].attributes.GlobalID.replace(/[{}]/g, "")}`
+															)
 														}}
 													>
 														{personObj[obj].attributes.OBJ_PAV}{" "}

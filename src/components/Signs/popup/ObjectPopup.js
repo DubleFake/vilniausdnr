@@ -28,7 +28,7 @@ let highlight
 const ObjectPopup = (props) => {
 	const { globalID } = useParams()
 	const navigate = useNavigate()
-  const { t, i18n } = useTranslation()
+	const { t, i18n } = useTranslation()
 
 	const [objectAttr, setObjectAttr] = useState([])
 	const [objectPer, setObjectPer] = useState([])
@@ -40,7 +40,9 @@ const ObjectPopup = (props) => {
 	const [pageCount, setPageCount] = useState(1)
 
 	const handlePage = (event, value) => {
-		navigate(`/${i18n.language}/plaques/object/${queryObjects[value - 1].attributes.GlobalID.replace(/[{}]/g, "")}`)
+		navigate(
+			`/${i18n.language}/plaques/object/${queryObjects[value - 1].attributes.GlobalID.replace(/[{}]/g, "")}`
+		)
 	}
 
 	useEffect(() => {
@@ -129,6 +131,7 @@ const ObjectPopup = (props) => {
 												response.features[0].attributes[attr]
 											) {
 												obj.value = response.features[0].layer.fields[count].domain.codedValues[code].name
+												obj.code = response.features[0].layer.fields[count].domain.codedValues[code].code
 											}
 										}
 									}
@@ -223,7 +226,7 @@ const ObjectPopup = (props) => {
 			<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
 				<Card
 					sx={{
-            borderRadius: "0px",
+						borderRadius: "0px",
 						maxWidth: matches ? "auto" : 995,
 						width: matches ? 600 : "100vw",
 						mt: matches ? 1.5 : 0,
@@ -277,9 +280,15 @@ const ObjectPopup = (props) => {
 														sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
 													>
 														<TableCell component="th" scope="row">
-															{objectAttr[attr].alias}
+															{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
 														</TableCell>
-														<TableCell align="right">{objectAttr[attr].value}</TableCell>
+														<TableCell align="right">
+															{objectAttr[attr].field === "TIPAS"
+																? t(`plaques.options.objects.${objectAttr[attr].code}`)
+																: objectAttr[attr].field === "ATMINT_TIP"
+																? t(`plaques.options.memories.${objectAttr[attr].code}`)
+																: objectAttr[attr].value}
+														</TableCell>
 													</TableRow>
 												)
 											)}
@@ -289,7 +298,7 @@ const ObjectPopup = (props) => {
 								{Object.keys(objectAttr).map((attr) =>
 									objectAttr[attr].field === "OBJ_APRAS" || objectAttr[attr].field === "AUTORIUS" ? (
 										<Typography variant="h6" component="div" key={objectAttr[attr].field}>
-											{objectAttr[attr].alias}
+											{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
 											<Typography variant="body2" component="div">
 												{objectAttr[attr].value}
 											</Typography>
@@ -299,7 +308,7 @@ const ObjectPopup = (props) => {
 								{Object.keys(objectAttr).map((attr) =>
 									objectAttr[attr].field === "SALTINIS" ? (
 										<Typography variant="h6" component="div" key={objectAttr[attr].field}>
-											{objectAttr[attr].alias}
+											{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
 											<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
 												<Typography variant="body2" component="div">
 													{objectAttr[attr].value}
@@ -311,7 +320,9 @@ const ObjectPopup = (props) => {
 
 								{objectPer.length ? (
 									<Typography variant="h6" component="div">
-										{objectPer.length > 1 ? "Susiję asmenys" : "Susijęs asmuo"}
+										{objectPer.length > 1
+											? t("plaques.objectPopup.relatedMany")
+											: t("plaques.objectPopup.relatedOne")}
 										<Typography component="div">
 											{Object.keys(objectPer).map((per) => (
 												<div key={per}>
@@ -321,7 +332,11 @@ const ObjectPopup = (props) => {
 														component="button"
 														variant="body2"
 														onClick={() => {
-															navigate(`/${i18n.language}/plaques/person/${objectPer[per].attributes.GlobalID.replace(/[{}]/g, "")}`)
+															navigate(
+																`/${i18n.language}/plaques/person/${objectPer[
+																	per
+																].attributes.GlobalID.replace(/[{}]/g, "")}`
+															)
 														}}
 													>{`${objectPer[per].attributes.Vardas__liet_} ${objectPer[per].attributes.Pavardė__liet_}`}</Link>
 													<br></br>

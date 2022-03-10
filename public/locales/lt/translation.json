@@ -46,6 +46,39 @@
         "7": "Meninis idėjos simbolis",
         "8": "Istorinio statinio vietos pažymėjimas"
       }
+    },
+    "objectPopup": {
+      "TIPAS": "Objekto tipas",
+      "ATMINT_TIP": "Atminties tipas",
+      "OBJEKT_TXT": "Užrašas ant objekto",
+      "VIETA": "Orientacinė vieta",
+      "KONSTRUKC": "Objekto konstrukcija",
+      "METAI_PRAD": "Įrengimo pradžia",
+      "METAI_PAB": "Įrengimo pabaiga",
+      "OBJ_LAIK_TIP": "Objekto tipas pagal įrengimo laikotarpį",
+      "OBJ_APRAS": "Objekto aprašymas",
+      "AUTORIUS": "Autorius",
+      "SALTINIS": "Šaltiniai (Autorius, pavadinimas, int. puslapis)",
+      "relatedOne": "Susijęs asmuo",
+      "relatedMany": "Susiję asmenys"
+    },
+    "personPopup": {
+      "Vardas__liet_": "Vardas",
+      "Pavardė__liet_": "Pavardė",
+      "Gimimo_data": "Gimimo data",
+      "Gimimo_vieta": "Gimimo vieta",
+      "Mirties_data": "Mirties data",
+      "Mirties_vieta": "Mirties vieta",
+      "Palaidojimo_vieta": "Palaidojimo vieta",
+      "Veikla__profesija": "Veikla, profesija",
+      "Veikla__kūryba__trumpai": "Veikla (kūryba) trumpai",
+      "Asmens__įamžinto_pavadinime_ryš": "Asmens, įamžinto pavadinime ryšys su Vilniumi",
+      "Biografija___bendroji_informaci": "Biografija, bendroji informacija",
+      "Veikla_plačiau__kūriniai__istor": "Veikla plačiau (kūriniai, istoriniai poelgiai ir pn.)",
+      "Apdovanojimai": "Apdovanojimai",
+      "Šaltiniai__Autorius__pavadinima": "Šaltiniai [Autorius, pavadinimas, www]",
+      "relatedOne": "Susijęs objektas",
+      "relatedMany": "Susiję objektai"
     }
   }
 }

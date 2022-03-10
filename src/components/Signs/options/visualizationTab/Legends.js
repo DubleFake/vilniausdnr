@@ -110,7 +110,7 @@ const Legends = (props) => {
 													inheritViewBox
 												/>
 												<Typography sx={{ mr: 1 }} variant="body2">
-													{t(`plaques.options.objects.${value.value}`)}
+													{t(`plaques.options.memories.${value.value}`)}
 												</Typography>
 											</ListItem>
 											{+value.value !== props.visibleMemoryIcons[props.visibleMemoryIcons.length - 1] && (
@@ -127,7 +127,7 @@ const Legends = (props) => {
 												inheritViewBox
 											/>
 											<Typography sx={{ mr: 1 }} variant="body2">
-												{t(`plaques.options.objects.${value.value}`)}
+												{t(`plaques.options.memories.${value.value}`)}
 											</Typography>
 										</ListItem>
 										{+value.value !== memoryRenderer.uniqueValueInfos.length && (
