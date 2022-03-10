@@ -1,23 +1,25 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as ObjectCode1 } from "../../../../utils/icons/legendIcons/Atmint_atminimo_lenta.svg"
-import { ReactComponent as ObjectCode2 } from "../../../../utils/icons/legendIcons/Atmint_skulptura.svg"
-import { ReactComponent as ObjectCode3 } from "../../../../utils/icons/legendIcons/Atmint_atminimo_lenta_bareljefas.svg"
-import { ReactComponent as ObjectCode4 } from "../../../../utils/icons/legendIcons/Atmint_freska.svg"
-import { ReactComponent as ObjectCode5 } from "../../../../utils/icons/legendIcons/Atmint_pavadinimo_lentele.svg"
-import { ReactComponent as ObjectCode6 } from "../../../../utils/icons/legendIcons/Atmint_uzrasas.svg"
-import { ReactComponent as ObjectCode7 } from "../../../../utils/icons/legendIcons/Atmint_vietos_pazymejimas.svg"
-import { ReactComponent as ObjectCode8 } from "../../../../utils/icons/legendIcons/Atmint_paminklas.svg"
+import { objectRenderer, memoryRenderer } from "../../../../utils/plaquesArcgisItems"
 
-import { ReactComponent as MemoryCode1 } from "../../../../utils/icons/legendIcons/Atmint_asmuo.svg"
-import { ReactComponent as MemoryCode2 } from "../../../../utils/icons/legendIcons/Atmint_asmenu_grupe.svg"
-import { ReactComponent as MemoryCode3 } from "../../../../utils/icons/legendIcons/Atmint_abstraktus.svg"
-import { ReactComponent as MemoryCode4 } from "../../../../utils/icons/legendIcons/Atmint_organizacija.svg"
-import { ReactComponent as MemoryCode5 } from "../../../../utils/icons/legendIcons/Atmint_istoriniai_ivykiai.svg"
-import { ReactComponent as MemoryCode6 } from "../../../../utils/icons/legendIcons/Atmint_palaidojimo_vieta.svg"
-import { ReactComponent as MemoryCode7 } from "../../../../utils/icons/legendIcons/Atmint_meninis_simbolis.svg"
-import { ReactComponent as MemoryCode8 } from "../../../../utils/icons/legendIcons/Atmint_istorinis_statinys.svg"
+import { ReactComponent as Atmint_atminimo_lenta } from "../../../../utils/icons/legendIcons/Atmint_atminimo_lenta.svg"
+import { ReactComponent as Atmint_skulptura } from "../../../../utils/icons/legendIcons/Atmint_skulptura.svg"
+import { ReactComponent as Atmint_atminimo_lenta_bareljefas } from "../../../../utils/icons/legendIcons/Atmint_atminimo_lenta_bareljefas.svg"
+import { ReactComponent as Atmint_freska } from "../../../../utils/icons/legendIcons/Atmint_freska.svg"
+import { ReactComponent as Atmint_pavadinimo_lentele } from "../../../../utils/icons/legendIcons/Atmint_pavadinimo_lentele.svg"
+import { ReactComponent as Atmint_uzrasas } from "../../../../utils/icons/legendIcons/Atmint_uzrasas.svg"
+import { ReactComponent as Atmint_vietos_pazymejimas } from "../../../../utils/icons/legendIcons/Atmint_vietos_pazymejimas.svg"
+import { ReactComponent as Atmint_paminklas } from "../../../../utils/icons/legendIcons/Atmint_paminklas.svg"
+
+import { ReactComponent as Atmint_asmuo } from "../../../../utils/icons/legendIcons/Atmint_asmuo.svg"
+import { ReactComponent as Atmint_asmenu_grupe } from "../../../../utils/icons/legendIcons/Atmint_asmenu_grupe.svg"
+import { ReactComponent as Atmint_abstraktus } from "../../../../utils/icons/legendIcons/Atmint_abstraktus.svg"
+import { ReactComponent as Atmint_organizacija } from "../../../../utils/icons/legendIcons/Atmint_organizacija.svg"
+import { ReactComponent as Atmint_istoriniai_ivykiai } from "../../../../utils/icons/legendIcons/Atmint_istoriniai_ivykiai.svg"
+import { ReactComponent as Atmint_palaidojimo_vieta } from "../../../../utils/icons/legendIcons/Atmint_palaidojimo_vieta.svg"
+import { ReactComponent as Atmint_meninis_simbolis } from "../../../../utils/icons/legendIcons/Atmint_meninis_simbolis.svg"
+import { ReactComponent as Atmint_istorinis_statinys } from "../../../../utils/icons/legendIcons/Atmint_istorinis_statinys.svg"
 
 import Box from "@mui/material/Box"
 import List from "@mui/material/List"
@@ -26,100 +28,29 @@ import Divider from "@mui/material/Divider"
 import Typography from "@mui/material/Typography"
 import SvgIcon from "@mui/material/SvgIcon"
 
-const objectIconMap = {
-	Code1: ObjectCode1,
-	Code2: ObjectCode2,
-	Code3: ObjectCode3,
-	Code4: ObjectCode4,
-	Code5: ObjectCode5,
-	Code6: ObjectCode6,
-	Code7: ObjectCode7,
-	Code8: ObjectCode8,
-}
-
-const memoryIconCode = {
-	Code1: MemoryCode1,
-	Code2: MemoryCode2,
-	Code3: MemoryCode3,
-	Code4: MemoryCode4,
-	Code5: MemoryCode5,
-	Code6: MemoryCode6,
-	Code7: MemoryCode7,
-	Code8: MemoryCode8,
-}
+const objectIconList = [
+	Atmint_atminimo_lenta,
+	Atmint_skulptura,
+	Atmint_atminimo_lenta_bareljefas,
+	Atmint_freska,
+	Atmint_pavadinimo_lentele,
+	Atmint_uzrasas,
+	Atmint_vietos_pazymejimas,
+	Atmint_paminklas,
+]
+const memoryIconList = [
+	Atmint_asmuo,
+	Atmint_asmenu_grupe,
+	Atmint_abstraktus,
+	Atmint_organizacija,
+	Atmint_istoriniai_ivykiai,
+	Atmint_palaidojimo_vieta,
+	Atmint_meninis_simbolis,
+	Atmint_istorinis_statinys,
+]
 
 const Legends = (props) => {
 	const { t, i18n } = useTranslation()
-
-	const objectLegendsList = [
-		{
-			alias: t("plaques.options.objects.plaquePerson"),
-			code: 1,
-		},
-		{
-			alias: t("plaques.options.objects.sculpture"),
-			code: 2,
-		},
-		{
-			alias: t("plaques.options.objects.plaqueOther"),
-			code: 3,
-		},
-		{
-			alias: t("plaques.options.objects.mural"),
-			code: 4,
-		},
-		{
-			alias: t("plaques.options.objects.plaqueTitle"),
-			code: 5,
-		},
-		{
-			alias: t("plaques.options.objects.sign"),
-			code: 6,
-		},
-		{
-			alias: t("plaques.options.objects.marker"),
-			code: 7,
-		},
-		{
-			alias: t("plaques.options.objects.monument"),
-			code: 8,
-		},
-	]
-
-  const memoryLegendsList = [
-		{
-			alias: t("plaques.options.memories.person"),
-			code: 1,
-		},
-		{
-			alias: t("plaques.options.memories.group"),
-			code: 2,
-		},
-		{
-			alias: t("plaques.options.memories.abstract"),
-			code: 3,
-		},
-		{
-			alias: t("plaques.options.memories.organisation"),
-			code: 4,
-		},
-		{
-			alias: t("plaques.options.memories.event"),
-			code: 5,
-		},
-		{
-			alias: t("plaques.options.memories.burial"),
-			code: 6,
-		},
-		{
-			alias: t("plaques.options.memories.art"),
-			code: 7,
-		},
-		{
-			alias: t("plaques.options.memories.building"),
-			code: 8,
-		},
-	]
 
 	return (
 		<Box sx={{ width: 350, bgcolor: "background.paper" }}>
@@ -128,22 +59,22 @@ const Legends = (props) => {
 			</Typography>
 			<List>
 				{props.visualizationType === "0"
-					? objectLegendsList.map((legend) => (
-							<div key={legend.code}>
+					? objectRenderer.uniqueValueInfos.map((value) => (
+							<div key={value.value}>
 								{props.visibleObjectIcons.length ? (
-									props.visibleObjectIcons.includes(legend.code) && (
+									props.visibleObjectIcons.includes(+value.value) && (
 										<>
 											<ListItem sx={{ my: 0.3 }} disablePadding>
 												<SvgIcon
 													sx={{ ml: 2, mr: 2, fontSize: 35 }}
-													component={objectIconMap[`Code${legend.code}`]}
+													component={objectIconList[+value.value - 1]}
 													inheritViewBox
 												/>
 												<Typography sx={{ mr: 1 }} variant="body2">
-													{legend.alias}
+													{t(`plaques.options.objects.${value.value}`)}
 												</Typography>
 											</ListItem>
-											{legend.code !== props.visibleObjectIcons[props.visibleObjectIcons.length - 1] && (
+											{value.value !== props.visibleObjectIcons[props.visibleObjectIcons.length - 1] && (
 												<Divider light variant="middle" />
 											)}
 										</>
@@ -153,34 +84,36 @@ const Legends = (props) => {
 										<ListItem sx={{ my: 0.3 }} disablePadding>
 											<SvgIcon
 												sx={{ ml: 2, mr: 2, fontSize: 35 }}
-												component={objectIconMap[`Code${legend.code}`]}
+												component={objectIconList[+value.value - 1]}
 												inheritViewBox
 											/>
 											<Typography sx={{ mr: 1 }} variant="body2">
-												{legend.alias}
+												{t(`plaques.options.objects.${value.value}`)}
 											</Typography>
 										</ListItem>
-										{legend.code !== 8 && <Divider light variant="middle" />}
+										{+value.value !== objectRenderer.uniqueValueInfos.length && (
+											<Divider light variant="middle" />
+										)}
 									</>
 								)}
 							</div>
 					  ))
-					: memoryLegendsList.map((legend) => (
-							<div key={legend.code}>
+					: memoryRenderer.uniqueValueInfos.map((value) => (
+							<div key={value.value}>
 								{props.visibleMemoryIcons.length ? (
-									props.visibleMemoryIcons.includes(legend.code) && (
+									props.visibleMemoryIcons.includes(+value.value) && (
 										<>
 											<ListItem sx={{ my: 0.3 }} disablePadding>
 												<SvgIcon
 													sx={{ ml: 2, mr: 2, fontSize: 35 }}
-													component={memoryIconCode[`Code${legend.code}`]}
+													component={memoryIconList[+value.value - 1]}
 													inheritViewBox
 												/>
 												<Typography sx={{ mr: 1 }} variant="body2">
-													{legend.alias}
+													{t(`plaques.options.objects.${value.value}`)}
 												</Typography>
 											</ListItem>
-											{legend.code !== props.visibleMemoryIcons[props.visibleMemoryIcons.length - 1] && (
+											{value.value !== props.visibleMemoryIcons[props.visibleMemoryIcons.length - 1] && (
 												<Divider light variant="middle" />
 											)}
 										</>
@@ -190,14 +123,16 @@ const Legends = (props) => {
 										<ListItem sx={{ my: 0.3 }} disablePadding>
 											<SvgIcon
 												sx={{ ml: 2, mr: 2, fontSize: 35 }}
-												component={memoryIconCode[`Code${legend.code}`]}
+												component={memoryIconList[+value.value - 1]}
 												inheritViewBox
 											/>
 											<Typography sx={{ mr: 1 }} variant="body2">
-												{legend.alias}
+												{t(`plaques.options.objects.${value.value}`)}
 											</Typography>
 										</ListItem>
-										{legend.code !== 8 && <Divider light variant="middle" />}
+										{+value.value !== memoryRenderer.uniqueValueInfos.length && (
+											<Divider light variant="middle" />
+										)}
 									</>
 								)}
 							</div>

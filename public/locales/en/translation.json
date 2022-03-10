@@ -27,24 +27,24 @@
       "all": "All",
       "notFound": "No objects found, filters cleared",
       "objects": {
-        "plaquePerson": "Commemorative or memorial plaque with text",
-        "sculpture": "Sculpture, monument, sculptural composition",
-        "plaqueOther": "Commemorative plaque with bas-relief or other artistic elements",
-        "mural": "Fresco, panel, mosaic, wall painting",
-        "plaqueTitle": "Title sign (name given to the building, structure or other object)",
-        "sign": "Inscription, sign on pavement, stairs, stones",
-        "marker": "Place marking by means of small architectural means",
-        "monument": "Monument, tombstone at burial sites"
+        "1": "Commemorative or memorial plaque with text",
+        "2": "Sculpture, monument, sculptural composition",
+        "3": "Commemorative plaque with bas-relief or other artistic elements",
+        "4": "Fresco, panel, mosaic, wall painting",
+        "5": "Title sign (name given to the building, structure or other object)",
+        "6": "Inscription, sign on pavement, stairs, stones",
+        "7": "Place marking by means of small architectural means",
+        "8": "Monument, tombstone at burial sites"
       },
       "memories": {
-        "person": "In memory of a famous person",
-        "group": "In memory of a group of famous persons",
-        "abstract": "Abstract object",
-        "organisation": "In memory of an organisation",
-        "event": "In commemoration of a significant (historical) event",
-        "burial": "Burial place of a famous person",
-        "art": "Artistic symbol of an idea",
-        "building": "Place mark of a historic building"
+        "1": "In memory of a famous person",
+        "2": "In memory of a group of famous persons",
+        "3": "Abstract object",
+        "4": "In memory of an organisation",
+        "5": "In commemoration of a significant (historical) event",
+        "6": "Burial place of a famous person",
+        "7": "Artistic symbol of an idea",
+        "8": "Place mark of a historic building"
       }
     }
   }

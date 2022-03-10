@@ -30,70 +30,70 @@ const Filter = (props) => {
 
 	const objectFilter = [
 		{
-			alias: t("plaques.options.objects.plaquePerson"),
+			alias: t("plaques.options.objects.1"),
 			code: 1,
 		},
 		{
-			alias: t("plaques.options.objects.sculpture"),
+			alias: t("plaques.options.objects.2"),
 			code: 2,
 		},
 		{
-			alias: t("plaques.options.objects.plaqueOther"),
+			alias: t("plaques.options.objects.3"),
 			code: 3,
 		},
 		{
-			alias: t("plaques.options.objects.mural"),
+			alias: t("plaques.options.objects.4"),
 			code: 4,
 		},
 		{
-			alias: t("plaques.options.objects.plaqueTitle"),
+			alias: t("plaques.options.objects.5"),
 			code: 5,
 		},
 		{
-			alias: t("plaques.options.objects.sign"),
+			alias: t("plaques.options.objects.6"),
 			code: 6,
 		},
 		{
-			alias: t("plaques.options.objects.marker"),
+			alias: t("plaques.options.objects.7"),
 			code: 7,
 		},
 		{
-			alias: t("plaques.options.objects.monument"),
+			alias: t("plaques.options.objects.8"),
 			code: 8,
 		},
 	]
 
 	const memoryFilter = [
 		{
-			alias: t("plaques.options.memories.person"),
+			alias: t("plaques.options.memories.1"),
 			code: 1,
 		},
 		{
-			alias: t("plaques.options.memories.group"),
+			alias: t("plaques.options.memories.2"),
 			code: 2,
 		},
 		{
-			alias: t("plaques.options.memories.abstract"),
+			alias: t("plaques.options.memories.3"),
 			code: 3,
 		},
 		{
-			alias: t("plaques.options.memories.organisation"),
+			alias: t("plaques.options.memories.4"),
 			code: 4,
 		},
 		{
-			alias: t("plaques.options.memories.event"),
+			alias: t("plaques.options.memories.5"),
 			code: 5,
 		},
 		{
-			alias: t("plaques.options.memories.burial"),
+			alias: t("plaques.options.memories.6"),
 			code: 6,
 		},
 		{
-			alias: t("plaques.options.memories.art"),
+			alias: t("plaques.options.memories.7"),
 			code: 7,
 		},
 		{
-			alias: t("plaques.options.memories.building"),
+			alias: t("plaques.options.memories.8"),
 			code: 8,
 		},
 	]

@@ -27,24 +27,24 @@
       "all": "Visi",
       "notFound": "Objektų nerasta, filtrai išvalyti",
       "objects": {
-        "plaquePerson": "Atminimo arba memorealinė lenta su tekstu",
-        "sculpture": "Skulptūra, paminklas, skulptūrinė kompozicija",
-        "plaqueOther": "Atminimo lenta su bareljefu ar kitais meniniais elementais",
-        "mural": "Freska, pano, mozaika, sieninė tapyba",
-        "plaqueTitle": "Pavadinimo lentelė (pavadinimas, kuris suteiktas pastatui, statiniui ar kitam objektui)",
-        "sign": "Užrašas, ženklas grindinyje, ant laiptų, akmenų",
-        "marker": "Vietos pažymėjimo ženklas mažosios architektūros priemonėmis",
-        "monument": "Paminklas, antkapis palaidojimo vietose"
+        "1": "Atminimo arba memorealinė lenta su tekstu",
+        "2": "Skulptūra, paminklas, skulptūrinė kompozicija",
+        "3": "Atminimo lenta su bareljefu ar kitais meniniais elementais",
+        "4": "Freska, pano, mozaika, sieninė tapyba",
+        "5": "Pavadinimo lentelė (pavadinimas, kuris suteiktas pastatui, statiniui ar kitam objektui)",
+        "6": "Užrašas, ženklas grindinyje, ant laiptų, akmenų",
+        "7": "Vietos pažymėjimo ženklas mažosios architektūros priemonėmis",
+        "8": "Paminklas, antkapis palaidojimo vietose"
       },
       "memories": {
-        "person": "Žymaus asmens atminimui",
-        "group": "Žymių asmenų grupės atminimui",
-        "abstract": "Abstraktus objektas",
-        "organisation": "Organizacijos atminimui",
-        "event": "Reikšmingo (istorinio) įvykio atminimui",
-        "burial": "Žymaus asmens palaidojimo vietai žymėti",
-        "art": "Meninis idėjos simbolis",
-        "building": "Istorinio statinio vietos pažymėjimas"
+        "1": "Žymaus asmens atminimui",
+        "2": "Žymių asmenų grupės atminimui",
+        "3": "Abstraktus objektas",
+        "4": "Organizacijos atminimui",
+        "5": "Reikšmingo (istorinio) įvykio atminimui",
+        "6": "Žymaus asmens palaidojimo vietai žymėti",
+        "7": "Meninis idėjos simbolis",
+        "8": "Istorinio statinio vietos pažymėjimas"
       }
     }
   }
