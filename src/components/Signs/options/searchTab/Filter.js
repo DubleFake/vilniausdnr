@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
 
-import { objects, view } from "../../../../utils/plaquesArcgisItems"
+import { objects, view, objectRenderer, memoryRenderer } from "../../../../utils/plaquesArcgisItems"
 
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -27,76 +27,6 @@ const Filter = (props) => {
 
 	const [showAlert, setShowAlert] = useState(false)
 	const [extentCheck, setExtentCheck] = useState(false)
-
-	const objectFilter = [
-		{
-			alias: t("plaques.options.objects.1"),
-			code: 1,
-		},
-		{
-			alias: t("plaques.options.objects.2"),
-			code: 2,
-		},
-		{
-			alias: t("plaques.options.objects.3"),
-			code: 3,
-		},
-		{
-			alias: t("plaques.options.objects.4"),
-			code: 4,
-		},
-		{
-			alias: t("plaques.options.objects.5"),
-			code: 5,
-		},
-		{
-			alias: t("plaques.options.objects.6"),
-			code: 6,
-		},
-		{
-			alias: t("plaques.options.objects.7"),
-			code: 7,
-		},
-		{
-			alias: t("plaques.options.objects.8"),
-			code: 8,
-		},
-	]
-
-	const memoryFilter = [
-		{
-			alias: t("plaques.options.memories.1"),
-			code: 1,
-		},
-		{
-			alias: t("plaques.options.memories.2"),
-			code: 2,
-		},
-		{
-			alias: t("plaques.options.memories.3"),
-			code: 3,
-		},
-		{
-			alias: t("plaques.options.memories.4"),
-			code: 4,
-		},
-		{
-			alias: t("plaques.options.memories.5"),
-			code: 5,
-		},
-		{
-			alias: t("plaques.options.memories.6"),
-			code: 6,
-		},
-		{
-			alias: t("plaques.options.memories.7"),
-			code: 7,
-		},
-		{
-			alias: t("plaques.options.memories.8"),
-			code: 8,
-		},
-	]
 
 	const handleObjectSelect = (event) => {
 		props.setSelectedObject("")
@@ -281,9 +211,9 @@ const Filter = (props) => {
 						<MenuItem value="">
 							<em>{t("plaques.options.all")}</em>
 						</MenuItem>
-						{objectFilter.map((object) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={object.code} value={object.code}>
-								{object.alias}
+						{objectRenderer.uniqueValueInfos.map((object) => (
+							<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value}>
+								{t(`plaques.options.objects.${object.value}`)}
 							</MenuItem>
 						))}
 					</Select>
@@ -302,9 +232,9 @@ const Filter = (props) => {
 						<MenuItem value="">
 							<em>{t("plaques.options.all")}</em>
 						</MenuItem>
-						{memoryFilter.map((object) => (
-							<MenuItem key={object.code} value={object.code}>
-								{object.alias}
+						{memoryRenderer.uniqueValueInfos.map((object) => (
+							<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value}>
+								{t(`plaques.options.memories.${object.value}`)}
 							</MenuItem>
 						))}
 					</Select>
