@@ -74,7 +74,7 @@ const Legends = (props) => {
 													{t(`plaques.options.objects.${value.value}`)}
 												</Typography>
 											</ListItem>
-											{value.value !== props.visibleObjectIcons[props.visibleObjectIcons.length - 1] && (
+											{+value.value !== props.visibleObjectIcons[props.visibleObjectIcons.length - 1] && (
 												<Divider light variant="middle" />
 											)}
 										</>
@@ -113,7 +113,7 @@ const Legends = (props) => {
 													{t(`plaques.options.objects.${value.value}`)}
 												</Typography>
 											</ListItem>
-											{value.value !== props.visibleMemoryIcons[props.visibleMemoryIcons.length - 1] && (
+											{+value.value !== props.visibleMemoryIcons[props.visibleMemoryIcons.length - 1] && (
 												<Divider light variant="middle" />
 											)}
 										</>
