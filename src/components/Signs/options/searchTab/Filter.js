@@ -211,8 +211,6 @@ const Filter = (props) => {
 		})
 		viewHandles.length = 0
 
-    console.log(extentCheck)
-
 		view.whenLayerView(objects).then((objectsView) => {
 			if (extentCheck) {
 				viewHandles.push(

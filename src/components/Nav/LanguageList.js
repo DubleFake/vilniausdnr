@@ -16,10 +16,7 @@ const LanguageList = (props) => {
 
 	const handleLanguageChange = (lng) => {
 		if (i18n.language !== lng) {
-			//window.location.replace(`/${lng}${window.location.pathname.slice(3)}`)
-			window.location.href = `/${lng}${window.location.pathname.slice(3)}`
-			//i18n.changeLanguage(lng)
-			//navigate(`/${lng}${window.location.pathname.slice(3)}`)
+			navigate(`/${lng}${window.location.pathname.slice(3)}`)
 		}
 		props.setLanguageOpen(false)
 	}
