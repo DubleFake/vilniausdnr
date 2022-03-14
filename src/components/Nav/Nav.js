@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Outlet, useLocation, useParams } from "react-router-dom"
+import { Outlet, useLocation, useParams, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
 import Home from "../../pages/Home"
@@ -21,12 +21,17 @@ const Nav = () => {
 	const location = useLocation()
 	const { t, i18n } = useTranslation()
 	const { lng } = useParams()
+	const navigate = useNavigate()
 
 	const [menuOpen, setMenuOpen] = useState(false)
 	const [languageOpen, setLanguageOpen] = useState(false)
 
 	useEffect(() => {
-		i18n.changeLanguage(lng)
+		if (lng === "lt" || lng === "en") {
+			i18n.changeLanguage(lng)
+		} else {
+			navigate(`/lt`)
+		}
 	}, [lng])
 
 	return (
