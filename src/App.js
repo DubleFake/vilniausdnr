@@ -57,7 +57,7 @@ const App = () => {
 						<Route path="buildings/*" element={<Buildings />} />
 						<Route path="events/*" element={<Events />} />
 					</Route>
-					{/* <Route path="*" element={<Navigate to={`/${i18n.language}`} />} /> */}
+					<Route path="*" element={<Navigate to={`/${i18n.language}`} />} />
 				</Routes>
 			</BrowserRouter>
 		</ThemeProvider>
