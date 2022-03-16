@@ -23,8 +23,6 @@ import CircularProgress from "@mui/material/CircularProgress"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Backdrop from "@mui/material/Backdrop"
 
-import translate from "translate-google-api"
-
 const PersonPopup = (props) => {
 	const { globalID } = useParams()
 	const navigate = useNavigate()
@@ -34,12 +32,6 @@ const PersonPopup = (props) => {
 	const [personObj, setPersonObj] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [popupOpen, setPopupOpen] = useState(false)
-
-	const result = translate(`Miestas atskirais istoriniais periodais.`, {
-		tld: "lt",
-		to: "en",
-	})
-  console.log(result)
 
 	useEffect(() => {
 		if (!props.initialLoading) {

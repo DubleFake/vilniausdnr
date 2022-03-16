@@ -40,6 +40,42 @@ const ObjectMap = (props) => {
 			})
 		})
 
+		// view.whenLayerView(objects).then((objectsView) => {
+		// 	watchUtils.whenFalseOnce(objectsView, "updating").then(() => {
+		// 		objectsView
+		// 			.queryFeatures({
+		// 				outFields: ["*"],
+		// 				where: "",
+		// 				returnGeometry: false,
+		// 			})
+		// 			.then((response) => {
+		// 				const allObjects = []
+		// 				let total = 0
+		// 				for (let feature in response.features) {
+		// 					const tempObj = {}
+		// 					for (let attr in response.features[feature].attributes) {
+		// 						if (attr === "OBJ_PAV" || attr === "OBJEKT_TXT" || attr === "OBJ_APRAS") {
+		// 							tempObj[`${attr}`] = response.features[feature].attributes[attr]
+		// 							if (
+		// 								response.features[feature].attributes[attr] !== null &&
+		// 								response.features[feature].attributes[attr] !== ""
+		// 							) {
+		// 								total += response.features[feature].attributes[attr].length
+		// 							}
+		// 							//console.log(attr, response.features[feature].attributes[attr])
+		// 						}
+		// 					}
+		// 					allObjects.push(tempObj)
+		// 				}
+		// 				console.log(total)
+		// 				//console.log(JSON.stringify(allObjects))
+		// 			})
+		// 			.catch((error) => {
+		// 				console.error(error)
+		// 			})
+		// 	})
+		// })
+
 		// view.watch("scale", (newScale) => {
 		// 	for (let stop in map.layers.items[0].renderer.visualVariables[0].stops) {
 		// 		if (map.layers.items[0].renderer.visualVariables[0].stops[stop].value === newScale) {

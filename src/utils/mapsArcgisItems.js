@@ -6,9 +6,10 @@ import Basemap from "@arcgis/core/Basemap"
 import BasemapGallery from "@arcgis/core/widgets/BasemapGallery"
 import Expand from "@arcgis/core/widgets/Expand"
 import Locate from "@arcgis/core/widgets/Locate"
+import MapImageLayer from "@arcgis/core/layers/MapImageLayer";
 
-export const objects = new TileLayer({
-	url: "https://tiles.arcgis.com/tiles/kla6QEoN1wAmqwT1/arcgis/rest/services/71581p1r_1/MapServer/",
+export const objects = new MapImageLayer({
+	url: "https://www.geoportal.lt/mapproxy/gisc_vilnius_ort_1944/MapServer",
 	title: "Žemėlapiai",
 })
 
@@ -33,7 +34,7 @@ const basemap2 = new Basemap({
 
 export const map = new Map({
 	basemap: basemap2,
-	//layers: [objects],
+	layers: [objects],
 })
 
 export const view = new MapView({
