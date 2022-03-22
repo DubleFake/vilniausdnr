@@ -6,7 +6,7 @@ import Basemap from "@arcgis/core/Basemap"
 import BasemapGallery from "@arcgis/core/widgets/BasemapGallery"
 import Expand from "@arcgis/core/widgets/Expand"
 import Locate from "@arcgis/core/widgets/Locate"
-import MapImageLayer from "@arcgis/core/layers/MapImageLayer";
+import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
 
 export const objects = new MapImageLayer({
 	url: "https://www.geoportal.lt/mapproxy/gisc_vilnius_ort_1944/MapServer",

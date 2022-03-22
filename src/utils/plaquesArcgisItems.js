@@ -218,6 +218,9 @@ export const view = new MapView({
 		color: "#FF0000",
 		haloColor: "#FF0000",
 	},
+	constraints: {
+		rotationEnabled: false,
+	},
 })
 
 const basemapGallery = new BasemapGallery({

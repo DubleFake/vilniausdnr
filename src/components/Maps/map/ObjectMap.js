@@ -11,26 +11,6 @@ const ObjectMap = () => {
 
 	useEffect(() => {
 		view.container = mapDiv.current
-
-		projection.load().then(() => {
-			objects.load().then(() => {
-				console.log(objects)
-				// const inSpatialReference = new SpatialReference({
-				// 	wkid: 102100,
-				// })
-				// const outSpatialReference = new SpatialReference({
-				// 	wkid: 2600,
-				// 	// wkid: 3346,
-				// })
-				// const geogtrans = projection.getTransformations(inSpatialReference, outSpatialReference)
-				// console.log(objects)
-
-				// let asd = projection.project(objects.allSublayers, outSpatialReference)
-				// console.log(asd)
-
-				// // view.graphics.add(asd.items[0])
-			})
-		})
 	}, [])
 
 	useEffect(() => {
