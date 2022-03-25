@@ -5,11 +5,14 @@ import MuiLinkify from "material-ui-linkify"
 
 import { persons } from "../../../utils/plaquesArcgisItems"
 
+import { styled } from "@mui/material/styles"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import CardHeader from "@mui/material/CardHeader"
 import CloseIcon from "@mui/icons-material/Close"
 import IconButton from "@mui/material/IconButton"
+import ShareIcon from "@mui/icons-material/Share"
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip"
 import Typography from "@mui/material/Typography"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
@@ -32,6 +35,24 @@ const PersonPopup = (props) => {
 	const [personObj, setPersonObj] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [popupOpen, setPopupOpen] = useState(false)
+	const [shareTooltip, setShareTooltip] = useState(false)
+
+	const BootstrapTooltip = styled(({ className, ...props }) => (
+		<Tooltip {...props} arrow classes={{ popper: className }} />
+	))(({ theme }) => ({
+		[`& .${tooltipClasses.arrow}`]: {
+			color: theme.palette.secondary.main,
+		},
+		[`& .${tooltipClasses.tooltip}`]: {
+			backgroundColor: theme.palette.secondary.main,
+			fontSize: 15,
+		},
+	}))
+
+	const handleShare = async () => {
+		await navigator.clipboard.writeText(window.location.href)
+		setShareTooltip(true)
+	}
 
 	useEffect(() => {
 		if (!props.initialLoading) {
@@ -179,14 +200,32 @@ const PersonPopup = (props) => {
 								<CardHeader
 									sx={{ px: 0, pt: 0.5, pb: 1 }}
 									action={
-										<IconButton
-											aria-label="close"
-											onClick={() => {
-												navigate(`/${i18n.language}/plaques`)
-											}}
-										>
-											<CloseIcon />
-										</IconButton>
+										<>
+											<BootstrapTooltip
+												open={shareTooltip}
+												leaveDelay={1000}
+												title={t(`plaques.objectPopup.shareUrl`)}
+												arrow
+												placement="top"
+												onClose={() => {
+													setShareTooltip(false)
+												}}
+											>
+												<IconButton color="secondary" aria-label="share" size="large" onClick={handleShare}>
+													<ShareIcon style={{ fontSize: 30 }} />
+												</IconButton>
+											</BootstrapTooltip>
+											<IconButton
+												color="secondary"
+												aria-label="close"
+												size="large"
+												onClick={() => {
+													navigate(`/${i18n.language}/plaques`)
+												}}
+											>
+												<CloseIcon style={{ fontSize: 30 }} />
+											</IconButton>
+										</>
 									}
 									title={Object.keys(personAttr).map((attr) =>
 										personAttr[attr].field === "Vardas__liet_" || personAttr[attr].field === "Pavardė__liet_"

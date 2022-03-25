@@ -60,7 +60,8 @@
       "AUTORIUS": "Autorius",
       "SALTINIS": "Šaltiniai (Autorius, pavadinimas, int. puslapis)",
       "relatedOne": "Susijęs asmuo",
-      "relatedMany": "Susiję asmenys"
+      "relatedMany": "Susiję asmenys",
+      "shareUrl": "Nuoroda nukopijuota"
     },
     "personPopup": {
       "Vardas__liet_": "Vardas",

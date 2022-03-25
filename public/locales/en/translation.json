@@ -60,7 +60,8 @@
       "AUTORIUS": "Author",
       "SALTINIS": "Sources (Author, title, web page)",
       "relatedOne": "Related person",
-      "relatedMany": "Related persons"
+      "relatedMany": "Related persons",
+      "shareUrl": "Link copied"
     },
     "personPopup": {
       "Vardas__liet_": "Name",
