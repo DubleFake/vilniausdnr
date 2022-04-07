@@ -53,6 +53,7 @@ const Options = (props) => {
 	const [value, setValue] = useState(0)
 	const [selectedObjectFilter, setSelectedObjectFilter] = useState("")
 	const [selectedMemoryFilter, setSelectedMemoryFilter] = useState("")
+	const [selectedPeriodFilter, setSelectedPeriodFilter] = useState("")
 	const [visualizationType, setVisualizationType] = useState("0")
 	const [visibleObjectIcons, setVisibleObjectIcons] = useState([])
 	const [visibleMemoryIcons, setVisibleMemoryIcons] = useState([])
@@ -113,6 +114,8 @@ const Options = (props) => {
 						setSelectedObjectFilter={setSelectedObjectFilter}
 						selectedMemoryFilter={selectedMemoryFilter}
 						setSelectedMemoryFilter={setSelectedMemoryFilter}
+						selectedPeriodFilter={selectedPeriodFilter}
+						setSelectedPeriodFilter={setSelectedPeriodFilter}
 						setVisibleObjectIcons={setVisibleObjectIcons}
 						setVisibleMemoryIcons={setVisibleMemoryIcons}
 					/>

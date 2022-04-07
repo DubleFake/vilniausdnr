@@ -27,7 +27,6 @@ const Filter = (props) => {
 
 	const [showAlert, setShowAlert] = useState(false)
 	const [extentCheck, setExtentCheck] = useState(false)
-	const [selectedPeriodFilter, setSelectedPeriodFilter] = useState("")
 
 	const handleObjectSelect = (event) => {
 		props.setSelectedObject("")
@@ -42,7 +41,7 @@ const Filter = (props) => {
 	const handlePeriodSelect = (event) => {
 		props.setSelectedObject("")
 		props.setSearchInputValue("")
-		setSelectedPeriodFilter(event.target.value)
+		props.setSelectedPeriodFilter(event.target.value)
 	}
 
 	const handleClearFilters = () => {
@@ -50,7 +49,7 @@ const Filter = (props) => {
 		props.setSearchInputValue("")
 		props.setSelectedObjectFilter("")
 		props.setSelectedMemoryFilter("")
-		setSelectedPeriodFilter("")
+		props.setSelectedPeriodFilter("")
 
 		setExtentCheck(false)
 		viewHandles.forEach((handle) => {
@@ -92,23 +91,23 @@ const Filter = (props) => {
 		}
 
 		if (
-			selectedPeriodFilter !== "" &&
+			props.selectedPeriodFilter !== "" &&
 			props.selectedObjectFilter === "" &&
 			props.selectedMemoryFilter === ""
 		) {
-			query = `OBJ_LAIK_TIP = ${selectedPeriodFilter}`
+			query = `OBJ_LAIK_TIP = ${props.selectedPeriodFilter}`
 		} else if (
-			selectedPeriodFilter !== "" &&
+			props.selectedPeriodFilter !== "" &&
 			(props.selectedObjectFilter !== "" || props.selectedMemoryFilter !== "")
 		) {
-			let add_period = query.concat(" ", `AND OBJ_LAIK_TIP = ${selectedPeriodFilter}`)
+			let add_period = query.concat(" ", `AND OBJ_LAIK_TIP = ${props.selectedPeriodFilter}`)
 			query = add_period
 		}
 
 		if (
 			props.selectedObjectFilter === "" &&
 			props.selectedMemoryFilter === "" &&
-			selectedPeriodFilter === ""
+			props.selectedPeriodFilter === ""
 		) {
 			query = ""
 		}
@@ -162,7 +161,7 @@ const Filter = (props) => {
 				}
 			})
 		})
-	}, [props.selectedObjectFilter, props.selectedMemoryFilter, selectedPeriodFilter])
+	}, [props.selectedObjectFilter, props.selectedMemoryFilter, props.selectedPeriodFilter])
 
 	useEffect(() => {
 		viewHandles.forEach((handle) => {
@@ -275,7 +274,7 @@ const Filter = (props) => {
 						labelId="period-label"
 						name="period"
 						id="period"
-						value={selectedPeriodFilter}
+						value={props.selectedPeriodFilter}
 						label={t("plaques.options.period")}
 						onChange={handlePeriodSelect}
 					>
