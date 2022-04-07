@@ -21,6 +21,7 @@
       "visualizeBy": "Vaizduoti pagal",
       "objectType": "Objekto tipą",
       "memoryType": "Atminimo tipą",
+      "period": "Įrengimo laikotarpis",
       "extent": "Rodyti tik matomus objektus",
       "legend": "Sutartiniai ženklai",
       "clearFilters": "Išvalyti filtrus",
@@ -46,6 +47,13 @@
         "6": "Žymaus asmens palaidojimo vietai žymėti",
         "7": "Meninis idėjos simbolis",
         "8": "Istorinio statinio vietos pažymėjimas"
+      },
+      "periods": {
+        "1": "Iki 1795 m. (Respublikos padalinimo)",
+        "2": "1796 - 1919 m. (Iki lenkų okupacijos)",
+        "3": "1919 - 1939 m.",
+        "4": "1939 - 1989 m. (sovietmečiu)",
+        "5": "nuo 1990 m. (atkūrus nepriklausomybę)"
       }
     },
     "objectPopup": {

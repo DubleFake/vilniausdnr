@@ -21,6 +21,7 @@
       "visualizeBy": "Visualize by",
       "objectType": "Object type",
       "memoryType": "Memory type",
+      "period": "Installation period",
       "extent": "Show only visible objects",
       "legend": "Legend",
       "clearFilters": "Clear filters",
@@ -46,6 +47,13 @@
         "6": "Burial place of a famous person",
         "7": "Artistic symbol of an idea",
         "8": "Place mark of a historic building"
+      },
+      "periods": {
+        "1": "Before 1795 (division of the Commonwealth)",
+        "2": "1796 - 1919 (Before the Polish occupation)",
+        "3": "1919 - 1939",
+        "4": "1939 - 1989 (Soviet occupation)",
+        "5": "since 1990 (after restoration of independence)"
       }
     },
     "objectPopup": {

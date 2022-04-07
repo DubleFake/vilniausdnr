@@ -27,6 +27,7 @@ const Filter = (props) => {
 
 	const [showAlert, setShowAlert] = useState(false)
 	const [extentCheck, setExtentCheck] = useState(false)
+	const [selectedPeriodFilter, setSelectedPeriodFilter] = useState("")
 
 	const handleObjectSelect = (event) => {
 		props.setSelectedObject("")
@@ -38,11 +39,19 @@ const Filter = (props) => {
 		props.setSearchInputValue("")
 		props.setSelectedMemoryFilter(event.target.value)
 	}
+	const handlePeriodSelect = (event) => {
+		props.setSelectedObject("")
+		props.setSearchInputValue("")
+		setSelectedPeriodFilter(event.target.value)
+	}
+
 	const handleClearFilters = () => {
 		props.setSelectedObject("")
 		props.setSearchInputValue("")
 		props.setSelectedObjectFilter("")
 		props.setSelectedMemoryFilter("")
+		setSelectedPeriodFilter("")
+
 		setExtentCheck(false)
 		viewHandles.forEach((handle) => {
 			handle.remove()
@@ -72,7 +81,7 @@ const Filter = (props) => {
 	}
 
 	useEffect(() => {
-		let query
+		let query = ""
 
 		if (props.selectedObjectFilter !== "" && props.selectedMemoryFilter === "") {
 			query = `TIPAS = ${props.selectedObjectFilter}`
@@ -80,7 +89,27 @@ const Filter = (props) => {
 			query = `ATMINT_TIP = ${props.selectedMemoryFilter}`
 		} else if (props.selectedObjectFilter !== "" && props.selectedMemoryFilter !== "") {
 			query = `ATMINT_TIP = ${props.selectedMemoryFilter} AND TIPAS = ${props.selectedObjectFilter}`
-		} else if (props.selectedObjectFilter === "" && props.selectedMemoryFilter === "") {
+		}
+
+		if (
+			selectedPeriodFilter !== "" &&
+			props.selectedObjectFilter === "" &&
+			props.selectedMemoryFilter === ""
+		) {
+			query = `OBJ_LAIK_TIP = ${selectedPeriodFilter}`
+		} else if (
+			selectedPeriodFilter !== "" &&
+			(props.selectedObjectFilter !== "" || props.selectedMemoryFilter !== "")
+		) {
+			let add_period = query.concat(" ", `AND OBJ_LAIK_TIP = ${selectedPeriodFilter}`)
+			query = add_period
+		}
+
+		if (
+			props.selectedObjectFilter === "" &&
+			props.selectedMemoryFilter === "" &&
+			selectedPeriodFilter === ""
+		) {
 			query = ""
 		}
 
@@ -133,7 +162,7 @@ const Filter = (props) => {
 				}
 			})
 		})
-	}, [props.selectedObjectFilter, props.selectedMemoryFilter])
+	}, [props.selectedObjectFilter, props.selectedMemoryFilter, selectedPeriodFilter])
 
 	useEffect(() => {
 		viewHandles.forEach((handle) => {
@@ -237,6 +266,37 @@ const Filter = (props) => {
 								{t(`plaques.options.memories.${object.value}`)}
 							</MenuItem>
 						))}
+					</Select>
+				</FormControl>
+
+				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
+					<InputLabel id="period-label">{t("plaques.options.period")}</InputLabel>
+					<Select
+						labelId="period-label"
+						name="period"
+						id="period"
+						value={selectedPeriodFilter}
+						label={t("plaques.options.period")}
+						onChange={handlePeriodSelect}
+					>
+						<MenuItem value="">
+							<em>{t("plaques.options.all")}</em>
+						</MenuItem>
+						<MenuItem sx={{ whiteSpace: "unset" }} key={1} value={1}>
+							{t(`plaques.options.periods.${1}`)}
+						</MenuItem>
+						<MenuItem sx={{ whiteSpace: "unset" }} key={2} value={2}>
+							{t(`plaques.options.periods.${2}`)}
+						</MenuItem>
+						<MenuItem sx={{ whiteSpace: "unset" }} key={3} value={3}>
+							{t(`plaques.options.periods.${3}`)}
+						</MenuItem>
+						<MenuItem sx={{ whiteSpace: "unset" }} key={4} value={4}>
+							{t(`plaques.options.periods.${4}`)}
+						</MenuItem>
+						<MenuItem sx={{ whiteSpace: "unset" }} key={5} value={5}>
+							{t(`plaques.options.periods.${5}`)}
+						</MenuItem>
 					</Select>
 				</FormControl>
 
