@@ -47,7 +47,7 @@ function a11yProps(index) {
 }
 
 const Options = (props) => {
-  const { t, i18n } = useTranslation()
+	const { t, i18n } = useTranslation()
 	const theme = useTheme()
 
 	const [value, setValue] = useState(0)
@@ -113,8 +113,8 @@ const Options = (props) => {
 						setSelectedObjectFilter={setSelectedObjectFilter}
 						selectedMemoryFilter={selectedMemoryFilter}
 						setSelectedMemoryFilter={setSelectedMemoryFilter}
-            setVisibleObjectIcons={setVisibleObjectIcons}
-            setVisibleMemoryIcons={setVisibleMemoryIcons}
+						setVisibleObjectIcons={setVisibleObjectIcons}
+						setVisibleMemoryIcons={setVisibleMemoryIcons}
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import Filter from "./Filter"
 import TableItems from "./SearchItems"
 import Search from "./Search"
+import Count from "./Count"
 import { matchSorter } from "match-sorter"
 
 import Box from "@mui/material/Box"
@@ -13,6 +14,7 @@ const Table = (props) => {
 	const [searchObjectsList, setSearchObjectsList] = useState([])
 	const [tableObjectsList, setTableObjectsList] = useState([])
 	const [searchInputValue, setSearchInputValue] = useState("")
+	const [objectCount, setObjectCount] = useState(0)
 
 	useEffect(() => {
 		setObjectsList(props.initialObjectsList)
@@ -36,8 +38,20 @@ const Table = (props) => {
 		}
 	}, [searchObjectsList])
 
+	useEffect(() => {
+		setObjectCount(tableObjectsList.length)
+	}, [tableObjectsList])
+
 	return (
-		<Box sx={{ width: 350, height: "calc(100vh - 135px)", display: "flex", flexDirection: "column" }}>
+		<Box
+			sx={{
+				width: 350,
+				height: "calc(100vh - 135px)",
+				display: "flex",
+				flexDirection: "column",
+				overflow: "hidden",
+			}}
+		>
 			{objectsList.length ? (
 				<>
 					<Search
@@ -56,9 +70,10 @@ const Table = (props) => {
 						setSelectedObjectFilter={props.setSelectedObjectFilter}
 						selectedMemoryFilter={props.selectedMemoryFilter}
 						setSelectedMemoryFilter={props.setSelectedMemoryFilter}
-            setVisibleObjectIcons={props.setVisibleObjectIcons}
-            setVisibleMemoryIcons={props.setVisibleMemoryIcons}
+						setVisibleObjectIcons={props.setVisibleObjectIcons}
+						setVisibleMemoryIcons={props.setVisibleMemoryIcons}
 					/>
+					<Count objectCount={objectCount} />
 					<TableItems
 						tableObjectsList={tableObjectsList}
 						setSelectedObject={props.setSelectedObject}

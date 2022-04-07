@@ -26,6 +26,7 @@
       "clearFilters": "Clear filters",
       "all": "All",
       "notFound": "No objects found, filters cleared",
+      "count": "Number of results",
       "objects": {
         "1": "Commemorative or memorial plaque with text",
         "2": "Sculpture, monument, sculptural composition",

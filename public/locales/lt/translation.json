@@ -26,6 +26,7 @@
       "clearFilters": "Išvalyti filtrus",
       "all": "Visi",
       "notFound": "Objektų nerasta, filtrai išvalyti",
+      "count": "Rezultatų skaičius",
       "objects": {
         "1": "Atminimo arba memorealinė lenta su tekstu",
         "2": "Skulptūra, paminklas, skulptūrinė kompozicija",
