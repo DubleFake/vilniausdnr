@@ -156,6 +156,7 @@ const Filter = (props) => {
 								setShowAlert(true)
 								props.setSelectedObjectFilter("")
 								props.setSelectedMemoryFilter("")
+                props.setSelectedPeriodFilter("")
 							}
 						})
 				}
