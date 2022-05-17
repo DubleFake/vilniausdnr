@@ -24,10 +24,10 @@ const TableItems = (props) => {
 						<ListItemButton
 							style={{ paddingLeft: 5, paddingRight: 5 }}
 							onClick={() => {
-								setSelectedObject(`${tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "")}`)
-								navigate(`object/${tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "")}`)
+								setSelectedObject(`${tableObjectsList[index].attributes.OBJECTID}`)
+								navigate(`object/${tableObjectsList[index].attributes.OBJECTID}`)
 							}}
-							selected={tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "") === selectedObject}
+							selected={tableObjectsList[index].attributes.OBJECTID === selectedObject}
 						>
 							<ListItemText primary={tableObjectsList[index].attributes.PAV} />
 						</ListItemButton>

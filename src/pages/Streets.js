@@ -16,6 +16,7 @@ const Plaques = () => {
 	const [selectedObject, setSelectedObject] = useState("")
 	const [initialLoading, setInitialLoading] = useState(true)
 	const [initialObjectsList, setInitialObjectsList] = useState([])
+	const [initialObjectsClasses, setInitialObjectsClasses] = useState([])
 	const [mapQuery, setMapQuery] = useState([])
 	const [visible, setVisible] = useState(false)
 
@@ -40,6 +41,7 @@ const Plaques = () => {
 									initialObjectsList={initialObjectsList}
 									setSelectedObject={setSelectedObject}
 									selectedObject={selectedObject}
+                  initialObjectsClasses={initialObjectsClasses}
 								/>
 							</Collapse>
 
@@ -48,6 +50,7 @@ const Plaques = () => {
 									setInitialObjectsList={setInitialObjectsList}
 									setInitialLoading={setInitialLoading}
 									setMapQuery={setMapQuery}
+                  setInitialObjectsClasses={setInitialObjectsClasses}
 								/>
 								<TableToggle visible={visible} setVisible={setVisible} />
 								<Outlet />

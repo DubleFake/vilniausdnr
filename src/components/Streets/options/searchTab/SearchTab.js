@@ -37,7 +37,7 @@ const Table = (props) => {
 	}, [searchObjectsList])
 
 	return (
-		<Box sx={{ width: 350, height: "calc(100vh - 135px)", display: "flex", flexDirection: "column" }}>
+		<Box sx={{ width: 350, height: "calc(100vh - 135px)", display: "flex", flexDirection: "column", overflow: "hidden" }}>
 			{objectsList.length ? (
 				<>
 					<Search
@@ -55,6 +55,7 @@ const Table = (props) => {
 						selectedObjectFilter={props.selectedObjectFilter}
 						setSelectedObjectFilter={props.setSelectedObjectFilter}
             setVisibleObjectIcons={props.setVisibleObjectIcons}
+            initialObjectsClasses={props.initialObjectsClasses}
 					/>
 					<TableItems
 						tableObjectsList={tableObjectsList}

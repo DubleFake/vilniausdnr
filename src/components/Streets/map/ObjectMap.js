@@ -24,13 +24,31 @@ const ObjectMap = (props) => {
 			watchUtils.whenFalseOnce(objectsView, "updating").then(() => {
 				objectsView
 					.queryFeatures({
-						outFields: ["GKODAS", "KATEGOR", "PAV", "GlobalID"],
+						outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
 						where: "",
 						returnGeometry: false,
 					})
 					.then((response) => {
 						if (response.features.length) {
+							console.log(response.features)
 							props.setInitialObjectsList(response.features)
+
+							let objectClass = new Set()
+							let objectSubclass = new Set()
+
+							for (let objClass in response.features) {
+								if (response.features[objClass].attributes.Klasė !== null) {
+									objectClass.add(response.features[objClass].attributes.Klasė)
+								}
+								if (response.features[objClass].attributes.Poklasis !== null) {
+									objectSubclass.add(response.features[objClass].attributes.Poklasis)
+								}
+							}
+
+							objectClass = [...objectClass].sort((a, b) => a - b)
+							objectSubclass = [...objectSubclass].sort((a, b) => a - b)
+
+							props.setInitialObjectsClasses([objectClass, objectSubclass])
 							props.setInitialLoading(false)
 						}
 					})
@@ -63,13 +81,13 @@ const ObjectMap = (props) => {
 								where: objectsView.filter.where,
 								distance: view.resolution <= 7 ? view.resolution * 15 : 100,
 								spatialRelationship: "intersects",
-								outFields: ["GlobalID"],
+								outFields: ["OBJECTID"],
 							})
 						})
 						.then((response) => {
 							if (response.features.length > 0) {
 								props.setMapQuery(response.features)
-								navigate(`object/${response.features[0].attributes.GlobalID.replace(/[{}]/g, "")}`)
+								navigate(`object/${response.features[0].attributes.OBJECTID}`)
 							}
 						})
 				})

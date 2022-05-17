@@ -165,7 +165,7 @@ export const objectRenderer = {
 }
 
 export const objects = new FeatureLayer({
-	url: "https://utility.arcgis.com/usrsvcs/servers/23aa84d7de1145d0848d2adc03bc4757/rest/services/VilniausDNR/VilniausDNR/MapServer/1",
+	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/8",
 	outFields: ["*"],
 	title: "Gatvės",
 	renderer: objectRenderer,

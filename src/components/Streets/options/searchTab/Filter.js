@@ -27,6 +27,7 @@ const Filter = (props) => {
 
 	const [showAlert, setShowAlert] = useState(false)
 	const [extentCheck, setExtentCheck] = useState(true)
+  const [selectedMemoryFilter, setSelectedMemoryFilter] = useState("")
 
 	const objectFilter = [
 		{
@@ -93,10 +94,17 @@ const Filter = (props) => {
 		props.setSelectedObjectFilter(event.target.value)
 	}
 
-	const handleClearFilters = () => {
+  const handleMemorySelect = (event) => {
 		props.setSelectedObject("")
 		props.setSearchInputValue("")
+		setSelectedMemoryFilter(event.target.value)
+	}
+  
+	const handleClearFilters = () => {
+    props.setSelectedObject("")
+		props.setSearchInputValue("")
 		props.setSelectedObjectFilter("")
+    setSelectedMemoryFilter(event.target.value)
 		setExtentCheck(false)
 		viewHandles.forEach((handle) => {
 			handle.remove()
@@ -109,7 +117,7 @@ const Filter = (props) => {
 			if (!extentCheck) {
 				objectsView
 					.queryFeatures({
-						outFields: ["GKODAS", "KATEGOR", "PAV", "GlobalID"],
+						outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
 						where: objectsView.filter.where,
 						geometry: view.extent,
 						returnGeometry: false,
@@ -128,9 +136,18 @@ const Filter = (props) => {
 	useEffect(() => {
 		let query
 
-		if (props.selectedObjectFilter !== "") {
-			query = `KATEGOR = '${props.selectedObjectFilter}'`
-		} else if (props.selectedObjectFilter === "") {
+		if (props.selectedObjectFilter !== "" && selectedMemoryFilter === "") {
+			query = `Klasė = ${props.selectedObjectFilter}`
+		} else if (props.selectedObjectFilter === "" && selectedMemoryFilter !== "") {
+			query = `Poklasis = ${selectedMemoryFilter}`
+		} else if (props.selectedObjectFilter !== "" && selectedMemoryFilter !== "") {
+			query = `Poklasis = ${selectedMemoryFilter} AND Klasė = ${props.selectedObjectFilter}`
+		}
+
+    if (
+			props.selectedObjectFilter === "" &&
+			selectedMemoryFilter === "" 
+		) {
 			query = ""
 		}
 
@@ -144,7 +161,7 @@ const Filter = (props) => {
 				if (!extentCheck) {
 					objectsView
 						.queryFeatures({
-							outFields: ["GKODAS", "KATEGOR", "PAV", "GlobalID"],
+							outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
 							//outFields: objectsView.availableFields,
 							where: objectsView.filter.where,
 							returnGeometry: false,
@@ -176,7 +193,7 @@ const Filter = (props) => {
 				}
 			})
 		})
-	}, [props.selectedObjectFilter])
+	}, [props.selectedObjectFilter, selectedMemoryFilter])
 
 	useEffect(() => {
 		viewHandles.forEach((handle) => {
@@ -191,7 +208,7 @@ const Filter = (props) => {
 						if (!updating) {
 							objectsView
 								.queryFeatures({
-									outFields: ["GKODAS", "KATEGOR", "PAV", "GlobalID"],
+									outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
 									where: objectsView.filter.where,
 									geometry: view.extent,
 									returnGeometry: false,
@@ -206,7 +223,7 @@ const Filter = (props) => {
 				watchUtils.whenNotOnce(objectsView, "updating").then(() => {
 					objectsView
 						.queryFeatures({
-							outFields: ["GKODAS", "KATEGOR", "PAV", "GlobalID"],
+							outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
 							where: objectsView.filter.where,
 							geometry: null,
 							returnGeometry: false,
@@ -244,21 +261,41 @@ const Filter = (props) => {
 			</Snackbar>
 			<Box sx={{ ml: 0.5, mr: 0.5 }}>
 				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
-					<InputLabel id="object-select-label">{t("plaques.options.objectType")}</InputLabel>
+					<InputLabel id="object-select-label">Objekto klasė</InputLabel>
 					<Select
 						labelId="object-select-label"
 						name="object-select"
 						id="object-select"
 						value={props.selectedObjectFilter}
-						label={t("plaques.options.objectType")}
+						label="Objekto klasė"
 						onChange={handleObjectSelect}
 					>
 						<MenuItem value="">
 							<em>{t("plaques.options.all")}</em>
 						</MenuItem>
-						{objectFilter.map((object) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={object.code} value={object.alias}>
-								{object.alias}
+						{props.initialObjectsClasses[0].map((object) => (
+							<MenuItem sx={{ whiteSpace: "unset" }} key={object} value={object}>
+								{object}
+							</MenuItem>
+						))}
+					</Select>
+				</FormControl>
+				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
+					<InputLabel id="object-select-label">Objekto poklasė</InputLabel>
+					<Select
+						labelId="object-select-label"
+						name="object-select"
+						id="object-select"
+						value={selectedMemoryFilter}
+						label="Objekto poklasė"
+						onChange={handleMemorySelect}
+					>
+						<MenuItem value="">
+							<em>{t("plaques.options.all")}</em>
+						</MenuItem>
+						{props.initialObjectsClasses[1].map((object) => (
+							<MenuItem sx={{ whiteSpace: "unset" }} key={object} value={object}>
+								{object}
 							</MenuItem>
 						))}
 					</Select>

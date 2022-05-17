@@ -105,6 +105,7 @@ const Options = (props) => {
 				<TabPanel value={value} index={0} dir={theme.direction}>
 					<SearchTab
 						initialObjectsList={props.initialObjectsList}
+            initialObjectsClasses={props.initialObjectsClasses}
 						setSelectedObject={props.setSelectedObject}
 						selectedObject={props.selectedObject}
 						selectedObjectFilter={selectedObjectFilter}
