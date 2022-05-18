@@ -5,6 +5,7 @@ import ObjectMap from "../components/Streets/map/ObjectMap"
 import ObjectPopup from "../components/Streets/popup/ObjectPopup"
 import TableToggle from "../components/Streets/options/OptionsToggle"
 import Options from "../components/Streets/options/Options"
+import SwipeLayers from "../components/Streets/swipe/SwipeLayers"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
@@ -41,7 +42,7 @@ const Plaques = () => {
 									initialObjectsList={initialObjectsList}
 									setSelectedObject={setSelectedObject}
 									selectedObject={selectedObject}
-                  initialObjectsClasses={initialObjectsClasses}
+									initialObjectsClasses={initialObjectsClasses}
 								/>
 							</Collapse>
 
@@ -50,9 +51,10 @@ const Plaques = () => {
 									setInitialObjectsList={setInitialObjectsList}
 									setInitialLoading={setInitialLoading}
 									setMapQuery={setMapQuery}
-                  setInitialObjectsClasses={setInitialObjectsClasses}
+									setInitialObjectsClasses={setInitialObjectsClasses}
 								/>
 								<TableToggle visible={visible} setVisible={setVisible} />
+								<SwipeLayers />
 								<Outlet />
 							</Grid>
 						</Grid>
