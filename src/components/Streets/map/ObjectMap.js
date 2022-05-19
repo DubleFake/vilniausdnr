@@ -68,31 +68,31 @@ const ObjectMap = (props) => {
 		// 	}
 		// })
 
-		viewHandles.push(
-			view.on("click", (event) => {
-				bgExpand.collapse()
+		// viewHandles.push(
+		// 	view.on("click", (event) => {
+		// 		bgExpand.collapse()
 
-				view.whenLayerView(objects).then((objectsView) => {
-					watchUtils
-						.whenNotOnce(objectsView, "updating")
-						.then(() => {
-							return objectsView.queryFeatures({
-								geometry: event.mapPoint,
-								where: objectsView.filter.where,
-								distance: view.resolution <= 7 ? view.resolution * 15 : 100,
-								spatialRelationship: "intersects",
-								outFields: ["OBJECTID"],
-							})
-						})
-						.then((response) => {
-							if (response.features.length > 0) {
-								props.setMapQuery(response.features)
-								navigate(`object/${response.features[0].attributes.OBJECTID}`)
-							}
-						})
-				})
-			})
-		)
+		// 		view.whenLayerView(objects).then((objectsView) => {
+		// 			watchUtils
+		// 				.whenNotOnce(objectsView, "updating")
+		// 				.then(() => {
+		// 					return objectsView.queryFeatures({
+		// 						geometry: event.mapPoint,
+		// 						where: objectsView.filter.where,
+		// 						distance: view.resolution <= 7 ? view.resolution * 15 : 100,
+		// 						spatialRelationship: "intersects",
+		// 						outFields: ["OBJECTID"],
+		// 					})
+		// 				})
+		// 				.then((response) => {
+		// 					if (response.features.length > 0) {
+		// 						props.setMapQuery(response.features)
+		// 						navigate(`object/${response.features[0].attributes.OBJECTID}`)
+		// 					}
+		// 				})
+		// 		})
+		// 	})
+		// )
 	}, [])
 
 	useEffect(() => {

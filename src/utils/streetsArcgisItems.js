@@ -172,11 +172,37 @@ export const objects = new FeatureLayer({
 	renderer: objectRenderer,
 })
 
-export const objectsTest = new FeatureLayer({
+const gatves_1808 = new FeatureLayer({
 	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/10",
 	outFields: ["*"],
-	title: "Gatvės",
+	title: "Gatvės 1808",
 })
+const gatves_1845 = new FeatureLayer({
+	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/11",
+	outFields: ["*"],
+	title: "Gatvės 1845",
+})
+const gatves_1911 = new FeatureLayer({
+	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/12",
+	outFields: ["*"],
+	title: "Gatvės 1911",
+})
+const gatves_1938 = new FeatureLayer({
+	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/13",
+	outFields: ["*"],
+	title: "Gatvės 1938",
+})
+const gatves_1977 = new FeatureLayer({
+	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/14",
+	outFields: ["*"],
+	title: "Gatvės 1977",
+})
+const gatves_2021 = new FeatureLayer({
+	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/15",
+	outFields: ["*"],
+	title: "Gatvės 2021",
+})
+export const swipeObjects = [gatves_1808, gatves_1845, gatves_1911, gatves_1938, gatves_1977, gatves_2021]
 
 const basemap1 = new Basemap({
 	baseLayers: [
@@ -243,9 +269,9 @@ export const locateWidget = new Locate({
 })
 
 export const swipe = new Swipe({
-  view: view,
-  leadingLayers: [],
-  trailingLayers: [],
-  direction: "horizontal", // swipe widget will move from top to bottom of view
-  position: 50, // position set to middle of the view (50%)
+	view: view,
+	leadingLayers: [],
+	trailingLayers: [],
+	direction: "horizontal", // swipe widget will move from top to bottom of view
+	position: 50, // position set to middle of the view (50%)
 })
