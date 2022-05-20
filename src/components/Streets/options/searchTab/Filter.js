@@ -274,8 +274,8 @@ const Filter = (props) => {
 							<em>{t("plaques.options.all")}</em>
 						</MenuItem>
 						{props.initialObjectsClasses[0].map((object) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={object} value={object}>
-								{object}
+							<MenuItem sx={{ whiteSpace: "unset" }} key={object.code} value={object.code}>
+								{object.alias}
 							</MenuItem>
 						))}
 					</Select>
@@ -294,8 +294,8 @@ const Filter = (props) => {
 							<em>{t("plaques.options.all")}</em>
 						</MenuItem>
 						{props.initialObjectsClasses[1].map((object) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={object} value={object}>
-								{object}
+							<MenuItem sx={{ whiteSpace: "unset" }} key={object.code} value={object.code}>
+								{object.alias}
 							</MenuItem>
 						))}
 					</Select>

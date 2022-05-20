@@ -30,25 +30,34 @@ const ObjectMap = (props) => {
 					})
 					.then((response) => {
 						if (response.features.length) {
-							console.log(response.features)
+							console.log(response)
 							props.setInitialObjectsList(response.features)
 
-							let objectClass = new Set()
-							let objectSubclass = new Set()
+							let objectClass = []
+							let objectSubclass = []
 
-							for (let objClass in response.features) {
-								if (response.features[objClass].attributes.Klasė !== null) {
-									objectClass.add(response.features[objClass].attributes.Klasė)
+							for (let field in response.fields) {
+								if (response.fields[field].alias === "Klasė") {
+									for (let code in response.fields[field].domain.codedValues) {
+										let obj = {}
+										obj.code = response.fields[field].domain.codedValues[code].code
+										obj.alias = response.fields[field].domain.codedValues[code].name
+										objectClass.push(obj)
+									}
 								}
-								if (response.features[objClass].attributes.Poklasis !== null) {
-									objectSubclass.add(response.features[objClass].attributes.Poklasis)
+								if (response.fields[field].alias === "Poklasis") {
+									for (let code in response.fields[field].domain.codedValues) {
+										let obj = {}
+										obj.code = response.fields[field].domain.codedValues[code].code
+										obj.alias = response.fields[field].domain.codedValues[code].name
+										objectSubclass.push(obj)
+									}
 								}
 							}
 
-							objectClass = [...objectClass].sort((a, b) => a - b)
-							objectSubclass = [...objectSubclass].sort((a, b) => a - b)
-
+							console.log(objectClass, objectSubclass)
 							props.setInitialObjectsClasses([objectClass, objectSubclass])
+
 							props.setInitialLoading(false)
 						}
 					})
