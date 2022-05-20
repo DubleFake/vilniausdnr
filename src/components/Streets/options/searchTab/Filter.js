@@ -27,66 +27,7 @@ const Filter = (props) => {
 
 	const [showAlert, setShowAlert] = useState(false)
 	const [extentCheck, setExtentCheck] = useState(true)
-  const [selectedMemoryFilter, setSelectedMemoryFilter] = useState("")
-
-	const objectFilter = [
-		{
-			alias: "D1",
-			code: 0,
-		},
-		{
-			alias: "D2",
-			code: 1,
-		},
-		{
-			alias: "D",
-			code: 2,
-		},
-		{
-			alias: "C2",
-			code: 3,
-		},
-		{
-			alias: "D3",
-			code: 4,
-		},
-		{
-			alias: "AS",
-			code: 5,
-		},
-		{
-			alias: "C1",
-			code: 6,
-		},
-		{
-			alias: "B1",
-			code: 7,
-		},
-		{
-			alias: "F1",
-			code: 8,
-		},
-		{
-			alias: "B2",
-			code: 9,
-		},
-		{
-			alias: "P",
-			code: 10,
-		},
-		{
-			alias: "E2",
-			code: 11,
-		},
-		{
-			alias: "S",
-			code: 12,
-		},
-		{
-			alias: "A2",
-			code: 13,
-		},
-	]
+	const [selectedMemoryFilter, setSelectedMemoryFilter] = useState("")
 
 	const handleObjectSelect = (event) => {
 		props.setSelectedObject("")
@@ -94,17 +35,17 @@ const Filter = (props) => {
 		props.setSelectedObjectFilter(event.target.value)
 	}
 
-  const handleMemorySelect = (event) => {
+	const handleMemorySelect = (event) => {
 		props.setSelectedObject("")
 		props.setSearchInputValue("")
 		setSelectedMemoryFilter(event.target.value)
 	}
-  
+
 	const handleClearFilters = () => {
-    props.setSelectedObject("")
+		props.setSelectedObject("")
 		props.setSearchInputValue("")
 		props.setSelectedObjectFilter("")
-    setSelectedMemoryFilter(event.target.value)
+		setSelectedMemoryFilter(event.target.value)
 		setExtentCheck(false)
 		viewHandles.forEach((handle) => {
 			handle.remove()
@@ -144,10 +85,7 @@ const Filter = (props) => {
 			query = `Poklasis = ${selectedMemoryFilter} AND Klasė = ${props.selectedObjectFilter}`
 		}
 
-    if (
-			props.selectedObjectFilter === "" &&
-			selectedMemoryFilter === "" 
-		) {
+		if (props.selectedObjectFilter === "" && selectedMemoryFilter === "") {
 			query = ""
 		}
 
@@ -280,26 +218,32 @@ const Filter = (props) => {
 						))}
 					</Select>
 				</FormControl>
-				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
-					<InputLabel id="object-select-label">Objekto poklasė</InputLabel>
-					<Select
-						labelId="object-select-label"
-						name="object-select"
-						id="object-select"
-						value={selectedMemoryFilter}
-						label="Objekto poklasė"
-						onChange={handleMemorySelect}
-					>
-						<MenuItem value="">
-							<em>{t("plaques.options.all")}</em>
-						</MenuItem>
-						{props.initialObjectsClasses[1].map((object) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={object.code} value={object.code}>
-								{object.alias}
+				{props.selectedObjectFilter !== "" && (
+					<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
+						<InputLabel id="object-select-label">Objekto poklasė</InputLabel>
+						<Select
+							labelId="object-select-label"
+							name="object-select"
+							id="object-select"
+							value={selectedMemoryFilter}
+							label="Objekto poklasė"
+							onChange={handleMemorySelect}
+						>
+							<MenuItem value="">
+								<em>{t("plaques.options.all")}</em>
 							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
+							{props.initialObjectsClasses[1].map(
+								(object) =>
+									props.selectedObjectFilter !== "" &&
+									props.initialObjectsClasses[2][props.selectedObjectFilter - 1].includes(object.code) && (
+										<MenuItem sx={{ whiteSpace: "unset" }} key={object.code} value={object.code}>
+											{object.alias}
+										</MenuItem>
+									)
+							)}
+						</Select>
+					</FormControl>
+				)}
 
 				{/* <FormGroup>
 					<FormControlLabel

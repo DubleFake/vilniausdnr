@@ -30,11 +30,11 @@ const ObjectMap = (props) => {
 					})
 					.then((response) => {
 						if (response.features.length) {
-							console.log(response)
 							props.setInitialObjectsList(response.features)
 
 							let objectClass = []
 							let objectSubclass = []
+							let dictClassRelations = []
 
 							for (let field in response.fields) {
 								if (response.fields[field].alias === "Klasė") {
@@ -54,9 +54,19 @@ const ObjectMap = (props) => {
 									}
 								}
 							}
+							for (let cls in objectClass) {
+								console.log(objectClass[cls].code)
+                let tempSet = new Set()
+								for (let feature in response.features) {
+									if (response.features[feature].attributes.Klasė === objectClass[cls].code){
+                    tempSet.add(response.features[feature].attributes.Poklasis)
+                  }
+								}
+                dictClassRelations.push([...tempSet])
+							}
 
-							console.log(objectClass, objectSubclass)
-							props.setInitialObjectsClasses([objectClass, objectSubclass])
+							console.log(objectClass, objectSubclass, dictClassRelations)
+							props.setInitialObjectsClasses([objectClass, objectSubclass, dictClassRelations])
 
 							props.setInitialLoading(false)
 						}

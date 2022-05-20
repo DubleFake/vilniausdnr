@@ -5,7 +5,7 @@ import ObjectMap from "../components/Streets/map/ObjectMap"
 import ObjectPopup from "../components/Streets/popup/ObjectPopup"
 import TableToggle from "../components/Streets/options/OptionsToggle"
 import Options from "../components/Streets/options/Options"
-import SwipeLayers from "../components/Streets/swipe/SwipeLayers"
+import CompareLayers from "../components/Streets/compare/CompareLayers"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
@@ -13,11 +13,13 @@ import Collapse from "@mui/material/Collapse"
 import CircularProgress from "@mui/material/CircularProgress"
 import Backdrop from "@mui/material/Backdrop"
 
+//subklase pagal klase, 2 langai, pagalvoti apie atvaizdavima (paprastai ir kai palyginimas)?
+
 const Plaques = () => {
 	const [selectedObject, setSelectedObject] = useState("")
 	const [initialLoading, setInitialLoading] = useState(true)
 	const [initialObjectsList, setInitialObjectsList] = useState([])
-	const [initialObjectsClasses, setInitialObjectsClasses] = useState([])
+	const [initialObjectsClasses, setInitialObjectsClasses] = useState([[], []])
 	const [mapQuery, setMapQuery] = useState([])
 	const [visible, setVisible] = useState(false)
 
@@ -54,7 +56,7 @@ const Plaques = () => {
 									setInitialObjectsClasses={setInitialObjectsClasses}
 								/>
 								<TableToggle visible={visible} setVisible={setVisible} />
-								<SwipeLayers />
+								<CompareLayers />
 								<Outlet />
 							</Grid>
 						</Grid>
