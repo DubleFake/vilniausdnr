@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
 
-import { view, objects, bgExpand, locateWidget } from "../../../utils/streetsArcgisItems"
+import { view, view2, objects, bgExpand, locateWidget } from "../../../utils/streetsArcgisItems"
 
 const viewHandles = []
 
@@ -11,9 +11,31 @@ const ObjectMap = (props) => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
 	const mapDiv = useRef(null)
+	const mapDiv2 = useRef(null)
 
 	useEffect(() => {
 		view.container = mapDiv.current
+		// view2.container = mapDiv2.current
+
+		// const views = [view, view2]
+		// let active
+		// const sync = (source) => {
+		// 	if (!active || !active.viewpoint || active !== source) {
+		// 		return
+		// 	}
+		// 	for (const view of views) {
+		// 		if (view !== active) {
+		// 			view.viewpoint = active.viewpoint
+		// 		}
+		// 	}
+		// }
+		// for (const view of views) {
+		// 	view.watch(["interacting", "animation"], () => {
+		// 		active = view
+		// 		sync(active)
+		// 	})
+		// 	view.watch("viewpoint", () => sync(view))
+		// }
 
 		viewHandles.forEach((handle) => {
 			handle.remove()
@@ -55,19 +77,16 @@ const ObjectMap = (props) => {
 								}
 							}
 							for (let cls in objectClass) {
-								console.log(objectClass[cls].code)
-                let tempSet = new Set()
+								let tempSet = new Set()
 								for (let feature in response.features) {
-									if (response.features[feature].attributes.Klasė === objectClass[cls].code){
-                    tempSet.add(response.features[feature].attributes.Poklasis)
-                  }
+									if (response.features[feature].attributes.Klasė === objectClass[cls].code) {
+										tempSet.add(response.features[feature].attributes.Poklasis)
+									}
 								}
-                dictClassRelations.push([...tempSet])
+								dictClassRelations.push([...tempSet])
 							}
 
-							console.log(objectClass, objectSubclass, dictClassRelations)
 							props.setInitialObjectsClasses([objectClass, objectSubclass, dictClassRelations])
-
 							props.setInitialLoading(false)
 						}
 					})
@@ -87,31 +106,31 @@ const ObjectMap = (props) => {
 		// 	}
 		// })
 
-		// viewHandles.push(
-		// 	view.on("click", (event) => {
-		// 		bgExpand.collapse()
+		viewHandles.push(
+			view.on("click", (event) => {
+				bgExpand.collapse()
 
-		// 		view.whenLayerView(objects).then((objectsView) => {
-		// 			watchUtils
-		// 				.whenNotOnce(objectsView, "updating")
-		// 				.then(() => {
-		// 					return objectsView.queryFeatures({
-		// 						geometry: event.mapPoint,
-		// 						where: objectsView.filter.where,
-		// 						distance: view.resolution <= 7 ? view.resolution * 15 : 100,
-		// 						spatialRelationship: "intersects",
-		// 						outFields: ["OBJECTID"],
-		// 					})
-		// 				})
-		// 				.then((response) => {
-		// 					if (response.features.length > 0) {
-		// 						props.setMapQuery(response.features)
-		// 						navigate(`object/${response.features[0].attributes.OBJECTID}`)
-		// 					}
-		// 				})
-		// 		})
-		// 	})
-		// )
+				view.whenLayerView(objects).then((objectsView) => {
+					watchUtils
+						.whenNotOnce(objectsView, "updating")
+						.then(() => {
+							return objectsView.queryFeatures({
+								geometry: event.mapPoint,
+								where: objectsView.filter.where,
+								distance: view.resolution <= 7 ? view.resolution * 15 : 100,
+								spatialRelationship: "intersects",
+								outFields: ["OBJECTID"],
+							})
+						})
+						.then((response) => {
+							if (response.features.length > 0) {
+								props.setMapQuery(response.features)
+								navigate(`object/${response.features[0].attributes.OBJECTID}`)
+							}
+						})
+				})
+			})
+		)
 	}, [])
 
 	useEffect(() => {
@@ -135,7 +154,13 @@ const ObjectMap = (props) => {
 		}
 	}, [])
 
-	return <div className="map" ref={mapDiv}></div>
+	return (
+		<>
+			<div className="map" ref={mapDiv}></div>
+			{/* <div id="view1Div" ref={mapDiv} style={{ float: "left", width: "50%", height: "100%" }}></div> */}
+			{/* <div id="view2Div" ref={mapDiv2} style={{ float: "left", width: "50%", height: "100%" }}></div> */}
+		</>
+	)
 }
 
 export default ObjectMap

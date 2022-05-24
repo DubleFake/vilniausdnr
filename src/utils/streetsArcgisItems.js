@@ -249,6 +249,22 @@ export const view = new MapView({
 	},
 })
 
+export const view2 = new MapView({
+	map: map,
+	zoom: 2,
+	slider: false,
+	constraints: {
+		snapToZoom: false,
+	},
+	ui: {
+		components: ["attribution"],
+	},
+	highlightOptions: {
+		color: "#FF0000",
+		haloColor: "#FF0000",
+	},
+})
+
 const basemapGallery = new BasemapGallery({
 	view: view,
 	source: [basemap1, basemap2],

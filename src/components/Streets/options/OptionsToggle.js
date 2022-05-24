@@ -4,7 +4,7 @@ import ToggleButton from "@mui/material/ToggleButton"
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
 
-const TableToggle = (props) => {
+const OptionsToggle = (props) => {
 	return (
 		<ToggleButton
 			sx={{
@@ -35,4 +35,4 @@ const TableToggle = (props) => {
 	)
 }
 
-export default TableToggle
+export default OptionsToggle

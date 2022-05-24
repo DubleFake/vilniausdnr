@@ -5,11 +5,14 @@ import { useTranslation } from "react-i18next"
 
 import { view, objects } from "../../../utils/streetsArcgisItems"
 
+import { styled } from "@mui/material/styles"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import CardHeader from "@mui/material/CardHeader"
 import CloseIcon from "@mui/icons-material/Close"
 import IconButton from "@mui/material/IconButton"
+import ShareIcon from "@mui/icons-material/Share"
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip"
 import Typography from "@mui/material/Typography"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
@@ -23,6 +26,7 @@ import Pagination from "@mui/material/Pagination"
 import CircularProgress from "@mui/material/CircularProgress"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Backdrop from "@mui/material/Backdrop"
+import Fade from "@mui/material/Fade"
 
 let highlight
 const ObjectPopup = (props) => {
@@ -38,11 +42,27 @@ const ObjectPopup = (props) => {
 	const [popupOpen, setPopupOpen] = useState(false)
 	const [page, setPage] = useState(1)
 	const [pageCount, setPageCount] = useState(1)
+	const [shareTooltip, setShareTooltip] = useState(false)
 
 	const handlePage = (event, value) => {
-		navigate(
-			`/${i18n.language}/streets/object/${queryObjects[value - 1].attributes.GlobalID.replace(/[{}]/g, "")}`
-		)
+		navigate(`/${i18n.language}/streets/object/${queryObjects[value - 1].attributes.OBJECTID}`)
+	}
+
+	const BootstrapTooltip = styled(({ className, ...props }) => (
+		<Tooltip {...props} arrow classes={{ popper: className }} />
+	))(({ theme }) => ({
+		[`& .${tooltipClasses.arrow}`]: {
+			color: theme.palette.secondary.main,
+		},
+		[`& .${tooltipClasses.tooltip}`]: {
+			backgroundColor: theme.palette.secondary.main,
+			fontSize: 15,
+		},
+	}))
+
+	const handleShare = async () => {
+		await navigator.clipboard.writeText(window.location.href)
+		setShareTooltip(true)
 	}
 
 	useEffect(() => {
@@ -52,7 +72,7 @@ const ObjectPopup = (props) => {
 
 			let found = false
 			for (let obj in props.mapQuery) {
-				if (props.mapQuery[obj].attributes.GlobalID.replace(/[{}]/g, "") === globalID) {
+				if (props.mapQuery[obj].attributes.OBJECTID === globalID) {
 					setPage(parseInt(obj) + 1)
 					found = true
 				}
@@ -66,140 +86,74 @@ const ObjectPopup = (props) => {
 				setPage(1)
 			}
 
-			view
-				.whenLayerView(objects)
-				.then((objectsView) => {
-					// let query = objectsView.createQuery()
-					// query.where = `GlobalID = '{${globalID}}'`
+			console.log(globalID)
 
-					objects
-						.queryFeatures({
-							where: `GlobalID = '{${globalID}}'`,
-							outFields: ["*"],
-							returnGeometry: true,
-						})
-						.then((response) => {
-							if (highlight) {
-								highlight.remove()
-							}
+			objects
+				.queryFeatures({
+					outFields: ["*"],
+					where: `OBJECTID = '${globalID}'`,
+				})
+				.then((response) => {
+					console.log(response)
+					if (highlight) {
+						highlight.remove()
+					}
 
-							if (response.features.length === 0) {
-								navigate(`/${i18n.language}/streets`)
-								return
-							}
+					if (response.features.length === 0) {
+						navigate(`/${i18n.language}/streets`)
+						return
+					}
 
-							view.goTo({
-								target: response.features[0].geometry,
-								zoom: 8,
-							})
-							highlight = objectsView.highlight(response.features[0])
-							props.setSelectedObject(`${globalID}`)
+					view.goTo({
+						target: response.features[0].geometry,
+						zoom: 8,
+					})
+					// highlight = objects.highlight(response.features[0])
+					props.setSelectedObject(`${globalID}`)
 
-							return response
-						})
-						.then((response) => {
-							const allAttributes = []
+					return response
+				})
+				.then((response) => {
+					const allAttributes = []
 
-							let count = 0
-							for (let attr in response.features[0].attributes) {
-								if (
-									response.features[0].attributes[attr] === null ||
-									response.features[0].attributes[attr] === "" ||
-									response.features[0].attributes[attr] === 0 ||
-									attr === "OBJECTID" ||
-									attr === "IDENTIFIK" ||
-									attr === "REG_TURTAS" ||
-									attr === "VERTE" ||
-									attr === "UZSAKOVAS" ||
-									attr === "PRIZIURI" ||
-									attr === "PASTABA" ||
-									attr === "Atmobj_id_temp" ||
-									attr === "last_edited_user" ||
-									attr === "last_edited_date" ||
-									attr === "SHAPE" ||
-									attr === "GlobalID" ||
-									attr === "OBJ_FOTO" ||
-									attr === "created_user" ||
-									attr === "created_date"
-								) {
-								} else {
-									const obj = {}
+					let count = 0
+					for (let attr in response.features[0].attributes) {
+						if (
+							response.features[0].attributes[attr] === null ||
+							response.features[0].attributes[attr] === "" ||
+							response.features[0].attributes[attr] === 0 ||
+							attr === "GAT_ID_1" ||
+							attr === "GAT_GYV_ID" ||
+							attr === "Shape__Length"
+						) {
+						} else {
+							const obj = {}
 
-									obj.alias = response.features[0].layer.fields[count].alias
-									if (response.features[0].layer.fields[count].domain === null) {
-										obj.value = response.features[0].attributes[attr]
-									} else {
-										for (let code in response.features[0].layer.fields[count].domain.codedValues) {
-											if (
-												response.features[0].layer.fields[count].domain.codedValues[code].code ===
-												response.features[0].attributes[attr]
-											) {
-												obj.value = response.features[0].layer.fields[count].domain.codedValues[code].name
-											}
-										}
+							obj.alias = response.features[0].layer.fields[count].alias
+							if (response.features[0].layer.fields[count].domain === null) {
+								obj.value = response.features[0].attributes[attr]
+							} else {
+								for (let code in response.features[0].layer.fields[count].domain.codedValues) {
+									if (
+										response.features[0].layer.fields[count].domain.codedValues[code].code ===
+										response.features[0].attributes[attr]
+									) {
+										obj.value = response.features[0].layer.fields[count].domain.codedValues[code].name
+										obj.code = response.features[0].layer.fields[count].domain.codedValues[code].code
 									}
-
-									obj.field = attr
-									allAttributes.push(obj)
 								}
-								count++
 							}
-							setObjectAttr(allAttributes)
-							return response.features[0].attributes.OBJECTID
-						})
-						.then((OBJECTID) => {
-							// const allPersons = []
-							// objects
-							// 	.queryRelatedFeatures({
-							// 		outFields: ["GlobalID", "Pavardė__liet_", "Vardas__liet_"],
-							// 		relationshipId: 0,
-							// 		objectIds: OBJECTID,
-							// 	})
-							// 	.then((response) => {
-							// 		if (Object.keys(response).length === 0) {
-							// 			setObjectPer([])
-							// 			return
-							// 		}
-							// 		Object.keys(response).forEach((objectId) => {
-							// 			const person = response[objectId].features
-							// 			person.forEach((person) => {
-							// 				allPersons.push(person)
-							// 			})
-							// 		})
-							// 		setObjectPer(allPersons)
-							// 	})
-							// 	.catch((error) => {
-							// 		console.error(error)
-							// 	})
-							// const allAttachments = []
-							// objects
-							// 	.queryAttachments({
-							// 		attachmentTypes: ["image/jpeg"],
-							// 		objectIds: OBJECTID,
-							// 	})
-							// 	.then((response) => {
-							// 		if (Object.keys(response).length === 0) {
-							// 			setObjectAtt([])
-							// 			return
-							// 		}
-							// 		Object.keys(response).forEach((objectId) => {
-							// 			const attachment = response[objectId]
-							// 			attachment.forEach((attachment) => {
-							// 				allAttachments.push(attachment)
-							// 			})
-							// 		})
-							// 		setObjectAtt(allAttachments)
-							// 	})
-							// 	.catch((error) => {
-							// 		console.error(error)
-							// 	})
-						})
-						.then(() => {
-							setLoading(false)
-						})
-						.catch((error) => {
-							console.error(error)
-						})
+
+							obj.field = attr
+							allAttributes.push(obj)
+						}
+						count++
+					}
+					setObjectAttr(allAttributes)
+					return response.features[0].attributes.OBJECTID
+				})
+				.then(() => {
+					setLoading(false)
 				})
 				.catch((error) => {
 					console.error(error)
@@ -225,137 +179,164 @@ const ObjectPopup = (props) => {
 	return (
 		<>
 			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
-			<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
-				<Card
-					sx={{
-						borderRadius: "0px",
-						maxWidth: matches ? "auto" : 995,
-						width: matches ? 600 : "100vw",
-						mt: matches ? 1.5 : 0,
-						mr: matches ? 1.5 : 0,
-					}}
-				>
-					<CardContent
+			<Fade in={true} timeout={300} unmountOnExit>
+				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
+					<Card
 						sx={{
-							maxHeight: window.innerHeight - 170,
-							overflowY: "auto",
-							overflowX: "hidden",
+							borderRadius: "0px",
+							maxWidth: matches ? "auto" : 995,
+							width: matches ? 600 : "100vw",
+							mt: matches ? 1.5 : 0,
+							mr: matches ? 1.5 : 0,
 						}}
 					>
-						{pageCount > 1 ? (
-							<Box component="div" display="flex" justifyContent="center" alignItems="center">
-								<Pagination count={pageCount} page={page} onChange={handlePage} />
-							</Box>
-						) : null}
-						{loading ? (
-							<Box display="flex" justifyContent="center" alignItems="center">
-								<CircularProgress />
-							</Box>
-						) : (
-							<>
-								<CardHeader
-									sx={{ px: 0, pt: 0.5, pb: 1 }}
-									action={
-										<IconButton
-											aria-label="close"
-											onClick={() => {
-												navigate(`/${i18n.language}/streets`)
-											}}
-										>
-											<CloseIcon />
-										</IconButton>
-									}
-									title={Object.keys(objectAttr).map((attr) =>
-										objectAttr[attr].field === "OBJ_PAV" ? objectAttr[attr].value : null
-									)}
-								/>
-								<TableContainer sx={{ mb: 1 }} component={Paper}>
-									<Table size="small">
-										<TableBody>
-											{Object.keys(objectAttr).map((attr) =>
-												objectAttr[attr].field === "OBJ_APRAS" ||
-												objectAttr[attr].field === "AUTORIUS" ||
-												objectAttr[attr].field === "OBJ_PAV" ||
-												objectAttr[attr].field === "SALTINIS" ? null : (
-													<TableRow
-														key={objectAttr[attr].field}
-														sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-													>
-														<TableCell component="th" scope="row">
-															{objectAttr[attr].alias}
-														</TableCell>
-														<TableCell align="right">{objectAttr[attr].value}</TableCell>
-													</TableRow>
-												)
-											)}
-										</TableBody>
-									</Table>
-								</TableContainer>
-								{Object.keys(objectAttr).map((attr) =>
-									objectAttr[attr].field === "OBJ_APRAS" || objectAttr[attr].field === "AUTORIUS" ? (
-										<Typography variant="h6" component="div" key={objectAttr[attr].field}>
-											{objectAttr[attr].alias}
-											<Typography variant="body2" component="div">
-												{objectAttr[attr].value}
-											</Typography>
-										</Typography>
-									) : null
-								)}
-								{Object.keys(objectAttr).map((attr) =>
-									objectAttr[attr].field === "SALTINIS" ? (
-										<Typography variant="h6" component="div" key={objectAttr[attr].field}>
-											{objectAttr[attr].alias}
-											<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
+						<CardContent
+							sx={{
+								maxHeight: window.innerHeight - 170,
+								overflowY: "auto",
+								overflowX: "hidden",
+							}}
+						>
+							{pageCount > 1 ? (
+								<Box component="div" display="flex" justifyContent="center" alignItems="center">
+									<Pagination count={pageCount} page={page} onChange={handlePage} />
+								</Box>
+							) : null}
+							{loading ? (
+								<Box display="flex" justifyContent="center" alignItems="center">
+									<CircularProgress />
+								</Box>
+							) : (
+								<>
+									<CardHeader
+										sx={{ px: 0, pt: 0.5, pb: 1 }}
+										action={
+											<>
+												<BootstrapTooltip
+													open={shareTooltip}
+													leaveDelay={1000}
+													title={t(`plaques.objectPopup.shareUrl`)}
+													arrow
+													placement="top"
+													onClose={() => {
+														setShareTooltip(false)
+													}}
+												>
+													<IconButton color="secondary" aria-label="share" size="large" onClick={handleShare}>
+														<ShareIcon style={{ fontSize: 30 }} />
+													</IconButton>
+												</BootstrapTooltip>
+												<IconButton
+													color="secondary"
+													aria-label="close"
+													size="large"
+													onClick={() => {
+														navigate(`/${i18n.language}/streets`)
+													}}
+												>
+													<CloseIcon style={{ fontSize: 30 }} />
+												</IconButton>
+											</>
+										}
+										title={Object.keys(objectAttr).map((attr) =>
+											objectAttr[attr].field === "OBJ_PAV" ? objectAttr[attr].value : null
+										)}
+									/>
+									<TableContainer sx={{ mb: 1 }} component={Paper}>
+										<Table size="small">
+											<TableBody>
+												{Object.keys(objectAttr).map((attr) =>
+													objectAttr[attr].field === "OBJ_APRAS" ||
+													objectAttr[attr].field === "AUTORIUS" ||
+													objectAttr[attr].field === "OBJ_PAV" ||
+													objectAttr[attr].field === "SALTINIS" ? null : (
+														<TableRow
+															key={objectAttr[attr].field}
+															sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+														>
+															<TableCell component="th" scope="row">
+																{/* {t(`plaques.objectPopup.${objectAttr[attr].field}`)} */}
+																{objectAttr[attr].field}
+															</TableCell>
+															<TableCell align="right">
+																{objectAttr[attr].field === "TIPAS"
+																	? t(`plaques.options.objects.${objectAttr[attr].code}`)
+																	: objectAttr[attr].field === "ATMINT_TIP"
+																	? t(`plaques.options.memories.${objectAttr[attr].code}`)
+																	: objectAttr[attr].value}
+															</TableCell>
+														</TableRow>
+													)
+												)}
+											</TableBody>
+										</Table>
+									</TableContainer>
+									{Object.keys(objectAttr).map((attr) =>
+										objectAttr[attr].field === "OBJ_APRAS" || objectAttr[attr].field === "AUTORIUS" ? (
+											<Typography variant="h6" component="div" key={objectAttr[attr].field}>
+												{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
 												<Typography variant="body2" component="div">
 													{objectAttr[attr].value}
 												</Typography>
-											</MuiLinkify>
-										</Typography>
-									) : null
-								)}
+											</Typography>
+										) : null
+									)}
+									{Object.keys(objectAttr).map((attr) =>
+										objectAttr[attr].field === "SALTINIS" ? (
+											<Typography variant="h6" component="div" key={objectAttr[attr].field}>
+												{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
+												<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
+													<Typography variant="body2" component="div">
+														{objectAttr[attr].value}
+													</Typography>
+												</MuiLinkify>
+											</Typography>
+										) : null
+									)}
 
-								{objectPer.length ? (
-									<Typography variant="h6" component="div">
-										{objectPer.length > 1 ? "Susiję asmenys" : "Susijęs asmuo"}
-										<Typography component="div">
-											{Object.keys(objectPer).map((per) => (
-												<div key={per}>
-													<Link
-														sx={{ mt: 0.5 }}
-														textAlign="left"
-														component="button"
-														variant="body2"
-														onClick={() => {
-															navigate(
-																`/${i18n.language}/streets/person/${objectPer[
-																	per
-																].attributes.GlobalID.replace(/[{}]/g, "")}`
-															)
-														}}
-													>{`${objectPer[per].attributes.Vardas__liet_} ${objectPer[per].attributes.Pavardė__liet_}`}</Link>
-													<br></br>
-												</div>
-											))}
+									{objectPer.length ? (
+										<Typography variant="h6" component="div">
+											{objectPer.length > 1
+												? t("plaques.objectPopup.relatedMany")
+												: t("plaques.objectPopup.relatedOne")}
+											<Typography component="div">
+												{Object.keys(objectPer).map((per) => (
+													<div key={per}>
+														<Link
+															sx={{ mt: 0.5 }}
+															textAlign="left"
+															component="button"
+															variant="body2"
+															onClick={() => {
+																navigate(
+																	`/${i18n.language}/plaques/person/${objectPer[per].attributes.OBJECTID}`
+																)
+															}}
+														>{`${objectPer[per].attributes.Vardas__liet_} ${objectPer[per].attributes.Pavardė__liet_}`}</Link>
+														<br></br>
+													</div>
+												))}
+											</Typography>
 										</Typography>
-									</Typography>
-								) : null}
-								{objectAtt.length
-									? Object.keys(objectAtt).map((att) => (
-											<Box sx={{ mt: 1 }} key={att}>
-												<a href={`${objectAtt[att].url}`} target="_blank">
-													<img
-														style={{ maxWidth: "100%", maxHeight: "auto" }}
-														src={`${objectAtt[att].url}`}
-													/>
-												</a>
-											</Box>
-									  ))
-									: null}
-							</>
-						)}
-					</CardContent>
-				</Card>
-			</Box>
+									) : null}
+									{objectAtt.length
+										? Object.keys(objectAtt).map((att) => (
+												<Box sx={{ mt: 1 }} key={att}>
+													<a href={`${objectAtt[att].url}`} target="_blank">
+														<img
+															style={{ maxWidth: "100%", maxHeight: "auto" }}
+															src={`${objectAtt[att].url}`}
+														/>
+													</a>
+												</Box>
+										  ))
+										: null}
+								</>
+							)}
+						</CardContent>
+					</Card>
+				</Box>
+			</Fade>
 		</>
 	)
 }

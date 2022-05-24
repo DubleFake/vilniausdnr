@@ -12,13 +12,13 @@ import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
+import Grid from "@mui/material/Grid"
 
 const SwipeLayers = () => {
 	const [swipeCenter, setSwipeCenter] = useState(50)
 	const [swipeShowSelect, setSwipeShowSelect] = useState(false)
 	const [selectedSwipeObject, setSelectedSwipeObject] = useState(0)
 
-	console.log(swipeObjects)
 	const nowHandler = () => {
 		const swipeWidgetFind = view.ui.find("swipe-layers")
 		if (swipeWidgetFind !== null) {
@@ -57,78 +57,97 @@ const SwipeLayers = () => {
 
 	const handleSwipeSelect = (event) => {
 		console.log(event.target.value)
-    
-    const swipeWidgetFind = view.ui.find("swipe-layers")
+
+		const swipeWidgetFind = view.ui.find("swipe-layers")
 		if (swipeWidgetFind !== null) {
-      view.ui.remove(swipeWidgetFind)
+			view.ui.remove(swipeWidgetFind)
 			swipeWidgetFind.destroy()
 		}
 		map.remove(swipeObjects[selectedSwipeObject])
-    
-    map.add(swipeObjects[event.target.value])
+
+		map.add(swipeObjects[event.target.value])
 		const swipe = new Swipe({
-      view: view,
+			view: view,
 			leadingLayers: [objects],
 			trailingLayers: [swipeObjects[event.target.value]],
 			direction: "horizontal", // swipe widget will move from top to bottom of view
 			position: 50, // position set to middle of the view (50%)
 			id: "swipe-layers",
 		})
-    
-    setSelectedSwipeObject(event.target.value)
+
+		setSelectedSwipeObject(event.target.value)
 		view.ui.add(swipe)
 		// setSwipeShowSelect(true)
 	}
 
 	return (
 		<>
-			<ButtonGroup
-				sx={{ top: 90, right: window.innerWidth / 2 - 99, mt: 1.5, position: "absolute", zIndex: 2 }} //-99 nes buttongroup plotis ~198
-				variant="contained"
+			<Grid
+				sx={{
+					backgroundColor: "yellow",
+					width: "100%",
+					height: "0%",
+					bottom: window.innerHeight - 90,
+					position: "relative",
+				}}
+				container
+				direction="row"
+				justifyContent="center"
+				alignItems="flex-start"
 			>
-				<Button onClick={nowHandler}>
-					<Typography variant="button">dabartis</Typography>
-				</Button>
-				<Button color="secondary" onClick={historyHandler}>
-					<Typography variant="button">istorija</Typography>
-				</Button>
-			</ButtonGroup>
+				<ButtonGroup sx={{ mt: 1.5 }} variant="contained">
+					<Button color={swipeShowSelect ? "primary" : "secondary"} onClick={nowHandler}>
+						<Typography variant="button">dabartis</Typography>
+					</Button>
+					<Button color={swipeShowSelect ? "secondary" : "primary"} onClick={historyHandler}>
+						<Typography variant="button">istorija</Typography>
+					</Button>
+				</ButtonGroup>
 
-			<Button color="secondary">
+				{/* <Button color="secondary">
 				<Typography variant="button">TESTING</Typography>
-			</Button>
+			</Button> */}
+			</Grid>
 
 			{swipeShowSelect && (
-				<FormControl
+				<Grid
 					sx={{
-						top: 90,
-						// left: `${swipeCenter + 1.5}%`,
-						left: window.innerWidth / 2 - 75,
-						top: window.innerHeight,
-						mt: -10,
-						position: "absolute",
-						zIndex: 2,
-						width: 150,
-						backgroundColor: "white",
+						backgroundColor: "yellow",
+						width: "100%",
+						height: "0%",
+						position: "relative",
 					}}
-					variant="filled"
-					size="small"
-					id="swipe-select"
+					container
+					direction="row"
+					justifyContent="center"
+					alignItems="flex-start"
 				>
-					<InputLabel>Sluoksnis</InputLabel>
-					<Select
-						value={selectedSwipeObject}
-						label="Sluoksnis"
-						// defaultValue="0"
-						onChange={handleSwipeSelect}
+					<FormControl
+						sx={{
+              bottom: 16,
+              mt: -7.5,
+							width: 150,
+							backgroundColor: "white",
+						}}
+						variant="filled"
+						size="small"
+						id="swipe-select"
 					>
-						{swipeObjects.map((object, index) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
-								{object.title}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
+						<InputLabel>Sluoksnis</InputLabel>
+						<Select
+							value={selectedSwipeObject}
+							label="Sluoksnis"
+							// defaultValue="0"
+							onChange={handleSwipeSelect}
+						>
+							{swipeObjects.map((object, index) => (
+								<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+									{object.title}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</Grid>
 			)}
 		</>
 	)
