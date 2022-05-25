@@ -8,7 +8,7 @@ const OptionsToggle = (props) => {
 	return (
 		<ToggleButton
 			sx={{
-				position: "fixed",
+				position: "absolute",
 				zIndex: 2,
 				height: "20vh",
 				top: "calc(40vh + 45px)",
@@ -19,6 +19,7 @@ const OptionsToggle = (props) => {
 				"&:hover": {
 					bgcolor: "secondary.dark",
 				},
+				float: "left",
 			}}
 			value="check"
 			selected={false}

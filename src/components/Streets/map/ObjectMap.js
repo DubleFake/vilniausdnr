@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
 
-import { view, view2, objects, bgExpand, locateWidget } from "../../../utils/streetsArcgisItems"
+import { view, view2, map2, swipeObjects, objects, bgExpand, locateWidget } from "../../../utils/streetsArcgisItems"
 
 const viewHandles = []
 
@@ -15,27 +15,6 @@ const ObjectMap = (props) => {
 
 	useEffect(() => {
 		view.container = mapDiv.current
-		// view2.container = mapDiv2.current
-
-		// const views = [view, view2]
-		// let active
-		// const sync = (source) => {
-		// 	if (!active || !active.viewpoint || active !== source) {
-		// 		return
-		// 	}
-		// 	for (const view of views) {
-		// 		if (view !== active) {
-		// 			view.viewpoint = active.viewpoint
-		// 		}
-		// 	}
-		// }
-		// for (const view of views) {
-		// 	view.watch(["interacting", "animation"], () => {
-		// 		active = view
-		// 		sync(active)
-		// 	})
-		// 	view.watch("viewpoint", () => sync(view))
-		// }
 
 		viewHandles.forEach((handle) => {
 			handle.remove()
@@ -144,6 +123,40 @@ const ObjectMap = (props) => {
 	}, [i18n.language])
 
 	useEffect(() => {
+		if (props.compareWindow) {
+			view2.container = mapDiv2.current
+			map2.add(swipeObjects[5])
+
+			view.container.style.width = "50%"
+			view2.container.style.width = "50%"
+
+			const views = [view, view2]
+			let active
+			const sync = (source) => {
+				if (!active || !active.viewpoint || active !== source) {
+					return
+				}
+				for (const view of views) {
+					if (view !== active) {
+						view.viewpoint = active.viewpoint
+					}
+				}
+			}
+			for (const view of views) {
+				view.watch(["interacting", "animation"], () => {
+					active = view
+					sync(active)
+				})
+				view.watch("viewpoint", () => sync(view)) //reiks poto istrint view arba handles
+			}
+		} else if (!props.compareWindow && view2.container) {
+			view.container.style.width = "100%"
+			view2.container.style.width = "0%"
+			view2.container = null
+		}
+	}, [props.compareWindow])
+
+	useEffect(() => {
 		return () => {
 			viewHandles.forEach((handle) => {
 				handle.remove()
@@ -151,13 +164,19 @@ const ObjectMap = (props) => {
 			viewHandles.length = 0
 
 			view.container = null
+			view2.container = null
 		}
 	}, [])
 
 	return (
 		<>
-			<div className="map" ref={mapDiv}></div>
-			{/* <div id="view1Div" ref={mapDiv} style={{ float: "left", width: "50%", height: "100%" }}></div> */}
+			<div
+				className="map"
+				id="view1Div"
+				ref={mapDiv}
+				style={{ float: "left", width: "100%", height: "100%" }}
+			></div>
+			<div id="view2Div" ref={mapDiv2} style={{ float: "left", width: "0%", height: "100%" }}></div>
 			{/* <div id="view2Div" ref={mapDiv2} style={{ float: "left", width: "50%", height: "100%" }}></div> */}
 		</>
 	)

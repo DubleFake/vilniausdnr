@@ -14,9 +14,9 @@ import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
 
-const SwipeLayers = () => {
+const CompareLayers = (props) => {
 	const [swipeCenter, setSwipeCenter] = useState(50)
-	const [swipeShowSelect, setSwipeShowSelect] = useState(false)
+	const [historyToggle, setHistoryToggle] = useState(false)
 	const [selectedSwipeObject, setSelectedSwipeObject] = useState(0)
 
 	const nowHandler = () => {
@@ -25,9 +25,11 @@ const SwipeLayers = () => {
 			view.ui.remove(swipeWidgetFind)
 			swipeWidgetFind.destroy()
 		}
-
 		map.remove(swipeObjects[selectedSwipeObject])
-		setSwipeShowSelect(false)
+
+    props.setCompareWindow(false)
+
+		setHistoryToggle(false)
 	}
 
 	const historyHandler = () => {
@@ -39,8 +41,8 @@ const SwipeLayers = () => {
 				view: view,
 				leadingLayers: [objects],
 				trailingLayers: [swipeObjects[selectedSwipeObject]],
-				direction: "horizontal", // swipe widget will move from top to bottom of view
-				position: 50, // position set to middle of the view (50%)
+				direction: "horizontal",
+				position: 50,
 				id: "swipe-layers",
 			})
 
@@ -51,13 +53,11 @@ const SwipeLayers = () => {
 			// })
 
 			view.ui.add(swipe)
-			setSwipeShowSelect(true)
+			setHistoryToggle(true)
 		}
 	}
 
 	const handleSwipeSelect = (event) => {
-		console.log(event.target.value)
-
 		const swipeWidgetFind = view.ui.find("swipe-layers")
 		if (swipeWidgetFind !== null) {
 			view.ui.remove(swipeWidgetFind)
@@ -70,14 +70,46 @@ const SwipeLayers = () => {
 			view: view,
 			leadingLayers: [objects],
 			trailingLayers: [swipeObjects[event.target.value]],
-			direction: "horizontal", // swipe widget will move from top to bottom of view
-			position: 50, // position set to middle of the view (50%)
+			direction: "horizontal",
+			position: 50,
 			id: "swipe-layers",
 		})
 
 		setSelectedSwipeObject(event.target.value)
 		view.ui.add(swipe)
-		// setSwipeShowSelect(true)
+		// setHistoryToggle(true)
+	}
+
+	const handleWindow = () => {
+		if (!props.compareWindow) {
+			const swipeWidgetFind = view.ui.find("swipe-layers")
+			if (swipeWidgetFind !== null) {
+				view.ui.remove(swipeWidgetFind)
+				swipeWidgetFind.destroy()
+			}
+			map.remove(swipeObjects[selectedSwipeObject])
+		} else {
+			console.log("first")
+			const swipeWidgetFind = view.ui.find("swipe-layers")
+			if (swipeWidgetFind === null) {
+				console.log("asdasd")
+
+				map.add(swipeObjects[selectedSwipeObject])
+
+				const swipe = new Swipe({
+					view: view,
+					leadingLayers: [objects],
+					trailingLayers: [swipeObjects[selectedSwipeObject]],
+					direction: "horizontal",
+					position: 50,
+					id: "swipe-layers",
+				})
+
+				view.ui.add(swipe)
+			}
+		}
+
+		props.setCompareWindow(!props.compareWindow)
 	}
 
 	return (
@@ -96,20 +128,16 @@ const SwipeLayers = () => {
 				alignItems="flex-start"
 			>
 				<ButtonGroup sx={{ mt: 1.5 }} variant="contained">
-					<Button color={swipeShowSelect ? "primary" : "secondary"} onClick={nowHandler}>
+					<Button color={historyToggle ? "primary" : "secondary"} onClick={nowHandler}>
 						<Typography variant="button">dabartis</Typography>
 					</Button>
-					<Button color={swipeShowSelect ? "secondary" : "primary"} onClick={historyHandler}>
+					<Button color={historyToggle ? "secondary" : "primary"} onClick={historyHandler}>
 						<Typography variant="button">istorija</Typography>
 					</Button>
 				</ButtonGroup>
-
-				{/* <Button color="secondary">
-				<Typography variant="button">TESTING</Typography>
-			</Button> */}
 			</Grid>
 
-			{swipeShowSelect && (
+			{historyToggle && (
 				<Grid
 					sx={{
 						backgroundColor: "yellow",
@@ -124,8 +152,8 @@ const SwipeLayers = () => {
 				>
 					<FormControl
 						sx={{
-              bottom: 16,
-              mt: -7.5,
+							bottom: 16,
+							mt: -7.5,
 							width: 150,
 							backgroundColor: "white",
 						}}
@@ -147,10 +175,23 @@ const SwipeLayers = () => {
 							))}
 						</Select>
 					</FormControl>
+					<Button
+						sx={{
+							bottom: 16,
+							mt: -7.5,
+							width: 150,
+							height: 48,
+						}}
+						variant="contained"
+						color="primary"
+						onClick={handleWindow}
+					>
+						<Typography variant="button">Vaizdavimas</Typography>
+					</Button>
 				</Grid>
 			)}
 		</>
 	)
 }
 
-export default SwipeLayers
+export default CompareLayers

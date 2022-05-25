@@ -227,6 +227,10 @@ export const map = new Map({
 	basemap: basemap2,
 	layers: [objects],
 })
+export const map2 = new Map({
+	basemap: basemap2,
+  layers: [gatves_1808],
+})
 
 export const view = new MapView({
 	map: map,
@@ -250,7 +254,7 @@ export const view = new MapView({
 })
 
 export const view2 = new MapView({
-	map: map,
+	map: map2,
 	zoom: 2,
 	slider: false,
 	constraints: {

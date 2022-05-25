@@ -122,6 +122,8 @@ const ObjectPopup = (props) => {
 							response.features[0].attributes[attr] === null ||
 							response.features[0].attributes[attr] === "" ||
 							response.features[0].attributes[attr] === 0 ||
+							attr === "OBJECTID" ||
+							attr === "GAT_ID" ||
 							attr === "GAT_ID_1" ||
 							attr === "GAT_GYV_ID" ||
 							attr === "Shape__Length"
@@ -239,7 +241,7 @@ const ObjectPopup = (props) => {
 											</>
 										}
 										title={Object.keys(objectAttr).map((attr) =>
-											objectAttr[attr].field === "OBJ_PAV" ? objectAttr[attr].value : null
+											objectAttr[attr].field === "PAV" ? objectAttr[attr].value : null
 										)}
 									/>
 									<TableContainer sx={{ mb: 1 }} component={Paper}>

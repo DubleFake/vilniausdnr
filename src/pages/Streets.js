@@ -22,6 +22,7 @@ const Plaques = () => {
 	const [initialObjectsClasses, setInitialObjectsClasses] = useState([[], []])
 	const [mapQuery, setMapQuery] = useState([])
 	const [visible, setVisible] = useState(false)
+	const [compareWindow, setCompareWindow] = useState(false)
 
 	return (
 		<Routes>
@@ -49,14 +50,15 @@ const Plaques = () => {
 							</Collapse>
 
 							<Grid item xs>
+								<OptionsToggle visible={visible} setVisible={setVisible} />
 								<ObjectMap
 									setInitialObjectsList={setInitialObjectsList}
 									setInitialLoading={setInitialLoading}
 									setMapQuery={setMapQuery}
 									setInitialObjectsClasses={setInitialObjectsClasses}
+									compareWindow={compareWindow}
 								/>
-								<OptionsToggle visible={visible} setVisible={setVisible} />
-								<CompareLayers />
+								<CompareLayers setCompareWindow={setCompareWindow} compareWindow={compareWindow} />
 								<Outlet />
 							</Grid>
 						</Grid>
