@@ -125,7 +125,7 @@ const ObjectMap = (props) => {
 	useEffect(() => {
 		if (props.compareWindow) {
 			view2.container = mapDiv2.current
-			map2.add(swipeObjects[5])
+			// map2.add(swipeObjects[5])
 
 			view.container.style.width = "50%"
 			view2.container.style.width = "50%"

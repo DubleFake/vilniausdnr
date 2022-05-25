@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import { view, objects, swipeObjects, map } from "../../../utils/streetsArcgisItems"
+import { view, objects, swipeObjects, map, map2 } from "../../../utils/streetsArcgisItems"
 
 import * as watchUtils from "@arcgis/core/core/watchUtils"
 
@@ -27,7 +27,7 @@ const CompareLayers = (props) => {
 		}
 		map.remove(swipeObjects[selectedSwipeObject])
 
-    props.setCompareWindow(false)
+		props.setCompareWindow(false)
 
 		setHistoryToggle(false)
 	}
@@ -58,26 +58,31 @@ const CompareLayers = (props) => {
 	}
 
 	const handleSwipeSelect = (event) => {
-		const swipeWidgetFind = view.ui.find("swipe-layers")
-		if (swipeWidgetFind !== null) {
-			view.ui.remove(swipeWidgetFind)
-			swipeWidgetFind.destroy()
-		}
-		map.remove(swipeObjects[selectedSwipeObject])
+		if (!props.compareWindow) {
+			const swipeWidgetFind = view.ui.find("swipe-layers")
+			if (swipeWidgetFind !== null) {
+				view.ui.remove(swipeWidgetFind)
+				swipeWidgetFind.destroy()
+			}
+			map.remove(swipeObjects[selectedSwipeObject])
 
-		map.add(swipeObjects[event.target.value])
-		const swipe = new Swipe({
-			view: view,
-			leadingLayers: [objects],
-			trailingLayers: [swipeObjects[event.target.value]],
-			direction: "horizontal",
-			position: 50,
-			id: "swipe-layers",
-		})
+			map.add(swipeObjects[event.target.value])
+			const swipe = new Swipe({
+				view: view,
+				leadingLayers: [objects],
+				trailingLayers: [swipeObjects[event.target.value]],
+				direction: "horizontal",
+				position: 50,
+				id: "swipe-layers",
+			})
+			view.ui.add(swipe)
+			// setHistoryToggle(true)
+		} else {
+			map2.remove(swipeObjects[selectedSwipeObject])
+			map2.add(swipeObjects[event.target.value])
+		}
 
 		setSelectedSwipeObject(event.target.value)
-		view.ui.add(swipe)
-		// setHistoryToggle(true)
 	}
 
 	const handleWindow = () => {
@@ -88,6 +93,7 @@ const CompareLayers = (props) => {
 				swipeWidgetFind.destroy()
 			}
 			map.remove(swipeObjects[selectedSwipeObject])
+			map2.add(swipeObjects[selectedSwipeObject])
 		} else {
 			console.log("first")
 			const swipeWidgetFind = view.ui.find("swipe-layers")
@@ -150,6 +156,19 @@ const CompareLayers = (props) => {
 					justifyContent="center"
 					alignItems="flex-start"
 				>
+					<Button
+						sx={{
+							bottom: 16,
+							mt: -7.5,
+							width: 150,
+							height: 48,
+						}}
+						variant="contained"
+						color="primary"
+						onClick={handleWindow}
+					>
+						<Typography variant="button">Vaizdavimas</Typography>
+					</Button>
 					<FormControl
 						sx={{
 							bottom: 16,
@@ -175,19 +194,6 @@ const CompareLayers = (props) => {
 							))}
 						</Select>
 					</FormControl>
-					<Button
-						sx={{
-							bottom: 16,
-							mt: -7.5,
-							width: 150,
-							height: 48,
-						}}
-						variant="contained"
-						color="primary"
-						onClick={handleWindow}
-					>
-						<Typography variant="button">Vaizdavimas</Typography>
-					</Button>
 				</Grid>
 			)}
 		</>
