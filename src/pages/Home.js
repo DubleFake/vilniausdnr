@@ -30,7 +30,7 @@ function Tile(props) {
 	return (
 		<Button
 			component={Link}
-			onClick={() => location.pathname !== `/${i18n.language}` && setMenuOpen(false)}
+			onClick={() => location.pathname !== `/vilniausdnr/${i18n.language}` && setMenuOpen(false)}
 			to={`${sx.gridArea}`}
 			variant="contained"
 			sx={{

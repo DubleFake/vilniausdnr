@@ -30,7 +30,7 @@ const Nav = () => {
 		if (lng === "lt" || lng === "en") {
 			i18n.changeLanguage(lng)
 		} else {
-			navigate(`/lt`)
+			navigate(`/vilniausdnr/lt`)
 		}
 	}, [lng])
 
@@ -41,7 +41,7 @@ const Nav = () => {
 					<Toolbar className="homeNav">
 						<HomeIcon />
 
-						{location.pathname !== `/${i18n.language}` && (
+						{location.pathname !== `/vilniausdnr/${i18n.language}` && (
 							<Divider
 								sx={{ mr: 2, backgroundColor: "#D42323" }}
 								orientation="vertical"
@@ -51,7 +51,7 @@ const Nav = () => {
 						)}
 
 						<Grid container direction="row" justifyContent="space-between" alignItems="center">
-							{location.pathname !== `/${i18n.language}` ? (
+							{location.pathname !== `/vilniausdnr/${i18n.language}` ? (
 								<MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 							) : (
 								<Box></Box>
@@ -65,7 +65,7 @@ const Nav = () => {
 
 			<LanguageList languageOpen={languageOpen} setLanguageOpen={setLanguageOpen} />
 
-			{location.pathname !== `/${i18n.language}` && (
+			{location.pathname !== `/vilniausdnr/${i18n.language}` && (
 				<Collapse sx={{ width: "100%", position: "absolute", zIndex: 99 }} in={menuOpen}>
 					<Home setMenuOpen={setMenuOpen} />
 				</Collapse>

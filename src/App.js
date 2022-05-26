@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { BrowserRouter, HashRouter, Routes, Route, Navigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import * as intl from "@arcgis/core/intl"
 
@@ -43,9 +43,9 @@ const App = () => {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<BrowserRouter>
+			<HashRouter>
 				<Routes>
-					<Route path=":lng" element={<Nav />}>
+					<Route path="/vilniausdnr/:lng" element={<Nav />}>
 						<Route index element={<Home />} />
 						<Route path="periods/*" element={<Periods />} />
 						<Route path="plaques/*" element={<Plaques />} />
@@ -57,9 +57,9 @@ const App = () => {
 						<Route path="buildings/*" element={<Buildings />} />
 						<Route path="events/*" element={<Events />} />
 					</Route>
-					<Route path="*" element={<Navigate to={`/${i18n.language}`} />} />
+					<Route path="*" element={<Navigate to={`/vilniausdnr/${i18n.language}`} />} />
 				</Routes>
-			</BrowserRouter>
+			</HashRouter>
 		</ThemeProvider>
 	)
 }

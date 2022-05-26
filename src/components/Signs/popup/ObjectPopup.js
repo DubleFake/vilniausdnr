@@ -46,7 +46,7 @@ const ObjectPopup = (props) => {
 
 	const handlePage = (event, value) => {
 		navigate(
-			`/${i18n.language}/plaques/object/${queryObjects[value - 1].attributes.GlobalID.replace(/[{}]/g, "")}`
+			`/vilniausdnr/${i18n.language}/plaques/object/${queryObjects[value - 1].attributes.GlobalID.replace(/[{}]/g, "")}`
 		)
 	}
 
@@ -102,7 +102,7 @@ const ObjectPopup = (props) => {
 							}
 
 							if (response.features.length === 0) {
-								navigate(`/${i18n.language}/plaques`)
+								navigate(`/vilniausdnr/${i18n.language}/plaques`)
 								return
 							}
 
@@ -297,7 +297,7 @@ const ObjectPopup = (props) => {
 													aria-label="close"
 													size="large"
 													onClick={() => {
-														navigate(`/${i18n.language}/plaques`)
+														navigate(`/vilniausdnr/${i18n.language}/plaques`)
 													}}
 												>
 													<CloseIcon style={{ fontSize: 30 }} />
@@ -374,7 +374,7 @@ const ObjectPopup = (props) => {
 															variant="body2"
 															onClick={() => {
 																navigate(
-																	`/${i18n.language}/plaques/person/${objectPer[
+																	`/vilniausdnr/${i18n.language}/plaques/person/${objectPer[
 																		per
 																	].attributes.GlobalID.replace(/[{}]/g, "")}`
 																)

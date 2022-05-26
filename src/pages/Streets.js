@@ -13,7 +13,7 @@ import Collapse from "@mui/material/Collapse"
 import CircularProgress from "@mui/material/CircularProgress"
 import Backdrop from "@mui/material/Backdrop"
 
-//2 langai, pagalvoti apie atvaizdavima (paprastai ir kai palyginimas)?
+//filtrai
 
 const Plaques = () => {
 	const [selectedObject, setSelectedObject] = useState("")
