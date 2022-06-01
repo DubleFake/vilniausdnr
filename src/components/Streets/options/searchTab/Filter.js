@@ -97,11 +97,13 @@ const Filter = (props) => {
 
 			watchUtils.whenNotOnce(objectsView, "updating").then(() => {
 				if (!extentCheck) {
+          console.log("first")
 					objectsView
 						.queryFeatures({
 							outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
 							//outFields: objectsView.availableFields,
 							where: objectsView.filter.where,
+              geometry: objectsView.extent,
 							returnGeometry: false,
 						})
 						.then((response) => {

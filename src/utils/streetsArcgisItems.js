@@ -11,34 +11,38 @@ import Swipe from "@arcgis/core/widgets/Swipe"
 const url = window.location.href
 const origin = new URL(url).origin
 
-const colors = [
-	"#b2b2b2",
-	"#b2b2b2",
-	"#a87000",
-	"#267300",
-	"#4ce600",
-	"#cdf57a",
-	"#e64b41",
-	"#e60000",
-	"#a87000",
-	"#005ce6",
-	"#8400a8",
-	"#4e4e4e",
-	"#c500ff",
-	"#004da8",
-	"#ffff73",
-	"#73b2ff",
-	"#e173ff",
-	"#828282",
-	"#e60000",
-	"#e6e600",
-]
+const colors = ["#f22f00", "#26ffff", "#d99800", "#ffdd00", "#ff4dc4", "#5ff500", "#0040ff"]
+
 export const objectRenderer = {
 	type: "unique-value",
-	field: "KATEGOR",
+	field: "Klasė",
 	uniqueValueInfos: [
 		{
-			value: "D1",
+			value: 1,
+			symbol: {
+				type: "simple-line",
+				cap: "butt",
+				color: colors[0],
+			},
+		},
+		{
+			value: 2,
+			symbol: {
+				type: "simple-line",
+				cap: "butt",
+				color: colors[1],
+			},
+		},
+		{
+			value: 3,
+			symbol: {
+				type: "simple-line",
+				cap: "butt",
+				color: colors[2],
+			},
+		},
+		{
+			value: 4,
 			symbol: {
 				type: "simple-line",
 				cap: "butt",
@@ -46,7 +50,7 @@ export const objectRenderer = {
 			},
 		},
 		{
-			value: "D2",
+			value: 5,
 			symbol: {
 				type: "simple-line",
 				cap: "butt",
@@ -54,7 +58,7 @@ export const objectRenderer = {
 			},
 		},
 		{
-			value: "D",
+			value: 6,
 			symbol: {
 				type: "simple-line",
 				cap: "butt",
@@ -62,91 +66,11 @@ export const objectRenderer = {
 			},
 		},
 		{
-			value: "C2",
+			value: 7,
 			symbol: {
 				type: "simple-line",
 				cap: "butt",
 				color: colors[6],
-			},
-		},
-		{
-			value: "D3",
-			symbol: {
-				type: "simple-line",
-				cap: "butt",
-				color: colors[7],
-			},
-		},
-		{
-			value: "AS",
-			symbol: {
-				type: "simple-line",
-				cap: "butt",
-				color: colors[8],
-			},
-		},
-		{
-			value: "C1",
-			symbol: {
-				type: "simple-line",
-				cap: "butt",
-				color: colors[9],
-			},
-		},
-		{
-			value: "B1",
-			symbol: {
-				type: "simple-line",
-				cap: "butt",
-				color: colors[10],
-			},
-		},
-		{
-			value: "F1",
-			symbol: {
-				type: "simple-line",
-				cap: "butt",
-				color: colors[12],
-			},
-		},
-		{
-			value: "B2",
-			symbol: {
-				type: "simple-line",
-				cap: "butt",
-				color: colors[13],
-			},
-		},
-		{
-			value: "P",
-			symbol: {
-				type: "simple-line",
-				cap: "butt",
-				color: colors[14],
-			},
-		},
-		{
-			value: "E2",
-			symbol: {
-				type: "simple-line",
-				cap: "butt",
-				color: colors[15],
-			},
-		},
-		{
-			value: "S",
-			symbol: {
-				type: "simple-line",
-				cap: "butt",
-				color: colors[16],
-			},
-		},
-		{
-			value: "A2",
-			symbol: {
-				type: "simple-line",
-				cap: "butt",
-				color: colors[19],
 			},
 		},
 	],
@@ -229,7 +153,7 @@ export const map = new Map({
 })
 export const map2 = new Map({
 	basemap: basemap2,
-  layers: [gatves_1808],
+	layers: [gatves_1808],
 })
 
 export const view = new MapView({

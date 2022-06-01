@@ -25,10 +25,10 @@ const Legends = (props) => {
 						<ListItem sx={{ my: 0.3 }} disablePadding>
 							<ColorLensIcon sx={{ ml: 2, mr: 2, fontSize: 35, color: legend.symbol.color }} />
 							<Typography sx={{ mr: 1 }} variant="body2">
-								{legend.value}
+								{props.initialObjectsClasses[0][legend.value - 1].alias}
 							</Typography>
 						</ListItem>
-						{i !== 13 && <Divider light variant="middle" />}
+						{i !== uniqueValues.length - 1 && <Divider light variant="middle" />}
 					</div>
 				))}
 				{/* {objectLegendsList.map((legend) => (

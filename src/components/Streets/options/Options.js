@@ -114,14 +114,15 @@ const Options = (props) => {
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
-					<Box sx={{ width: 350, height: "100vh", display: "flex", flexDirection: "column" }}>
+					{/* <Box sx={{ width: 350, height: "100vh", display: "flex", flexDirection: "column" }}> */}
 						<VisualizationTab
 							selectedObjectFilter={selectedObjectFilter}
 							visualizationType={visualizationType}
 							setVisualizationType={setVisualizationType}
 							visibleObjectIcons={visibleObjectIcons}
+              initialObjectsClasses={props.initialObjectsClasses}
 						/>
-					</Box>
+					{/* </Box> */}
 				</TabPanel>
 			</SwipeableViews>
 		</Box>
