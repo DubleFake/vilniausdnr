@@ -26,7 +26,7 @@ const Filter = (props) => {
 	const { t, i18n } = useTranslation()
 
 	const [showAlert, setShowAlert] = useState(false)
-	const [extentCheck, setExtentCheck] = useState(true)
+	const [extentCheck, setExtentCheck] = useState(false)
 	const [selectedMemoryFilter, setSelectedMemoryFilter] = useState("")
 
 	const handleObjectSelect = (event) => {
@@ -125,6 +125,7 @@ const Filter = (props) => {
 								}
 							} else {
 								setShowAlert(true)
+								setSelectedMemoryFilter("")
 								props.setSelectedObjectFilter("")
 							}
 						})
