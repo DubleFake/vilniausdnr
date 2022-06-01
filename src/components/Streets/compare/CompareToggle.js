@@ -148,7 +148,8 @@ const CompareLayers = (props) => {
 					<Button
 						color={historyToggle ? "secondary" : "primary"}
 						onClick={() => {
-							setHistoryToggle(true)
+              setHistoryToggle(true)
+              navigate("compare/timeline")
 						}}
 					>
 						<Typography variant="button">istorija</Typography>

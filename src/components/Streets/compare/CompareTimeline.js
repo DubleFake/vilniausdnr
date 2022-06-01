@@ -26,10 +26,10 @@ const CompareTimeline = (props) => {
 		>
 			<ButtonGroup sx={{ mt: 1.5 }} variant="contained">
 				<Button color="primary">
-					<Typography variant="button">dabartis</Typography>
+					<Typography variant="button">asda</Typography>
 				</Button>
 				<Button color="secondary">
-					<Typography variant="button">istorija</Typography>
+					<Typography variant="button">dasd</Typography>
 				</Button>
 			</ButtonGroup>
 		</Grid>
