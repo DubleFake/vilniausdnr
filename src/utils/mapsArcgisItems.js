@@ -20,7 +20,7 @@ const basemap1 = new Basemap({
 		}),
 	],
 	id: "light",
-	thumbnailUrl: `${origin}/signIcons/basemap_light.png`,
+	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_light.png`,
 })
 const basemap2 = new Basemap({
 	baseLayers: [
@@ -29,7 +29,7 @@ const basemap2 = new Basemap({
 		}),
 	],
 	id: "dark",
-	thumbnailUrl: `${origin}/signIcons/basemap_dark.png`,
+	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_dark.png`,
 })
 
 export const map = new Map({
