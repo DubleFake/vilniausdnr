@@ -129,6 +129,7 @@ const CompareLayers = (props) => {
 					height: "0%",
 					bottom: window.innerHeight - 90,
 					position: "relative",
+					zIndex: 2,
 				}}
 				container
 				direction="row"
@@ -140,7 +141,9 @@ const CompareLayers = (props) => {
 						color={historyToggle ? "primary" : "secondary"}
 						onClick={() => {
 							setHistoryToggle(false)
-              navigate("")
+              map.removeAll()
+              map.add(objects)
+							navigate("")
 						}}
 					>
 						<Typography variant="button">dabartis</Typography>
@@ -148,8 +151,9 @@ const CompareLayers = (props) => {
 					<Button
 						color={historyToggle ? "secondary" : "primary"}
 						onClick={() => {
-              setHistoryToggle(true)
-              navigate("compare/timeline")
+							setHistoryToggle(true)
+              map.removeAll()
+							navigate("compare/timeline")
 						}}
 					>
 						<Typography variant="button">istorija</Typography>
@@ -172,7 +176,7 @@ const CompareLayers = (props) => {
 							label="Sluoksnis"
 							defaultValue="0"
 							onChange={(event) => {
-                console.log(event.target.value)
+								console.log(event.target.value)
 								navigate("compare/timeline")
 							}}
 						>

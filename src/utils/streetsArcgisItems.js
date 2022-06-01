@@ -202,7 +202,7 @@ const gatves_2021 = new FeatureLayer({
 	outFields: ["*"],
 	title: "Gatvės 2021",
 })
-export const swipeObjects = [gatves_1808, gatves_1845, gatves_1911, gatves_1938, gatves_1977, gatves_2021]
+export const periods = [gatves_1808, gatves_1845, gatves_1911, gatves_1938, gatves_1977, gatves_2021]
 
 const basemap1 = new Basemap({
 	baseLayers: [
