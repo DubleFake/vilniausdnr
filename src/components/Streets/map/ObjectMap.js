@@ -154,7 +154,7 @@ const ObjectMap = (props) => {
 			view2.container.style.width = "0%"
 			view2.container = null
 		}
-	}, [props.compareWindow])
+	}, [props.compareOption])
 
 	useEffect(() => {
 		return () => {

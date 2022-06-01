@@ -5,7 +5,7 @@ import ObjectMap from "../components/Streets/map/ObjectMap"
 import ObjectPopup from "../components/Streets/popup/ObjectPopup"
 import OptionsToggle from "../components/Streets/options/OptionsToggle"
 import Options from "../components/Streets/options/Options"
-import CompareLayers from "../components/Streets/compare/CompareLayers"
+import CompareToggle from "../components/Streets/compare/CompareToggle"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
@@ -22,12 +22,11 @@ const Plaques = () => {
 	const [initialObjectsClasses, setInitialObjectsClasses] = useState([[], []])
 	const [mapQuery, setMapQuery] = useState([])
 	const [visible, setVisible] = useState(false)
-	const [compareWindow, setCompareWindow] = useState(false)
 
 	return (
 		<Routes>
 			<Route
-				path="/"
+				path="*"
 				element={
 					<>
 						<Grid container spacing={0}>
@@ -56,9 +55,8 @@ const Plaques = () => {
 									setInitialLoading={setInitialLoading}
 									setMapQuery={setMapQuery}
 									setInitialObjectsClasses={setInitialObjectsClasses}
-									compareWindow={compareWindow}
 								/>
-								<CompareLayers setCompareWindow={setCompareWindow} compareWindow={compareWindow} />
+								<CompareToggle />
 								<Outlet />
 							</Grid>
 						</Grid>
