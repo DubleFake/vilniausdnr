@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react"
 
-import { map, periods } from "../../../utils/streetsArcgisItems"
+import { map, objects, periods } from "../../../utils/streetsArcgisItems"
 
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
-import InputLabel from "@mui/material/InputLabel"
-import MenuItem from "@mui/material/MenuItem"
-import FormControl from "@mui/material/FormControl"
-import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
 
 const CompareTimeline = (props) => {
@@ -18,6 +14,10 @@ const CompareTimeline = (props) => {
 	const [toggle1938, setToggle1938] = useState(false)
 	const [toggle1977, setToggle1977] = useState(false)
 	const [toggle2021, setToggle2021] = useState(false)
+
+	useEffect(() => {
+		map.removeAll()
+	}, [])
 
 	useEffect(() => {
 		//protingesni sprendima?
@@ -67,6 +67,13 @@ const CompareTimeline = (props) => {
 			map.remove(periods[5])
 		}
 	}, [toggle2021])
+
+	useEffect(() => {
+		return () => {
+      map.removeAll()
+      map.add(objects)
+		}
+	}, [])
 
 	return (
 		<Grid

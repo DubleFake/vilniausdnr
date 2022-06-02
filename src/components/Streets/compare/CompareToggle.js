@@ -3,6 +3,8 @@ import { Routes, Route, Outlet, useNavigate } from "react-router-dom"
 
 import { view, objects, swipeObjects, map, map2 } from "../../../utils/streetsArcgisItems"
 import CompareTimeline from "../compare/CompareTimeline"
+import CompareSwipe from "../compare/CompareSwipe"
+import CompareWindow from "../compare/CompareWindow"
 
 import * as watchUtils from "@arcgis/core/core/watchUtils"
 import Swipe from "@arcgis/core/widgets/Swipe"
@@ -120,6 +122,22 @@ const CompareLayers = (props) => {
 	// 	props.setCompareWindow(!props.compareWindow)
 	// }
 
+	const handleCompareChange = (event) => {
+		switch (event.target.value) {
+			case 0:
+				navigate("compare/timeline")
+				break
+
+			case 1:
+				navigate("compare/swipe")
+				break
+
+			case 2:
+				navigate("compare/window")
+				break
+		}
+	}
+
 	return (
 		<>
 			<Grid
@@ -140,9 +158,9 @@ const CompareLayers = (props) => {
 					<Button
 						color={historyToggle ? "primary" : "secondary"}
 						onClick={() => {
+							map.removeAll()
+							map.add(objects)
 							setHistoryToggle(false)
-              map.removeAll()
-              map.add(objects)
 							navigate("")
 						}}
 					>
@@ -151,9 +169,11 @@ const CompareLayers = (props) => {
 					<Button
 						color={historyToggle ? "secondary" : "primary"}
 						onClick={() => {
-							setHistoryToggle(true)
-              map.removeAll()
-							navigate("compare/timeline")
+							const url = window.location.href
+							if (!url.includes("compare")) {
+								setHistoryToggle(true)
+								navigate("compare/timeline")
+							}
 						}}
 					>
 						<Typography variant="button">istorija</Typography>
@@ -172,14 +192,7 @@ const CompareLayers = (props) => {
 						id="swipe-select"
 					>
 						<InputLabel>Vaizdavimas</InputLabel>
-						<Select
-							label="Sluoksnis"
-							defaultValue="0"
-							onChange={(event) => {
-								console.log(event.target.value)
-								navigate("compare/timeline")
-							}}
-						>
+						<Select label="Sluoksnis" defaultValue="0" onChange={handleCompareChange}>
 							<MenuItem sx={{ whiteSpace: "unset" }} key={0} value={0}>
 								Laiko juosta
 							</MenuItem>
@@ -193,9 +206,15 @@ const CompareLayers = (props) => {
 					</FormControl>
 				)}
 			</Grid>
-			{/* <Outlet /> */}
+
 			<Routes>
 				<Route path="compare/timeline" element={<CompareTimeline />} />
+			</Routes>
+			<Routes>
+				<Route path="compare/swipe" element={<CompareSwipe />} />
+			</Routes>
+			<Routes>
+				<Route path="compare/window" element={<CompareWindow />} />
 			</Routes>
 		</>
 	)
