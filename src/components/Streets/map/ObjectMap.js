@@ -123,9 +123,8 @@ const ObjectMap = (props) => {
 	}, [i18n.language])
 
 	useEffect(() => {
-		if (props.compareWindow) {
+		if (props.toggleCompareWindow) {
 			view2.container = mapDiv2.current
-			// map2.add(swipeObjects[5])
 
 			view.container.style.width = "50%"
 			view2.container.style.width = "50%"
@@ -149,12 +148,12 @@ const ObjectMap = (props) => {
 				})
 				view.watch("viewpoint", () => sync(view)) //reiks poto istrint view arba handles
 			}
-		} else if (!props.compareWindow && view2.container) {
+		} else if (!props.toggleCompareWindow && view2.container) {
 			view.container.style.width = "100%"
 			view2.container.style.width = "0%"
 			view2.container = null
 		}
-	}, [props.compareOption])
+	}, [props.toggleCompareWindow])
 
 	useEffect(() => {
 		return () => {

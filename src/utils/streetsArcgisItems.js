@@ -131,7 +131,8 @@ export const periods = [gatves_1808, gatves_1845, gatves_1911, gatves_1938, gatv
 const basemap1 = new Basemap({
 	baseLayers: [
 		new TileLayer({
-			url: "https://atviras.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_light_LKS/MapServer",
+			// url: "https://atviras.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_light_LKS/MapServer",
+			url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_LKS_su_rajonu/MapServer",
 		}),
 	],
 	id: "light",
@@ -140,7 +141,8 @@ const basemap1 = new Basemap({
 const basemap2 = new Basemap({
 	baseLayers: [
 		new TileLayer({
-			url: "https://atviras.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_dark_LKS/MapServer",
+			// url: "https://atviras.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_dark_LKS/MapServer",
+			url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_dark_calibrated/MapServer",
 		}),
 	],
 	id: "dark",

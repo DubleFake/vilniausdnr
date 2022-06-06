@@ -214,7 +214,10 @@ const CompareLayers = (props) => {
 				<Route path="compare/swipe" element={<CompareSwipe />} />
 			</Routes>
 			<Routes>
-				<Route path="compare/window" element={<CompareWindow />} />
+				<Route
+					path="compare/window"
+					element={<CompareWindow setToggleCompareWindow={props.setToggleCompareWindow} />}
+				/>
 			</Routes>
 		</>
 	)

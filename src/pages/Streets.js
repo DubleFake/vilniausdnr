@@ -13,7 +13,9 @@ import Collapse from "@mui/material/Collapse"
 import CircularProgress from "@mui/material/CircularProgress"
 import Backdrop from "@mui/material/Backdrop"
 
-//filtrai
+// filtrai
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#reorder
+// vaizdavimo select rodymas pagal route?
 
 const Plaques = () => {
 	const [selectedObject, setSelectedObject] = useState("")
@@ -22,6 +24,7 @@ const Plaques = () => {
 	const [initialObjectsClasses, setInitialObjectsClasses] = useState([[], []])
 	const [mapQuery, setMapQuery] = useState([])
 	const [visible, setVisible] = useState(false)
+	const [toggleCompareWindow, setToggleCompareWindow] = useState(false)
 
 	return (
 		<Routes>
@@ -55,8 +58,9 @@ const Plaques = () => {
 									setInitialLoading={setInitialLoading}
 									setMapQuery={setMapQuery}
 									setInitialObjectsClasses={setInitialObjectsClasses}
+									toggleCompareWindow={toggleCompareWindow}
 								/>
-								<CompareToggle />
+								<CompareToggle setToggleCompareWindow={setToggleCompareWindow} />
 								<Outlet />
 							</Grid>
 						</Grid>
