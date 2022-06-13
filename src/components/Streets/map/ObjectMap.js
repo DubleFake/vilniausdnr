@@ -2,8 +2,17 @@ import React, { useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
+import Point from "@arcgis/core/geometry/Point"
 
-import { view, view2, map2, swipeObjects, objects, bgExpand, locateWidget } from "../../../utils/streetsArcgisItems"
+import {
+	view,
+	view2,
+	map2,
+	swipeObjects,
+	objects,
+	bgExpand,
+	locateWidget,
+} from "../../../utils/streetsArcgisItems"
 
 const viewHandles = []
 
@@ -15,6 +24,16 @@ const ObjectMap = (props) => {
 
 	useEffect(() => {
 		view.container = mapDiv.current
+
+		let pt = new Point({
+			x: 582527.5805600522,
+			y: 6061855.557955307,
+			spatialReference: {
+				wkid: 2600,
+			},
+		})
+		view.center = pt
+    view2.center = pt
 
 		viewHandles.forEach((handle) => {
 			handle.remove()
@@ -125,6 +144,8 @@ const ObjectMap = (props) => {
 	useEffect(() => {
 		if (props.toggleCompareWindow) {
 			view2.container = mapDiv2.current
+
+
 
 			view.container.style.width = "50%"
 			view2.container.style.width = "50%"

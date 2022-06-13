@@ -15,6 +15,11 @@ const CompareSwipe = () => {
 
 	useEffect(() => {
 		map.removeAll()
+		
+    view.goTo({ target: periods[0].fullExtent.center, zoom: 3 })
+		view.when(() => {
+			limitMapExtent(view)
+		})
 
 		const swipeWidgetFind = view.ui.find("swipe-layers")
 		if (swipeWidgetFind !== null) {

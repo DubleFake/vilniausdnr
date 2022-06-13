@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import { map, map2, objects, periods } from "../../../utils/streetsArcgisItems"
+import { map, map2, view, view2, objects, periods } from "../../../utils/streetsArcgisItems"
 
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -14,10 +14,13 @@ const CompareWindow = (props) => {
 
 	useEffect(() => {
 		map.removeAll()
-    map2.removeAll()
+		map2.removeAll()
 
-    map.add(periods[0])
-    map2.add(periods[5])
+    view.goTo({ target: periods[0].fullExtent.center, zoom: 3 })
+    view2.goTo({ target: periods[0].fullExtent.center, zoom: 3 })
+
+		map.add(periods[0])
+		map2.add(periods[5])
 
 		props.setToggleCompareWindow(true)
 	}, [])
@@ -27,7 +30,7 @@ const CompareWindow = (props) => {
 			props.setToggleCompareWindow(false)
 
 			map.removeAll()
-      map2.removeAll()
+			map2.removeAll()
 			map.add(objects)
 		}
 	}, [])

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import { map, objects, periods } from "../../../utils/streetsArcgisItems"
+import { map, view, objects, periods } from "../../../utils/streetsArcgisItems"
 
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
@@ -15,8 +15,46 @@ const CompareTimeline = (props) => {
 	const [toggle1977, setToggle1977] = useState(false)
 	const [toggle2021, setToggle2021] = useState(false)
 
+	var limitExtentHandle = null
+
+	const limitMapExtent = (view) => {
+		let initialExtent = view.extent
+		limitExtentHandle = view.watch("stationary", (event) => {
+			if (!event) {
+				return
+			}
+
+			let currentCenter = view.extent.center
+			if (!initialExtent.contains(currentCenter)) {
+				let newCenter = view.extent.center
+
+				if (currentCenter.x < initialExtent.xmin) {
+					newCenter.x = initialExtent.xmin
+				}
+				if (currentCenter.x > initialExtent.xmax) {
+					newCenter.x = initialExtent.xmax
+				}
+				if (currentCenter.y < initialExtent.ymin) {
+					newCenter.y = initialExtent.ymin
+				}
+				if (currentCenter.y > initialExtent.ymax) {
+					newCenter.y = initialExtent.ymax
+				}
+				view.goTo(newCenter)
+			}
+		})
+	}
+
 	useEffect(() => {
 		map.removeAll()
+
+		view
+			.when(() => {
+				view.goTo({ target: periods[0].fullExtent.center, zoom: 3 })
+			})
+			.then(() => {
+				limitMapExtent(view)
+			})
 	}, [])
 
 	useEffect(() => {
@@ -70,8 +108,9 @@ const CompareTimeline = (props) => {
 
 	useEffect(() => {
 		return () => {
-      map.removeAll()
-      map.add(objects)
+			limitExtentHandle.remove()
+			map.removeAll()
+			map.add(objects)
 		}
 	}, [])
 
