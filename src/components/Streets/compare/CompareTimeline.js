@@ -53,7 +53,7 @@ const CompareTimeline = (props) => {
 				view.goTo({ target: periods[0].fullExtent.center, zoom: 3 })
 			})
 			.then(() => {
-				limitMapExtent(view)
+				// limitMapExtent(view)
 			})
 	}, [])
 
@@ -64,47 +64,37 @@ const CompareTimeline = (props) => {
 		} else {
 			map.remove(periods[0])
 		}
-	}, [toggle1808])
 
-	useEffect(() => {
 		if (toggle1845) {
 			map.add(periods[1])
 		} else {
 			map.remove(periods[1])
 		}
-	}, [toggle1845])
 
-	useEffect(() => {
 		if (toggle1911) {
 			map.add(periods[2])
 		} else {
 			map.remove(periods[2])
 		}
-	}, [toggle1911])
 
-	useEffect(() => {
 		if (toggle1938) {
 			map.add(periods[3])
 		} else {
 			map.remove(periods[3])
 		}
-	}, [toggle1938])
 
-	useEffect(() => {
 		if (toggle1977) {
 			map.add(periods[4])
 		} else {
 			map.remove(periods[4])
 		}
-	}, [toggle1977])
 
-	useEffect(() => {
 		if (toggle2021) {
 			map.add(periods[5])
 		} else {
 			map.remove(periods[5])
 		}
-	}, [toggle2021])
+	}, [toggle1808, toggle1845, toggle1911, toggle1938, toggle1977, toggle2021])
 
 	useEffect(() => {
 		return () => {
