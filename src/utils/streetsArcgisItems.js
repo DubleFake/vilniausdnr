@@ -122,7 +122,7 @@ const gatves_1977 = new FeatureLayer({
 	title: "Gatvės 1977",
 })
 const gatves_2021 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/12",
+	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/45",
 	outFields: ["*"],
 	title: "Gatvės 2021",
 })

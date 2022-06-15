@@ -102,22 +102,22 @@ const pastatai_1808 = new FeatureLayer({
 	title: "Pastatai 1808",
 })
 const pastatai_1845 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/4",
+	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/48",
 	outFields: ["*"],
 	title: "Pastatai 1845",
 })
 const pastatai_1911 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/3",
+	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/47",
 	outFields: ["*"],
 	title: "Pastatai 1911",
 })
 const pastatai_1938 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/2",
+	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/46",
 	outFields: ["*"],
 	title: "Pastatai 1938",
 })
 const pastatai_1977 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/1",
+	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/12",
 	outFields: ["*"],
 	title: "Pastatai 1977",
 })

@@ -58,7 +58,7 @@ const Filter = (props) => {
 			if (!extentCheck) {
 				objectsView
 					.queryFeatures({
-						outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
+						outFields: ["OBJECTID", "Pavad", "Medziaga"],
 						where: objectsView.filter.where,
 						geometry: view.extent,
 						returnGeometry: false,
@@ -78,7 +78,7 @@ const Filter = (props) => {
 		let query
 
 		if (props.selectedObjectFilter !== "" && selectedMemoryFilter === "") {
-			query = `Klasė = ${props.selectedObjectFilter}`
+			query = `Medziaga = ${props.selectedObjectFilter}`
 		} else if (props.selectedObjectFilter === "" && selectedMemoryFilter !== "") {
 			query = `Poklasis = ${selectedMemoryFilter}`
 		} else if (props.selectedObjectFilter !== "" && selectedMemoryFilter !== "") {
@@ -99,7 +99,7 @@ const Filter = (props) => {
 				if (!extentCheck) {
 					objects //problema del extent su objectsView
 						.queryFeatures({
-							outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
+							outFields: ["OBJECTID", "Pavad", "Medziaga"],
 							//outFields: objectsView.availableFields,
 							where: objectsView.filter.where,
               geometry: null,
@@ -148,7 +148,7 @@ const Filter = (props) => {
 						if (!updating) {
 							objectsView
 								.queryFeatures({
-									outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
+									outFields: ["OBJECTID", "Pavad", "Medziaga"],
 									where: objectsView.filter.where,
 									geometry: view.extent,
 									returnGeometry: false,
@@ -163,7 +163,7 @@ const Filter = (props) => {
 				watchUtils.whenNotOnce(objectsView, "updating").then(() => {
 					objectsView
 						.queryFeatures({
-							outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
+							outFields: ["OBJECTID", "Pavad", "Medziaga"],
 							where: objectsView.filter.where,
 							geometry: null,
 							returnGeometry: false,
@@ -220,7 +220,7 @@ const Filter = (props) => {
 						))}
 					</Select>
 				</FormControl>
-				{props.selectedObjectFilter !== "" && (
+				{/* {props.selectedObjectFilter !== "" && (
 					<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
 						<InputLabel id="object-select-label">Objekto poklasė</InputLabel>
 						<Select
@@ -245,7 +245,7 @@ const Filter = (props) => {
 							)}
 						</Select>
 					</FormControl>
-				)}
+				)} */}
 
 				{/* <FormGroup>
 					<FormControlLabel

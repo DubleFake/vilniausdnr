@@ -33,7 +33,7 @@ const ObjectMap = (props) => {
 			},
 		})
 		view.center = pt
-    view2.center = pt
+		view2.center = pt
 
 		viewHandles.forEach((handle) => {
 			handle.remove()
@@ -44,7 +44,7 @@ const ObjectMap = (props) => {
 			watchUtils.whenFalseOnce(objectsView, "updating").then(() => {
 				objectsView
 					.queryFeatures({
-						outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
+						outFields: ["OBJECTID", "Pavad", "Medziaga"],
 						where: "",
 						returnGeometry: false,
 					})
@@ -52,12 +52,43 @@ const ObjectMap = (props) => {
 						if (response.features.length) {
 							props.setInitialObjectsList(response.features)
 
-							let objectClass = []
-							let objectSubclass = []
-							let dictClassRelations = []
+							// let objectClass = []
+							// let objectSubclass = []
+							// let dictClassRelations = []
 
+							// for (let field in response.fields) {
+							// 	if (response.fields[field].alias === "Klasė") {
+							// 		for (let code in response.fields[field].domain.codedValues) {
+							// 			let obj = {}
+							// 			obj.code = response.fields[field].domain.codedValues[code].code
+							// 			obj.alias = response.fields[field].domain.codedValues[code].name
+							// 			objectClass.push(obj)
+							// 		}
+							// 	}
+							// 	if (response.fields[field].alias === "Poklasis") {
+							// 		for (let code in response.fields[field].domain.codedValues) {
+							// 			let obj = {}
+							// 			obj.code = response.fields[field].domain.codedValues[code].code
+							// 			obj.alias = response.fields[field].domain.codedValues[code].name
+							// 			objectSubclass.push(obj)
+							// 		}
+							// 	}
+							// }
+							// for (let cls in objectClass) {
+							// 	let tempSet = new Set()
+							// 	for (let feature in response.features) {
+							// 		if (response.features[feature].attributes.Klasė === objectClass[cls].code) {
+							// 			tempSet.add(response.features[feature].attributes.Poklasis)
+							// 		}
+							// 	}
+							// 	dictClassRelations.push([...tempSet])
+							// }
+
+							// props.setInitialObjectsClasses([objectClass, objectSubclass, dictClassRelations])
+
+							let objectClass = []
 							for (let field in response.fields) {
-								if (response.fields[field].alias === "Klasė") {
+								if (response.fields[field].alias === "Medžiaga") {
 									for (let code in response.fields[field].domain.codedValues) {
 										let obj = {}
 										obj.code = response.fields[field].domain.codedValues[code].code
@@ -65,26 +96,9 @@ const ObjectMap = (props) => {
 										objectClass.push(obj)
 									}
 								}
-								if (response.fields[field].alias === "Poklasis") {
-									for (let code in response.fields[field].domain.codedValues) {
-										let obj = {}
-										obj.code = response.fields[field].domain.codedValues[code].code
-										obj.alias = response.fields[field].domain.codedValues[code].name
-										objectSubclass.push(obj)
-									}
-								}
 							}
-							for (let cls in objectClass) {
-								let tempSet = new Set()
-								for (let feature in response.features) {
-									if (response.features[feature].attributes.Klasė === objectClass[cls].code) {
-										tempSet.add(response.features[feature].attributes.Poklasis)
-									}
-								}
-								dictClassRelations.push([...tempSet])
-							}
+							props.setInitialObjectsClasses([objectClass])
 
-							props.setInitialObjectsClasses([objectClass, objectSubclass, dictClassRelations])
 							props.setInitialLoading(false)
 						}
 					})
@@ -144,8 +158,6 @@ const ObjectMap = (props) => {
 	useEffect(() => {
 		if (props.toggleCompareWindow) {
 			view2.container = mapDiv2.current
-
-
 
 			view.container.style.width = "50%"
 			view2.container.style.width = "50%"
