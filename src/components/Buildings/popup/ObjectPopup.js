@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import MuiLinkify from "material-ui-linkify"
 import { useTranslation } from "react-i18next"
 
-import { view, objects } from "../../../utils/streetsArcgisItems"
+import { view, objects } from "../../../utils/buildingsArcgisItems"
 
 import { styled } from "@mui/material/styles"
 import Card from "@mui/material/Card"

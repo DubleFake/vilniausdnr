@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { Routes, Route, useNavigate } from "react-router-dom"
 
-import { objects, map } from "../../../utils/streetsArcgisItems"
+import { objects, map } from "../../../utils/buildingsArcgisItems"
 import CompareTimeline from "../compare/CompareTimeline"
 import CompareSwipe from "../compare/CompareSwipe"
 import CompareWindow from "../compare/CompareWindow"

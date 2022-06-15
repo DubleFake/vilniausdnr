@@ -12,7 +12,7 @@ import {
 	objects,
 	bgExpand,
 	locateWidget,
-} from "../../../utils/streetsArcgisItems"
+} from "../../../utils/buildingsArcgisItems"
 
 const viewHandles = []
 

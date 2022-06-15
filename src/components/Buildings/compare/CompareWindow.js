@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import { map, map2, view, view2, objects, periods } from "../../../utils/streetsArcgisItems"
+import { map, map2, view, view2, objects, periods } from "../../../utils/buildingsArcgisItems"
 
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"

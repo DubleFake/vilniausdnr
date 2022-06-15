@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import { map, view, objects, periods } from "../../../utils/streetsArcgisItems"
+import { map, view, objects, periods } from "../../../utils/buildingsArcgisItems"
 
 import Swipe from "@arcgis/core/widgets/Swipe"
 import InputLabel from "@mui/material/InputLabel"
