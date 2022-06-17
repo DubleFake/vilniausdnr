@@ -45,7 +45,7 @@ const Filter = (props) => {
 		props.setSelectedObject("")
 		props.setSearchInputValue("")
 		props.setSelectedObjectFilter("")
-		setSelectedMemoryFilter(event.target.value)
+		setSelectedMemoryFilter("")
 		setExtentCheck(false)
 		viewHandles.forEach((handle) => {
 			handle.remove()
