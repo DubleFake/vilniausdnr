@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Routes, Route, Outlet } from "react-router-dom"
 
 import ObjectMap from "../components/Streets/map/ObjectMap"
@@ -26,6 +26,12 @@ const Plaques = () => {
 	const [visible, setVisible] = useState(false)
 	const [toggleCompareWindow, setToggleCompareWindow] = useState(false)
 	const [historyToggle, setHistoryToggle] = useState(false)
+
+	useEffect(() => {
+		if (historyToggle) {
+			setVisible(false)
+		}
+	}, [historyToggle])
 
 	return (
 		<Routes>
