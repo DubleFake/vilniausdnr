@@ -174,8 +174,10 @@ export const view = new MapView({
 		components: ["attribution"],
 	},
 	highlightOptions: {
-		color: "#FF0000",
-		haloColor: "#FF0000",
+		color: "#FFFFFF",
+		fillOpacity: 1,
+		haloColor: "#FF0026",
+		haloOpacity: 1,
 	},
 })
 
