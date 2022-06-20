@@ -90,7 +90,7 @@ const ObjectPopup = (props) => {
 				let query = objectsView.createQuery()
 				query.where = `OBJECTID = ${globalID}`
 
-				objectsView
+				objects
 					.queryFeatures(query)
 					.then((response) => {
 						if (highlight) {
