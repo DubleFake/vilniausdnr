@@ -18,8 +18,8 @@ const CompareWindow = (props) => {
 
 		view
 			.when(() => {
-				view.goTo({ target: periods[0].fullExtent.center, zoom: 3 })
-				view2.goTo({ target: periods[0].fullExtent.center, zoom: 3 })
+				view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+				view2.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
 			})
 			.then(() => {
 				// limitMapExtent(view)

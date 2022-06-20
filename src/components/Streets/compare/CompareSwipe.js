@@ -18,7 +18,7 @@ const CompareSwipe = () => {
 
 		view
 			.when(() => {
-				view.goTo({ target: periods[0].fullExtent.center, zoom: 3 })
+				view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
 			})
 			.then(() => {
 				// limitMapExtent(view)
