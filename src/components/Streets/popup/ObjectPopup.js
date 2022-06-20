@@ -86,80 +86,76 @@ const ObjectPopup = (props) => {
 				setPage(1)
 			}
 
-			console.log(globalID)
+			view.whenLayerView(objects).then((objectsView) => {
+				let query = objectsView.createQuery()
+				query.where = `OBJECTID = ${globalID}`
 
-			objects
-				.queryFeatures({
-					outFields: ["*"],
-					where: `OBJECTID = '${globalID}'`,
-				})
-				.then((response) => {
-					console.log(response)
-					if (highlight) {
-						highlight.remove()
-					}
+				objectsView
+					.queryFeatures(query)
+					.then((response) => {
+						if (highlight) {
+							highlight.remove()
+						}
 
-					if (response.features.length === 0) {
-						navigate(`/vilniausdnr/${i18n.language}/streets`)
-						return
-					}
+						if (response.features.length === 0) {
+							navigate(`/vilniausdnr/${i18n.language}/streets`)
+							return
+						}
 
-					view.goTo({
-						target: response.features[0].geometry,
-						zoom: 8,
+						view.goTo(response.features[0].geometry.extent)
+						highlight = objectsView.highlight(response.features[0])
+						props.setSelectedObject(`${globalID}`)
+
+						return response
 					})
-					// highlight = objects.highlight(response.features[0])
-					props.setSelectedObject(`${globalID}`)
+					.then((response) => {
+						const allAttributes = []
 
-					return response
-				})
-				.then((response) => {
-					const allAttributes = []
-
-					let count = 0
-					for (let attr in response.features[0].attributes) {
-						if (
-							response.features[0].attributes[attr] === null ||
-							response.features[0].attributes[attr] === "" ||
-							response.features[0].attributes[attr] === 0 ||
-							attr === "OBJECTID" ||
-							attr === "GAT_ID" ||
-							attr === "GAT_ID_1" ||
-							attr === "GAT_GYV_ID" ||
-							attr === "Shape__Length"
-						) {
-						} else {
-							const obj = {}
-
-							obj.alias = response.features[0].layer.fields[count].alias
-							if (response.features[0].layer.fields[count].domain === null) {
-								obj.value = response.features[0].attributes[attr]
+						let count = 0
+						for (let attr in response.features[0].attributes) {
+							if (
+								response.features[0].attributes[attr] === null ||
+								response.features[0].attributes[attr] === "" ||
+								response.features[0].attributes[attr] === 0 ||
+								attr === "OBJECTID" ||
+								attr === "GAT_ID" ||
+								attr === "GAT_ID_1" ||
+								attr === "GAT_GYV_ID" ||
+								attr === "Shape__Length"
+							) {
 							} else {
-								for (let code in response.features[0].layer.fields[count].domain.codedValues) {
-									if (
-										response.features[0].layer.fields[count].domain.codedValues[code].code ===
-										response.features[0].attributes[attr]
-									) {
-										obj.value = response.features[0].layer.fields[count].domain.codedValues[code].name
-										obj.code = response.features[0].layer.fields[count].domain.codedValues[code].code
+								const obj = {}
+
+								obj.alias = response.features[0].layer.fields[count].alias
+								if (response.features[0].layer.fields[count].domain === null) {
+									obj.value = response.features[0].attributes[attr]
+								} else {
+									for (let code in response.features[0].layer.fields[count].domain.codedValues) {
+										if (
+											response.features[0].layer.fields[count].domain.codedValues[code].code ===
+											response.features[0].attributes[attr]
+										) {
+											obj.value = response.features[0].layer.fields[count].domain.codedValues[code].name
+											obj.code = response.features[0].layer.fields[count].domain.codedValues[code].code
+										}
 									}
 								}
-							}
 
-							obj.field = attr
-							allAttributes.push(obj)
+								obj.field = attr
+								allAttributes.push(obj)
+							}
+							count++
 						}
-						count++
-					}
-					setObjectAttr(allAttributes)
-					return response.features[0].attributes.OBJECTID
-				})
-				.then(() => {
-					setLoading(false)
-				})
-				.catch((error) => {
-					console.error(error)
-				})
+						setObjectAttr(allAttributes)
+						return response.features[0].attributes.OBJECTID
+					})
+					.then(() => {
+						setLoading(false)
+					})
+					.catch((error) => {
+						console.error(error)
+					})
+			})
 		}
 	}, [globalID, props.initialLoading])
 
