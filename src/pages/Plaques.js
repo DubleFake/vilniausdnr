@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import { Routes, Route, Outlet } from "react-router-dom"
 
-import ObjectMap from "../components/Signs/map/ObjectMap"
-import ObjectPopup from "../components/Signs/popup/ObjectPopup"
-import PersonPopup from "../components/Signs/popup/PersonPopup"
-import TableToggle from "../components/Signs/options/OptionsToggle"
-import Options from "../components/Signs/options/Options"
+import ObjectMap from "../components/Plaques/map/ObjectMap"
+import ObjectPopup from "../components/Plaques/popup/ObjectPopup"
+import PersonPopup from "../components/Plaques/popup/PersonPopup"
+import TableToggle from "../components/Plaques/options/OptionsToggle"
+import Options from "../components/Plaques/options/Options"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
