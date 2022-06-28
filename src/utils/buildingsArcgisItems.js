@@ -97,32 +97,32 @@ export const objects = new FeatureLayer({
 })
 
 const pastatai_1808 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/5",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer/5",
 	outFields: ["*"],
 	title: "Pastatai 1808",
 })
 const pastatai_1845 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/48",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer/48",
 	outFields: ["*"],
 	title: "Pastatai 1845",
 })
 const pastatai_1911 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/47",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer/47",
 	outFields: ["*"],
 	title: "Pastatai 1911",
 })
 const pastatai_1938 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/46",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer/46",
 	outFields: ["*"],
 	title: "Pastatai 1938",
 })
 const pastatai_1977 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/12",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer/12",
 	outFields: ["*"],
 	title: "Pastatai 1977",
 })
 const pastatai_2021 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/0",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer/0",
 	outFields: ["*"],
 	title: "Pastatai 2021",
 })

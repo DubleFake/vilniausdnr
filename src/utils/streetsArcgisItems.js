@@ -97,32 +97,32 @@ export const objects = new FeatureLayer({
 })
 
 const gatves_1808 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/8",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer/8",
 	outFields: ["*"],
 	title: "Gatvės 1808",
 })
 const gatves_1845 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/9",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer/9",
 	outFields: ["*"],
 	title: "Gatvės 1845",
 })
 const gatves_1911 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/10",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer/10",
 	outFields: ["*"],
 	title: "Gatvės 1911",
 })
 const gatves_1938 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/11",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer/11",
 	outFields: ["*"],
 	title: "Gatvės 1938",
 })
 const gatves_1977 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/13",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer/13",
 	outFields: ["*"],
 	title: "Gatvės 1977",
 })
 const gatves_2021 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/45",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer/45",
 	outFields: ["*"],
 	title: "Gatvės 2021",
 })

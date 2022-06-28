@@ -7,6 +7,7 @@ import BasemapGallery from "@arcgis/core/widgets/BasemapGallery"
 import Expand from "@arcgis/core/widgets/Expand"
 import Locate from "@arcgis/core/widgets/Locate"
 import Swipe from "@arcgis/core/widgets/Swipe"
+import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
 
 const url = window.location.href
 const origin = new URL(url).origin
@@ -92,41 +93,65 @@ export const objectRenderer = {
 export const objects = new FeatureLayer({
 	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/7",
 	outFields: ["*"],
-	title: "Gatvės",
+	title: "Periodas",
 	renderer: objectRenderer,
 })
 
-const gatves_1808 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/8",
-	outFields: ["*"],
-	title: "Gatvės 1808",
+const period_1808 = new MapImageLayer({
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer",
+	title: "Periodas 1808",
+	sublayers: [
+		{
+			id: 49,
+		},
+	],
 })
-const gatves_1845 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/9",
-	outFields: ["*"],
-	title: "Gatvės 1845",
+const period_1845 = new MapImageLayer({
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer",
+	title: "Periodas 1845",
+  sublayers: [
+		{
+			id: 49,
+		},
+	],
 })
-const gatves_1911 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/10",
-	outFields: ["*"],
-	title: "Gatvės 1911",
+const period_1911 = new MapImageLayer({
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer",
+	title: "Periodas 1911",
+  sublayers: [
+		{
+			id: 75,
+		},
+	],
 })
-const gatves_1938 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/11",
-	outFields: ["*"],
-	title: "Gatvės 1938",
+const period_1938 = new MapImageLayer({
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer",
+	title: "Periodas 1938",
+  sublayers: [
+		{
+			id: 80,
+		},
+	],
 })
-const gatves_1977 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/13",
-	outFields: ["*"],
-	title: "Gatvės 1977",
+const period_1977 = new MapImageLayer({
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer",
+	title: "Periodas 1977",
+  sublayers: [
+		{
+			id: 84,
+		},
+	],
 })
-const gatves_2021 = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/45",
-	outFields: ["*"],
-	title: "Gatvės 2021",
+const period_2021 = new MapImageLayer({
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer",
+	title: "Periodas 2021",
+  sublayers: [
+		{
+			id: 87,
+		},
+	],
 })
-export const periods = [gatves_1808, gatves_1845, gatves_1911, gatves_1938, gatves_1977, gatves_2021]
+export const periods = [period_1808, period_1845, period_1911, period_1938, period_1977, period_2021]
 
 const basemap1 = new Basemap({
 	baseLayers: [
@@ -155,7 +180,7 @@ export const map = new Map({
 })
 export const map2 = new Map({
 	basemap: basemap2,
-	layers: [gatves_1808],
+	layers: [period_1808],
 })
 
 export const view = new MapView({
