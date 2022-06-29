@@ -111,7 +111,7 @@ const period_1845 = new MapImageLayer({
 	title: "Periodas 1845",
   sublayers: [
 		{
-			id: 49,
+			id: 69,
 		},
 	],
 })
