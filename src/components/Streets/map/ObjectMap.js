@@ -33,7 +33,7 @@ const ObjectMap = (props) => {
 			},
 		})
 		view.center = pt
-    view2.center = pt
+		view2.center = pt
 
 		viewHandles.forEach((handle) => {
 			handle.remove()
@@ -145,8 +145,6 @@ const ObjectMap = (props) => {
 		if (props.toggleCompareWindow) {
 			view2.container = mapDiv2.current
 
-
-
 			view.container.style.width = "50%"
 			view2.container.style.width = "50%"
 
@@ -194,9 +192,25 @@ const ObjectMap = (props) => {
 				className="map"
 				id="view1Div"
 				ref={mapDiv}
-				style={{ float: "left", width: "100%", height: "100%" }}
+				style={{
+					boxSizing: "border-box",//iskelti auksciau
+					borderRight: "thin solid #D42323",
+					float: "left",
+					width: "100%",
+					height: "100%",
+				}}
 			></div>
-			<div id="view2Div" ref={mapDiv2} style={{ float: "left", width: "0%", height: "100%" }}></div>
+			<div
+				id="view2Div"
+				ref={mapDiv2}
+				style={{
+					boxSizing: "border-box",
+					borderLeft: "thin solid #D42323",
+					float: "left",
+					width: "0%",
+					height: "100%",
+				}}
+			></div>
 			{/* <div id="view2Div" ref={mapDiv2} style={{ float: "left", width: "50%", height: "100%" }}></div> */}
 		</>
 	)
