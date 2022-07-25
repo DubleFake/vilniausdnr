@@ -149,6 +149,16 @@ const basemap2 = new Basemap({
 	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_dark.png`,
 })
 
+const basemap3 = new Basemap({
+	baseLayers: [
+		new TileLayer({
+			url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/ORTOFOTO_2019_LKS_FULL/MapServer",
+		}),
+	],
+	id: "orto",
+	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_orto.png`,
+})
+
 export const map = new Map({
 	basemap: basemap2,
 	layers: [objects],
@@ -199,7 +209,7 @@ export const view2 = new MapView({
 
 const basemapGallery = new BasemapGallery({
 	view: view,
-	source: [basemap1, basemap2],
+	source: [basemap1, basemap2, basemap3],
 })
 
 export const bgExpand = new Expand({

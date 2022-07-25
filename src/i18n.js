@@ -70,7 +70,8 @@ const resources = {
       "plaques": {
         "map": {
           "basemapLight": "Šviesus žemėlapis",
-          "basemapDark": "Tamsus žemėlapis"
+          "basemapDark": "Tamsus žemėlapis",
+          "basemapOrto": "Ortofoto"
         },
         "options": {
           "search": "Paieška",
@@ -150,7 +151,7 @@ const resources = {
       }
     },
 	},
-	fr: {
+	en: {
 		translation: {
       "home": {
         "periods": "The city in separate historical periods",
@@ -166,7 +167,8 @@ const resources = {
       "plaques": {
         "map": {
           "basemapLight": "Light basemap",
-          "basemapDark": "Dark basemap"
+          "basemapDark": "Dark basemap",
+          "basemapOrto": "Ortophoto"
         },
         "options": {
           "search": "Search",
