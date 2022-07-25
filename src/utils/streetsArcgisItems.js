@@ -189,6 +189,16 @@ export const view = new MapView({
 		haloColor: "#FF0026",
 		haloOpacity: 1,
 	},
+	constraints: {
+		geometry: {
+			type: "extent",
+			spatialReference: 2600,
+			xmin: 566176.6289999997,
+			ymin: 6048667.358999999,
+			xmax: 595518,
+			ymax: 6077582.921,
+		},
+	}, // longitude, latitude
 })
 
 export const view2 = new MapView({

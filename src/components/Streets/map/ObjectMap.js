@@ -24,7 +24,7 @@ const ObjectMap = (props) => {
 
 	useEffect(() => {
 		view.container = mapDiv.current
-
+    
 		let pt = new Point({
 			x: 582527.5805600522,
 			y: 6061855.557955307,
@@ -149,7 +149,7 @@ const ObjectMap = (props) => {
 			view.container.style.width = "50%"
 			view.container.style.boxSizing = "border-box"
 			view.container.style.borderRight = "thin solid #D42323"
-      
+
 			view2.container.style.width = "50%"
 			view2.container.style.boxSizing = "border-box"
 			view2.container.style.borderLeft = "thin solid #D42323"
@@ -175,11 +175,11 @@ const ObjectMap = (props) => {
 			}
 		} else if (!props.toggleCompareWindow && view2.container) {
 			view.container.style.width = "100%"
-      view.container.style.boxSizing = ""
+			view.container.style.boxSizing = ""
 			view.container.style.borderRight = ""
 
 			view2.container.style.width = "0%"
-      view2.container.style.boxSizing = ""
+			view2.container.style.boxSizing = ""
 			view2.container.style.borderLeft = ""
 			view2.container = null
 		}
