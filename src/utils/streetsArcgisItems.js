@@ -195,15 +195,11 @@ export const view2 = new MapView({
 	map: map2,
 	zoom: 2,
 	slider: false,
-	constraints: {
-		snapToZoom: false,
-	},
+	// constraints: {
+	// 	snapToZoom: false,
+	// },
 	ui: {
 		components: ["attribution"],
-	},
-	highlightOptions: {
-		color: "#FF0000",
-		haloColor: "#FF0000",
 	},
 })
 
@@ -230,6 +226,6 @@ export const swipe = new Swipe({
 	view: view,
 	leadingLayers: [],
 	trailingLayers: [],
-	direction: "horizontal", // swipe widget will move from top to bottom of view
-	position: 50, // position set to middle of the view (50%)
+	direction: "horizontal",
+	position: 50,
 })
