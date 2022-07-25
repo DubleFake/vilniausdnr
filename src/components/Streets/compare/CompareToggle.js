@@ -37,6 +37,7 @@ const CompareLayers = (props) => {
 			>
 				<ButtonGroup sx={{ mt: 1.5 }} variant="contained">
 					<Button
+						sx={{ width: 95 }}
 						color={props.historyToggle ? "primary" : "secondary"}
 						onClick={() => {
 							map.removeAll()
@@ -48,6 +49,7 @@ const CompareLayers = (props) => {
 						<Typography variant="button">dabartis</Typography>
 					</Button>
 					<Button
+						sx={{ width: 95 }}
 						color={props.historyToggle ? "secondary" : "primary"}
 						onClick={() => {
 							const url = window.location.href
