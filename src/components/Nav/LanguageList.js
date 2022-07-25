@@ -16,7 +16,7 @@ const LanguageList = (props) => {
 
 	const handleLanguageChange = (lng) => {
 		if (i18n.language !== lng) {
-			navigate(`/vilniausdnr/${lng}${window.location.pathname.slice(3)}`)
+			navigate(`/vilniausdnr/${lng}/${window.location.pathname.slice(16)}`)
 		}
 		props.setLanguageOpen(false)
 	}
