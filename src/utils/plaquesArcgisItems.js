@@ -21,46 +21,46 @@ export const objectRenderer = {
 				url: `${origin}/vilniausdnr/signIcons/Atmint_atminimo_lenta.svg`,
 			},
 		},
+    {
+      value: "3",
+      symbol: {
+        type: "picture-marker",
+        url: `${origin}/vilniausdnr/signIcons/Atmint_atminimo_lenta_bareljefas.svg`,
+      },
+    },
+    {
+      value: "5",
+      symbol: {
+        type: "picture-marker",
+        url: `${origin}/vilniausdnr/signIcons/Atmint_pavadinimo_lentele.svg`,
+      },
+    },
+    {
+      value: "6",
+      symbol: {
+        type: "picture-marker",
+        url: `${origin}/vilniausdnr/signIcons/Atmint_uzrasas.svg`,
+      },
+    },
+    {
+      value: "4",
+      symbol: {
+        type: "picture-marker",
+        url: `${origin}/vilniausdnr/signIcons/Atmint_freska.svg`,
+      },
+    },
+    {
+      value: "7",
+      symbol: {
+        type: "picture-marker",
+        url: `${origin}/vilniausdnr/signIcons/Atmint_vietos_pazymejimas.svg`,
+      },
+    },
 		{
 			value: "2",
 			symbol: {
 				type: "picture-marker",
 				url: `${origin}/vilniausdnr/signIcons/Atmint_skulptura.svg`,
-			},
-		},
-		{
-			value: "3",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_atminimo_lenta_bareljefas.svg`,
-			},
-		},
-		{
-			value: "4",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_freska.svg`,
-			},
-		},
-		{
-			value: "5",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_pavadinimo_lentele.svg`,
-			},
-		},
-		{
-			value: "6",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_uzrasas.svg`,
-			},
-		},
-		{
-			value: "7",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_vietos_pazymejimas.svg`,
 			},
 		},
 		{
@@ -104,46 +104,46 @@ export const memoryRenderer = {
 				url: `${origin}/vilniausdnr/signIcons/Atmint_asmenu_grupe.svg`,
 			},
 		},
+    {
+      value: "6",
+      symbol: {
+        type: "picture-marker",
+        url: `${origin}/vilniausdnr/signIcons/Atmint_palaidojimo_vieta.svg`,
+      },
+    },
+    {
+      value: "4",
+      symbol: {
+        type: "picture-marker",
+        url: `${origin}/vilniausdnr/signIcons/Atmint_organizacija.svg`,
+      },
+    },
+    {
+      value: "5",
+      symbol: {
+        type: "picture-marker",
+        url: `${origin}/vilniausdnr/signIcons/Atmint_istoriniai_ivykiai.svg`,
+      },
+    },
+    {
+      value: "8",
+      symbol: {
+        type: "picture-marker",
+        url: `${origin}/vilniausdnr/signIcons/Atmint_istorinis_statinys.svg`,
+      },
+    },
+    {
+      value: "7",
+      symbol: {
+        type: "picture-marker",
+        url: `${origin}/vilniausdnr/signIcons/Atmint_meninis_simbolis.svg`,
+      },
+    },
 		{
 			value: "3",
 			symbol: {
 				type: "picture-marker",
 				url: `${origin}/vilniausdnr/signIcons/Atmint_abstraktus.svg`,
-			},
-		},
-		{
-			value: "4",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_organizacija.svg`,
-			},
-		},
-		{
-			value: "5",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_istoriniai_ivykiai.svg`,
-			},
-		},
-		{
-			value: "6",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_palaidojimo_vieta.svg`,
-			},
-		},
-		{
-			value: "7",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_meninis_simbolis.svg`,
-			},
-		},
-		{
-			value: "8",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_istorinis_statinys.svg`,
 			},
 		},
 	],
