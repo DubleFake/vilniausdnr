@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import { map, view, objects, periods } from "../../../utils/streetsArcgisItems"
+import { map, view, view2, objects, periods } from "../../../utils/streetsArcgisItems"
 
 import Swipe from "@arcgis/core/widgets/Swipe"
 import InputLabel from "@mui/material/InputLabel"
@@ -16,12 +16,24 @@ const CompareSwipe = () => {
 	useEffect(() => {
 		map.removeAll()
 
+		periods[0]
+			.when(() => {
+				return periods[0].queryExtent()
+			})
+			.then((response) => {
+				view.constraints.geometry = {
+					type: "extent",
+					spatialReference: response.extent.spatialReference,
+					xmin: response.extent.xmin,
+					ymin: response.extent.ymin,
+					xmax: response.extent.xmax,
+					ymax: response.extent.ymax,
+				}
+			})
+
 		view
 			.when(() => {
 				view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
-			})
-			.then(() => {
-				// limitMapExtent(view)
 			})
 
 		const swipeWidgetFind = view.ui.find("swipe-layers")
@@ -54,6 +66,21 @@ const CompareSwipe = () => {
 
 			map.removeAll()
 			map.add(objects)
+
+      objects
+			.when(() => {
+				return objects.queryExtent()
+			})
+			.then((response) => {
+				view.constraints.geometry = {
+					type: "extent",
+					spatialReference: response.extent.spatialReference,
+					xmin: response.extent.xmin,
+					ymin: response.extent.ymin,
+					xmax: response.extent.xmax,
+					ymax: response.extent.ymax,
+				}
+			})
 		}
 	}, [])
 

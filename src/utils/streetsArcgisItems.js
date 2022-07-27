@@ -198,16 +198,24 @@ export const view = new MapView({
 			xmax: 595518,
 			ymax: 6077582.921,
 		},
-	}, // longitude, latitude
+	},
 })
 
 export const view2 = new MapView({
 	map: map2,
 	zoom: 2,
 	slider: false,
-	// constraints: {
-	// 	snapToZoom: false,
-	// },
+	constraints: {
+		// snapToZoom: false,
+		geometry: {
+			type: "extent",
+			spatialReference: 2600,
+			xmin: 566176.6289999997,
+			ymin: 6048667.358999999,
+			xmax: 595518,
+			ymax: 6077582.921,
+		},
+	},
 	ui: {
 		components: ["attribution"],
 	},

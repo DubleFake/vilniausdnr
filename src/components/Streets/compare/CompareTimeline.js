@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import { map, view, objects, periods } from "../../../utils/streetsArcgisItems"
+import { map, view, view2, objects, periods } from "../../../utils/streetsArcgisItems"
 
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
@@ -15,45 +15,27 @@ const CompareTimeline = (props) => {
 	const [toggle1977, setToggle1977] = useState(false)
 	const [toggle2021, setToggle2021] = useState(false)
 
-	var limitExtentHandle = null
-
-	const limitMapExtent = (view) => {
-		let initialExtent = view.extent
-		limitExtentHandle = view.watch("stationary", (event) => {
-			if (!event) {
-				return
-			}
-
-			let currentCenter = view.extent.center
-			if (!initialExtent.contains(currentCenter)) {
-				let newCenter = view.extent.center
-
-				if (currentCenter.x < initialExtent.xmin) {
-					newCenter.x = initialExtent.xmin
-				}
-				if (currentCenter.x > initialExtent.xmax) {
-					newCenter.x = initialExtent.xmax
-				}
-				if (currentCenter.y < initialExtent.ymin) {
-					newCenter.y = initialExtent.ymin
-				}
-				if (currentCenter.y > initialExtent.ymax) {
-					newCenter.y = initialExtent.ymax
-				}
-				view.goTo(newCenter)
-			}
-		})
-	}
-
 	useEffect(() => {
 		map.removeAll()
+
+		periods[0]
+			.when(() => {
+				return periods[0].queryExtent()
+			})
+			.then((response) => {
+				view.constraints.geometry = {
+					type: "extent",
+					spatialReference: response.extent.spatialReference,
+					xmin: response.extent.xmin,
+					ymin: response.extent.ymin,
+					xmax: response.extent.xmax,
+					ymax: response.extent.ymax,
+				}
+			})
 
 		view
 			.when(() => {
 				view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
-			})
-			.then(() => {
-				// limitMapExtent(view)
 			})
 	}, [])
 
@@ -98,9 +80,23 @@ const CompareTimeline = (props) => {
 
 	useEffect(() => {
 		return () => {
-			limitExtentHandle.remove()
 			map.removeAll()
 			map.add(objects)
+
+      objects
+			.when(() => {
+				return objects.queryExtent()
+			})
+			.then((response) => {
+				view.constraints.geometry = {
+					type: "extent",
+					spatialReference: response.extent.spatialReference,
+					xmin: response.extent.xmin,
+					ymin: response.extent.ymin,
+					xmax: response.extent.xmax,
+					ymax: response.extent.ymax,
+				}
+			})
 		}
 	}, [])
 
