@@ -148,7 +148,6 @@ const basemap2 = new Basemap({
 	id: "dark",
 	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_dark.png`,
 })
-
 const basemap3 = new Basemap({
 	baseLayers: [
 		new TileLayer({
@@ -158,6 +157,7 @@ const basemap3 = new Basemap({
 	id: "orto",
 	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_orto.png`,
 })
+export const basemaps = [basemap1, basemap2, basemap3]
 
 export const map = new Map({
 	basemap: basemap2,

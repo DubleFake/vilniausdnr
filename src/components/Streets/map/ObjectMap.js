@@ -12,6 +12,7 @@ import {
 	objects,
 	bgExpand,
 	locateWidget,
+	basemaps,
 } from "../../../utils/streetsArcgisItems"
 
 const viewHandles = []
@@ -24,7 +25,7 @@ const ObjectMap = (props) => {
 
 	useEffect(() => {
 		view.container = mapDiv.current
-    
+
 		let pt = new Point({
 			x: 582527.5805600522,
 			y: 6061855.557955307,
@@ -39,6 +40,23 @@ const ObjectMap = (props) => {
 			handle.remove()
 		})
 		viewHandles.length = 0
+
+		viewHandles.push(
+			view.watch("map.basemap.id", (newBasemap) => {
+        console.log(newBasemap)
+				switch (newBasemap) {
+					case "light":
+						map2.basemap = basemaps[0]
+						break
+					case "dark":
+            map2.basemap = basemaps[1]
+						break
+					case "orto":
+            map2.basemap = basemaps[2]
+						break
+				}
+			})
+		)
 
 		view.whenLayerView(objects).then((objectsView) => {
 			watchUtils.whenFalseOnce(objectsView, "updating").then(() => {
