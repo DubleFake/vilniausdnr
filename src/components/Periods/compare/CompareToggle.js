@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, useNavigate } from "react-router-dom"
 
 import { objects, map } from "../../../utils/periodsArcgisItems"
 import CompareTimeline from "../compare/CompareTimeline"
@@ -13,10 +13,12 @@ import Grid from "@mui/material/Grid"
 import CompareType from "./CompareType"
 
 const CompareLayers = (props) => {
+  const navigate = useNavigate()
 
 	useEffect(() => {
-		//jei url turi compare tada pakeisti historyToggle state
-
+    if(window.location.href.includes("compare")){
+      props.setHistoryToggle(true)
+    }
 	}, [])
 
 	return (

@@ -16,7 +16,6 @@ const CompareLayers = (props) => {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		//jei url turi compare tada pakeisti historyToggle state
     if(window.location.href.includes("compare")){
       props.setHistoryToggle(true)
     }

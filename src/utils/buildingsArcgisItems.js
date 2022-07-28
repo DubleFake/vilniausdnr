@@ -148,6 +148,16 @@ const basemap2 = new Basemap({
 	id: "dark",
 	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_dark.png`,
 })
+const basemap3 = new Basemap({
+	baseLayers: [
+		new TileLayer({
+			url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/ORTOFOTO_2019_LKS_FULL/MapServer",
+		}),
+	],
+	id: "orto",
+	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_orto.png`,
+})
+export const basemaps = [basemap1, basemap2, basemap3]
 
 export const map = new Map({
 	basemap: basemap2,
@@ -177,6 +187,16 @@ export const view = new MapView({
 		color: "#FF0000",
 		haloColor: "#FF0000",
 	},
+  constraints: {
+		geometry: {
+			type: "extent",
+			spatialReference: 2600,
+			xmin: 566176.6289999997,
+			ymin: 6048667.358999999,
+			xmax: 595518,
+			ymax: 6077582.921,
+		},
+	},
 })
 
 export const view2 = new MapView({
@@ -184,7 +204,15 @@ export const view2 = new MapView({
 	zoom: 2,
 	slider: false,
 	constraints: {
-		snapToZoom: false,
+		// snapToZoom: false,
+    geometry: {
+			type: "extent",
+			spatialReference: 2600,
+			xmin: 566176.6289999997,
+			ymin: 6048667.358999999,
+			xmax: 595518,
+			ymax: 6077582.921,
+		},
 	},
 	ui: {
 		components: ["attribution"],
@@ -197,7 +225,7 @@ export const view2 = new MapView({
 
 const basemapGallery = new BasemapGallery({
 	view: view,
-	source: [basemap1, basemap2],
+	source: [basemap1, basemap2, basemap3],
 })
 
 export const bgExpand = new Expand({
