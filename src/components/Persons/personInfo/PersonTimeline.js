@@ -22,11 +22,14 @@ const PersonTimeline = (props) => {
 				where: `Asmenybes_ID = '{${props.globalID}}'`,
 			})
 			.then((response) => {
-				setBiographyFeatures(response.features)
+        let tempFeatures = response.features
+        tempFeatures.sort((a,b) => a.attributes.Fakto_data_rikiavimas - b.attributes.Fakto_data_rikiavimas);
+				setBiographyFeatures(tempFeatures)
 			})
 	}, [])
 
 	useEffect(() => {
+
 		console.log(biographyFeatures)
 	}, [biographyFeatures])
 
