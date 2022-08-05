@@ -1,5 +1,14 @@
-import React from "react"
-import { useTranslation } from "react-i18next"
+import React, { useState, useEffect } from "react"
+import { Routes, Route, Outlet } from "react-router-dom"
+
+import Options from "../components/Persons/options/Options"
+import { persons } from "../utils/personsArcgisItems"
+import "../css/signs.css"
+
+import Grid from "@mui/material/Grid"
+import Collapse from "@mui/material/Collapse"
+import CircularProgress from "@mui/material/CircularProgress"
+import Backdrop from "@mui/material/Backdrop"
 
 import Box from "@mui/material/Box"
 import Timeline from "@mui/lab/Timeline"
@@ -11,9 +20,67 @@ import TimelineDot from "@mui/lab/TimelineDot"
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
 
 const Persons = () => {
-	const { t, i18n } = useTranslation()
+	const [selectedObject, setSelectedObject] = useState("")
+	const [initialLoading, setInitialLoading] = useState(true)
+	const [initialObjectsList, setInitialObjectsList] = useState([])
 
-  return <h2>{t("home.persons")}</h2>
+	useEffect(() => {
+		persons
+			.queryFeatures({
+				outFields: ["*"],
+				where: "",
+				returnGeometry: false,
+			})
+			.then((response) => {
+				if (response) {
+					setInitialLoading(false)
+					setInitialObjectsList(response.features)
+					console.log(response)
+				}
+			})
+	}, [])
+
+	return (
+		<Routes>
+			<Route
+				path="/"
+				element={
+					<>
+						<Grid container spacing={0}>
+							{/* <Backdrop
+								sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+								open={initialLoading}
+							>
+								<CircularProgress
+									sx={{ position: "fixed", top: window.innerHeight / 2 + 25 }}
+									color="inherit"
+								/>
+							</Backdrop> */}
+								<Options
+									initialObjectsList={initialObjectsList}
+									setSelectedObject={setSelectedObject}
+									selectedObject={selectedObject}
+								/>
+							<Outlet />
+						</Grid>
+					</>
+				}
+			>
+				{/* <Route
+					path="object/:globalID"
+					element={
+						<ObjectPopup
+							mapQuery={mapQuery}
+							setSelectedObject={setSelectedObject}
+							initialLoading={initialLoading}
+						/>
+					}
+				/>
+
+				<Route path="person/:globalID" element={<PersonPopup initialLoading={initialLoading} />} /> */}
+			</Route>
+		</Routes>
+	)
 	// return (
 	// 	<Box sx={{ maxHeight: window.innerHeight - 90, overflowY: "auto" }}>
 	// 		<h2>{t("home.persons")}</h2>

@@ -152,6 +152,12 @@ const resources = {
 					relatedMany: "Susiję objektai",
 				},
 			},
+      persons: {
+        options: {
+          profession: "Profesija",
+          period: "Gyvenimo laikotarpis",
+        },
+      },
 		},
 	},
 	en: {
