@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Routes, Route, Outlet } from "react-router-dom"
 
 import Options from "../components/Persons/options/Options"
+import PersonInfo from "../components/Persons/personInfo/PersonInfo"
 import { persons } from "../utils/personsArcgisItems"
 import "../css/signs.css"
 
@@ -56,28 +57,17 @@ const Persons = () => {
 									color="inherit"
 								/>
 							</Backdrop> */}
-								<Options
-									initialObjectsList={initialObjectsList}
-									setSelectedObject={setSelectedObject}
-									selectedObject={selectedObject}
-								/>
-							<Outlet />
+							<Options
+								initialObjectsList={initialObjectsList}
+								setSelectedObject={setSelectedObject}
+								selectedObject={selectedObject}
+							/>
+            <Outlet />
 						</Grid>
 					</>
 				}
 			>
-				{/* <Route
-					path="object/:globalID"
-					element={
-						<ObjectPopup
-							mapQuery={mapQuery}
-							setSelectedObject={setSelectedObject}
-							initialLoading={initialLoading}
-						/>
-					}
-				/>
-
-				<Route path="person/:globalID" element={<PersonPopup initialLoading={initialLoading} />} /> */}
+				<Route path=":globalID" element={<PersonInfo />} />
 			</Route>
 		</Routes>
 	)
