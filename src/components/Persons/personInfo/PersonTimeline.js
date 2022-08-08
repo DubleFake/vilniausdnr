@@ -22,25 +22,30 @@ const PersonTimeline = (props) => {
 				where: `Asmenybes_ID = '{${props.globalID}}'`,
 			})
 			.then((response) => {
-        let tempFeatures = response.features
-        tempFeatures.sort((a,b) => a.attributes.Fakto_data_rikiavimas - b.attributes.Fakto_data_rikiavimas);
+				let tempFeatures = response.features
+				tempFeatures.sort((a, b) => a.attributes.Fakto_data_rikiavimas - b.attributes.Fakto_data_rikiavimas)
 				setBiographyFeatures(tempFeatures)
 			})
-	}, [])
+	}, [props.globalID])
 
 	useEffect(() => {
-
 		console.log(biographyFeatures)
 	}, [biographyFeatures])
 
 	return (
-		<Box sx={{ maxHeight: window.innerHeight - 90, overflowY: "scroll", width: 700 }}>
+		<Box
+			sx={{
+				maxHeight: window.innerHeight - 90,
+				overflowY: "hidden",
+				width: "calc(50vw - 175px)",
+			}}
+		>
 			<Timeline>
 				{biographyFeatures.map((feature, i) => (
 					<TimelineItem key={i}>
 						<TimelineOppositeContent color="text.secondary">
 							{feature.attributes.Fakto_data
-								? (new Date(feature.attributes.Fakto_data)).toLocaleDateString("lt-LT")
+								? new Date(feature.attributes.Fakto_data).toLocaleDateString("lt-LT")
 								: feature.attributes.Fakto_datos_intervalo_pradžia
 								? feature.attributes.Fakto_datos_intervalo_pradžia
 								: feature.attributes.Fakto_datos_intervalo_pabaiga
