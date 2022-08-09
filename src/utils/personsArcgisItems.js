@@ -11,3 +11,10 @@ export const biography = new FeatureLayer({
 	outFields: ["*"],
 	title: "Biografija",
 })
+
+export const related_persons = new FeatureLayer({
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/8",
+	outFields: ["*"],
+	title: "Susije asmenys",
+})
+

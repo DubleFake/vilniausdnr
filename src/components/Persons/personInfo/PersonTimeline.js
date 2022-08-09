@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
 
 import { biography } from "../../../utils/personsArcgisItems"
 
@@ -50,7 +49,7 @@ const PersonTimeline = (props) => {
 						</TimelineOppositeContent>
 						<TimelineSeparator>
 							<TimelineDot />
-							<TimelineConnector />
+							{i !== timelineFeatures.length - 1 && <TimelineConnector />}
 						</TimelineSeparator>
 						<TimelineContent>{feature.attributes.Fakto_aprasymas}</TimelineContent>
 					</TimelineItem>
@@ -61,144 +60,3 @@ const PersonTimeline = (props) => {
 }
 
 export default PersonTimeline
-
-// 		<Timeline>
-// 			<TimelineItem>
-// 				<TimelineOppositeContent color="text.secondary">1950</TimelineOppositeContent>
-// 				<TimelineSeparator>
-// 					<TimelineDot />
-// 					<TimelineConnector />
-// 				</TimelineSeparator>
-// 				<TimelineContent>
-// 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-// 					labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-// 					nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-// 					esse cillum dolore eu fugiat nulla pariatur.
-// 				</TimelineContent>
-// 			</TimelineItem>
-// 			<TimelineItem>
-// 				<TimelineOppositeContent color="text.secondary">1980</TimelineOppositeContent>
-// 				<TimelineSeparator>
-// 					<TimelineDot />
-// 					<TimelineConnector />
-// 				</TimelineSeparator>
-// 				<TimelineContent>
-// 					nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-// 				</TimelineContent>
-// 			</TimelineItem>
-// 			<TimelineItem>
-// 				<TimelineOppositeContent color="text.secondary">1981</TimelineOppositeContent>
-// 				<TimelineSeparator>
-// 					<TimelineDot />
-// 					<TimelineConnector />
-// 				</TimelineSeparator>
-// 				<TimelineContent>
-// 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-// 					labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-// 					nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-// 				</TimelineContent>
-// 			</TimelineItem>
-// 			<TimelineItem>
-// 				<TimelineOppositeContent color="text.secondary">1982</TimelineOppositeContent>
-// 				<TimelineSeparator>
-// 					<TimelineDot />
-// 					<TimelineConnector />
-// 				</TimelineSeparator>
-// 				<TimelineContent>
-// 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-// 					labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-// 					nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-// 					esse cillum dolore eu fugiat nulla pariatur.
-// 				</TimelineContent>
-// 			</TimelineItem>
-// 			<TimelineItem>
-// 				<TimelineOppositeContent color="text.secondary">1983</TimelineOppositeContent>
-// 				<TimelineSeparator>
-// 					<TimelineDot />
-// 					<TimelineConnector />
-// 				</TimelineSeparator>
-// 				<TimelineContent>
-// 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-// 					labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-// 					nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-// 					esse cillum dolore eu fugiat nulla pariatur.
-// 				</TimelineContent>
-// 			</TimelineItem>
-// 			<TimelineItem>
-// 				<TimelineOppositeContent color="text.secondary">1990</TimelineOppositeContent>
-// 				<TimelineSeparator>
-// 					<TimelineDot />
-// 					<TimelineConnector />
-// 				</TimelineSeparator>
-// 				<TimelineContent>
-// 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-// 					labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-// 					nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-// 					esse cillum dolore eu fugiat nulla pariatur.
-// 				</TimelineContent>
-// 			</TimelineItem>
-// 			<TimelineItem>
-// 				<TimelineOppositeContent color="text.secondary">1995</TimelineOppositeContent>
-// 				<TimelineSeparator>
-// 					<TimelineDot />
-// 					<TimelineConnector />
-// 				</TimelineSeparator>
-// 				<TimelineContent>
-// 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-// 					labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-// 					nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-// 					esse cillum dolore eu fugiat nulla pariatur.
-// 				</TimelineContent>
-// 			</TimelineItem>
-// 			<TimelineItem>
-// 				<TimelineOppositeContent color="text.secondary">1995</TimelineOppositeContent>
-// 				<TimelineSeparator>
-// 					<TimelineDot />
-// 					<TimelineConnector />
-// 				</TimelineSeparator>
-// 				<TimelineContent>
-// 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-// 					labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-// 					nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-// 					esse cillum dolore eu fugiat nulla pariatur.
-// 				</TimelineContent>
-// 			</TimelineItem>
-// 			<TimelineItem>
-// 				<TimelineOppositeContent color="text.secondary">1995</TimelineOppositeContent>
-// 				<TimelineSeparator>
-// 					<TimelineDot />
-// 					<TimelineConnector />
-// 				</TimelineSeparator>
-// 				<TimelineContent>
-// 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-// 					labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-// 					nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-// 					esse cillum dolore eu fugiat nulla pariatur.
-// 				</TimelineContent>
-// 			</TimelineItem>
-// 			<TimelineItem>
-// 				<TimelineOppositeContent color="text.secondary">1995</TimelineOppositeContent>
-// 				<TimelineSeparator>
-// 					<TimelineDot />
-// 					<TimelineConnector />
-// 				</TimelineSeparator>
-// 				<TimelineContent>
-// 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-// 					labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-// 					nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-// 					esse cillum dolore eu fugiat nulla pariatur.
-// 				</TimelineContent>
-// 			</TimelineItem>
-// 			<TimelineItem>
-// 				<TimelineOppositeContent color="text.secondary">2000</TimelineOppositeContent>
-// 				<TimelineSeparator>
-// 					<TimelineDot />
-// 				</TimelineSeparator>
-// 				<TimelineContent>
-// 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-// 					labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-// 					nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-// 					esse cillum dolore eu fugiat nulla pariatur.
-// 				</TimelineContent>
-// 			</TimelineItem>
-// 		</Timeline>

@@ -36,7 +36,6 @@ const Persons = () => {
 				if (response) {
 					setInitialLoading(false)
 					setInitialObjectsList(response.features)
-					console.log(response)
 				}
 			})
 	}, [])
