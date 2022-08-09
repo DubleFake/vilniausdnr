@@ -28,7 +28,7 @@ const Persons = () => {
 	useEffect(() => {
 		persons
 			.queryFeatures({
-				outFields: ["*"],
+				outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
 				where: "",
 				returnGeometry: false,
 			})

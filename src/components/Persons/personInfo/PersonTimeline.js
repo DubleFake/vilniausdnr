@@ -13,7 +13,7 @@ import TimelineDot from "@mui/lab/TimelineDot"
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
 
 const PersonTimeline = (props) => {
-	const [biographyFeatures, setBiographyFeatures] = useState([])
+	const [timelineFeatures, setTimelineFeatures] = useState([])
 
 	useEffect(() => {
 		biography
@@ -24,24 +24,20 @@ const PersonTimeline = (props) => {
 			.then((response) => {
 				let tempFeatures = response.features
 				tempFeatures.sort((a, b) => a.attributes.Fakto_data_rikiavimas - b.attributes.Fakto_data_rikiavimas)
-				setBiographyFeatures(tempFeatures)
+				setTimelineFeatures(tempFeatures)
 			})
 	}, [props.globalID])
-
-	useEffect(() => {
-		console.log(biographyFeatures)
-	}, [biographyFeatures])
 
 	return (
 		<Box
 			sx={{
 				maxHeight: window.innerHeight - 90,
-				overflowY: "hidden",
+				overflowY: "auto",
 				width: "calc(50vw - 175px)",
 			}}
 		>
 			<Timeline>
-				{biographyFeatures.map((feature, i) => (
+				{timelineFeatures.map((feature, i) => (
 					<TimelineItem key={i}>
 						<TimelineOppositeContent color="text.secondary">
 							{feature.attributes.Fakto_data
