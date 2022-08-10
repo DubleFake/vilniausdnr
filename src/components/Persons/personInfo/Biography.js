@@ -34,6 +34,19 @@ const Biography = (props) => {
 				where: `Asmenybes_ID = '{${props.globalID}}'`,
 			})
 			.then((response) => {
+				setBiographyFeatures(response.features)
+			})
+	}, [props.globalID])
+
+	useEffect(() => {
+		setRelatedObjects([])
+
+		persons
+			.queryFeatures({
+				outFields: ["*"],
+				where: `Asmenybes_ID = '{${props.globalID}}'`,
+			})
+			.then((response) => {
 				persons
 					.queryRelatedFeatures({
 						outFields: ["OBJ_PAV", "GlobalID"],
@@ -43,21 +56,8 @@ const Biography = (props) => {
 					})
 					.then((response_related) => {
 						console.log(response_related[response.features[0].attributes.OBJECTID].features)
-            setRelatedObjects(response_related[response.features[0].attributes.OBJECTID].features)
+						setRelatedObjects(response_related[response.features[0].attributes.OBJECTID].features)
 					})
-			})
-	}, [props.globalID])
-
-	useEffect(() => {
-		setRelatedOrg([])
-
-		persons
-			.queryFeatures({
-				outFields: ["OBJECTID"],
-				where: `Asmenybes_ID = '{${props.globalID}}'`,
-			})
-			.then((response) => {
-				setRelatedOrg(response.features)
 			})
 	}, [props.globalID])
 
@@ -263,7 +263,7 @@ const Biography = (props) => {
 						relatedPersons.map((person, i) =>
 							person.attributes.Susijes_asmuo_is_saraso ? (
 								<Link
-									textAlign="left"
+									textAlign="center"
 									component="button"
 									variant="body2"
 									onClick={() => {
@@ -294,7 +294,7 @@ const Biography = (props) => {
 						<CircularProgress color="inherit" />
 					)}
 
-					{/* <Typography
+					<Typography
 						sx={{ fontWeight: "bold" }}
 						variant="subtitle1"
 						gutterBottom
@@ -303,15 +303,27 @@ const Biography = (props) => {
 					>
 						Objektai
 					</Typography>
-					{relatedOrg.length > 0 ? (
-						relatedOrg.map((org, i) => (
-							<Typography sx={{ mb: 0 }} variant="body2" gutterBottom component="div" align="center" key={i}>
-								{org.attributes.Organizacijos_pavadinimas}
-							</Typography>
+					{relatedObjects.length > 0 ? (
+						relatedObjects.map((obj, i) => (
+							<Link
+								textAlign="center"
+								component="button"
+								variant="body2"
+								onClick={() => {
+									navigate(
+										`/vilniausdnr/${
+											i18n.language
+										}/plaques/object/${obj.attributes.GlobalID.replace(/[{}]/g, "")}`
+									)
+								}}
+								key={i}
+							>
+								{obj.attributes.OBJ_PAV}
+							</Link>
 						))
 					) : (
 						<CircularProgress color="inherit" />
-					)} */}
+					)}
 
 					<Typography
 						sx={{ fontWeight: "bold" }}
@@ -341,7 +353,7 @@ const Biography = (props) => {
 								target="_blank"
 								href={source.attributes.Saltinio_URL}
 								rel="noopener"
-								textAlign="left"
+								textAlign="center"
 								variant="body2"
 								key={i}
 							>
