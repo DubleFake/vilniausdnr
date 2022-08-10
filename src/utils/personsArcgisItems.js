@@ -18,3 +18,15 @@ export const related_persons = new FeatureLayer({
 	title: "Susije asmenys",
 })
 
+export const related_org = new FeatureLayer({
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/9",
+	outFields: ["*"],
+	title: "Susije org",
+})
+
+export const related_person_sources = new FeatureLayer({
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/11",
+	outFields: ["*"],
+	title: "Susije saltiniai",
+})
+
