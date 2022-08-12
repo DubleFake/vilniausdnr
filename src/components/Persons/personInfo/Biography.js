@@ -21,6 +21,7 @@ const Biography = (props) => {
 	const [relatedOrg, setRelatedOrg] = useState([])
 	const [relatedPersonSources, setRelatedPersonSources] = useState([])
 	const [relatedObjects, setRelatedObjects] = useState([])
+	const [relatedEvents, setRelatedEvents] = useState([])
 
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
@@ -55,7 +56,6 @@ const Biography = (props) => {
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
 					.then((response_related) => {
-						console.log(response_related[response.features[0].attributes.OBJECTID].features)
 						setRelatedObjects(response_related[response.features[0].attributes.OBJECTID].features)
 					})
 			})
@@ -132,6 +132,29 @@ const Biography = (props) => {
 			})
 			.then((response) => {
 				setRelatedPersonSources(response.features)
+			})
+	}, [props.globalID])
+
+  useEffect(() => {
+		setRelatedEvents([])
+
+		persons
+			.queryFeatures({
+				outFields: ["*"],
+				where: `Asmenybes_ID = '{${props.globalID}}'`,
+			})
+			.then((response) => {
+				persons
+					.queryRelatedFeatures({
+						outFields: ["*"],
+						relationshipId: 5,
+						returnGeometry: false,
+						objectIds: response.features[0].attributes.OBJECTID,
+					})
+					.then((response_related) => {
+						console.log(response_related[response.features[0].attributes.OBJECTID].features)
+						setRelatedEvents(response_related[response.features[0].attributes.OBJECTID].features)
+					})
 			})
 	}, [props.globalID])
 
@@ -249,6 +272,27 @@ const Biography = (props) => {
 					>
 						Įvykiai
 					</Typography>
+          {relatedEvents.length > 0 ? (
+						relatedEvents.map((event, i) => (
+							<Link
+								textAlign="center"
+								component="button"
+								variant="body2"
+								onClick={() => {
+									navigate(
+										`/vilniausdnr/${
+											i18n.language
+										}/events/${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`
+									)
+								}}
+								key={i}
+							>
+								{event.attributes.Ivykio_ID.replace(/[{}]/g, "")}
+							</Link>
+						))
+					) : (
+						<CircularProgress color="inherit" />
+					)}
 
 					<Typography
 						sx={{ fontWeight: "bold" }}
