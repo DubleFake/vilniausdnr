@@ -10,6 +10,8 @@ import TimelineConnector from "@mui/lab/TimelineConnector"
 import TimelineContent from "@mui/lab/TimelineContent"
 import TimelineDot from "@mui/lab/TimelineDot"
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
+import LocationCityIcon from "@mui/icons-material/LocationCity"
+import EventIcon from "@mui/icons-material/Event"
 
 const PersonTimeline = (props) => {
 	const [timelineFeatures, setTimelineFeatures] = useState([])
@@ -24,6 +26,7 @@ const PersonTimeline = (props) => {
 				let tempFeatures = response.features
 				tempFeatures.sort((a, b) => a.attributes.Fakto_data_rikiavimas - b.attributes.Fakto_data_rikiavimas)
 				setTimelineFeatures(tempFeatures)
+				console.log(tempFeatures)
 			})
 	}, [props.globalID])
 
@@ -38,7 +41,11 @@ const PersonTimeline = (props) => {
 			<Timeline>
 				{timelineFeatures.map((feature, i) => (
 					<TimelineItem key={i}>
-						<TimelineOppositeContent color="text.secondary">
+						<TimelineOppositeContent
+							// sx={{ m: "auto 0" }}
+							align="right"
+							color="text.secondary"
+						>
 							{feature.attributes.Fakto_data
 								? new Date(feature.attributes.Fakto_data).toLocaleDateString("lt-LT")
 								: feature.attributes.Fakto_datos_intervalo_pradžia
@@ -48,7 +55,9 @@ const PersonTimeline = (props) => {
 								: feature.attributes.Fakto_data_tekstu}
 						</TimelineOppositeContent>
 						<TimelineSeparator>
-							<TimelineDot />
+							<TimelineDot color={feature.attributes.Fakto_vieta === "Vilnius" ? "secondary" : "primary"}>
+								{feature.attributes.Fakto_vieta === "Vilnius" ? <LocationCityIcon /> : <EventIcon />}
+							</TimelineDot>
 							{i !== timelineFeatures.length - 1 && <TimelineConnector />}
 						</TimelineSeparator>
 						<TimelineContent>{feature.attributes.Fakto_aprasymas}</TimelineContent>
