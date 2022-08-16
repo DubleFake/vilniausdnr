@@ -30,3 +30,9 @@ export const related_person_sources = new FeatureLayer({
 	title: "Susije saltiniai",
 })
 
+export const related_events = new FeatureLayer({
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/5",
+	outFields: ["*"],
+	title: "Susije ivykiai",
+})
+

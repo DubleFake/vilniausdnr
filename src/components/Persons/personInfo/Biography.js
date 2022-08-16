@@ -7,6 +7,7 @@ import {
 	related_persons,
 	related_org,
 	related_person_sources,
+	related_events,
 } from "../../../utils/personsArcgisItems"
 
 import Box from "@mui/material/Box"
@@ -85,10 +86,7 @@ const Biography = (props) => {
 						persons
 							.queryFeatures({
 								outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai"],
-								where: `Asmenybes_ID = '{${tempPersons[person].attributes.Susijes_asmuo_is_saraso.replace(
-									/[{}]/g,
-									""
-								)}}'`,
+								where: `Asmenybes_ID = '${tempPersons[person].attributes.Susijes_asmuo_is_saraso}'`,
 							})
 							.then((response) => {
 								tempPersons[
@@ -135,7 +133,7 @@ const Biography = (props) => {
 			})
 	}, [props.globalID])
 
-  useEffect(() => {
+	useEffect(() => {
 		setRelatedEvents([])
 
 		persons
@@ -152,8 +150,35 @@ const Biography = (props) => {
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
 					.then((response_related) => {
-						console.log(response_related[response.features[0].attributes.OBJECTID].features)
-						setRelatedEvents(response_related[response.features[0].attributes.OBJECTID].features)
+						// console.log(response_related[response.features[0].attributes.OBJECTID].features)
+						// setRelatedEvents(response_related[response.features[0].attributes.OBJECTID].features)
+
+						const tempEvents = []
+						let eventsCount = response_related[response.features[0].attributes.OBJECTID].features.length
+						let queryCount = 0
+
+						for (let feature in response_related[response.features[0].attributes.OBJECTID].features) {
+							console.log(
+								response_related[response.features[0].attributes.OBJECTID].features[feature].attributes
+									.Ivykio_ID
+							)
+							related_events
+								.queryFeatures({
+									outFields: ["*"],
+									where: `Ivykio_ID = '${
+										response_related[response.features[0].attributes.OBJECTID].features[feature].attributes
+											.Ivykio_ID
+									}'`,
+								})
+								.then((response_events) => {
+									tempEvents.push(response_events.features[0])
+
+									queryCount++
+									if (queryCount === eventsCount) {
+										setRelatedEvents(tempEvents)
+									}
+								})
+						}
 					})
 			})
 	}, [props.globalID])
@@ -272,7 +297,7 @@ const Biography = (props) => {
 					>
 						Įvykiai
 					</Typography>
-          {relatedEvents.length > 0 ? (
+					{relatedEvents.length > 0 ? (
 						relatedEvents.map((event, i) => (
 							<Link
 								textAlign="center"
@@ -280,14 +305,12 @@ const Biography = (props) => {
 								variant="body2"
 								onClick={() => {
 									navigate(
-										`/vilniausdnr/${
-											i18n.language
-										}/events/${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`
+										`/vilniausdnr/${i18n.language}/events/${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`
 									)
 								}}
 								key={i}
 							>
-								{event.attributes.Ivykio_ID.replace(/[{}]/g, "")}
+								{event.attributes.Istorinis_ivykis}
 							</Link>
 						))
 					) : (
@@ -355,9 +378,10 @@ const Biography = (props) => {
 								variant="body2"
 								onClick={() => {
 									navigate(
-										`/vilniausdnr/${
-											i18n.language
-										}/plaques/object/${obj.attributes.GlobalID.replace(/[{}]/g, "")}`
+										`/vilniausdnr/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
+											/[{}]/g,
+											""
+										)}`
 									)
 								}}
 								key={i}
