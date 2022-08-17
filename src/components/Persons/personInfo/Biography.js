@@ -158,10 +158,6 @@ const Biography = (props) => {
 						let queryCount = 0
 
 						for (let feature in response_related[response.features[0].attributes.OBJECTID].features) {
-							console.log(
-								response_related[response.features[0].attributes.OBJECTID].features[feature].attributes
-									.Ivykio_ID
-							)
 							related_events
 								.queryFeatures({
 									outFields: ["*"],
@@ -300,14 +296,14 @@ const Biography = (props) => {
 					{relatedEvents.length > 0 ? (
 						relatedEvents.map((event, i) => (
 							<Link
+								target="_blank"
+								href={
+									"http://localhost:3001" +
+									`/vilniausdnr/${i18n.language}/events/${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`
+								}
+								rel="noopener"
 								textAlign="center"
-								component="button"
 								variant="body2"
-								onClick={() => {
-									navigate(
-										`/vilniausdnr/${i18n.language}/events/${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`
-									)
-								}}
 								key={i}
 							>
 								{event.attributes.Istorinis_ivykis}
@@ -373,17 +369,17 @@ const Biography = (props) => {
 					{relatedObjects.length > 0 ? (
 						relatedObjects.map((obj, i) => (
 							<Link
+								target="_blank"
+								href={
+									"http://localhost:3001" +
+									`/vilniausdnr/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
+										/[{}]/g,
+										""
+									)}`
+								}
+								rel="noopener"
 								textAlign="center"
-								component="button"
 								variant="body2"
-								onClick={() => {
-									navigate(
-										`/vilniausdnr/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
-											/[{}]/g,
-											""
-										)}`
-									)
-								}}
 								key={i}
 							>
 								{obj.attributes.OBJ_PAV}

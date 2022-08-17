@@ -26,7 +26,6 @@ const PersonTimeline = (props) => {
 				let tempFeatures = response.features
 				tempFeatures.sort((a, b) => a.attributes.Fakto_data_rikiavimas - b.attributes.Fakto_data_rikiavimas)
 				setTimelineFeatures(tempFeatures)
-				console.log(tempFeatures)
 			})
 	}, [props.globalID])
 
@@ -41,11 +40,7 @@ const PersonTimeline = (props) => {
 			<Timeline>
 				{timelineFeatures.map((feature, i) => (
 					<TimelineItem key={i}>
-						<TimelineOppositeContent
-							// sx={{ m: "auto 0" }}
-							align="right"
-							color="text.secondary"
-						>
+						<TimelineOppositeContent sx={{ mt: 1.5 }} align="right" color="text.secondary">
 							{feature.attributes.Fakto_data
 								? new Date(feature.attributes.Fakto_data).toLocaleDateString("lt-LT")
 								: feature.attributes.Fakto_datos_intervalo_pradžia
@@ -60,7 +55,7 @@ const PersonTimeline = (props) => {
 							</TimelineDot>
 							{i !== timelineFeatures.length - 1 && <TimelineConnector />}
 						</TimelineSeparator>
-						<TimelineContent>{feature.attributes.Fakto_aprasymas}</TimelineContent>
+						<TimelineContent sx={{ mt: 1.5 }}>{feature.attributes.Fakto_aprasymas}</TimelineContent>
 					</TimelineItem>
 				))}
 			</Timeline>

@@ -165,16 +165,16 @@ const EventInfo = () => {
 						relatedPersons.map((person, i) =>
 							person.attributes.Susijes_asmuo_is_saraso ? (
 								<Link
+									target="_blank"
+									href={
+										"http://localhost:3001" +
+										`/vilniausdnr/${
+											i18n.language
+										}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
+									}
+									rel="noopener"
 									textAlign="center"
-									component="button"
 									variant="body2"
-									onClick={() => {
-										navigate(
-											`/vilniausdnr/${
-												i18n.language
-											}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
-										)
-									}}
 									key={i}
 								>
 									{person.attributes.Susijes_asmuo_irasant_tekstu}
