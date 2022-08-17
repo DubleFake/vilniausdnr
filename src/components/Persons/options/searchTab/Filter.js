@@ -35,6 +35,16 @@ const Filter = (props) => {
 		// props.setSelectedObject("")
 		props.setSearchInputValue("")
 		setSelectedProfession(event.target.value)
+
+		const selectedProfessionFind = professionCodes.find(
+			(profession) => profession.Pagrindine_veikla === event.target.value
+		)
+		const filteredObjectsProfession = props.objectsList.filter((object) =>
+			object.attributes.Pagrindine_veikla.split(",").includes(
+				selectedProfessionFind.Pagrindines_veiklos_nr.toString()
+			)
+		)
+		props.setSearchObjectsList(filteredObjectsProfession)
 	}
 	const handleProfessionDetailSelect = (event) => {
 		// props.setSelectedObject("")
@@ -42,9 +52,10 @@ const Filter = (props) => {
 		setSelectedProfessionDetail(event.target.value)
 	}
 	const handleClearFilters = () => {
+		props.setSearchInputValue("")
 		setSelectedProfession("")
 		setSelectedProfessionDetail("")
-    // props.setSearchObjectsList(props.objectsList)
+		props.setSearchObjectsList(props.objectsList)
 	}
 
 	useEffect(() => {
@@ -77,7 +88,6 @@ const Filter = (props) => {
 				}
 				setProfessionCodes(tempProfession)
 				setProfessionDetailCodes(tempProfessionDetail)
-				console.log(tempProfession, tempProfessionDetail)
 			})
 	}, [])
 
