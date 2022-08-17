@@ -155,7 +155,7 @@ const resources = {
       persons: {
         options: {
           profession: "Profesija",
-          period: "Gyvenimo laikotarpis",
+          profession_detail: "Veikla",
         },
       },
 		},

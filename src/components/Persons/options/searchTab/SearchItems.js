@@ -27,9 +27,15 @@ const TableItems = (props) => {
 								setSelectedObject(`${tableObjectsList[index].attributes.OBJECTID}`)
 								navigate(`${tableObjectsList[index].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`)
 							}}
-							selected={tableObjectsList[index].attributes.OBJECTID === selectedObject}
+							selected={`${tableObjectsList[index].attributes.OBJECTID}` === selectedObject}
 						>
-							<ListItemText primary={tableObjectsList[index].attributes.Vardas_lietuviskai + " " + tableObjectsList[index].attributes.Pavarde_lietuviskai} />
+							<ListItemText
+								primary={
+									tableObjectsList[index].attributes.Vardas_lietuviskai +
+									" " +
+									tableObjectsList[index].attributes.Pavarde_lietuviskai
+								}
+							/>
 						</ListItemButton>
 					</ListItem>
 				</CellMeasurer>

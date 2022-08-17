@@ -19,7 +19,7 @@ const Persons = () => {
 	useEffect(() => {
 		persons
 			.queryFeatures({
-				outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
+				outFields: ["OBJECTID", "Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID", "Pagrindine_veikla", "Veiklos_detalizavimas"],
 				where: "",
 				returnGeometry: false,
 			})

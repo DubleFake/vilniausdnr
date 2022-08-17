@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
 
-import { persons } from "../../../../utils/personsArcgisItems"
+import { persons, classifications } from "../../../../utils/personsArcgisItems"
 
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -26,23 +26,59 @@ const Filter = (props) => {
 	const { t, i18n } = useTranslation()
 
 	const [showAlert, setShowAlert] = useState(false)
+	const [selectedProfession, setSelectedProfession] = useState("")
+	const [selectedProfessionDetail, setSelectedProfessionDetail] = useState("")
+	const [professionCodes, setProfessionCodes] = useState([])
+	const [professionDetailCodes, setProfessionDetailCodes] = useState([])
 
 	const handleProfessionSelect = (event) => {
-		props.setSelectedObject("")
+		// props.setSelectedObject("")
 		props.setSearchInputValue("")
-		props.setSelectedObjectFilter(event.target.value)
+		setSelectedProfession(event.target.value)
 	}
-
-	const handlePeriodSelect = (event) => {
-		props.setSelectedObject("")
+	const handleProfessionDetailSelect = (event) => {
+		// props.setSelectedObject("")
 		props.setSearchInputValue("")
-		props.setSelectedMemoryFilter(event.target.value)
+		setSelectedProfessionDetail(event.target.value)
 	}
-
-	const handleClearFilters = () => {}
+	const handleClearFilters = () => {
+		setSelectedProfession("")
+		setSelectedProfessionDetail("")
+    // props.setSearchObjectsList(props.objectsList)
+	}
 
 	useEffect(() => {
 		props.setSearchObjectsList(props.objectsList)
+	}, [])
+
+	useEffect(() => {
+		const tempProfession = []
+		const tempProfessionDetail = []
+
+		classifications
+			.queryFeatures({
+				outFields: ["*"],
+				where: "1=1",
+			})
+			.then((response) => {
+				for (let feature in response.features) {
+					if (response.features[feature].attributes.Pagrindine_veikla) {
+						tempProfession.push({
+							Pagrindine_veikla: response.features[feature].attributes.Pagrindine_veikla,
+							Pagrindines_veiklos_nr: response.features[feature].attributes.Pagrindines_veiklos_nr,
+						})
+					}
+					if (response.features[feature].attributes.Veiklos_detalizavimas) {
+						tempProfessionDetail.push({
+							Veiklos_detalizavimas: response.features[feature].attributes.Veiklos_detalizavimas,
+							Veiklos_detalizavimo_nr: response.features[feature].attributes.Veiklos_detalizavimo_nr,
+						})
+					}
+				}
+				setProfessionCodes(tempProfession)
+				setProfessionDetailCodes(tempProfessionDetail)
+				console.log(tempProfession, tempProfessionDetail)
+			})
 	}, [])
 
 	return (
@@ -63,31 +99,43 @@ const Filter = (props) => {
 						labelId="object-select-label"
 						name="object-select"
 						id="object-select"
-						value={props.selectedObjectFilter}
+						value={selectedProfession}
 						label={t("persons.options.profession")}
 						onChange={handleProfessionSelect}
 					>
 						<MenuItem value="">
 							<em>{t("plaques.options.all")}</em>
 						</MenuItem>
+						{professionCodes.map((profession) => (
+							<MenuItem value={profession.Pagrindine_veikla} key={profession.Pagrindines_veiklos_nr}>
+								<em>{profession.Pagrindine_veikla}</em>
+							</MenuItem>
+						))}
 					</Select>
 				</FormControl>
 
-				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
-					<InputLabel id="memory-select-label">{t("persons.options.period")}</InputLabel>
-					<Select
-						labelId="memory-select-label"
-						name="memory-select"
-						id="memory-select"
-						value={props.selectedMemoryFilter}
-						label={t("persons.options.period")}
-						onChange={handlePeriodSelect}
-					>
-						<MenuItem value="">
-							<em>{t("plaques.options.all")}</em>
-						</MenuItem>
-					</Select>
-				</FormControl>
+				{selectedProfession && (
+					<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
+						<InputLabel id="memory-select-label">{t("persons.options.profession_detail")}</InputLabel>
+						<Select
+							labelId="memory-select-label"
+							name="memory-select"
+							id="memory-select"
+							value={selectedProfessionDetail}
+							label={t("persons.options.profession_detail")}
+							onChange={handleProfessionDetailSelect}
+						>
+							<MenuItem value="">
+								<em>{t("plaques.options.all")}</em>
+							</MenuItem>
+							{professionDetailCodes.map((profession) => (
+								<MenuItem value={profession.Veiklos_detalizavimas} key={profession.Veiklos_detalizavimo_nr}>
+									<em>{profession.Veiklos_detalizavimas}</em>
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				)}
 
 				<Button
 					variant="contained"

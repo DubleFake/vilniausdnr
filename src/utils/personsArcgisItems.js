@@ -36,3 +36,9 @@ export const related_events = new FeatureLayer({
 	title: "Susije ivykiai",
 })
 
+export const classifications = new FeatureLayer({
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/6",
+	outFields: ["*"],
+	title: "Klasifikatoriai",
+})
+

@@ -66,14 +66,6 @@ const Table = (props) => {
 						setSelectedObject={props.setSelectedObject}
 						setObjectsList={setObjectsList}
 						setSearchObjectsList={setSearchObjectsList}
-						selectedObjectFilter={props.selectedObjectFilter}
-						setSelectedObjectFilter={props.setSelectedObjectFilter}
-						selectedMemoryFilter={props.selectedMemoryFilter}
-						setSelectedMemoryFilter={props.setSelectedMemoryFilter}
-            selectedPeriodFilter={props.selectedPeriodFilter}
-						setSelectedPeriodFilter={props.setSelectedPeriodFilter}
-						setVisibleObjectIcons={props.setVisibleObjectIcons}
-						setVisibleMemoryIcons={props.setVisibleMemoryIcons}
 					/>
 					<Count objectCount={objectCount} />
 					<TableItems
