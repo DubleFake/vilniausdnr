@@ -30,9 +30,10 @@ const Filter = (props) => {
 	const [selectedProfessionDetail, setSelectedProfessionDetail] = useState("")
 	const [professionCodes, setProfessionCodes] = useState([])
 	const [professionDetailCodes, setProfessionDetailCodes] = useState([])
+	const [filteredByProfession, setFilteredByProfession] = useState([])
 
 	const handleProfessionSelect = (event) => {
-		// props.setSelectedObject("")
+		props.setSelectedObject("")
 		props.setSearchInputValue("")
 		setSelectedProfession(event.target.value)
 
@@ -45,18 +46,36 @@ const Filter = (props) => {
 			)
 		)
 		props.setSearchObjectsList(filteredObjectsProfession)
+		setFilteredByProfession(filteredObjectsProfession)
 	}
+
 	const handleProfessionDetailSelect = (event) => {
-		// props.setSelectedObject("")
+		props.setSelectedObject("")
 		props.setSearchInputValue("")
 		setSelectedProfessionDetail(event.target.value)
+
+		const selectedProfessionDetailFind = professionDetailCodes.find(
+			(profession) => profession.Veiklos_detalizavimas === event.target.value
+		)
+		const filteredObjectsProfessionDetail = filteredByProfession.filter((object) =>
+			object.attributes.Veiklos_detalizavimas.split(",").includes(
+				selectedProfessionDetailFind.Veiklos_detalizavimo_nr.toString()
+			)
+		)
+    props.setSearchObjectsList(filteredObjectsProfessionDetail)
 	}
+
 	const handleClearFilters = () => {
 		props.setSearchInputValue("")
 		setSelectedProfession("")
 		setSelectedProfessionDetail("")
+    setFilteredByProfession([])
 		props.setSearchObjectsList(props.objectsList)
 	}
+
+	useEffect(() => {
+		props.setSearchObjectsList(props.objectsList)
+	}, [])
 
 	useEffect(() => {
 		props.setSearchObjectsList(props.objectsList)
