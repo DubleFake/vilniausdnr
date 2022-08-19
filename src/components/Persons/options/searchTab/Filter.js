@@ -45,6 +45,17 @@ const Filter = (props) => {
 				selectedProfessionFind.Pagrindines_veiklos_nr.toString()
 			)
 		)
+
+		const professionDetailCodesSet = new Set()
+		for (let obj in filteredObjectsProfession) {
+			const tempCodesSplit = filteredObjectsProfession[obj].attributes.Veiklos_detalizavimas.split(",")
+			for (let code in tempCodesSplit) {
+				professionDetailCodesSet.add(parseInt(tempCodesSplit[code]))
+			}
+		}
+		console.log(professionDetailCodesSet)
+		console.log(professionDetailCodes)
+
 		props.setSearchObjectsList(filteredObjectsProfession)
 		setFilteredByProfession(filteredObjectsProfession)
 	}
@@ -62,14 +73,14 @@ const Filter = (props) => {
 				selectedProfessionDetailFind.Veiklos_detalizavimo_nr.toString()
 			)
 		)
-    props.setSearchObjectsList(filteredObjectsProfessionDetail)
+		props.setSearchObjectsList(filteredObjectsProfessionDetail)
 	}
 
 	const handleClearFilters = () => {
 		props.setSearchInputValue("")
 		setSelectedProfession("")
 		setSelectedProfessionDetail("")
-    setFilteredByProfession([])
+		setFilteredByProfession([])
 		props.setSearchObjectsList(props.objectsList)
 	}
 
