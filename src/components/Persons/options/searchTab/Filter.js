@@ -23,6 +23,7 @@ const Filter = (props) => {
 	const [selectedProfession, setSelectedProfession] = useState("")
 	const [selectedProfessionDetail, setSelectedProfessionDetail] = useState("")
 	const [professionCodes, setProfessionCodes] = useState([])
+	const [professionInitialDetailCodes, setProfessionInitialDetailCodes] = useState([])
 	const [professionDetailCodes, setProfessionDetailCodes] = useState([])
 	const [filteredByProfession, setFilteredByProfession] = useState([])
 
@@ -51,7 +52,7 @@ const Filter = (props) => {
 			}
 
 			const professionDetailCodesArray = Array.from(professionDetailCodesSet)
-			const professionDetailCodesFiltered = professionDetailCodes.filter((code) => {
+			const professionDetailCodesFiltered = professionInitialDetailCodes.filter((code) => {
 				return professionDetailCodesArray.some((el) => {
 					return code.Veiklos_detalizavimo_nr === el
 				})
@@ -128,7 +129,7 @@ const Filter = (props) => {
 					}
 				}
 				setProfessionCodes(tempProfession)
-				setProfessionDetailCodes(tempProfessionDetail)
+        setProfessionInitialDetailCodes(tempProfessionDetail)
 			})
 	}, [])
 
