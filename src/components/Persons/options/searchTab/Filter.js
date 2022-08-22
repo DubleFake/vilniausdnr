@@ -91,12 +91,12 @@ const Filter = (props) => {
 			props.setSearchObjectsList(filteredByProfession)
     }
 	}
-
+  
 	const handleClearFilters = () => {
-		props.setSearchInputValue("")
+    props.setSearchInputValue("")
+    props.setSelectedObject("")
 		setSelectedProfession("")
 		setSelectedProfessionDetail("")
-		setFilteredByProfession([])
 		props.setSearchObjectsList(props.objectsList)
 	}
 
