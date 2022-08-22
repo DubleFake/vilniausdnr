@@ -167,7 +167,7 @@ const EventInfo = () => {
 								<Link
 									target="_blank"
 									href={
-										"http://localhost:3001" +
+										"https://zemelapiai.vplanas.lt" +
 										`/vilniausdnr/${
 											i18n.language
 										}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`

@@ -298,7 +298,7 @@ const Biography = (props) => {
 							<Link
 								target="_blank"
 								href={
-									"http://localhost:3001" +
+									"https://zemelapiai.vplanas.lt" +
 									`/vilniausdnr/${i18n.language}/events/${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`
 								}
 								rel="noopener"
@@ -371,7 +371,7 @@ const Biography = (props) => {
 							<Link
 								target="_blank"
 								href={
-									"http://localhost:3001" +
+									"https://zemelapiai.vplanas.lt" +
 									`/vilniausdnr/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
 										/[{}]/g,
 										""
