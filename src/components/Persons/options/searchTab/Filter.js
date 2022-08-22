@@ -33,47 +33,68 @@ const Filter = (props) => {
 	const [filteredByProfession, setFilteredByProfession] = useState([])
 
 	const handleProfessionSelect = (event) => {
-		props.setSelectedObject("")
-		props.setSearchInputValue("")
-		setSelectedProfession(event.target.value)
+		if (event.target.value) {
+			props.setSelectedObject("")
+			props.setSearchInputValue("")
+      setSelectedProfessionDetail("")
+			setSelectedProfession(event.target.value)
 
-		const selectedProfessionFind = professionCodes.find(
-			(profession) => profession.Pagrindine_veikla === event.target.value
-		)
-		const filteredObjectsProfession = props.objectsList.filter((object) =>
-			object.attributes.Pagrindine_veikla.split(",").includes(
-				selectedProfessionFind.Pagrindines_veiklos_nr.toString()
+			const selectedProfessionFind = professionCodes.find(
+				(profession) => profession.Pagrindine_veikla === event.target.value
 			)
-		)
+			const filteredObjectsProfession = props.objectsList.filter((object) =>
+				object.attributes.Pagrindine_veikla.split(",").includes(
+					selectedProfessionFind.Pagrindines_veiklos_nr.toString()
+				)
+			)
 
-		const professionDetailCodesSet = new Set()
-		for (let obj in filteredObjectsProfession) {
-			const tempCodesSplit = filteredObjectsProfession[obj].attributes.Veiklos_detalizavimas.split(",")
-			for (let code in tempCodesSplit) {
-				professionDetailCodesSet.add(parseInt(tempCodesSplit[code]))
+			const professionDetailCodesSet = new Set()
+			for (let obj in filteredObjectsProfession) {
+				const tempCodesSplit = filteredObjectsProfession[obj].attributes.Veiklos_detalizavimas.split(",")
+				for (let code in tempCodesSplit) {
+					professionDetailCodesSet.add(parseInt(tempCodesSplit[code]))
+				}
 			}
-		}
-		console.log(professionDetailCodesSet)
-		console.log(professionDetailCodes)
 
-		props.setSearchObjectsList(filteredObjectsProfession)
-		setFilteredByProfession(filteredObjectsProfession)
+			const professionDetailCodesArray = Array.from(professionDetailCodesSet)
+			const professionDetailCodesFiltered = professionDetailCodes.filter((code) => {
+				return professionDetailCodesArray.some((el) => {
+					return code.Veiklos_detalizavimo_nr === el
+				})
+			})
+			setProfessionDetailCodes(professionDetailCodesFiltered)
+
+			props.setSearchObjectsList(filteredObjectsProfession)
+			setFilteredByProfession(filteredObjectsProfession)
+		} else {
+			props.setSelectedObject("")
+			props.setSearchInputValue("")
+			setSelectedProfession("")
+			props.setSearchObjectsList(props.objectsList)
+		}
 	}
 
 	const handleProfessionDetailSelect = (event) => {
-		props.setSelectedObject("")
-		props.setSearchInputValue("")
-		setSelectedProfessionDetail(event.target.value)
+		if (event.target.value) {
+			props.setSelectedObject("")
+			props.setSearchInputValue("")
+			setSelectedProfessionDetail(event.target.value)
 
-		const selectedProfessionDetailFind = professionDetailCodes.find(
-			(profession) => profession.Veiklos_detalizavimas === event.target.value
-		)
-		const filteredObjectsProfessionDetail = filteredByProfession.filter((object) =>
-			object.attributes.Veiklos_detalizavimas.split(",").includes(
-				selectedProfessionDetailFind.Veiklos_detalizavimo_nr.toString()
+			const selectedProfessionDetailFind = professionDetailCodes.find(
+				(profession) => profession.Veiklos_detalizavimas === event.target.value
 			)
-		)
-		props.setSearchObjectsList(filteredObjectsProfessionDetail)
+			const filteredObjectsProfessionDetail = filteredByProfession.filter((object) =>
+				object.attributes.Veiklos_detalizavimas.split(",").includes(
+					selectedProfessionDetailFind.Veiklos_detalizavimo_nr.toString()
+				)
+			)
+			props.setSearchObjectsList(filteredObjectsProfessionDetail)
+		} else {
+      props.setSelectedObject("")
+			props.setSearchInputValue("")
+			setSelectedProfessionDetail("")
+			props.setSearchObjectsList(filteredByProfession)
+    }
 	}
 
 	const handleClearFilters = () => {
@@ -83,10 +104,6 @@ const Filter = (props) => {
 		setFilteredByProfession([])
 		props.setSearchObjectsList(props.objectsList)
 	}
-
-	useEffect(() => {
-		props.setSearchObjectsList(props.objectsList)
-	}, [])
 
 	useEffect(() => {
 		props.setSearchObjectsList(props.objectsList)
