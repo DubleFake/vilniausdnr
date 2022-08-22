@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import * as watchUtils from "@arcgis/core/core/watchUtils"
 
-import { persons, classifications } from "../../../../utils/personsArcgisItems"
+import { classifications } from "../../../../utils/personsArcgisItems"
 
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -12,15 +11,10 @@ import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
 import Snackbar from "@mui/material/Snackbar"
 import MuiAlert from "@mui/material/Alert"
-import FormGroup from "@mui/material/FormGroup"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Checkbox from "@mui/material/Checkbox"
 
 const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
-
-const viewHandles = []
 
 const Filter = (props) => {
 	const { t, i18n } = useTranslation()
