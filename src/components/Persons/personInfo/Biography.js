@@ -183,7 +183,7 @@ const Biography = (props) => {
 		<Box
 			sx={{
 				maxHeight: window.innerHeight - 90,
-				overflowY: "auto",
+				// overflowY: "auto",
 				width: "calc(50vw - 175px)",
 			}}
 		>

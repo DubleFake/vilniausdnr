@@ -33,14 +33,14 @@ const PersonTimeline = (props) => {
 		<Box
 			sx={{
 				maxHeight: window.innerHeight - 90,
-				overflowY: "auto",
+				// overflowY: "auto",
 				width: "calc(50vw - 175px)",
 			}}
 		>
 			<Timeline>
 				{timelineFeatures.map((feature, i) => (
 					<TimelineItem key={i}>
-						<TimelineOppositeContent sx={{ mt: 1.5 }} align="right" color="text.secondary">
+						<TimelineOppositeContent sx={{ mt: 1.5, maxWidth: 100 }} align="right" color="text.secondary">
 							{feature.attributes.Fakto_data
 								? new Date(feature.attributes.Fakto_data).toLocaleDateString("lt-LT")
 								: feature.attributes.Fakto_datos_intervalo_pradžia
