@@ -31,7 +31,7 @@ const Filter = (props) => {
 		if (event.target.value) {
 			props.setSelectedObject("")
 			props.setSearchInputValue("")
-      setSelectedProfessionDetail("")
+			setSelectedProfessionDetail("")
 			setSelectedProfession(event.target.value)
 
 			const selectedProfessionFind = professionCodes.find(
@@ -47,17 +47,21 @@ const Filter = (props) => {
 			for (let obj in filteredObjectsProfession) {
 				const tempCodesSplit = filteredObjectsProfession[obj].attributes.Veiklos_detalizavimas.split(",")
 				for (let code in tempCodesSplit) {
-					professionDetailCodesSet.add(parseInt(tempCodesSplit[code]))
+					professionDetailCodesSet.add(tempCodesSplit[code])
 				}
 			}
 
 			const professionDetailCodesArray = Array.from(professionDetailCodesSet)
 			const professionDetailCodesFiltered = professionInitialDetailCodes.filter((code) => {
 				return professionDetailCodesArray.some((el) => {
-					return code.Veiklos_detalizavimo_nr === el
+					return code.Veiklos_detalizavimo_nr === parseInt(el)
 				})
 			})
-			setProfessionDetailCodes(professionDetailCodesFiltered)
+
+			const professionDetailCodesRegex = professionDetailCodesFiltered.filter((code) =>
+				String(code.Veiklos_detalizavimo_nr).match(`^[${selectedProfessionFind.Pagrindines_veiklos_nr}][0-9]$`)
+			)
+			setProfessionDetailCodes(professionDetailCodesRegex)
 
 			props.setSearchObjectsList(filteredObjectsProfession)
 			setFilteredByProfession(filteredObjectsProfession)
@@ -85,16 +89,16 @@ const Filter = (props) => {
 			)
 			props.setSearchObjectsList(filteredObjectsProfessionDetail)
 		} else {
-      props.setSelectedObject("")
+			props.setSelectedObject("")
 			props.setSearchInputValue("")
 			setSelectedProfessionDetail("")
 			props.setSearchObjectsList(filteredByProfession)
-    }
+		}
 	}
-  
+
 	const handleClearFilters = () => {
-    props.setSearchInputValue("")
-    props.setSelectedObject("")
+		props.setSearchInputValue("")
+		props.setSelectedObject("")
 		setSelectedProfession("")
 		setSelectedProfessionDetail("")
 		props.setSearchObjectsList(props.objectsList)
@@ -129,7 +133,7 @@ const Filter = (props) => {
 					}
 				}
 				setProfessionCodes(tempProfession)
-        setProfessionInitialDetailCodes(tempProfessionDetail)
+				setProfessionInitialDetailCodes(tempProfessionDetail)
 			})
 	}, [])
 
