@@ -68,7 +68,7 @@ const Plaques = () => {
 					}
 				/>
 
-				<Route path="person/:globalID" element={<PersonPopup initialLoading={initialLoading} />} />
+				{/* <Route path="person/:globalID" element={<PersonPopup initialLoading={initialLoading} />} /> */}
 			</Route>
 		</Routes>
 	)

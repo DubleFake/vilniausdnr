@@ -46,7 +46,10 @@ const ObjectPopup = (props) => {
 
 	const handlePage = (event, value) => {
 		navigate(
-			`/vilniausdnr/${i18n.language}/plaques/object/${queryObjects[value - 1].attributes.GlobalID.replace(/[{}]/g, "")}`
+			`/vilniausdnr/${i18n.language}/plaques/object/${queryObjects[value - 1].attributes.GlobalID.replace(
+				/[{}]/g,
+				""
+			)}`
 		)
 	}
 
@@ -170,8 +173,8 @@ const ObjectPopup = (props) => {
 							const allPersons = []
 							objects
 								.queryRelatedFeatures({
-									outFields: ["GlobalID", "Pavardė__liet_", "Vardas__liet_"],
-									relationshipId: 0,
+									outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai"],
+									relationshipId: 1,
 									objectIds: OBJECTID,
 								})
 								.then((response) => {
@@ -369,17 +372,17 @@ const ObjectPopup = (props) => {
 													<div key={per}>
 														<Link
 															sx={{ mt: 0.5 }}
+															target="_blank"
+															href={
+																"https://zemelapiai.vplanas.lt" +
+																`/vilniausdnr/${i18n.language}/persons/${objectPer[
+																	per
+																].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
+															}
+															rel="noopener"
 															textAlign="left"
-															component="button"
 															variant="body2"
-															onClick={() => {
-																navigate(
-																	`/vilniausdnr/${i18n.language}/plaques/person/${objectPer[
-																		per
-																	].attributes.GlobalID.replace(/[{}]/g, "")}`
-																)
-															}}
-														>{`${objectPer[per].attributes.Vardas__liet_} ${objectPer[per].attributes.Pavardė__liet_}`}</Link>
+														>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
 														<br></br>
 													</div>
 												))}
