@@ -52,6 +52,13 @@ const PersonTimeline = (props) => {
 			})
 			.then((response) => {
 				let tempFeatures = response.features
+
+				const asd = new Set()
+				for (let a in tempFeatures) {
+          asd.add(tempFeatures[a].attributes.Fakto_tipas)
+        }
+        console.log(asd)
+
 				tempFeatures.sort((a, b) => a.attributes.Fakto_data_rikiavimas - b.attributes.Fakto_data_rikiavimas)
 				setTimelineFeatures(tempFeatures)
 			})
@@ -81,14 +88,14 @@ const PersonTimeline = (props) => {
 							{feature.attributes.Fakto_tipas ? (
 								<SvgIcon
 									sx={{ my: 1, fontSize: 35 }}
-									color={feature.attributes.Fakto_vieta === "Vilnius" ? "secondary" : "primary"}
+									color={feature.attributes.Fakto_vieta.includes("Vilnius") ? "secondary" : "primary"}
 									component={personIconList[feature.attributes.Fakto_tipas]}
 									inheritViewBox
 								/>
 							) : (
 								<SvgIcon
 									sx={{ my: 1, fontSize: 35 }}
-									color={feature.attributes.Fakto_vieta === "Vilnius" ? "secondary" : "primary"}
+									color={feature.attributes.Fakto_vieta.includes("Vilnius") ? "secondary" : "primary"}
 									component={personIconList["dirbo"]}
 									inheritViewBox
 								/>
@@ -101,8 +108,7 @@ const PersonTimeline = (props) => {
 									sx={{
 										display: "inline",
 										fontWeight:
-											feature.attributes.Fakto_tipas === "gimė" ||
-											feature.attributes.Fakto_tipas === "mirė"
+											feature.attributes.Fakto_tipas === "gimė" || feature.attributes.Fakto_tipas === "mirė"
 												? "bold"
 												: "normal",
 									}}
