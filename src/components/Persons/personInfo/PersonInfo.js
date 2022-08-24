@@ -16,6 +16,7 @@ const PersonInfo = (props) => {
 			sx={{
 				// maxHeight: window.innerHeight - 90,
 				overflowY: "auto",
+        overflowX: "hidden",
 				width: "calc(100vw - 350px)",
 			}}
 		>
