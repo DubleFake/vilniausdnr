@@ -12,7 +12,7 @@ import { ReactComponent as mokesi } from "../../../utils/icons/personIcons/mokes
 import { ReactComponent as perlaidotas } from "../../../utils/icons/personIcons/perlaidotas.svg"
 import { ReactComponent as sukure } from "../../../utils/icons/personIcons/sukure.svg"
 import { ReactComponent as vede } from "../../../utils/icons/personIcons/vede.svg"
-import EventIcon from "@mui/icons-material/Event"
+import { ReactComponent as veike } from "../../../utils/icons/personIcons/veike.svg"
 
 import SvgIcon from "@mui/material/SvgIcon"
 import Typography from "@mui/material/Typography"
@@ -22,7 +22,6 @@ import TimelineItem from "@mui/lab/TimelineItem"
 import TimelineSeparator from "@mui/lab/TimelineSeparator"
 import TimelineConnector from "@mui/lab/TimelineConnector"
 import TimelineContent from "@mui/lab/TimelineContent"
-import TimelineDot from "@mui/lab/TimelineDot"
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
 
 const personIconList = {
@@ -36,9 +35,8 @@ const personIconList = {
 	perlaidotas: perlaidotas,
 	sukūrė: sukure,
 	vedė: vede,
-	//situ nera
-	veikė: dirbo,
-	palaidotas: dirbo,
+	veikė: veike,
+	palaidotas: mire,
 }
 
 const PersonTimeline = (props) => {
