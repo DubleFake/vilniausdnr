@@ -20,6 +20,7 @@ const PersonInfo = () => {
 	const { globalID } = useParams()
 
 	const [biographyFeatures, setBiographyFeatures] = useState([])
+	const [relatedObjects, setRelatedObjects] = useState([])
 
 	useEffect(() => {
 		setBiographyFeatures([])
@@ -31,6 +32,18 @@ const PersonInfo = () => {
 			})
 			.then((response) => {
 				setBiographyFeatures(response.features)
+
+				setRelatedObjects([])
+				persons
+					.queryRelatedFeatures({
+						outFields: ["OBJ_PAV", "GlobalID"],
+						relationshipId: 1,
+						returnGeometry: false,
+						objectIds: response.features[0].attributes.OBJECTID,
+					})
+					.then((response_related) => {
+						setRelatedObjects(response_related[response.features[0].attributes.OBJECTID].features)
+					})
 			})
 	}, [globalID])
 
@@ -46,12 +59,12 @@ const PersonInfo = () => {
 			}}
 		>
 			<Grid item xs={4}>
-				<PersonGeneral biographyFeatures={biographyFeatures} />
+				<PersonGeneral biographyFeatures={biographyFeatures} relatedObjects={relatedObjects} />
 			</Grid>
 
 			<Grid item xs={12} sm container>
 				<Grid item xs={12}>
-					<PersonHeader biographyFeatures={biographyFeatures}/>
+					<PersonHeader biographyFeatures={biographyFeatures} />
 				</Grid>
 				<Grid item xs={6}>
 					<PersonTimeline globalID={globalID} />
