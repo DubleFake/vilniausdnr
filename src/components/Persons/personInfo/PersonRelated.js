@@ -187,7 +187,7 @@ const PersonRelated = (props) => {
 	}, [props.globalID])
 
 	return (
-		<Box sx={{ mt: 1, ml: 1, mr: 3 }}>
+		<Box sx={{ mt: 1, ml: 1, mr: 1 }}>
 			{/* <Grid container direction="column" justifyContent="flex-start" alignItems="center"> */}
 			<Grid container direction="row" justifyContent="flex-start" alignItems="center">
 				<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
@@ -198,7 +198,7 @@ const PersonRelated = (props) => {
 
 			{relatedEvents.length > 0 ? (
 				relatedEvents.map((event, i) => (
-					<Box sx={{ ml: 6, width: "100%" }}>
+					<Grid sx={{ pl: 6 }} container direction="column" justifyContent="flex-start" alignItems="stretch">
 						<Link
 							target="_blank"
 							href={
@@ -213,7 +213,7 @@ const PersonRelated = (props) => {
 						>
 							{event.attributes.Istorinis_ivykis}
 						</Link>
-					</Box>
+					</Grid>
 				))
 			) : (
 				<CircularProgress color="inherit" />
@@ -234,32 +234,46 @@ const PersonRelated = (props) => {
 					(person, i) =>
 						relatedFamily.some((family) => person.attributes.Rysio_tipas.includes(family)) &&
 						(person.attributes.Susijes_asmuo_is_saraso ? (
-							<Box sx={{ ml: 6, width: "100%" }}>
-								<Link
-									textAlign="left"
-									component="button"
-									variant="body2"
-									onClick={() => {
-										navigate(
-											`/vilniausdnr/${
-												i18n.language
-											}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
-										)
-									}}
-									key={i}
-								>
-									{person.attributes.Susijes_asmuo_irasant_tekstu}
-								</Link>
-								<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
-									<Typography sx={{ display: "inline" }} noWrap={true} component={"span"} variant="body2">
-										{" "}
-										|{" "}
+							<Grid
+								sx={{ pl: 6 }}
+								container
+								direction="column"
+								justifyContent="flex-start"
+								alignItems="stretch"
+							>
+								<Box>
+									<Link
+										textAlign="left"
+										component="button"
+										variant="body2"
+										onClick={() => {
+											navigate(
+												`/vilniausdnr/${
+													i18n.language
+												}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
+											)
+										}}
+										key={i}
+									>
+										{person.attributes.Susijes_asmuo_irasant_tekstu}
+									</Link>
+									<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
+										<Typography sx={{ display: "inline" }} noWrap={true} component={"span"} variant="body2">
+											{" "}
+											|{" "}
+										</Typography>
+										{person.attributes.Rysio_tipas}
 									</Typography>
-									{person.attributes.Rysio_tipas}
-								</Typography>
-							</Box>
+								</Box>
+							</Grid>
 						) : (
-							<Box sx={{ ml: 6, mb: 0 }}>
+							<Grid
+								sx={{ pl: 6 }}
+								container
+								direction="column"
+								justifyContent="flex-start"
+								alignItems="stretch"
+							>
 								<Typography variant="body2" key={i}>
 									{person.attributes.Susijes_asmuo_irasant_tekstu}
 									<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
@@ -270,7 +284,7 @@ const PersonRelated = (props) => {
 										{person.attributes.Rysio_tipas}
 									</Typography>
 								</Typography>
-							</Box>
+							</Grid>
 						))
 				)
 			) : (
@@ -285,7 +299,13 @@ const PersonRelated = (props) => {
 					(person, i) =>
 						relatedCreation.some((creation) => person.attributes.Rysio_tipas.includes(creation)) &&
 						(person.attributes.Susijes_asmuo_is_saraso ? (
-							<Box sx={{ ml: 6, width: "100%" }}>
+							<Grid
+								sx={{ pl: 6 }}
+								container
+								direction="column"
+								justifyContent="flex-start"
+								alignItems="stretch"
+							>
 								<Link
 									textAlign="left"
 									component="button"
@@ -301,13 +321,19 @@ const PersonRelated = (props) => {
 								>
 									{person.attributes.Susijes_asmuo_irasant_tekstu}
 								</Link>
-							</Box>
+							</Grid>
 						) : (
-							<Box sx={{ ml: 6, mb: 0 }}>
+							<Grid
+								sx={{ pl: 6 }}
+								container
+								direction="column"
+								justifyContent="flex-start"
+								alignItems="stretch"
+							>
 								<Typography variant="body2" key={i}>
 									{person.attributes.Susijes_asmuo_irasant_tekstu}
 								</Typography>
-							</Box>
+							</Grid>
 						))
 				)
 			) : (
@@ -322,32 +348,46 @@ const PersonRelated = (props) => {
 					(person, i) =>
 						relatedFriends.some((friend) => person.attributes.Rysio_tipas.includes(friend)) &&
 						(person.attributes.Susijes_asmuo_is_saraso ? (
-							<Box sx={{ ml: 6, width: "100%" }}>
-								<Link
-									textAlign="left"
-									component="button"
-									variant="body2"
-									onClick={() => {
-										navigate(
-											`/vilniausdnr/${
-												i18n.language
-											}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
-										)
-									}}
-									key={i}
-								>
-									{person.attributes.Susijes_asmuo_irasant_tekstu}
-								</Link>
-								<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
-									<Typography sx={{ display: "inline" }} noWrap={true} component={"span"} variant="body2">
-										{" "}
-										|{" "}
+							<Grid
+								sx={{ pl: 6 }}
+								container
+								direction="column"
+								justifyContent="flex-start"
+								alignItems="stretch"
+							>
+								<Box>
+									<Link
+										textAlign="left"
+										component="button"
+										variant="body2"
+										onClick={() => {
+											navigate(
+												`/vilniausdnr/${
+													i18n.language
+												}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
+											)
+										}}
+										key={i}
+									>
+										{person.attributes.Susijes_asmuo_irasant_tekstu}
+									</Link>
+									<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
+										<Typography sx={{ display: "inline" }} noWrap={true} component={"span"} variant="body2">
+											{" "}
+											|{" "}
+										</Typography>
+										{person.attributes.Rysio_tipas}
 									</Typography>
-									{person.attributes.Rysio_tipas}
-								</Typography>
-							</Box>
+								</Box>
+							</Grid>
 						) : (
-							<Box sx={{ ml: 6, mb: 0 }}>
+							<Grid
+								sx={{ pl: 6 }}
+								container
+								direction="column"
+								justifyContent="flex-start"
+								alignItems="stretch"
+							>
 								<Typography variant="body2" key={i}>
 									{person.attributes.Susijes_asmuo_irasant_tekstu}
 									<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
@@ -358,7 +398,7 @@ const PersonRelated = (props) => {
 										{person.attributes.Rysio_tipas}
 									</Typography>
 								</Typography>
-							</Box>
+							</Grid>
 						))
 				)
 			) : (
@@ -373,32 +413,46 @@ const PersonRelated = (props) => {
 					(person, i) =>
 						relatedOther.some((other) => person.attributes.Rysio_tipas.includes(other)) &&
 						(person.attributes.Susijes_asmuo_is_saraso ? (
-							<Box sx={{ ml: 6, width: "100%" }}>
-								<Link
-									textAlign="left"
-									component="button"
-									variant="body2"
-									onClick={() => {
-										navigate(
-											`/vilniausdnr/${
-												i18n.language
-											}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
-										)
-									}}
-									key={i}
-								>
-									{person.attributes.Susijes_asmuo_irasant_tekstu}
-								</Link>
-								<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
-									<Typography sx={{ display: "inline" }} noWrap={true} component={"span"} variant="body2">
-										{" "}
-										|{" "}
+							<Grid
+								sx={{ pl: 6 }}
+								container
+								direction="column"
+								justifyContent="flex-start"
+								alignItems="stretch"
+							>
+								<Box>
+									<Link
+										textAlign="left"
+										component="button"
+										variant="body2"
+										onClick={() => {
+											navigate(
+												`/vilniausdnr/${
+													i18n.language
+												}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
+											)
+										}}
+										key={i}
+									>
+										{person.attributes.Susijes_asmuo_irasant_tekstu}
+									</Link>
+									<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
+										<Typography sx={{ display: "inline" }} noWrap={true} component={"span"} variant="body2">
+											{" "}
+											|{" "}
+										</Typography>
+										{person.attributes.Rysio_tipas}
 									</Typography>
-									{person.attributes.Rysio_tipas}
-								</Typography>
-							</Box>
+								</Box>
+							</Grid>
 						) : (
-							<Box sx={{ ml: 6, mb: 0 }}>
+							<Grid
+								sx={{ pl: 6 }}
+								container
+								direction="column"
+								justifyContent="flex-start"
+								alignItems="stretch"
+							>
 								<Typography variant="body2" key={i}>
 									{person.attributes.Susijes_asmuo_irasant_tekstu}
 									<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
@@ -409,7 +463,7 @@ const PersonRelated = (props) => {
 										{person.attributes.Rysio_tipas}
 									</Typography>
 								</Typography>
-							</Box>
+							</Grid>
 						))
 				)
 			) : (
@@ -424,9 +478,11 @@ const PersonRelated = (props) => {
 			</Grid>
 			{relatedOrg.length > 0 ? (
 				relatedOrg.map((org, i) => (
-					<Typography sx={{ ml: 6, mb: 0 }} variant="body2" gutterBottom key={i}>
-						{org.attributes.Organizacijos_pavadinimas}
-					</Typography>
+					<Grid sx={{ pl: 6 }} container direction="column" justifyContent="flex-start" alignItems="stretch">
+						<Typography variant="body2" key={i}>
+							{org.attributes.Organizacijos_pavadinimas}
+						</Typography>
+					</Grid>
 				))
 			) : (
 				<CircularProgress color="inherit" />
@@ -441,18 +497,29 @@ const PersonRelated = (props) => {
 
 			{relatedPersonSources.length > 0 ? (
 				relatedPersonSources.map((source, i) => (
-					<Box sx={{ ml: 6, width: "100%" }}>
-						<Link
-							target="_blank"
-							href={source.attributes.Saltinio_URL}
-							rel="noopener"
-							textAlign="left"
-							variant="body2"
-							key={i}
-						>
-							{i}. {source.attributes.Saltinio_pavadinimas}
-						</Link>
-					</Box>
+					<Grid
+						sx={{ pl: 6 }}
+						container
+						direction="column"
+						justifyContent="flex-start"
+						alignItems="stretch"
+						key={i}
+					>
+						<Box>
+							<Typography sx={{ display: "inline" }} variant="body2">
+								{i + 1}.{" "}
+							</Typography>
+							<Link
+								target="_blank"
+								href={source.attributes.Saltinio_URL}
+								rel="noopener"
+								textAlign="left"
+								variant="body2"
+							>
+								{source.attributes.Saltinio_pavadinimas}
+							</Link>
+						</Box>
+					</Grid>
 				))
 			) : (
 				<CircularProgress color="inherit" />
