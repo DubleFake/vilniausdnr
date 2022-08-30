@@ -37,6 +37,8 @@ const personIconList = {
 	vedė: vede,
 	veikė: veike,
 	palaidotas: mire,
+	"kovojo mūšyje/kare, dalyvavo žygyje": kovojo,
+	"vedė / ištekėjo": vede,
 }
 
 const PersonTimeline = (props) => {
