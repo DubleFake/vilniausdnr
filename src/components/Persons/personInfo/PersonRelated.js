@@ -450,7 +450,7 @@ const PersonRelated = (props) => {
 							variant="body2"
 							key={i}
 						>
-							{source.attributes.Saltinio_pavadinimas}
+							{i}. {source.attributes.Saltinio_pavadinimas}
 						</Link>
 					</Box>
 				))
