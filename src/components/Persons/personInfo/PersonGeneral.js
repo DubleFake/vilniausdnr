@@ -54,60 +54,66 @@ const PersonGeneral = (props) => {
 					{props.biographyFeatures[0].attributes.Veikla_profesija}
 				</Typography>
 
-				<Grid container direction="row" justifyContent="flex-start" alignItems="center">
-					<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
-					<Typography sx={{ m: 0 }} color="white" variant="h6" gutterBottom>
-						Ryšys su Vilniumi
-					</Typography>
-				</Grid>
-
-				<Typography
-					sx={{ mx: 1, ml: 4.5 }}
-					color="white"
-					variant="body2"
-					gutterBottom
-					component="div"
-					align="left"
-				>
-					{props.biographyFeatures[0].attributes.Asmens_rysys_su_Vilniumi}
-				</Typography>
-
-				<Grid container direction="row" justifyContent="flex-start" alignItems="center">
-					<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
-					<Typography sx={{ m: 0 }} color="white" variant="h6" gutterBottom>
-						Įamžinimas Vilniuje
-					</Typography>
-				</Grid>
-
-				{props.relatedObjects.length > 0 ? (
-					props.relatedObjects.map((obj, i) => (
-						<Grid
-							sx={{ pl: 4, pr: 1}}
-							container
-							direction="column"
-							justifyContent="flex-start"
-							alignItems="stretch"
-						>
-							<Link
-								target="_blank"
-								href={
-									"https://zemelapiai.vplanas.lt" +
-									`/vilniausdnr/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
-										/[{}]/g,
-										""
-									)}`
-								}
-								rel="noopener"
-								textAlign="left"
-								variant="body2"
-								key={i}
-							>
-								{obj.attributes.OBJ_PAV}
-							</Link>
+				{props.biographyFeatures[0].attributes.Asmens_rysys_su_Vilniumi && (
+					<>
+						<Grid container direction="row" justifyContent="flex-start" alignItems="center">
+							<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
+							<Typography sx={{ m: 0 }} color="white" variant="h6" gutterBottom>
+								Ryšys su Vilniumi
+							</Typography>
 						</Grid>
-					))
-				) : (
-					<CircularProgress color="inherit" />
+						<Typography
+							sx={{ mx: 1, ml: 4.5 }}
+							color="white"
+							variant="body2"
+							gutterBottom
+							component="div"
+							align="left"
+						>
+							{props.biographyFeatures[0].attributes.Asmens_rysys_su_Vilniumi}
+						</Typography>
+					</>
+				)}
+
+				{props.relatedObjectsShow && (
+					<>
+						<Grid container direction="row" justifyContent="flex-start" alignItems="center">
+							<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
+							<Typography sx={{ m: 0 }} color="white" variant="h6" gutterBottom>
+								Įamžinimas Vilniuje
+							</Typography>
+						</Grid>
+						{props.relatedObjects.length > 0 ? (
+							props.relatedObjects.map((obj, i) => (
+								<Grid
+									sx={{ pl: 4.5, pr: 1 }}
+									container
+									direction="column"
+									justifyContent="flex-start"
+									alignItems="stretch"
+								>
+									<Link
+										target="_blank"
+										href={
+											"https://zemelapiai.vplanas.lt" +
+											`/vilniausdnr/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
+												/[{}]/g,
+												""
+											)}`
+										}
+										rel="noopener"
+										textAlign="left"
+										variant="body2"
+										key={i}
+									>
+										{obj.attributes.OBJ_PAV}
+									</Link>
+								</Grid>
+							))
+						) : (
+							<CircularProgress color="inherit" />
+						)}
+					</>
 				)}
 
 				{props.biographyFeatures[0].attributes.Apdovanojimai && (

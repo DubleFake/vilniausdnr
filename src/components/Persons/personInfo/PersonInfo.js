@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
-import {
-	persons,
-	biography,
-	related_persons,
-	related_org,
-	related_person_sources,
-	related_events,
-} from "../../../utils/personsArcgisItems"
+import { persons } from "../../../utils/personsArcgisItems"
 import PersonTimeline from "./PersonTimeline"
 import PersonRelated from "./PersonRelated"
 import PersonGeneral from "./PersonGeneral"
@@ -21,9 +14,11 @@ const PersonInfo = () => {
 
 	const [biographyFeatures, setBiographyFeatures] = useState([])
 	const [relatedObjects, setRelatedObjects] = useState([])
+	const [relatedObjectsShow, setRelatedObjectsShow] = useState(true)
 
 	useEffect(() => {
 		setBiographyFeatures([])
+		setRelatedObjectsShow(true)
 
 		persons
 			.queryFeatures({
@@ -42,7 +37,11 @@ const PersonInfo = () => {
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
 					.then((response_related) => {
-						setRelatedObjects(response_related[response.features[0].attributes.OBJECTID].features)
+						if (Object.keys(response_related).length !== 0) {
+							setRelatedObjects(response_related[response.features[0].attributes.OBJECTID].features)
+						} else {
+							setRelatedObjectsShow(false)
+						}
 					})
 			})
 	}, [globalID])
@@ -59,7 +58,11 @@ const PersonInfo = () => {
 			}}
 		>
 			<Grid item xs={4}>
-				<PersonGeneral biographyFeatures={biographyFeatures} relatedObjects={relatedObjects} />
+				<PersonGeneral
+					biographyFeatures={biographyFeatures}
+					relatedObjects={relatedObjects}
+					relatedObjectsShow={relatedObjectsShow}
+				/>
 			</Grid>
 
 			<Grid item xs={12} sm container>
