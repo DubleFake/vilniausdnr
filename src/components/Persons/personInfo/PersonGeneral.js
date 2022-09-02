@@ -92,6 +92,7 @@ const PersonGeneral = (props) => {
 									direction="column"
 									justifyContent="flex-start"
 									alignItems="stretch"
+									key={i}
 								>
 									<Link
 										target="_blank"
@@ -105,7 +106,6 @@ const PersonGeneral = (props) => {
 										rel="noopener"
 										textAlign="left"
 										variant="body2"
-										key={i}
 									>
 										{obj.attributes.OBJ_PAV}
 									</Link>

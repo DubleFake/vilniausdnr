@@ -280,6 +280,7 @@ const PersonRelated = (props) => {
 								direction="column"
 								justifyContent="flex-start"
 								alignItems="stretch"
+								key={i}
 							>
 								<Link
 									target="_blank"
@@ -291,7 +292,6 @@ const PersonRelated = (props) => {
 									// component="button"
 									variant="body2"
 									textAlign="left"
-									key={i}
 								>
 									{event.attributes.Istorinis_ivykis}
 								</Link>
@@ -328,6 +328,7 @@ const PersonRelated = (props) => {
 												direction="column"
 												justifyContent="flex-start"
 												alignItems="stretch"
+												key={i}
 											>
 												<Box>
 													<Link
@@ -341,7 +342,6 @@ const PersonRelated = (props) => {
 																}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
 															)
 														}}
-														key={i}
 													>
 														{person.attributes.Susijes_asmuo_irasant_tekstu}
 													</Link>
@@ -366,8 +366,9 @@ const PersonRelated = (props) => {
 												direction="column"
 												justifyContent="flex-start"
 												alignItems="stretch"
+												key={i}
 											>
-												<Typography variant="body2" key={i}>
+												<Typography variant="body2">
 													{person.attributes.Susijes_asmuo_irasant_tekstu}
 													<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
 														<Typography
@@ -407,6 +408,7 @@ const PersonRelated = (props) => {
 												direction="column"
 												justifyContent="flex-start"
 												alignItems="stretch"
+												key={i}
 											>
 												<Link
 													textAlign="left"
@@ -419,7 +421,6 @@ const PersonRelated = (props) => {
 															}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
 														)
 													}}
-													key={i}
 												>
 													{person.attributes.Susijes_asmuo_irasant_tekstu}
 												</Link>
@@ -431,8 +432,9 @@ const PersonRelated = (props) => {
 												direction="column"
 												justifyContent="flex-start"
 												alignItems="stretch"
+												key={i}
 											>
-												<Typography variant="body2" key={i}>
+												<Typography variant="body2">
 													{person.attributes.Susijes_asmuo_irasant_tekstu}
 												</Typography>
 											</Grid>
@@ -460,6 +462,7 @@ const PersonRelated = (props) => {
 												direction="column"
 												justifyContent="flex-start"
 												alignItems="stretch"
+												key={i}
 											>
 												<Box>
 													<Link
@@ -473,12 +476,11 @@ const PersonRelated = (props) => {
 																}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
 															)
 														}}
-														key={i}
 													>
 														{person.attributes.Susijes_asmuo_irasant_tekstu}
 													</Link>
 													<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
-														<Typography
+														{/* <Typography
 															sx={{ display: "inline" }}
 															noWrap={true}
 															component={"span"}
@@ -486,7 +488,7 @@ const PersonRelated = (props) => {
 														>
 															{" "}
 															|{" "}
-														</Typography>
+														</Typography> */}
 														{person.attributes.Rysio_tipas}
 													</Typography>
 												</Box>
@@ -498,8 +500,9 @@ const PersonRelated = (props) => {
 												direction="column"
 												justifyContent="flex-start"
 												alignItems="stretch"
+												key={i}
 											>
-												<Typography variant="body2" key={i}>
+												<Typography variant="body2">
 													{person.attributes.Susijes_asmuo_irasant_tekstu}
 													<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
 														<Typography
@@ -539,6 +542,7 @@ const PersonRelated = (props) => {
 												direction="column"
 												justifyContent="flex-start"
 												alignItems="stretch"
+												key={i}
 											>
 												<Box>
 													<Link
@@ -552,7 +556,6 @@ const PersonRelated = (props) => {
 																}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
 															)
 														}}
-														key={i}
 													>
 														{person.attributes.Susijes_asmuo_irasant_tekstu}
 													</Link>
@@ -577,8 +580,9 @@ const PersonRelated = (props) => {
 												direction="column"
 												justifyContent="flex-start"
 												alignItems="stretch"
+												key={i}
 											>
-												<Typography variant="body2" key={i}>
+												<Typography variant="body2">
 													{person.attributes.Susijes_asmuo_irasant_tekstu}
 													<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
 														<Typography
@@ -620,10 +624,9 @@ const PersonRelated = (props) => {
 								direction="column"
 								justifyContent="flex-start"
 								alignItems="stretch"
+								key={i}
 							>
-								<Typography variant="body2" key={i}>
-									{org.attributes.Organizacijos_pavadinimas}
-								</Typography>
+								<Typography variant="body2">{org.attributes.Organizacijos_pavadinimas}</Typography>
 							</Grid>
 						))
 					) : (
