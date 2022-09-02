@@ -46,13 +46,6 @@ const Search = (props) => {
 		)
 
 		props.setTableObjectsList(tempMatches)
-
-		// props.setTableObjectsList(
-		// 	matchSorter(props.searchObjectsList, event.target.value, {
-		// 		keys: [(item) => item.attributes.Vardas_lietuviskai + item.attributes.Pavarde_lietuviskai],
-		// 		threshold: matchSorter.rankings.MATCHES,
-		// 	})
-		// )
 	}
 
 	return (
