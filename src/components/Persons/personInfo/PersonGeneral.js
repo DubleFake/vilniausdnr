@@ -62,16 +62,17 @@ const PersonGeneral = (props) => {
 								Ryšys su Vilniumi
 							</Typography>
 						</Grid>
-						<Typography
-							sx={{ mx: 1, ml: 4.5 }}
-							color="white"
-							variant="body2"
-							gutterBottom
-							component="div"
-							align="left"
+						<Grid
+							sx={{ pl: 4.5, pr: 1 }}
+							container
+							direction="column"
+							justifyContent="flex-start"
+							alignItems="stretch"
 						>
-							{props.biographyFeatures[0].attributes.Asmens_rysys_su_Vilniumi}
-						</Typography>
+							<Typography color="white" variant="body2" gutterBottom component="div" align="left">
+								{props.biographyFeatures[0].attributes.Asmens_rysys_su_Vilniumi}
+							</Typography>
+						</Grid>
 					</>
 				)}
 
@@ -124,9 +125,17 @@ const PersonGeneral = (props) => {
 								Apdovanojimai
 							</Typography>
 						</Grid>
-						<Typography sx={{ mx: 1, ml: 4.5 }} color="white" variant="body2" gutterBottom>
-							{props.biographyFeatures[0].attributes.Apdovanojimai}
-						</Typography>
+						<Grid
+							sx={{ pl: 4.5, pr: 1 }}
+							container
+							direction="column"
+							justifyContent="flex-start"
+							alignItems="stretch"
+						>
+							<Typography color="white" variant="body2" gutterBottom>
+								{props.biographyFeatures[0].attributes.Apdovanojimai}
+							</Typography>
+						</Grid>
 					</>
 				)}
 			</Grid>

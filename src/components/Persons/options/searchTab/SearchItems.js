@@ -24,6 +24,7 @@ const TableItems = (props) => {
 						<ListItemButton
 							style={{ paddingLeft: 5, paddingRight: 5 }}
 							onClick={() => {
+                console.log(tableObjectsList)
 								setSelectedObject(`${tableObjectsList[index].attributes.OBJECTID}`)
 								navigate(`${tableObjectsList[index].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`)
 							}}

@@ -9,13 +9,50 @@ const Search = (props) => {
 	const { t, i18n } = useTranslation()
 
 	const handleSearch = (event) => {
+		const matchSorterAcrossKeys = (list, search, options) => {
+			const joinedKeysString = (item) => options.keys.map((key) => item[key]).join(" ")
+			return matchSorter(list, search, {
+				...options,
+				keys: [...options.keys, joinedKeysString],
+			})
+		}
+
 		props.setSearchInputValue(event.target.value)
-		props.setTableObjectsList(
-			matchSorter(props.searchObjectsList, event.target.value, {
-				keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
-				threshold: matchSorter.rankings.MATCHES,
+
+		const tempObjList = []
+		props.searchObjectsList.map((obj) =>
+			tempObjList.push({
+				Vardas_lietuviskai: obj.attributes.Vardas_lietuviskai,
+				Pavarde_lietuviskai: obj.attributes.Pavarde_lietuviskai,
+				OBJECTID: obj.attributes.OBJECTID,
+				Asmenybes_ID: obj.attributes.Asmenybes_ID,
 			})
 		)
+
+		const matches = matchSorterAcrossKeys(tempObjList, event.target.value, {
+			keys: ["Vardas_lietuviskai", "Pavarde_lietuviskai"],
+		})
+
+		const tempMatches = []
+		matches.map((obj) =>
+			tempMatches.push({
+				attributes: {
+					Vardas_lietuviskai: obj.Vardas_lietuviskai,
+					Pavarde_lietuviskai: obj.Pavarde_lietuviskai,
+					OBJECTID: obj.OBJECTID,
+					Asmenybes_ID: obj.Asmenybes_ID,
+				},
+			})
+		)
+
+		props.setTableObjectsList(tempMatches)
+
+		// props.setTableObjectsList(
+		// 	matchSorter(props.searchObjectsList, event.target.value, {
+		// 		keys: [(item) => item.attributes.Vardas_lietuviskai + item.attributes.Pavarde_lietuviskai],
+		// 		threshold: matchSorter.rankings.MATCHES,
+		// 	})
+		// )
 	}
 
 	return (
@@ -26,7 +63,7 @@ const Search = (props) => {
 				sx={{ mt: 1 }}
 				fullWidth
 				id="outlined-search"
-				label={t("plaques.options.search")+".."}
+				label={t("plaques.options.search") + ".."}
 				type="search"
 				value={props.searchInputValue}
 				onChange={handleSearch}

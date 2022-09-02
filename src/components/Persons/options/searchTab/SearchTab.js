@@ -24,14 +24,14 @@ const Table = (props) => {
 		if (searchInputValue) {
 			setTableObjectsList(
 				matchSorter(searchObjectsList, searchInputValue, {
-					keys: [(item) => item.attributes.Vardas_lietuviskai],
+          keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
 					threshold: matchSorter.rankings.MATCHES,
 				})
 			)
 		} else {
 			setTableObjectsList(
 				matchSorter(searchObjectsList, "", {
-					keys: [(item) => item.attributes.Vardas_lietuviskai],
+          keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
 					threshold: matchSorter.rankings.MATCHES,
 				})
 			)
