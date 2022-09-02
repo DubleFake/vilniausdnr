@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { matchSorter } from "match-sorter"
 
 import { classifications } from "../../../../utils/personsArcgisItems"
 
@@ -59,7 +60,9 @@ const Filter = (props) => {
 			})
 
 			const professionDetailCodesRegex = professionDetailCodesFiltered.filter((code) =>
-				String(code.Veiklos_detalizavimo_nr).match(`^[${selectedProfessionFind.Pagrindines_veiklos_nr}][0-9]$`)
+				String(code.Veiklos_detalizavimo_nr).match(
+					`^[${selectedProfessionFind.Pagrindines_veiklos_nr}][0-9]$`
+				)
 			)
 			setProfessionDetailCodes(professionDetailCodesRegex)
 
@@ -101,7 +104,14 @@ const Filter = (props) => {
 		props.setSelectedObject("")
 		setSelectedProfession("")
 		setSelectedProfessionDetail("")
-		props.setSearchObjectsList(props.objectsList)
+
+    console.log()
+		props.setTableObjectsList(
+			matchSorter(props.objectsList, "", {
+				keys: [(item) => item.attributes.Vardas_lietuviskai],
+				threshold: matchSorter.rankings.MATCHES,
+			})
+		)
 	}
 
 	useEffect(() => {

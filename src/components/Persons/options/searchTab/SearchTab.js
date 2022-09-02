@@ -66,6 +66,7 @@ const Table = (props) => {
 						setSelectedObject={props.setSelectedObject}
 						setObjectsList={setObjectsList}
 						setSearchObjectsList={setSearchObjectsList}
+            setTableObjectsList={setTableObjectsList}
 					/>
 					<Count objectCount={objectCount} />
 					<TableItems
