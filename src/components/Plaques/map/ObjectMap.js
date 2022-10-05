@@ -121,6 +121,7 @@ const ObjectMap = (props) => {
 	useEffect(() => {
 		bgExpand.content.source.basemaps.items[0].title = t("plaques.map.basemapLight")
 		bgExpand.content.source.basemaps.items[1].title = t("plaques.map.basemapDark")
+		bgExpand.content.source.basemaps.items[2].title = t("plaques.map.basemapOrto")
 
 		view.ui.empty("top-left")
 

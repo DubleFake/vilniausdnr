@@ -178,7 +178,8 @@ export const persons = new FeatureLayer({
 const basemap1 = new Basemap({
 	baseLayers: [
 		new TileLayer({
-			url: "https://atviras.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_light_LKS/MapServer",
+			// url: "https://atviras.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_light_LKS/MapServer",
+			url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_LKS_su_rajonu/MapServer",
 		}),
 	],
 	id: "light",
@@ -187,12 +188,23 @@ const basemap1 = new Basemap({
 const basemap2 = new Basemap({
 	baseLayers: [
 		new TileLayer({
-			url: "https://atviras.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_dark_LKS/MapServer",
+			// url: "https://atviras.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_dark_LKS/MapServer",
+			url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_dark_calibrated/MapServer",
 		}),
 	],
 	id: "dark",
 	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_dark.png`,
 })
+const basemap3 = new Basemap({
+	baseLayers: [
+		new TileLayer({
+			url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/ORTOFOTO_2019_LKS_FULL/MapServer",
+		}),
+	],
+	id: "orto",
+	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_orto.png`,
+})
+export const basemaps = [basemap1, basemap2, basemap3]
 
 export const map = new Map({
 	basemap: basemap2,
@@ -225,7 +237,7 @@ export const view = new MapView({
 
 const basemapGallery = new BasemapGallery({
 	view: view,
-	source: [basemap1, basemap2],
+	source: [basemap1, basemap2, basemap3],
 })
 
 export const bgExpand = new Expand({
