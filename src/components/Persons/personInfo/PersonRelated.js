@@ -480,7 +480,7 @@ const PersonRelated = (props) => {
 														{person.attributes.Susijes_asmuo_irasant_tekstu}
 													</Link>
 													<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
-														{/* <Typography
+														<Typography
 															sx={{ display: "inline" }}
 															noWrap={true}
 															component={"span"}
@@ -488,7 +488,7 @@ const PersonRelated = (props) => {
 														>
 															{" "}
 															|{" "}
-														</Typography> */}
+														</Typography>
 														{person.attributes.Rysio_tipas}
 													</Typography>
 												</Box>
