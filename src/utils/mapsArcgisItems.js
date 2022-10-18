@@ -7,10 +7,15 @@ import BasemapGallery from "@arcgis/core/widgets/BasemapGallery"
 import Expand from "@arcgis/core/widgets/Expand"
 import Locate from "@arcgis/core/widgets/Locate"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
+import FeatureTable from "@arcgis/core/widgets/FeatureTable";
 
-export const objects = new MapImageLayer({
-	url: "https://www.geoportal.lt/mapproxy/gisc_vilnius_ort_1944/MapServer",
-	title: "Žemėlapiai",
+// export const objects = new MapImageLayer({
+// 	url: "https://www.geoportal.lt/mapproxy/gisc_vilnius_ort_1944/MapServer",
+// 	title: "Žemėlapiai",
+// })
+
+export const maps = new FeatureLayer({
+  url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/Zemelapiai/FeatureServer/1145",
 })
 
 const basemap1 = new Basemap({
@@ -46,7 +51,7 @@ export const basemaps = [basemap1, basemap2, basemap3]
 
 export const map = new Map({
 	basemap: basemap2,
-	layers: [objects],
+	// layers: [objects],
 })
 
 export const view = new MapView({
