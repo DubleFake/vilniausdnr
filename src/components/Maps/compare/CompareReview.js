@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 import { map, maps } from "../../../utils/mapsArcgisItems"
 
@@ -12,10 +14,13 @@ import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
 
 const CompareReview = (props) => {
+	const { globalID } = useParams()
+  const navigate = useNavigate()
+  const { t, i18n } = useTranslation()
+
 	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
 	const [selectedGroup, setSelectedGroup] = useState("")
-	const [selectedMap, setSelectedMap] = useState("")
 	const [selectedGroupValue, setSelectedGroupValue] = useState("")
 	const [selectedMapValue, setSelectedMapValue] = useState("")
 
@@ -28,55 +33,61 @@ const CompareReview = (props) => {
 			.then((response) => {
 				const tempMapList = []
 				const mapGroupSet = new Set()
-				let tempSelectedMapValue
-				for (let feature in response.features) {
-					mapGroupSet.add(response.features[feature].attributes.Grupe)
 
-					if (response.features[feature].attributes.Tipas === "Tile Layer") {
-						const mapLayer = new TileLayer({
-							url: response.features[feature].attributes.Nuoroda,
-							title: response.features[feature].attributes.Pavadinimas,
-							group: response.features[feature].attributes.Grupe,
-							globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-						})
-						tempMapList.push(mapLayer)
-					} else if (response.features[feature].attributes.Tipas === "Map Layer") {
-						const mapLayer = new MapImageLayer({
-							url: response.features[feature].attributes.Nuoroda,
-							title: response.features[feature].attributes.Pavadinimas,
-							group: response.features[feature].attributes.Grupe,
-							globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-						})
-						tempMapList.push(mapLayer)
-					}
+        if(globalID){
+          for (let feature in response.features) {
+            mapGroupSet.add(response.features[feature].attributes.Grupe)
+  
+            if (response.features[feature].attributes.Tipas === "Tile Layer") {
+              const mapLayer = new TileLayer({
+                url: response.features[feature].attributes.Nuoroda,
+                title: response.features[feature].attributes.Pavadinimas,
+                group: response.features[feature].attributes.Grupe,
+                globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
+                index: feature,
+              })
+              tempMapList.push(mapLayer)
+            } else if (response.features[feature].attributes.Tipas === "Map Layer") {
+              const mapLayer = new MapImageLayer({
+                url: response.features[feature].attributes.Nuoroda,
+                title: response.features[feature].attributes.Pavadinimas,
+                group: response.features[feature].attributes.Grupe,
+                globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
+                index: feature,
+              })
+              tempMapList.push(mapLayer)
+            }
+          }
+        } else {
+          const defaultMap = response.features.find(map => map.attributes.Pavadinimas === "Sentinel RGB")
+          navigate(defaultMap.attributes.GlobalID_zemelapio)
+        }
 
-					if (response.features[feature].attributes.Pavadinimas === "Sentinel RGB") {
-						tempSelectedMapValue = feature
-					}
-				}
 				setGroupList([...mapGroupSet])
 				setMapList(tempMapList)
 
-				setSelectedGroup("Stambaus mastelio žemėlapiai")
-				setSelectedGroupValue([...mapGroupSet].indexOf("Stambaus mastelio žemėlapiai"))
-				setSelectedMap(tempMapList[tempSelectedMapValue])
-				setSelectedMapValue(tempSelectedMapValue)
-			})
-	}, [])
+				const mapById = tempMapList.find((map) => map.globalid_map === globalID)
+				if (mapById) {
+					setSelectedGroup(mapById.group)
+					setSelectedGroupValue([...mapGroupSet].indexOf(mapById.group))
+					setSelectedMapValue(mapById.index)
 
-	useEffect(() => {
-		// console.log(selectedMap)
-		map.removeAll()
-		map.add(selectedMap)
-	}, [selectedMap])
+          map.removeAll()
+          map.add(tempMapList[mapById.index])
+				}
+			})
+	}, [globalID])
 
 	const handleGroupChange = (event) => {
 		setSelectedGroup(groupList[event.target.value])
 		setSelectedGroupValue(event.target.value)
 	}
 	const handleMapChange = (event) => {
-		setSelectedMap(mapList[event.target.value])
-		setSelectedMapValue(event.target.value)
+    const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+    if (mapByIndex) {
+      console.log(mapByIndex)
+      navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
+    }
 	}
 
 	return (

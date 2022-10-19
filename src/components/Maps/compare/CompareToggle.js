@@ -68,6 +68,15 @@ const CompareLayers = (props) => {
 
 			<Routes>
 				<Route
+					path="compare/review/:globalID"
+					element={
+						<>
+							<CompareReview/>
+							<CompareType />
+						</>
+					}
+				/>
+				<Route
 					path="compare/review"
 					element={
 						<>
