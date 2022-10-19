@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { Routes, Route, useNavigate } from "react-router-dom"
 
-import { map, maps } from "../../../utils/mapsArcgisItems"
+import { map } from "../../../utils/mapsArcgisItems"
 // import CompareTimeline from "../compare/CompareTimeline"
 // import CompareSwipe from "../compare/CompareSwipe"
 // import CompareWindow from "../compare/CompareWindow"
 import CompareReview from "../compare/CompareReview"
-
-import TileLayer from "@arcgis/core/layers/TileLayer"
-import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
 
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
@@ -18,50 +15,11 @@ import CompareType from "./CompareType"
 
 const CompareLayers = (props) => {
 	const navigate = useNavigate()
-	const [mapList, setMapList] = useState([])
-	const [groupList, setGroupList] = useState([])
 
 	useEffect(() => {
 		if (window.location.href.includes("compare")) {
 			props.setHistoryToggle(true)
 		}
-	}, [])
-
-	useEffect(() => {
-		maps
-			.queryFeatures({
-				where: "1=1",
-				outFields: ["*"],
-			})
-			.then((response) => {
-				const tempMapList = []
-        const mapGroupSet = new Set()
-				for (let feature in response.features) {
-          mapGroupSet.add(response.features[feature].attributes.Grupe)
-
-					if (response.features[feature].attributes.Tipas === "Tile Layer") {
-						const mapLayer = new TileLayer({
-							url: response.features[feature].attributes.Nuoroda,
-							title: response.features[feature].attributes.Pavadinimas,
-							group: response.features[feature].attributes.Grupe,
-              globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-						})
-						tempMapList.push(mapLayer)
-					}
-
-					if (response.features[feature].attributes.Tipas === "Map Layer") {
-						const mapLayer = new MapImageLayer({
-							url: response.features[feature].attributes.Nuoroda,
-							title: response.features[feature].attributes.Pavadinimas,
-							group: response.features[feature].attributes.Grupe,
-              globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-						})
-						tempMapList.push(mapLayer)
-					}
-				}
-        setGroupList([...mapGroupSet])
-        setMapList(tempMapList)
-			})
 	}, [])
 
 	return (
@@ -113,7 +71,7 @@ const CompareLayers = (props) => {
 					path="compare/review"
 					element={
 						<>
-							<CompareReview mapList={mapList} groupList={groupList}/>
+							<CompareReview/>
 							<CompareType />
 						</>
 					}
