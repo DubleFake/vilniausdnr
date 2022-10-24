@@ -53,6 +53,9 @@ export const map = new Map({
 	basemap: basemap2,
 	// layers: [objects],
 })
+export const map2 = new Map({
+	basemap: basemap2,
+})
 
 export const view = new MapView({
 	map: map,
@@ -66,6 +69,42 @@ export const view = new MapView({
 	//		position: "top-right",
 	//	},
 	//},
+	ui: {
+		components: ["attribution"],
+	},
+	highlightOptions: {
+		color: "#FFFFFF",
+		fillOpacity: 1,
+		haloColor: "#FF0026",
+		haloOpacity: 1,
+	},
+  constraints: {
+		geometry: {
+			type: "extent",
+			spatialReference: 2600,
+			xmin: 566176.6289999997,
+			ymin: 6048667.358999999,
+			xmax: 595518,
+			ymax: 6077582.921,
+		},
+	},
+})
+
+export const view2 = new MapView({
+	map: map2,
+	zoom: 2,
+	slider: false,
+	constraints: {
+		// snapToZoom: false,
+    geometry: {
+			type: "extent",
+			spatialReference: 2600,
+			xmin: 566176.6289999997,
+			ymin: 6048667.358999999,
+			xmax: 595518,
+			ymax: 6077582.921,
+		},
+	},
 	ui: {
 		components: ["attribution"],
 	},

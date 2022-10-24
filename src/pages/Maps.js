@@ -4,7 +4,7 @@ import { Routes, Route, Outlet, useLocation, useNavigate } from "react-router-do
 import ObjectMap from "../components/Maps/map/ObjectMap"
 // // import ObjectPopup from "../components/Periods/popup/ObjectPopup"
 // // import OptionsToggle from "../components/Periods/options/OptionsToggle"
-// import Options from "../components/Periods/options/Options"
+import Options from "../components/Periods/options/Options"
 import CompareToggle from "../components/Maps/compare/CompareToggle"
 import "../css/signs.css"
 
@@ -54,14 +54,15 @@ const Maps = () => {
                     color="inherit"
                 />
             </Backdrop> */}
-								{/* <Collapse sx={{ maxWidth: 350 }} orientation="horizontal" in={visible}>
+            {/* sito collapse reikia kad mapu aukstis butu 100% ?? */}
+								<Collapse sx={{ maxWidth: 350 }} orientation="horizontal" in={visible}> 
 									<Options
 										initialObjectsList={initialObjectsList}
 										setSelectedObject={setSelectedObject}
 										selectedObject={selectedObject}
 										initialObjectsClasses={initialObjectsClasses}
 									/>
-								</Collapse> */}
+								</Collapse>
 
 								<Grid item xs>
 									{/* {!historyToggle && <OptionsToggle visible={visible} setVisible={setVisible} />} */}

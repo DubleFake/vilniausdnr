@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import { map, map2, view, view2, objects, periods } from "../../../utils/periodsArcgisItems"
+import { map, map2, view, view2, maps } from "../../../utils/mapsArcgisItems"
 
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -8,47 +8,59 @@ import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
 
+import TileLayer from "@arcgis/core/layers/TileLayer"
+import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
+
 const CompareWindow = (props) => {
-	const [selectedLeftPeriod, setSelectedLeftPeriod] = useState(0)
-	const [selectedRightPeriod, setSelectedRightPeriod] = useState(5)
+	const [selectedLeftPeriod, setSelectedLeftPeriod] = useState(8)
+	const [selectedRightPeriod, setSelectedRightPeriod] = useState(7)
+  const [periods, setPeriods] = useState([])
 
 	useEffect(() => {
 		map.removeAll()
 		map2.removeAll()
+    const tempPeriods = []
 
-    periods[0]
-    .when(() => {
-      return periods[0].queryExtent()
-    })
-    .then((response) => {
-      view.constraints.geometry = {
-        type: "extent",
-        spatialReference: response.extent.spatialReference,
-        xmin: response.extent.xmin,
-        ymin: response.extent.ymin,
-        xmax: response.extent.xmax,
-        ymax: response.extent.ymax,
-      }
-      view2.constraints.geometry = {
-        type: "extent",
-        spatialReference: response.extent.spatialReference,
-        xmin: response.extent.xmin,
-        ymin: response.extent.ymin,
-        xmax: response.extent.xmax,
-        ymax: response.extent.ymax,
-      }
-    })
+		maps
+			.queryFeatures({
+				where: "1=1",
+				outFields: ["*"],
+			})
+			.then((response) => {
+				const mapGroupSet = new Set()
 
-		view
-			.when(() => {
-				view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
-				view2.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+				for (let feature in response.features) {
+					mapGroupSet.add(response.features[feature].attributes.Grupe)
+
+					if (response.features[feature].attributes.Tipas === "Tile Layer") {
+						const mapLayer = new TileLayer({
+							url: response.features[feature].attributes.Nuoroda,
+							title: response.features[feature].attributes.Pavadinimas,
+							group: response.features[feature].attributes.Grupe,
+							globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
+							index: feature,
+						})
+						tempPeriods.push(mapLayer)
+					} else if (response.features[feature].attributes.Tipas === "Map Layer") {
+						const mapLayer = new MapImageLayer({
+							url: response.features[feature].attributes.Nuoroda,
+							title: response.features[feature].attributes.Pavadinimas,
+							group: response.features[feature].attributes.Grupe,
+							globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
+							index: feature,
+						})
+						tempPeriods.push(mapLayer)
+					}
+				}
+
+				// setGroupList([...mapGroupSet])
+				setPeriods(tempPeriods)
+    
+        map.add(tempPeriods[8])
+        map2.add(tempPeriods[7])
+        props.setToggleCompareWindow(true)
 			})
 
-		map.add(periods[0])
-		map2.add(periods[5])
-
-		props.setToggleCompareWindow(true)
 	}, [])
 
 	useEffect(() => {
@@ -57,30 +69,6 @@ const CompareWindow = (props) => {
 
 			map.removeAll()
 			map2.removeAll()
-			map.add(objects)
-
-      objects
-			.when(() => {
-				return objects.queryExtent()
-			})
-			.then((response) => {
-				view.constraints.geometry = {
-					type: "extent",
-					spatialReference: response.extent.spatialReference,
-					xmin: response.extent.xmin,
-					ymin: response.extent.ymin,
-					xmax: response.extent.xmax,
-					ymax: response.extent.ymax,
-				}
-				view2.constraints.geometry = {
-					type: "extent",
-					spatialReference: response.extent.spatialReference,
-					xmin: response.extent.xmin,
-					ymin: response.extent.ymin,
-					xmax: response.extent.xmax,
-					ymax: response.extent.ymax,
-				}
-			})
 		}
 	}, [])
 

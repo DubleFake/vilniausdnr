@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import { map, view, objects, periods } from "../../../utils/periodsArcgisItems"
+import { map, view, maps } from "../../../utils/mapsArcgisItems"
 
 import Swipe from "@arcgis/core/widgets/Swipe"
 import InputLabel from "@mui/material/InputLabel"
@@ -9,51 +9,92 @@ import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
 
+import TileLayer from "@arcgis/core/layers/TileLayer"
+import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
+
 const CompareSwipe = () => {
-	const [selectedLeftPeriod, setSelectedLeftPeriod] = useState(0)
-	const [selectedRightPeriod, setSelectedRightPeriod] = useState(5)
+	const [selectedLeftPeriod, setSelectedLeftPeriod] = useState(8)
+	const [selectedRightPeriod, setSelectedRightPeriod] = useState(7)
+	const [periods, setPeriods] = useState([])
 
 	useEffect(() => {
 		map.removeAll()
+    const tempPeriods = []
 
-		periods[0]
-			.when(() => {
-				return periods[0].queryExtent()
+		maps
+			.queryFeatures({
+				where: "1=1",
+				outFields: ["*"],
 			})
 			.then((response) => {
-				view.constraints.geometry = {
-					type: "extent",
-					spatialReference: response.extent.spatialReference,
-					xmin: response.extent.xmin,
-					ymin: response.extent.ymin,
-					xmax: response.extent.xmax,
-					ymax: response.extent.ymax,
+				const mapGroupSet = new Set()
+
+				for (let feature in response.features) {
+					mapGroupSet.add(response.features[feature].attributes.Grupe)
+
+					if (response.features[feature].attributes.Tipas === "Tile Layer") {
+						const mapLayer = new TileLayer({
+							url: response.features[feature].attributes.Nuoroda,
+							title: response.features[feature].attributes.Pavadinimas,
+							group: response.features[feature].attributes.Grupe,
+							globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
+							index: feature,
+						})
+						tempPeriods.push(mapLayer)
+					} else if (response.features[feature].attributes.Tipas === "Map Layer") {
+						const mapLayer = new MapImageLayer({
+							url: response.features[feature].attributes.Nuoroda,
+							title: response.features[feature].attributes.Pavadinimas,
+							group: response.features[feature].attributes.Grupe,
+							globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
+							index: feature,
+						})
+						tempPeriods.push(mapLayer)
+					}
 				}
+
+				// setGroupList([...mapGroupSet])
+				setPeriods(tempPeriods)
+
+        const swipeWidgetFind = view.ui.find("swipe-layers")
+        if (swipeWidgetFind !== null) {
+          view.ui.remove(swipeWidgetFind)
+          swipeWidgetFind.destroy()
+        }
+    
+        map.addMany([tempPeriods[selectedLeftPeriod], tempPeriods[selectedRightPeriod]])
+    
+        const swipe = new Swipe({
+          view: view,
+          leadingLayers: [tempPeriods[selectedLeftPeriod]],
+          trailingLayers: [tempPeriods[selectedRightPeriod]],
+          direction: "horizontal",
+          position: 50,
+          id: "swipe-layers",
+        })
+    
+        view.ui.add(swipe)
 			})
 
-		view
-			.when(() => {
-				view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
-			})
+		// periods[0]
+		// 	.when(() => {
+		// 		return periods[0].queryExtent()
+		// 	})
+		// 	.then((response) => {
+		// 		view.constraints.geometry = {
+		// 			type: "extent",
+		// 			spatialReference: response.extent.spatialReference,
+		// 			xmin: response.extent.xmin,
+		// 			ymin: response.extent.ymin,
+		// 			xmax: response.extent.xmax,
+		// 			ymax: response.extent.ymax,
+		// 		}
+		// 	})
 
-		const swipeWidgetFind = view.ui.find("swipe-layers")
-		if (swipeWidgetFind !== null) {
-			view.ui.remove(swipeWidgetFind)
-			swipeWidgetFind.destroy()
-		}
-
-		map.addMany([periods[selectedLeftPeriod], periods[selectedRightPeriod]])
-
-		const swipe = new Swipe({
-			view: view,
-			leadingLayers: [periods[selectedLeftPeriod]],
-			trailingLayers: [periods[selectedRightPeriod]],
-			direction: "horizontal",
-			position: 50,
-			id: "swipe-layers",
-		})
-
-		view.ui.add(swipe)
+		// view
+		// 	.when(() => {
+		// 		view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+		// 	})
 	}, [])
 
 	useEffect(() => {
@@ -65,22 +106,22 @@ const CompareSwipe = () => {
 			}
 
 			map.removeAll()
-			map.add(objects)
+			// map.add(objects)
 
-      objects
-			.when(() => {
-				return objects.queryExtent()
-			})
-			.then((response) => {
-				view.constraints.geometry = {
-					type: "extent",
-					spatialReference: response.extent.spatialReference,
-					xmin: response.extent.xmin,
-					ymin: response.extent.ymin,
-					xmax: response.extent.xmax,
-					ymax: response.extent.ymax,
-				}
-			})
+			// objects
+			// 	.when(() => {
+			// 		return objects.queryExtent()
+			// 	})
+			// 	.then((response) => {
+			// 		view.constraints.geometry = {
+			// 			type: "extent",
+			// 			spatialReference: response.extent.spatialReference,
+			// 			xmin: response.extent.xmin,
+			// 			ymin: response.extent.ymin,
+			// 			xmax: response.extent.xmax,
+			// 			ymax: response.extent.ymax,
+			// 		}
+			// 	})
 		}
 	}, [])
 

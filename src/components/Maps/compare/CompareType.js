@@ -18,17 +18,17 @@ const CompareType = () => {
 				navigate(`/vilniausdnr/${i18n.language}/maps/compare/review`)
 				break
 
-			// case 0:
-			// 	navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline`)
-			// 	break
-
 			// case 1:
-			// 	navigate(`/vilniausdnr/${i18n.language}/periods/compare/swipe`)
+			// 	navigate(`/vilniausdnr/${i18n.language}/maps/compare/timeline`)
 			// 	break
 
-			// case 2:
-			// 	navigate(`/vilniausdnr/${i18n.language}/periods/compare/window`)
-			// 	break
+			case 2:
+				navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe`)
+				break
+
+			case 3:
+				navigate(`/vilniausdnr/${i18n.language}/maps/compare/window`)
+				break
 		}
 	}
 
@@ -63,15 +63,15 @@ const CompareType = () => {
 					<MenuItem sx={{ whiteSpace: "unset" }} key={0} value={0}>
 						Peržiūra
 					</MenuItem>
-					{/* <MenuItem sx={{ whiteSpace: "unset" }} key={0} value={0}>
+					{/* <MenuItem sx={{ whiteSpace: "unset" }} key={1} value={1}>
 						Laiko juosta
-					</MenuItem>
-					<MenuItem sx={{ whiteSpace: "unset" }} key={1} value={1}>
+					</MenuItem> */}
+					<MenuItem sx={{ whiteSpace: "unset" }} key={2} value={2}>
 						Slenkanti juosta
 					</MenuItem>
-					<MenuItem sx={{ whiteSpace: "unset" }} key={2} value={2}>
+					<MenuItem sx={{ whiteSpace: "unset" }} key={3} value={3}>
 						Langai
-					</MenuItem> */}
+					</MenuItem>
 				</Select>
 			</FormControl>
 		</Grid>

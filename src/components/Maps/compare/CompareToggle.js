@@ -3,8 +3,8 @@ import { Routes, Route, useNavigate } from "react-router-dom"
 
 import { map } from "../../../utils/mapsArcgisItems"
 // import CompareTimeline from "../compare/CompareTimeline"
-// import CompareSwipe from "../compare/CompareSwipe"
-// import CompareWindow from "../compare/CompareWindow"
+import CompareSwipe from "../compare/CompareSwipe"
+import CompareWindow from "../compare/CompareWindow"
 import CompareReview from "../compare/CompareReview"
 
 import ButtonGroup from "@mui/material/ButtonGroup"
@@ -93,7 +93,7 @@ const CompareLayers = (props) => {
 							<CompareType />
 						</>
 					}
-				/>
+				/> */}
 				<Route
 					path="compare/swipe"
 					element={
@@ -111,7 +111,7 @@ const CompareLayers = (props) => {
 							<CompareType />
 						</>
 					}
-				/> */}
+				/>
 			</Routes>
 		</>
 	)
