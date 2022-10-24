@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
@@ -11,8 +11,25 @@ import Grid from "@mui/material/Grid"
 const CompareType = () => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
+  const [selectedCompare, setSelectedCompare] = useState(0)
+
+  useEffect(() => {
+
+    switch(true) {
+      case window.location.href.includes("review"):
+        setSelectedCompare(0)
+        break
+      case window.location.href.includes("swipe"):
+        setSelectedCompare(1)
+        break
+      case window.location.href.includes("window"):
+        setSelectedCompare(2)
+        break
+    }
+  }, [])
 
 	const handleCompareChange = (event) => {
+    setSelectedCompare(event.target.value)
 		switch (event.target.value) {
 			case 0:
 				navigate(`/vilniausdnr/${i18n.language}/maps/compare/review`)
@@ -22,11 +39,11 @@ const CompareType = () => {
 			// 	navigate(`/vilniausdnr/${i18n.language}/maps/compare/timeline`)
 			// 	break
 
-			case 2:
+			case 1:
 				navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe`)
 				break
 
-			case 3:
+			case 2:
 				navigate(`/vilniausdnr/${i18n.language}/maps/compare/window`)
 				break
 		}
@@ -59,17 +76,17 @@ const CompareType = () => {
 				id="swipe-select"
 			>
 				<InputLabel>Vaizdavimas</InputLabel>
-				<Select label="Sluoksnis" defaultValue="0" onChange={handleCompareChange}>
+				<Select label="Sluoksnis" value={selectedCompare} onChange={handleCompareChange}>
 					<MenuItem sx={{ whiteSpace: "unset" }} key={0} value={0}>
 						Peržiūra
 					</MenuItem>
 					{/* <MenuItem sx={{ whiteSpace: "unset" }} key={1} value={1}>
 						Laiko juosta
 					</MenuItem> */}
-					<MenuItem sx={{ whiteSpace: "unset" }} key={2} value={2}>
+					<MenuItem sx={{ whiteSpace: "unset" }} key={1} value={1}>
 						Slenkanti juosta
 					</MenuItem>
-					<MenuItem sx={{ whiteSpace: "unset" }} key={3} value={3}>
+					<MenuItem sx={{ whiteSpace: "unset" }} key={2} value={2}>
 						Langai
 					</MenuItem>
 				</Select>
