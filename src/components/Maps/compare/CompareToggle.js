@@ -67,6 +67,15 @@ const CompareLayers = (props) => {
 			</Grid>
 
 			<Routes>
+        <Route
+          path="compare/review"
+          element={
+            <>
+              <CompareReview/>
+              <CompareType />
+            </>
+          }
+        />
 				<Route
 					path="compare/review/:globalID"
 					element={
@@ -77,25 +86,16 @@ const CompareLayers = (props) => {
 					}
 				/>
 				<Route
-					path="compare/review"
+					path="compare/swipe"
 					element={
 						<>
-							<CompareReview/>
+							<CompareSwipe />
 							<CompareType />
 						</>
 					}
 				/>
-				{/* <Route
-					path="compare/timeline"
-					element={
-						<>
-							<CompareTimeline />
-							<CompareType />
-						</>
-					}
-				/> */}
 				<Route
-					path="compare/swipe"
+					path="compare/swipe/:globalIDLeft/:globalIDRight"
 					element={
 						<>
 							<CompareSwipe />

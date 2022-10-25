@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 import { map, view, maps } from "../../../utils/mapsArcgisItems"
 
@@ -13,13 +15,22 @@ import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
 
 const CompareSwipe = () => {
-	const [selectedLeftPeriod, setSelectedLeftPeriod] = useState(8)
-	const [selectedRightPeriod, setSelectedRightPeriod] = useState(7)
-	const [periods, setPeriods] = useState([])
+	const { globalIDLeft, globalIDRight } = useParams()
+	const navigate = useNavigate()
+	const { t, i18n } = useTranslation()
+
+	const [selectedLeftMap, setSelectedLeftMap] = useState(8)
+	const [selectedRightMap, setSelectedRightMap] = useState(7)
+	const [mapsList, setMapsList] = useState([])
+	const [groupList, setGroupList] = useState([])
+	const [selectedGroupLeft, setSelectedGroupLeft] = useState("")
+	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState("")
+	const [selectedGroupRight, setSelectedGroupRight] = useState("")
+	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState("")
 
 	useEffect(() => {
 		map.removeAll()
-    const tempPeriods = []
+		const tempMaps = []
 
 		maps
 			.queryFeatures({
@@ -29,73 +40,76 @@ const CompareSwipe = () => {
 			.then((response) => {
 				const mapGroupSet = new Set()
 
-				for (let feature in response.features) {
-					mapGroupSet.add(response.features[feature].attributes.Grupe)
+				if (globalIDLeft && globalIDRight) {
+					for (let feature in response.features) {
+						mapGroupSet.add(response.features[feature].attributes.Grupe)
 
-					if (response.features[feature].attributes.Tipas === "Tile Layer") {
-						const mapLayer = new TileLayer({
-							url: response.features[feature].attributes.Nuoroda,
-							title: response.features[feature].attributes.Pavadinimas,
-							group: response.features[feature].attributes.Grupe,
-							globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-							index: feature,
-						})
-						tempPeriods.push(mapLayer)
-					} else if (response.features[feature].attributes.Tipas === "Map Layer") {
-						const mapLayer = new MapImageLayer({
-							url: response.features[feature].attributes.Nuoroda,
-							title: response.features[feature].attributes.Pavadinimas,
-							group: response.features[feature].attributes.Grupe,
-							globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-							index: feature,
-						})
-						tempPeriods.push(mapLayer)
+						if (response.features[feature].attributes.Tipas === "Tile Layer") {
+							const mapLayer = new TileLayer({
+								url: response.features[feature].attributes.Nuoroda,
+								title: response.features[feature].attributes.Pavadinimas,
+								group: response.features[feature].attributes.Grupe,
+								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
+								index: feature,
+							})
+							tempMaps.push(mapLayer)
+						} else if (response.features[feature].attributes.Tipas === "Map Layer") {
+							const mapLayer = new MapImageLayer({
+								url: response.features[feature].attributes.Nuoroda,
+								title: response.features[feature].attributes.Pavadinimas,
+								group: response.features[feature].attributes.Grupe,
+								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
+								index: feature,
+							})
+							tempMaps.push(mapLayer)
+						}
 					}
+				} else {
+					const defaultMapLeft = response.features.find(
+						(map) => map.attributes.Pavadinimas === "Sentinel RGB"
+					)
+					const defaultMapRight = response.features.find(
+						(map) => map.attributes.Pavadinimas === "Sentinel NIR"
+					)
+					navigate(
+						`${defaultMapLeft.attributes.GlobalID_zemelapio}/${defaultMapRight.attributes.GlobalID_zemelapio}`
+					)
+				}
+				console.log(globalIDLeft, globalIDRight)
+
+				setGroupList([...mapGroupSet])
+				setMapsList(tempMaps)
+
+				const mapByIdLeft = tempMaps.find((map) => map.globalid_map === globalIDLeft)
+				const mapByIdRight = tempMaps.find((map) => map.globalid_map === globalIDRight)
+
+				setSelectedGroupLeft(mapByIdLeft.group)
+				setSelectedGroupValueLeft([...mapGroupSet].indexOf(mapByIdLeft.group))
+				setSelectedLeftMap(mapByIdLeft.index)
+				setSelectedGroupRight(mapByIdRight.group)
+				setSelectedGroupValueRight([...mapGroupSet].indexOf(mapByIdRight.group))
+				setSelectedRightMap(mapByIdRight.index)
+
+				const swipeWidgetFind = view.ui.find("swipe-layers")
+				if (swipeWidgetFind !== null) {
+					view.ui.remove(swipeWidgetFind)
+					swipeWidgetFind.destroy()
 				}
 
-				// setGroupList([...mapGroupSet])
-				setPeriods(tempPeriods)
+				map.addMany([tempMaps[mapByIdLeft.index], tempMaps[mapByIdRight.index]])
 
-        const swipeWidgetFind = view.ui.find("swipe-layers")
-        if (swipeWidgetFind !== null) {
-          view.ui.remove(swipeWidgetFind)
-          swipeWidgetFind.destroy()
-        }
-    
-        map.addMany([tempPeriods[selectedLeftPeriod], tempPeriods[selectedRightPeriod]])
-    
-        const swipe = new Swipe({
-          view: view,
-          leadingLayers: [tempPeriods[selectedLeftPeriod]],
-          trailingLayers: [tempPeriods[selectedRightPeriod]],
-          direction: "horizontal",
-          position: 50,
-          id: "swipe-layers",
-        })
-    
-        view.ui.add(swipe)
+				const swipe = new Swipe({
+					view: view,
+					leadingLayers: [tempMaps[mapByIdLeft.index]],
+					trailingLayers: [tempMaps[mapByIdRight.index]],
+					direction: "horizontal",
+					position: 50,
+					id: "swipe-layers",
+				})
+
+				view.ui.add(swipe)
 			})
-
-		// periods[0]
-		// 	.when(() => {
-		// 		return periods[0].queryExtent()
-		// 	})
-		// 	.then((response) => {
-		// 		view.constraints.geometry = {
-		// 			type: "extent",
-		// 			spatialReference: response.extent.spatialReference,
-		// 			xmin: response.extent.xmin,
-		// 			ymin: response.extent.ymin,
-		// 			xmax: response.extent.xmax,
-		// 			ymax: response.extent.ymax,
-		// 		}
-		// 	})
-
-		// view
-		// 	.when(() => {
-		// 		view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
-		// 	})
-	}, [])
+	}, [globalIDLeft, globalIDRight])
 
 	useEffect(() => {
 		return () => {
@@ -106,171 +120,199 @@ const CompareSwipe = () => {
 			}
 
 			map.removeAll()
-			// map.add(objects)
-
-			// objects
-			// 	.when(() => {
-			// 		return objects.queryExtent()
-			// 	})
-			// 	.then((response) => {
-			// 		view.constraints.geometry = {
-			// 			type: "extent",
-			// 			spatialReference: response.extent.spatialReference,
-			// 			xmin: response.extent.xmin,
-			// 			ymin: response.extent.ymin,
-			// 			xmax: response.extent.xmax,
-			// 			ymax: response.extent.ymax,
-			// 		}
-			// 	})
 		}
 	}, [])
 
 	const handleLeftSelect = (event) => {
+    const mapByIndex = mapsList.find((map) => map.index === String(event.target.value))
+    navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`)
+
 		const swipeWidgetFind = view.ui.find("swipe-layers")
 		if (swipeWidgetFind !== null) {
 			view.ui.remove(swipeWidgetFind)
 			swipeWidgetFind.destroy()
 		}
 
-		map.remove(periods[selectedLeftPeriod])
-		map.add(periods[event.target.value])
+		map.remove(mapsList[selectedLeftMap])
+		map.add(mapsList[event.target.value])
 
 		const swipe = new Swipe({
 			view: view,
-			leadingLayers: [periods[event.target.value]],
-			trailingLayers: [periods[selectedRightPeriod]],
+			leadingLayers: [mapsList[event.target.value]],
+			trailingLayers: [mapsList[selectedRightMap]],
 			direction: "horizontal",
 			position: 50,
 			id: "swipe-layers",
 		})
 		view.ui.add(swipe)
 
-		setSelectedLeftPeriod(event.target.value)
+		setSelectedLeftMap(event.target.value)
 	}
 
 	const handleRightSelect = (event) => {
+    const mapByIndex = mapsList.find((map) => map.index === String(event.target.value))
+    navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`)
+
 		const swipeWidgetFind = view.ui.find("swipe-layers")
 		if (swipeWidgetFind !== null) {
 			view.ui.remove(swipeWidgetFind)
 			swipeWidgetFind.destroy()
 		}
 
-		map.remove(periods[selectedRightPeriod])
-		map.add(periods[event.target.value])
+		map.remove(mapsList[selectedRightMap])
+		map.add(mapsList[event.target.value])
 
 		const swipe = new Swipe({
 			view: view,
-			leadingLayers: [periods[selectedLeftPeriod]],
-			trailingLayers: [periods[event.target.value]],
+			leadingLayers: [mapsList[selectedLeftMap]],
+			trailingLayers: [mapsList[event.target.value]],
 			direction: "horizontal",
 			position: 50,
 			id: "swipe-layers",
 		})
 		view.ui.add(swipe)
 
-		setSelectedRightPeriod(event.target.value)
+		setSelectedRightMap(event.target.value)
 	}
 
-	// const handleSwipeSelect = (event) => {
-	// 	if (!props.compareWindow) {
-	// 		const swipeWidgetFind = view.ui.find("swipe-layers")
-	// 		if (swipeWidgetFind !== null) {
-	// 			view.ui.remove(swipeWidgetFind)
-	// 			swipeWidgetFind.destroy()
-	// 		}
-	// 		map.remove(swipeObjects[selectedSwipeObject])
+	const handleGroupChangeLeft = (event) => {
+		setSelectedGroupLeft(groupList[event.target.value])
+		setSelectedGroupValueLeft(event.target.value)
+	}
+	const handleGroupChangeRight = (event) => {
+		setSelectedGroupRight(groupList[event.target.value])
+		setSelectedGroupValueRight(event.target.value)
+	}
 
-	// 		map.add(swipeObjects[event.target.value])
-	// 		const swipe = new Swipe({
-	// 			view: view,
-	// 			leadingLayers: [objects],
-	// 			trailingLayers: [swipeObjects[event.target.value]],
-	// 			direction: "horizontal",
-	// 			position: 50,
-	// 			id: "swipe-layers",
-	// 		})
-	// 		view.ui.add(swipe)
-	// 		// setHistoryToggle(true)
-	// 	} else {
-	// 		map2.remove(swipeObjects[selectedSwipeObject])
-	// 		map2.add(swipeObjects[event.target.value])
-	// 	}
-
-	// 	setSelectedSwipeObject(event.target.value)
+	// const handleMapChange = (event) => {
+	//   const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+	//   if (mapByIndex) {
+	//     console.log(mapByIndex)
+	//     navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
+	//   }
 	// }
 
 	return (
-		<Grid
-			sx={{
-				backgroundColor: "yellow",
-				width: "100%",
-				height: "0%",
-				position: "relative",
-			}}
-			container
-			direction="row"
-			justifyContent="center"
-			alignItems="flex-start"
-		>
-			<FormControl
+		<>
+			<Grid
 				sx={{
-					bottom: 16,
-					mt: -7.5,
-					mr: 2,
-					width: 150,
-					backgroundColor: "white",
+					backgroundColor: "yellow",
+					width: "100%",
+					height: "0%",
+					bottom: window.innerHeight - 90,
+					position: "relative",
+					zIndex: 2,
 				}}
-				variant="filled"
-				size="small"
-				id="swipe-select"
+				container
+				direction="row"
+				justifyContent="center"
+				alignItems="flex-start"
 			>
-				<InputLabel>Kairys sluoksnis</InputLabel>
-				<Select
-					value={selectedLeftPeriod}
-					label="Sluoksnis"
-					// defaultValue="0"
-					onChange={handleLeftSelect}
+				<FormControl
+					sx={{
+						mr: 2,
+						mt: 1.5,
+						width: 250,
+						backgroundColor: "white",
+					}}
+					variant="filled"
+					size="small"
+					id="swipe-select"
 				>
-					{periods.map(
-						(object, index) =>
-							index !== selectedRightPeriod && (
-								<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
-									{object.title}
-								</MenuItem>
-							)
-					)}
-				</Select>
-			</FormControl>
-			<FormControl
+					<InputLabel>Kairio sluoksnio grupė</InputLabel>
+					<Select label="Grupe" value={selectedGroupValueLeft} onChange={handleGroupChangeLeft}>
+						{groupList.map((group, index) => (
+							<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+								{group}
+							</MenuItem>
+						))}
+					</Select>
+				</FormControl>
+				<FormControl
+					sx={{
+						ml: 2,
+						mt: 1.5,
+						width: 250,
+						backgroundColor: "white",
+					}}
+					variant="filled"
+					size="small"
+					id="swipe-select"
+				>
+					<InputLabel>Dešinio sluoksnio grupė</InputLabel>
+					<Select label="Grupe" value={selectedGroupValueRight} onChange={handleGroupChangeRight}>
+						{groupList.map((group, index) => (
+							<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+								{group}
+							</MenuItem>
+						))}
+					</Select>
+				</FormControl>
+			</Grid>
+			<Grid
 				sx={{
-					bottom: 16,
-					mt: -7.5,
-					ml: 2,
-					width: 150,
-					backgroundColor: "white",
+					backgroundColor: "yellow",
+					width: "100%",
+					height: "0%",
+					position: "relative",
 				}}
-				variant="filled"
-				size="small"
-				id="swipe-select"
+				container
+				direction="row"
+				justifyContent="center"
+				alignItems="flex-start"
 			>
-				<InputLabel>Dešinys sluoksnis</InputLabel>
-				<Select
-					value={selectedRightPeriod}
-					label="Sluoksnis"
-					// defaultValue="0"
-					onChange={handleRightSelect}
+				<FormControl
+					sx={{
+						bottom: 16,
+						mt: -7.5,
+						mr: 2,
+						width: 250,
+						backgroundColor: "white",
+					}}
+					variant="filled"
+					size="small"
+					id="swipe-select"
 				>
-					{periods.map(
-						(object, index) =>
-							index !== selectedLeftPeriod && (
-								<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
-									{object.title}
-								</MenuItem>
-							)
-					)}
-				</Select>
-			</FormControl>
-		</Grid>
+					<InputLabel>Kairys sluoksnis</InputLabel>
+					<Select value={selectedLeftMap} label="Sluoksnis" onChange={handleLeftSelect}>
+						{mapsList.map(
+							(object, index) =>
+								index !== selectedRightMap &&
+								object.group === selectedGroupLeft && (
+									<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+										{object.title}
+									</MenuItem>
+								)
+						)}
+					</Select>
+				</FormControl>
+				<FormControl
+					sx={{
+						bottom: 16,
+						mt: -7.5,
+						ml: 2,
+						width: 250,
+						backgroundColor: "white",
+					}}
+					variant="filled"
+					size="small"
+					id="swipe-select"
+				>
+					<InputLabel>Dešinys sluoksnis</InputLabel>
+					<Select value={selectedRightMap} label="Sluoksnis" onChange={handleRightSelect}>
+						{mapsList.map(
+							(object, index) =>
+								index !== selectedLeftMap &&
+								object.group === selectedGroupRight && (
+									<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+										{object.title}
+									</MenuItem>
+								)
+						)}
+					</Select>
+				</FormControl>
+			</Grid>
+		</>
 	)
 }
 
