@@ -75,7 +75,6 @@ const CompareSwipe = () => {
 						`${defaultMapLeft.attributes.GlobalID_zemelapio}/${defaultMapRight.attributes.GlobalID_zemelapio}`
 					)
 				}
-				console.log(globalIDLeft, globalIDRight)
 
 				setGroupList([...mapGroupSet])
 				setMapsList(tempMaps)
@@ -183,14 +182,6 @@ const CompareSwipe = () => {
 		setSelectedGroupRight(groupList[event.target.value])
 		setSelectedGroupValueRight(event.target.value)
 	}
-
-	// const handleMapChange = (event) => {
-	//   const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
-	//   if (mapByIndex) {
-	//     console.log(mapByIndex)
-	//     navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
-	//   }
-	// }
 
 	return (
 		<>

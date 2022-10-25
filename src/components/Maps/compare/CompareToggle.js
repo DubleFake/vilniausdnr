@@ -112,6 +112,15 @@ const CompareLayers = (props) => {
 						</>
 					}
 				/>
+				<Route
+					path="compare/window/:globalIDLeft/:globalIDRight"
+					element={
+						<>
+							<CompareWindow setToggleCompareWindow={props.setToggleCompareWindow} />
+							<CompareType />
+						</>
+					}
+				/>
 			</Routes>
 		</>
 	)
