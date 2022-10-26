@@ -66,7 +66,6 @@ const PersonGeneral = (props) => {
           objectIds: response.features[0].attributes.OBJECTID,
         })
         .then((response_related) => {
-            console.log(response_related)
 						if (Object.keys(response_related).length !== 0) {
 							setRelatedStreets(response_related[response.features[0].attributes.OBJECTID].features)
 						} else {
