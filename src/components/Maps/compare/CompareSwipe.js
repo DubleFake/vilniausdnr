@@ -21,7 +21,7 @@ const CompareSwipe = () => {
 
 	const [selectedLeftMap, setSelectedLeftMap] = useState(8)
 	const [selectedRightMap, setSelectedRightMap] = useState(7)
-	const [mapsList, setMapsList] = useState([])
+	const [mapList, setmapList] = useState([])
 	const [groupList, setGroupList] = useState([])
 	const [selectedGroupLeft, setSelectedGroupLeft] = useState("")
 	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState("")
@@ -29,7 +29,6 @@ const CompareSwipe = () => {
 	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState("")
 
 	useEffect(() => {
-		map.removeAll()
 		const tempMaps = []
 
 		maps
@@ -77,7 +76,7 @@ const CompareSwipe = () => {
 				}
 
 				setGroupList([...mapGroupSet])
-				setMapsList(tempMaps)
+				setmapList(tempMaps)
 
 				const mapByIdLeft = tempMaps.find((map) => map.globalid_map === globalIDLeft)
 				const mapByIdRight = tempMaps.find((map) => map.globalid_map === globalIDRight)
@@ -95,6 +94,7 @@ const CompareSwipe = () => {
 					swipeWidgetFind.destroy()
 				}
 
+		    map.removeAll()
 				map.addMany([tempMaps[mapByIdLeft.index], tempMaps[mapByIdRight.index]])
 
 				const swipe = new Swipe({
@@ -123,7 +123,7 @@ const CompareSwipe = () => {
 	}, [])
 
 	const handleLeftSelect = (event) => {
-    const mapByIndex = mapsList.find((map) => map.index === String(event.target.value))
+    const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
     navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`)
 
 		const swipeWidgetFind = view.ui.find("swipe-layers")
@@ -132,13 +132,13 @@ const CompareSwipe = () => {
 			swipeWidgetFind.destroy()
 		}
 
-		map.remove(mapsList[selectedLeftMap])
-		map.add(mapsList[event.target.value])
+		map.remove(mapList[selectedLeftMap])
+		map.add(mapList[event.target.value])
 
 		const swipe = new Swipe({
 			view: view,
-			leadingLayers: [mapsList[event.target.value]],
-			trailingLayers: [mapsList[selectedRightMap]],
+			leadingLayers: [mapList[event.target.value]],
+			trailingLayers: [mapList[selectedRightMap]],
 			direction: "horizontal",
 			position: 50,
 			id: "swipe-layers",
@@ -149,7 +149,7 @@ const CompareSwipe = () => {
 	}
 
 	const handleRightSelect = (event) => {
-    const mapByIndex = mapsList.find((map) => map.index === String(event.target.value))
+    const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
     navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`)
 
 		const swipeWidgetFind = view.ui.find("swipe-layers")
@@ -158,13 +158,13 @@ const CompareSwipe = () => {
 			swipeWidgetFind.destroy()
 		}
 
-		map.remove(mapsList[selectedRightMap])
-		map.add(mapsList[event.target.value])
+		map.remove(mapList[selectedRightMap])
+		map.add(mapList[event.target.value])
 
 		const swipe = new Swipe({
 			view: view,
-			leadingLayers: [mapsList[selectedLeftMap]],
-			trailingLayers: [mapsList[event.target.value]],
+			leadingLayers: [mapList[selectedLeftMap]],
+			trailingLayers: [mapList[event.target.value]],
 			direction: "horizontal",
 			position: 50,
 			id: "swipe-layers",
@@ -175,10 +175,16 @@ const CompareSwipe = () => {
 	}
 
 	const handleGroupChangeLeft = (event) => {
+    const mapByGroup = mapList.find(map => map.group === groupList[event.target.value] && map.index !== String(selectedRightMap))
+    navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByGroup.globalid_map}/${globalIDRight}`)
+
 		setSelectedGroupLeft(groupList[event.target.value])
 		setSelectedGroupValueLeft(event.target.value)
 	}
 	const handleGroupChangeRight = (event) => {
+    const mapByGroup = mapList.find(map => map.group === groupList[event.target.value] && map.index !== String(selectedLeftMap))
+    navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByGroup.globalid_map}`)
+
 		setSelectedGroupRight(groupList[event.target.value])
 		setSelectedGroupValueRight(event.target.value)
 	}
@@ -266,7 +272,7 @@ const CompareSwipe = () => {
 				>
 					<InputLabel>Kairys sluoksnis</InputLabel>
 					<Select value={selectedLeftMap} label="Sluoksnis" onChange={handleLeftSelect}>
-						{mapsList.map(
+						{mapList.map(
 							(object, index) =>
 								index !== selectedRightMap &&
 								object.group === selectedGroupLeft && (
@@ -291,7 +297,7 @@ const CompareSwipe = () => {
 				>
 					<InputLabel>Dešinys sluoksnis</InputLabel>
 					<Select value={selectedRightMap} label="Sluoksnis" onChange={handleRightSelect}>
-						{mapsList.map(
+						{mapList.map(
 							(object, index) =>
 								index !== selectedLeftMap &&
 								object.group === selectedGroupRight && (

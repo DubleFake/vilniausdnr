@@ -15,8 +15,8 @@ import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
 
 const CompareReview = (props) => {
 	const { globalID } = useParams()
-  const navigate = useNavigate()
-  const { t, i18n } = useTranslation()
+	const navigate = useNavigate()
+	const { t, i18n } = useTranslation()
 
 	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
@@ -34,34 +34,34 @@ const CompareReview = (props) => {
 				const tempMapList = []
 				const mapGroupSet = new Set()
 
-        if(globalID){
-          for (let feature in response.features) {
-            mapGroupSet.add(response.features[feature].attributes.Grupe)
-  
-            if (response.features[feature].attributes.Tipas === "Tile Layer") {
-              const mapLayer = new TileLayer({
-                url: response.features[feature].attributes.Nuoroda,
-                title: response.features[feature].attributes.Pavadinimas,
-                group: response.features[feature].attributes.Grupe,
-                globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-                index: feature,
-              })
-              tempMapList.push(mapLayer)
-            } else if (response.features[feature].attributes.Tipas === "Map Layer") {
-              const mapLayer = new MapImageLayer({
-                url: response.features[feature].attributes.Nuoroda,
-                title: response.features[feature].attributes.Pavadinimas,
-                group: response.features[feature].attributes.Grupe,
-                globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-                index: feature,
-              })
-              tempMapList.push(mapLayer)
-            }
-          }
-        } else {
-          const defaultMap = response.features.find(map => map.attributes.Pavadinimas === "Sentinel RGB")
-          navigate(defaultMap.attributes.GlobalID_zemelapio)
-        }
+				if (globalID) {
+					for (let feature in response.features) {
+						mapGroupSet.add(response.features[feature].attributes.Grupe)
+
+						if (response.features[feature].attributes.Tipas === "Tile Layer") {
+							const mapLayer = new TileLayer({
+								url: response.features[feature].attributes.Nuoroda,
+								title: response.features[feature].attributes.Pavadinimas,
+								group: response.features[feature].attributes.Grupe,
+								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
+								index: feature,
+							})
+							tempMapList.push(mapLayer)
+						} else if (response.features[feature].attributes.Tipas === "Map Layer") {
+							const mapLayer = new MapImageLayer({
+								url: response.features[feature].attributes.Nuoroda,
+								title: response.features[feature].attributes.Pavadinimas,
+								group: response.features[feature].attributes.Grupe,
+								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
+								index: feature,
+							})
+							tempMapList.push(mapLayer)
+						}
+					}
+				} else {
+					const defaultMap = response.features.find((map) => map.attributes.Pavadinimas === "Sentinel RGB")
+					navigate(defaultMap.attributes.GlobalID_zemelapio)
+				}
 
 				setGroupList([...mapGroupSet])
 				setMapList(tempMapList)
@@ -72,22 +72,22 @@ const CompareReview = (props) => {
 					setSelectedGroupValue([...mapGroupSet].indexOf(mapById.group))
 					setSelectedMapValue(mapById.index)
 
-          map.removeAll()
-          map.add(tempMapList[mapById.index])
+					map.removeAll()
+					map.add(tempMapList[mapById.index])
 				}
 			})
 	}, [globalID])
 
 	const handleGroupChange = (event) => {
+    const mapByGroup = mapList.find(map => map.group === groupList[event.target.value])
+    navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByGroup.globalid_map}`)
+
 		setSelectedGroup(groupList[event.target.value])
 		setSelectedGroupValue(event.target.value)
 	}
 	const handleMapChange = (event) => {
-    const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
-    if (mapByIndex) {
-      console.log(mapByIndex)
-      navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
-    }
+		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
 	}
 
 	return (
