@@ -43,16 +43,16 @@ const ObjectMap = (props) => {
 
 		viewHandles.push(
 			view.watch("map.basemap.id", (newBasemap) => {
-        console.log(newBasemap)
+				console.log(newBasemap)
 				switch (newBasemap) {
 					case "light":
 						map2.basemap = basemaps[0]
 						break
 					case "dark":
-            map2.basemap = basemaps[1]
+						map2.basemap = basemaps[1]
 						break
 					case "orto":
-            map2.basemap = basemaps[2]
+						map2.basemap = basemaps[2]
 						break
 				}
 			})
@@ -92,6 +92,10 @@ const ObjectMap = (props) => {
 									}
 								}
 							}
+
+							objectClass.sort((a, b) => a.code - b.code)
+							objectSubclass.sort((a, b) => a.code - b.code)
+              
 							for (let cls in objectClass) {
 								let tempSet = new Set()
 								for (let feature in response.features) {

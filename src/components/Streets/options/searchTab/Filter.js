@@ -213,6 +213,7 @@ const Filter = (props) => {
 						<MenuItem value="">
 							<em>{t("plaques.options.all")}</em>
 						</MenuItem>
+            {console.log(props.initialObjectsClasses)}
 						{props.initialObjectsClasses[0].map((object) => (
 							<MenuItem sx={{ whiteSpace: "unset" }} key={object.code} value={object.code}>
 								{object.alias}
