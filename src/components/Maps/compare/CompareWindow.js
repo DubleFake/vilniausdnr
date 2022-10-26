@@ -86,9 +86,9 @@ const CompareWindow = (props) => {
 				setSelectedGroupRight(mapByIdRight.group)
 				setSelectedGroupValueRight([...mapGroupSet].indexOf(mapByIdRight.group))
 				setSelectedRightMap(mapByIdRight.index)
-        
-        map.removeAll()
-        map2.removeAll()
+
+				map.removeAll()
+				map2.removeAll()
 				map.add(tempMaps[mapByIdLeft.index])
 				map2.add(tempMaps[mapByIdRight.index])
 				props.setToggleCompareWindow(true)
@@ -125,15 +125,19 @@ const CompareWindow = (props) => {
 	}
 
 	const handleGroupChangeLeft = (event) => {
-    const mapByGroup = mapList.find(map => map.group === groupList[event.target.value] && map.index !== String(selectedRightMap))
-    navigate(`/vilniausdnr/${i18n.language}/maps/compare/window/${mapByGroup.globalid_map}/${globalIDRight}`)
+		const mapByGroup = mapList.find(
+			(map) => map.group === groupList[event.target.value] && map.index !== String(selectedRightMap)
+		)
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/window/${mapByGroup.globalid_map}/${globalIDRight}`)
 
 		setSelectedGroupLeft(groupList[event.target.value])
 		setSelectedGroupValueLeft(event.target.value)
 	}
 	const handleGroupChangeRight = (event) => {
-    const mapByGroup = mapList.find(map => map.group === groupList[event.target.value] && map.index !== String(selectedLeftMap))
-    navigate(`/vilniausdnr/${i18n.language}/maps/compare/window/${globalIDLeft}/${mapByGroup.globalid_map}`)
+		const mapByGroup = mapList.find(
+			(map) => map.group === groupList[event.target.value] && map.index !== String(selectedLeftMap)
+		)
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/window/${globalIDLeft}/${mapByGroup.globalid_map}`)
 
 		setSelectedGroupRight(groupList[event.target.value])
 		setSelectedGroupValueRight(event.target.value)
@@ -224,7 +228,7 @@ const CompareWindow = (props) => {
 					<Select value={selectedLeftMap} label="Sluoksnis" onChange={handleLeftSelect}>
 						{mapList.map(
 							(object, index) =>
-								index !== selectedRightMap &&
+								object.globalid_map !== mapList[selectedRightMap].globalid_map &&
 								object.group === selectedGroupLeft && (
 									<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
 										{object.title}
@@ -249,7 +253,7 @@ const CompareWindow = (props) => {
 					<Select value={selectedRightMap} label="Sluoksnis" onChange={handleRightSelect}>
 						{mapList.map(
 							(object, index) =>
-								index !== selectedLeftMap &&
+								object.globalid_map !== mapList[selectedLeftMap].globalid_map &&
 								object.group === selectedGroupRight && (
 									<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
 										{object.title}

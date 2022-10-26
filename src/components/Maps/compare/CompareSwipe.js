@@ -274,7 +274,7 @@ const CompareSwipe = () => {
 					<Select value={selectedLeftMap} label="Sluoksnis" onChange={handleLeftSelect}>
 						{mapList.map(
 							(object, index) =>
-								index !== selectedRightMap &&
+								object.globalid_map !== mapList[selectedRightMap].globalid_map &&
 								object.group === selectedGroupLeft && (
 									<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
 										{object.title}
@@ -299,7 +299,7 @@ const CompareSwipe = () => {
 					<Select value={selectedRightMap} label="Sluoksnis" onChange={handleRightSelect}>
 						{mapList.map(
 							(object, index) =>
-								index !== selectedLeftMap &&
+								object.globalid_map !== mapList[selectedLeftMap].globalid_map &&
 								object.group === selectedGroupRight && (
 									<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
 										{object.title}
