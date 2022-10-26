@@ -141,7 +141,7 @@ const CompareTimeline = (props) => {
 						setCurrentPeriod(5)
 					}}
 				>
-					<Typography variant="button">2021</Typography>
+					<Typography variant="button">2022</Typography>
 				</Button>
 			</ButtonGroup>
 		</Grid>

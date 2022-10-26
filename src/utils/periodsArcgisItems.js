@@ -1,13 +1,12 @@
 import Map from "@arcgis/core/Map"
 import MapView from "@arcgis/core/views/MapView"
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer"
-import TileLayer from "@arcgis/core/layers/TileLayer"
 import Basemap from "@arcgis/core/Basemap"
 import BasemapGallery from "@arcgis/core/widgets/BasemapGallery"
 import Expand from "@arcgis/core/widgets/Expand"
 import Locate from "@arcgis/core/widgets/Locate"
 import Swipe from "@arcgis/core/widgets/Swipe"
-import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
+import TileLayer from "@arcgis/core/layers/TileLayer"
 
 const url = window.location.href
 const origin = new URL(url).origin
@@ -97,59 +96,29 @@ export const objects = new FeatureLayer({
 	renderer: objectRenderer,
 })
 
-const period_1808 = new MapImageLayer({
-	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer",
+const period_1808 = new TileLayer({
+	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1808_m_Vector/MapServer",
 	title: "Periodas 1808",
-	sublayers: [
-		{
-			id: 49,
-		},
-	],
 })
-const period_1845 = new MapImageLayer({
-	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer",
+const period_1845 = new TileLayer({
+	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1845_m_Vector/MapServer",
 	title: "Periodas 1845",
-  sublayers: [
-		{
-			id: 69,
-		},
-	],
 })
-const period_1911 = new MapImageLayer({
-	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer",
+const period_1911 = new TileLayer({
+	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1911_m_Vector/MapServer",
 	title: "Periodas 1911",
-  sublayers: [
-		{
-			id: 75,
-		},
-	],
 })
-const period_1938 = new MapImageLayer({
-	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer",
+const period_1938 = new TileLayer({
+	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1938_m_Vector/MapServer",
 	title: "Periodas 1938",
-  sublayers: [
-		{
-			id: 80,
-		},
-	],
 })
-const period_1977 = new MapImageLayer({
-	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer",
+const period_1977 = new TileLayer({
+	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1977_m_Vector/MapServer",
 	title: "Periodas 1977",
-  sublayers: [
-		{
-			id: 84,
-		},
-	],
 })
-const period_2021 = new MapImageLayer({
-	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR2/MapServer",
-	title: "Periodas 2021",
-  sublayers: [
-		{
-			id: 87,
-		},
-	],
+const period_2021 = new TileLayer({
+	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/2022_m_Vector/MapServer",
+	title: "Periodas 2022",
 })
 export const periods = [period_1808, period_1845, period_1911, period_1938, period_1977, period_2021]
 
