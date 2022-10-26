@@ -15,7 +15,7 @@ import FeatureTable from "@arcgis/core/widgets/FeatureTable";
 // })
 
 export const maps = new FeatureLayer({
-  url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/Zemelapiai/FeatureServer/1145",
+  url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/91",
 })
 
 const basemap1 = new Basemap({

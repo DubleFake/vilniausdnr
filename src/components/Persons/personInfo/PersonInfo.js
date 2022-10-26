@@ -32,7 +32,7 @@ const PersonInfo = () => {
 				persons
 					.queryRelatedFeatures({
 						outFields: ["OBJ_PAV", "GlobalID"],
-						relationshipId: 0,
+						relationshipId: 1,
 						returnGeometry: false,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
