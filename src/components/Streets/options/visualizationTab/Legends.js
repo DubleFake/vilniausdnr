@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { objectRenderer } from "../../../../utils/streetsArcgisItems"
+import { objects, objectRenderer } from "../../../../utils/streetsArcgisItems"
 
 import Box from "@mui/material/Box"
 import List from "@mui/material/List"
@@ -12,7 +12,9 @@ import ColorLensIcon from "@mui/icons-material/ColorLens"
 
 const Legends = (props) => {
 	const { t, i18n } = useTranslation()
-	const uniqueValues = objectRenderer.uniqueValueInfos
+	const uniqueValues = objects.renderer.uniqueValueInfos
+	console.log(uniqueValues)
+	console.log(objectRenderer.uniqueValueInfos)
 
 	return (
 		<Box sx={{ width: 350, bgcolor: "background.paper" }}>
@@ -23,7 +25,14 @@ const Legends = (props) => {
 				{uniqueValues.map((legend, i) => (
 					<div key={i}>
 						<ListItem sx={{ my: 0.3 }} disablePadding>
-							<ColorLensIcon sx={{ ml: 2, mr: 2, fontSize: 35, color: legend.symbol.color }} />
+							<ColorLensIcon
+								sx={{
+									ml: 2,
+									mr: 2,
+									fontSize: 35,
+									color: `rgba(${legend.symbol.color.r},${legend.symbol.color.g},${legend.symbol.color.b},${legend.symbol.color.a})`,
+								}}
+							/>
 							<Typography sx={{ mr: 1 }} variant="body2">
 								{props.initialObjectsClasses[0][legend.value - 1].alias}
 							</Typography>
