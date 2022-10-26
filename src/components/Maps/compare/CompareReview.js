@@ -59,7 +59,7 @@ const CompareReview = (props) => {
 						}
 					}
 				} else {
-					const defaultMap = response.features.find((map) => map.attributes.Pavadinimas === "Sentinel RGB")
+					const defaultMap = response.features.find((map) => map.attributes.GlobalID_zemelapio === "b6789418-0525-4040-b9fd-179dff177f94")
 					navigate(defaultMap.attributes.GlobalID_zemelapio)
 				}
 

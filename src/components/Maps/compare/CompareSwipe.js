@@ -65,10 +65,10 @@ const CompareSwipe = () => {
 					}
 				} else {
 					const defaultMapLeft = response.features.find(
-						(map) => map.attributes.Pavadinimas === "Sentinel RGB"
+						(map) => map.attributes.GlobalID_zemelapio === "b6789418-0525-4040-b9fd-179dff177f94"
 					)
 					const defaultMapRight = response.features.find(
-						(map) => map.attributes.Pavadinimas === "Sentinel NIR"
+						(map) => map.attributes.GlobalID_zemelapio === "03c49472-7337-4a00-b54e-b94e87a5e241"
 					)
 					navigate(
 						`${defaultMapLeft.attributes.GlobalID_zemelapio}/${defaultMapRight.attributes.GlobalID_zemelapio}`
