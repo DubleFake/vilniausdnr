@@ -13,12 +13,9 @@ const PersonInfo = () => {
 	const { globalID } = useParams()
 
 	const [biographyFeatures, setBiographyFeatures] = useState([])
-	const [relatedObjects, setRelatedObjects] = useState([])
-	const [relatedObjectsShow, setRelatedObjectsShow] = useState(true)
 
 	useEffect(() => {
 		setBiographyFeatures([])
-		setRelatedObjectsShow(true)
 
 		persons
 			.queryFeatures({
@@ -27,22 +24,6 @@ const PersonInfo = () => {
 			})
 			.then((response) => {
 				setBiographyFeatures(response.features)
-
-				setRelatedObjects([])
-				persons
-					.queryRelatedFeatures({
-						outFields: ["OBJ_PAV", "GlobalID"],
-						relationshipId: 1,
-						returnGeometry: false,
-						objectIds: response.features[0].attributes.OBJECTID,
-					})
-					.then((response_related) => {
-						if (Object.keys(response_related).length !== 0) {
-							setRelatedObjects(response_related[response.features[0].attributes.OBJECTID].features)
-						} else {
-							setRelatedObjectsShow(false)
-						}
-					})
 			})
 	}, [globalID])
 
@@ -60,8 +41,6 @@ const PersonInfo = () => {
 			<Grid item xs={4}>
 				<PersonGeneral
 					biographyFeatures={biographyFeatures}
-					relatedObjects={relatedObjects}
-					relatedObjectsShow={relatedObjectsShow}
 				/>
 			</Grid>
 
