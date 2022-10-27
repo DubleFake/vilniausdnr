@@ -59,7 +59,7 @@ const CompareReview = (props) => {
 						}
 					}
 				} else {
-					const defaultMap = response.features.find((map) => map.attributes.GlobalID_zemelapio === "b6789418-0525-4040-b9fd-179dff177f94")
+					const defaultMap = response.features.find((map) => map.attributes.GlobalID_zemelapio === "42e1492a-d5ac-4d09-ac03-90a6efb54d6e")
 					navigate(defaultMap.attributes.GlobalID_zemelapio)
 				}
 

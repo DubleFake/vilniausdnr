@@ -60,7 +60,7 @@ const PersonGeneral = (props) => {
 				setRelatedStreets([])
 				persons
 					.queryRelatedFeatures({
-						outFields: ["PAV", "OBJECTID"],
+						outFields: ["PAV", "GAT_ID"],
 						relationshipId: 8,
 						returnGeometry: false,
 						objectIds: response.features[0].attributes.OBJECTID,
@@ -143,7 +143,7 @@ const PersonGeneral = (props) => {
 						<Grid container direction="row" justifyContent="flex-start" alignItems="center">
 							<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
 							<Typography sx={{ m: 0 }} color="white" variant="h6" gutterBottom>
-								Įamžinimas Vilniuje
+								Skulptūros ir atminimo lentos
 							</Typography>
 						</Grid>
 						{relatedObjects.length > 0 ? (
@@ -179,28 +179,6 @@ const PersonGeneral = (props) => {
 					</>
 				)}
 
-				{props.biographyFeatures[0].attributes.Apdovanojimai && (
-					<>
-						<Grid container direction="row" justifyContent="flex-start" alignItems="center">
-							<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
-							<Typography sx={{ m: 0 }} color="white" variant="h6" gutterBottom>
-								Apdovanojimai
-							</Typography>
-						</Grid>
-						<Grid
-							sx={{ pl: 4.5, pr: 1 }}
-							container
-							direction="column"
-							justifyContent="flex-start"
-							alignItems="stretch"
-						>
-							<Typography color="white" variant="body2" gutterBottom>
-								{props.biographyFeatures[0].attributes.Apdovanojimai}
-							</Typography>
-						</Grid>
-					</>
-				)}
-
 				{relatedStreetsShow && (
 					<>
 						<Grid container direction="row" justifyContent="flex-start" alignItems="center">
@@ -223,7 +201,7 @@ const PersonGeneral = (props) => {
 										target="_blank"
 										href={
 											"https://zemelapiai.vplanas.lt" +
-											`/vilniausdnr/${i18n.language}/streets/object/${obj.attributes.OBJECTID}`
+											`/vilniausdnr/${i18n.language}/streets/object/${obj.attributes.GAT_ID}`
 										}
 										rel="noopener"
 										textAlign="left"
@@ -231,15 +209,61 @@ const PersonGeneral = (props) => {
 									>
 										{obj.attributes.PAV}
 									</Link>
-
-									{/* <Typography sx={{}} color="white" variant="body2">
-										{obj.attributes.PAV}
-									</Typography> */}
 								</Grid>
 							))
 						) : (
 							<CircularProgress color="inherit" />
 						)}
+					</>
+				)}
+
+				{props.biographyFeatures[0].attributes.Palaidojimo_aprasymas && (
+					<>
+						<Grid container direction="row" justifyContent="flex-start" alignItems="center">
+							<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
+							<Typography sx={{ m: 0 }} color="white" variant="h6" gutterBottom>
+								Palaidojimas
+							</Typography>
+						</Grid>
+						<Grid
+							sx={{ pl: 4.5, pr: 1 }}
+							container
+							direction="column"
+							justifyContent="flex-start"
+							alignItems="stretch"
+						>
+							<Link
+								target="_blank"
+								href={props.biographyFeatures[0].attributes.Palaidojimas}
+								rel="noopener"
+								textAlign="left"
+								variant="body2"
+							>
+								{props.biographyFeatures[0].attributes.Palaidojimo_aprasymas}
+							</Link>
+						</Grid>
+					</>
+				)}
+
+				{props.biographyFeatures[0].attributes.Apdovanojimai && (
+					<>
+						<Grid container direction="row" justifyContent="flex-start" alignItems="center">
+							<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
+							<Typography sx={{ m: 0 }} color="white" variant="h6" gutterBottom>
+								Apdovanojimai
+							</Typography>
+						</Grid>
+						<Grid
+							sx={{ pl: 4.5, pr: 1 }}
+							container
+							direction="column"
+							justifyContent="flex-start"
+							alignItems="stretch"
+						>
+							<Typography color="white" variant="body2" gutterBottom>
+								{props.biographyFeatures[0].attributes.Apdovanojimai}
+							</Typography>
+						</Grid>
 					</>
 				)}
 			</Grid>

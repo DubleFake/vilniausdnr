@@ -62,7 +62,7 @@ const ObjectMap = (props) => {
 			watchUtils.whenFalseOnce(objectsView, "updating").then(() => {
 				objectsView
 					.queryFeatures({
-						outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
+						outFields: ["OBJECTID", "GAT_ID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
 						where: "",
 						returnGeometry: false,
 					})
@@ -139,13 +139,13 @@ const ObjectMap = (props) => {
 								where: objectsView.filter.where,
 								distance: view.resolution <= 7 ? view.resolution * 15 : 100,
 								spatialRelationship: "intersects",
-								outFields: ["OBJECTID"],
+								outFields: ["GAT_ID"],
 							})
 						})
 						.then((response) => {
 							if (response.features.length > 0) {
 								props.setMapQuery(response.features)
-								navigate(`object/${response.features[0].attributes.OBJECTID}`)
+								navigate(`object/${response.features[0].attributes.GAT_ID}`)
 							}
 						})
 				})

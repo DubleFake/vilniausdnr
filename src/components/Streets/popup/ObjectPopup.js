@@ -37,6 +37,7 @@ const ObjectPopup = (props) => {
 	const [objectAttr, setObjectAttr] = useState([])
 	const [objectPer, setObjectPer] = useState([])
 	const [objectAtt, setObjectAtt] = useState([])
+	const [relatedStreets, setRelatedStreets] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [queryObjects, setQueryObjects] = useState([])
 	const [popupOpen, setPopupOpen] = useState(false)
@@ -45,7 +46,7 @@ const ObjectPopup = (props) => {
 	const [shareTooltip, setShareTooltip] = useState(false)
 
 	const handlePage = (event, value) => {
-		navigate(`/vilniausdnr/${i18n.language}/streets/object/${queryObjects[value - 1].attributes.OBJECTID}`)
+		navigate(`/vilniausdnr/${i18n.language}/streets/object/${queryObjects[value - 1].attributes.GAT_ID}`)
 	}
 
 	const BootstrapTooltip = styled(({ className, ...props }) => (
@@ -72,7 +73,7 @@ const ObjectPopup = (props) => {
 
 			let found = false
 			for (let obj in props.mapQuery) {
-				if (props.mapQuery[obj].attributes.OBJECTID === globalID) {
+				if (props.mapQuery[obj].attributes.GAT_ID === globalID) {
 					setPage(parseInt(obj) + 1)
 					found = true
 				}
@@ -88,7 +89,7 @@ const ObjectPopup = (props) => {
 
 			view.whenLayerView(objects).then((objectsView) => {
 				let query = objectsView.createQuery()
-				query.where = `OBJECTID = ${globalID}`
+				query.where = `GAT_ID = ${globalID}`
 
 				objects
 					.queryFeatures(query)
@@ -159,29 +160,70 @@ const ObjectPopup = (props) => {
 		}
 	}, [globalID, props.initialLoading])
 
+	// useEffect(() => {
+	// 	const allPersons = []
+	// 	objects
+	// 		.queryRelatedFeatures({
+	// 			outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
+	// 			relationshipId: 8,
+	// 			objectIds: globalID,
+	// 		})
+	// 		.then((response) => {
+	// 			if (Object.keys(response).length === 0) {
+	// 				setObjectPer([])
+	// 				return
+	// 			}
+	// 			Object.keys(response).forEach((objectId) => {
+	// 				const person = response[objectId].features
+	// 				person.forEach((person) => {
+	// 					allPersons.push(person)
+	// 				})
+	// 			})
+	// 			setObjectPer(allPersons)
+	// 		})
+	// 		.catch((error) => {
+	// 			console.error(error)
+	// 		})
+	// }, [globalID])
+
 	useEffect(() => {
-		const allPersons = []
 		objects
-			.queryRelatedFeatures({
-				outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
-				relationshipId: 8,
-				objectIds: globalID,
+			.queryFeatures({
+				where: `GAT_ID = ${globalID}`,
+				outFields: ["OBJECTID", "GAT_ID"],
 			})
 			.then((response) => {
-				if (Object.keys(response).length === 0) {
-					setObjectPer([])
-					return
+				let tempFeatures = []
+				for (let i = 2; i <= 7; i++) {
+					objects
+						.queryRelatedFeatures({
+							outFields: ["GlobalID", "Pavadinimas", "Metai"],
+							relationshipId: i,
+							objectIds: response.features[0].attributes.OBJECTID,
+						})
+						.then((response_related) => {
+							if (response_related[response.features[0].attributes.OBJECTID]) {
+								const tempObj = {}
+								for (let feature in response_related[response.features[0].attributes.OBJECTID].features) {
+									tempObj.GlobalID =
+										response_related[response.features[0].attributes.OBJECTID].features[
+											feature
+										].attributes.GlobalID
+									tempObj.Metai = parseInt(
+										response_related[response.features[0].attributes.OBJECTID].features[feature].attributes
+											.Metai
+									)
+									tempObj.Pavadinimas =
+										response_related[response.features[0].attributes.OBJECTID].features[
+											feature
+										].attributes.Pavadinimas
+									tempFeatures.push(tempObj)
+								}
+							}
+						})
 				}
-				Object.keys(response).forEach((objectId) => {
-					const person = response[objectId].features
-					person.forEach((person) => {
-						allPersons.push(person)
-					})
-				})
-				setObjectPer(allPersons)
-			})
-			.catch((error) => {
-				console.error(error)
+				tempFeatures.sort((a, b) => a.Metai - b.Metai)
+        setRelatedStreets(tempFeatures)
 			})
 	}, [globalID])
 
@@ -328,15 +370,16 @@ const ObjectPopup = (props) => {
 													<div key={per}>
 														<Link
 															sx={{ mt: 0.5 }}
-
-                              target="_blank"
-                              href={
-                                "https://zemelapiai.vplanas.lt" +
-                                `/vilniausdnr/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
-                              }
-                              rel="noopener"
-                              textAlign="left"
-                              variant="body2"
+															target="_blank"
+															href={
+																"https://zemelapiai.vplanas.lt" +
+																`/vilniausdnr/${i18n.language}/persons/${objectPer[
+																	per
+																].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
+															}
+															rel="noopener"
+															textAlign="left"
+															variant="body2"
 
 															// textAlign="left"
 															// component="button"
@@ -353,6 +396,33 @@ const ObjectPopup = (props) => {
 											</Typography>
 										</Typography>
 									) : null}
+
+									{relatedStreets.length ? (
+										<Typography variant="h6" component="div">
+											Susijusios gatvės
+											<Typography component="div">
+												{Object.keys(relatedStreets).map((street) => (
+													<div key={street}>
+														<Link
+															sx={{ mt: 0.5 }}
+															target="_blank"
+															// href={
+															// 	"https://zemelapiai.vplanas.lt" +
+															// 	`/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[
+															// 		street
+															// 	].Asmenybes_ID.replace(/[{}]/g, "")}`
+															// }
+															rel="noopener"
+															textAlign="left"
+															variant="body2"
+														>{`${relatedStreets[street].Pavadinimas}`}</Link>
+														<br></br>
+													</div>
+												))}
+											</Typography>
+										</Typography>
+									) : null}
+
 									{objectAtt.length
 										? Object.keys(objectAtt).map((att) => (
 												<Box sx={{ mt: 1 }} key={att}>

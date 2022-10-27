@@ -45,7 +45,7 @@ const ObjectPopup = (props) => {
 	const [shareTooltip, setShareTooltip] = useState(false)
 
 	const handlePage = (event, value) => {
-		navigate(`/vilniausdnr/${i18n.language}/streets/object/${queryObjects[value - 1].attributes.OBJECTID}`)
+		navigate(`/vilniausdnr/${i18n.language}/streets/object/${queryObjects[value - 1].attributes.GAT_ID}`)
 	}
 
 	const BootstrapTooltip = styled(({ className, ...props }) => (

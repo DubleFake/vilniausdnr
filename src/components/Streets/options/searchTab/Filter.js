@@ -58,7 +58,7 @@ const Filter = (props) => {
 			if (!extentCheck) {
 				objectsView
 					.queryFeatures({
-						outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
+						outFields: ["OBJECTID", "GAT_ID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
 						where: objectsView.filter.where,
 						geometry: view.extent,
 						returnGeometry: false,
@@ -99,7 +99,7 @@ const Filter = (props) => {
 				if (!extentCheck) {
 					objects //problema del extent su objectsView
 						.queryFeatures({
-							outFields: ["OBJECTID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
+							outFields: ["OBJECTID", "GAT_ID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
 							//outFields: objectsView.availableFields,
 							where: objectsView.filter.where,
               geometry: null,

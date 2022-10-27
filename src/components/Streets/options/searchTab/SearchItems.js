@@ -24,10 +24,10 @@ const TableItems = (props) => {
 						<ListItemButton
 							style={{ paddingLeft: 5, paddingRight: 5 }}
 							onClick={() => {
-								setSelectedObject(`${tableObjectsList[index].attributes.OBJECTID}`)
-								navigate(`object/${tableObjectsList[index].attributes.OBJECTID}`)
+								setSelectedObject(`${tableObjectsList[index].attributes.GAT_ID}`)
+								navigate(`object/${tableObjectsList[index].attributes.GAT_ID}`)
 							}}
-							selected={tableObjectsList[index].attributes.OBJECTID === selectedObject}
+							selected={tableObjectsList[index].attributes.GAT_ID === selectedObject}
 						>
 							<ListItemText primary={tableObjectsList[index].attributes.PAV} />
 						</ListItemButton>
