@@ -57,15 +57,15 @@ const PersonGeneral = (props) => {
 				where: `Asmenybes_ID = '{${globalID}}'`,
 			})
 			.then((response) => {
-        setRelatedStreets([])
+				setRelatedStreets([])
 				persons
-        .queryRelatedFeatures({
-          outFields: ["PAV", "OBJECTID"],
-          relationshipId: 8,
-          returnGeometry: false,
-          objectIds: response.features[0].attributes.OBJECTID,
-        })
-        .then((response_related) => {
+					.queryRelatedFeatures({
+						outFields: ["PAV", "OBJECTID"],
+						relationshipId: 8,
+						returnGeometry: false,
+						objectIds: response.features[0].attributes.OBJECTID,
+					})
+					.then((response_related) => {
 						if (Object.keys(response_related).length !== 0) {
 							setRelatedStreets(response_related[response.features[0].attributes.OBJECTID].features)
 						} else {
@@ -219,25 +219,22 @@ const PersonGeneral = (props) => {
 									alignItems="stretch"
 									key={i}
 								>
-									{/* <Link
+									<Link
 										target="_blank"
 										href={
 											"https://zemelapiai.vplanas.lt" +
-											`/vilniausdnr/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
-												/[{}]/g,
-												""
-											)}`
+											`/vilniausdnr/${i18n.language}/streets/object/${obj.attributes.OBJECTID}`
 										}
 										rel="noopener"
 										textAlign="left"
 										variant="body2"
 									>
 										{obj.attributes.PAV}
-									</Link> */}
+									</Link>
 
-									<Typography sx={{}} color="white" variant="body2">
+									{/* <Typography sx={{}} color="white" variant="body2">
 										{obj.attributes.PAV}
-									</Typography>
+									</Typography> */}
 								</Grid>
 							))
 						) : (
