@@ -67,7 +67,7 @@ const CompareWindow = (props) => {
 						(map) => map.attributes.GlobalID_zemelapio === "42e1492a-d5ac-4d09-ac03-90a6efb54d6e"
 					)
 					const defaultMapRight = response.features.find(
-						(map) => map.attributes.GlobalID_zemelapio === "e4e9b53a-2c4d-4207-87b3-ca59f8c42aed"
+						(map) => map.attributes.GlobalID_zemelapio === "c0b7610e-3e12-4e03-a915-9673d1906502"
 					)
 					navigate(
 						`${defaultMapLeft.attributes.GlobalID_zemelapio}/${defaultMapRight.attributes.GlobalID_zemelapio}`
