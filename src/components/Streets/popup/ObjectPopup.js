@@ -38,6 +38,7 @@ const ObjectPopup = (props) => {
 	const [objectPer, setObjectPer] = useState([])
 	const [objectAtt, setObjectAtt] = useState([])
 	const [relatedStreets, setRelatedStreets] = useState([])
+	const [relatedStreetsShow, setRelatedStreetsShow] = useState(false)
 	const [loading, setLoading] = useState(true)
 	const [queryObjects, setQueryObjects] = useState([])
 	const [popupOpen, setPopupOpen] = useState(false)
@@ -160,31 +161,39 @@ const ObjectPopup = (props) => {
 		}
 	}, [globalID, props.initialLoading])
 
-	// useEffect(() => {
-	// 	const allPersons = []
-	// 	objects
-	// 		.queryRelatedFeatures({
-	// 			outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
-	// 			relationshipId: 8,
-	// 			objectIds: globalID,
-	// 		})
-	// 		.then((response) => {
-	// 			if (Object.keys(response).length === 0) {
-	// 				setObjectPer([])
-	// 				return
-	// 			}
-	// 			Object.keys(response).forEach((objectId) => {
-	// 				const person = response[objectId].features
-	// 				person.forEach((person) => {
-	// 					allPersons.push(person)
-	// 				})
-	// 			})
-	// 			setObjectPer(allPersons)
-	// 		})
-	// 		.catch((error) => {
-	// 			console.error(error)
-	// 		})
-	// }, [globalID])
+	useEffect(() => {
+		const allPersons = []
+
+		objects
+			.queryFeatures({
+				where: `GAT_ID = ${globalID}`,
+				outFields: ["OBJECTID", "GAT_ID"],
+			})
+			.then((response) => {
+				objects
+					.queryRelatedFeatures({
+						outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
+						relationshipId: 8,
+						objectIds: response.features[0].attributes.OBJECTID,
+					})
+					.then((response_related) => {
+						if (Object.keys(response_related).length === 0) {
+							setObjectPer([])
+							return
+						}
+						Object.keys(response_related).forEach((objectId) => {
+							const person = response_related[objectId].features
+							person.forEach((person) => {
+								allPersons.push(person)
+							})
+						})
+						setObjectPer(allPersons)
+					})
+					.catch((error) => {
+						console.error(error)
+					})
+			})
+	}, [globalID])
 
 	useEffect(() => {
 		objects
@@ -220,10 +229,14 @@ const ObjectPopup = (props) => {
 									tempFeatures.push(tempObj)
 								}
 							}
+
+							if (i === 7) {
+								tempFeatures.sort((a, b) => a.Metai - b.Metai)
+								setRelatedStreets(tempFeatures)
+								setRelatedStreetsShow(true)
+							}
 						})
 				}
-				tempFeatures.sort((a, b) => a.Metai - b.Metai)
-        setRelatedStreets(tempFeatures)
 			})
 	}, [globalID])
 
@@ -397,7 +410,7 @@ const ObjectPopup = (props) => {
 										</Typography>
 									) : null}
 
-									{relatedStreets.length ? (
+									{relatedStreetsShow && relatedStreets.length > 0 && (
 										<Typography variant="h6" component="div">
 											Susijusios gatvės
 											<Typography component="div">
@@ -406,22 +419,23 @@ const ObjectPopup = (props) => {
 														<Link
 															sx={{ mt: 0.5 }}
 															target="_blank"
-															// href={
-															// 	"https://zemelapiai.vplanas.lt" +
-															// 	`/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[
-															// 		street
-															// 	].Asmenybes_ID.replace(/[{}]/g, "")}`
-															// }
+															href={
+																""
+																// "https://zemelapiai.vplanas.lt" +
+																// `/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[
+																// 	street
+																// ].Asmenybes_ID.replace(/[{}]/g, "")}`
+															}
 															rel="noopener"
 															textAlign="left"
 															variant="body2"
-														>{`${relatedStreets[street].Pavadinimas}`}</Link>
+														>{`${relatedStreets[street].Pavadinimas} (${relatedStreets[street].Metai})`}</Link>
 														<br></br>
 													</div>
 												))}
 											</Typography>
 										</Typography>
-									) : null}
+									)}
 
 									{objectAtt.length
 										? Object.keys(objectAtt).map((att) => (
