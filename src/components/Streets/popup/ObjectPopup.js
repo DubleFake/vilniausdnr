@@ -160,6 +160,32 @@ const ObjectPopup = (props) => {
 	}, [globalID, props.initialLoading])
 
 	useEffect(() => {
+		const allPersons = []
+		objects
+			.queryRelatedFeatures({
+				outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
+				relationshipId: 8,
+				objectIds: globalID,
+			})
+			.then((response) => {
+				if (Object.keys(response).length === 0) {
+					setObjectPer([])
+					return
+				}
+				Object.keys(response).forEach((objectId) => {
+					const person = response[objectId].features
+					person.forEach((person) => {
+						allPersons.push(person)
+					})
+				})
+				setObjectPer(allPersons)
+			})
+			.catch((error) => {
+				console.error(error)
+			})
+	}, [globalID])
+
+	useEffect(() => {
 		return () => {
 			setPage(1)
 			setPageCount(1)
@@ -302,15 +328,25 @@ const ObjectPopup = (props) => {
 													<div key={per}>
 														<Link
 															sx={{ mt: 0.5 }}
-															textAlign="left"
-															component="button"
-															variant="body2"
-															onClick={() => {
-																navigate(
-																	`/vilniausdnr/${i18n.language}/plaques/person/${objectPer[per].attributes.OBJECTID}`
-																)
-															}}
-														>{`${objectPer[per].attributes.Vardas__liet_} ${objectPer[per].attributes.Pavardė__liet_}`}</Link>
+
+                              target="_blank"
+                              href={
+                                "https://zemelapiai.vplanas.lt" +
+                                `/vilniausdnr/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
+                              }
+                              rel="noopener"
+                              textAlign="left"
+                              variant="body2"
+
+															// textAlign="left"
+															// component="button"
+															// variant="body2"
+															// onClick={() => {
+															// 	navigate(
+															// 		`/vilniausdnr/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
+															// 	)
+															// }}
+														>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
 														<br></br>
 													</div>
 												))}
