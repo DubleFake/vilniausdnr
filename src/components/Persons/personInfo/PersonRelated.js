@@ -227,7 +227,7 @@ const PersonRelated = (props) => {
 				persons
 					.queryRelatedFeatures({
 						outFields: ["*"],
-						relationshipId: 16,
+						relationshipId: 17,
 						returnGeometry: false,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
