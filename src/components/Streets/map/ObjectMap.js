@@ -36,28 +36,6 @@ const ObjectMap = (props) => {
 		view.center = pt
 		view2.center = pt
 
-		viewHandles.forEach((handle) => {
-			handle.remove()
-		})
-		viewHandles.length = 0
-
-		viewHandles.push(
-			view.watch("map.basemap.id", (newBasemap) => {
-				console.log(newBasemap)
-				switch (newBasemap) {
-					case "light":
-						map2.basemap = basemaps[0]
-						break
-					case "dark":
-						map2.basemap = basemaps[1]
-						break
-					case "orto":
-						map2.basemap = basemaps[2]
-						break
-				}
-			})
-		)
-
 		view.whenLayerView(objects).then((objectsView) => {
 			watchUtils.whenFalseOnce(objectsView, "updating").then(() => {
 				objectsView
@@ -95,7 +73,7 @@ const ObjectMap = (props) => {
 
 							objectClass.sort((a, b) => a.code - b.code)
 							objectSubclass.sort((a, b) => a.code - b.code)
-              
+
 							for (let cls in objectClass) {
 								let tempSet = new Set()
 								for (let feature in response.features) {
@@ -124,34 +102,65 @@ const ObjectMap = (props) => {
 		// 			)
 		// 		}
 		// 	}
-		// })
-
-		viewHandles.push(
-			view.on("click", (event) => {
-				bgExpand.collapse()
-
-				view.whenLayerView(objects).then((objectsView) => {
-					watchUtils
-						.whenNotOnce(objectsView, "updating")
-						.then(() => {
-							return objectsView.queryFeatures({
-								geometry: event.mapPoint,
-								where: objectsView.filter.where,
-								distance: view.resolution <= 7 ? view.resolution * 15 : 100,
-								spatialRelationship: "intersects",
-								outFields: ["GAT_ID"],
-							})
-						})
-						.then((response) => {
-							if (response.features.length > 0) {
-								props.setMapQuery(response.features)
-								navigate(`object/${response.features[0].attributes.GAT_ID}`)
-							}
-						})
-				})
-			})
-		)
+		// }))
 	}, [])
+
+	useEffect(() => {
+		if (!props.historyToggle) {
+			viewHandles.forEach((handle) => {
+				handle.remove()
+			})
+			viewHandles.length = 0
+
+			viewHandles.push(
+				view.watch("map.basemap.id", (newBasemap) => {
+					console.log(newBasemap)
+					switch (newBasemap) {
+						case "light":
+							map2.basemap = basemaps[0]
+							break
+						case "dark":
+							map2.basemap = basemaps[1]
+							break
+						case "orto":
+							map2.basemap = basemaps[2]
+							break
+					}
+				})
+			)
+
+			viewHandles.push(
+				view.on("click", (event) => {
+					bgExpand.collapse()
+
+					view.whenLayerView(objects).then((objectsView) => {
+						watchUtils
+							.whenNotOnce(objectsView, "updating")
+							.then(() => {
+								return objectsView.queryFeatures({
+									geometry: event.mapPoint,
+									where: objectsView.filter === null ? "" : objectsView.filter.where,
+									distance: view.resolution <= 7 ? view.resolution * 15 : 100,
+									spatialRelationship: "intersects",
+									outFields: ["GAT_ID"],
+								})
+							})
+							.then((response) => {
+								if (response.features.length > 0) {
+									props.setMapQuery(response.features)
+									navigate(`object/${response.features[0].attributes.GAT_ID}`)
+								}
+							})
+					})
+				})
+			)
+		} else {
+			viewHandles.forEach((handle) => {
+				handle.remove()
+			})
+			viewHandles.length = 0
+		}
+	}, [props.historyToggle])
 
 	useEffect(() => {
 		bgExpand.content.source.basemaps.items[0].title = t("plaques.map.basemapLight")

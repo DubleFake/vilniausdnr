@@ -54,33 +54,6 @@ const CompareWindow = (props) => {
 	useEffect(() => {
 		return () => {
 			props.setToggleCompareWindow(false)
-
-			map.removeAll()
-			map2.removeAll()
-			map.add(objects)
-
-      objects
-			.when(() => {
-				return objects.queryExtent()
-			})
-			.then((response) => {
-				view.constraints.geometry = {
-					type: "extent",
-					spatialReference: response.extent.spatialReference,
-					xmin: response.extent.xmin,
-					ymin: response.extent.ymin,
-					xmax: response.extent.xmax,
-					ymax: response.extent.ymax,
-				}
-				view2.constraints.geometry = {
-					type: "extent",
-					spatialReference: response.extent.spatialReference,
-					xmin: response.extent.xmin,
-					ymin: response.extent.ymin,
-					xmax: response.extent.xmax,
-					ymax: response.extent.ymax,
-				}
-			})
 		}
 	}, [])
 

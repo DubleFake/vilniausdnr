@@ -78,28 +78,6 @@ const CompareTimeline = (props) => {
 		}
 	}, [toggle1808, toggle1845, toggle1911, toggle1938, toggle1977, toggle2021])
 
-	useEffect(() => {
-		return () => {
-			map.removeAll()
-			map.add(objects)
-
-      objects
-			.when(() => {
-				return objects.queryExtent()
-			})
-			.then((response) => {
-				view.constraints.geometry = {
-					type: "extent",
-					spatialReference: response.extent.spatialReference,
-					xmin: response.extent.xmin,
-					ymin: response.extent.ymin,
-					xmax: response.extent.xmax,
-					ymax: response.extent.ymax,
-				}
-			})
-		}
-	}, [])
-
 	return (
 		<Grid
 			sx={{

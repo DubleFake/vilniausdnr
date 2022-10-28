@@ -66,6 +66,7 @@ const Plaques = () => {
 									setMapQuery={setMapQuery}
 									setInitialObjectsClasses={setInitialObjectsClasses}
 									toggleCompareWindow={toggleCompareWindow}
+									historyToggle={historyToggle}
 								/>
 								<CompareToggle
 									setToggleCompareWindow={setToggleCompareWindow}
