@@ -27,6 +27,13 @@ import CircularProgress from "@mui/material/CircularProgress"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Backdrop from "@mui/material/Backdrop"
 import Fade from "@mui/material/Fade"
+import Timeline from "@mui/lab/Timeline"
+import TimelineItem from "@mui/lab/TimelineItem"
+import TimelineSeparator from "@mui/lab/TimelineSeparator"
+import TimelineConnector from "@mui/lab/TimelineConnector"
+import TimelineContent from "@mui/lab/TimelineContent"
+import TimelineDot from "@mui/lab/TimelineDot"
+import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
 
 let highlight
 const ObjectPopup = (props) => {
@@ -38,6 +45,12 @@ const ObjectPopup = (props) => {
 	const [objectPer, setObjectPer] = useState([])
 	const [objectAtt, setObjectAtt] = useState([])
 	const [relatedStreets, setRelatedStreets] = useState([])
+	const [relatedStreets2, setRelatedStreets2] = useState(false)
+	const [relatedStreets3, setRelatedStreets3] = useState(false)
+	const [relatedStreets4, setRelatedStreets4] = useState(false)
+	const [relatedStreets5, setRelatedStreets5] = useState(false)
+	const [relatedStreets6, setRelatedStreets6] = useState(false)
+	const [relatedStreets7, setRelatedStreets7] = useState(false)
 	const [relatedStreetsShow, setRelatedStreetsShow] = useState(false)
 	const [loading, setLoading] = useState(true)
 	const [queryObjects, setQueryObjects] = useState([])
@@ -196,6 +209,14 @@ const ObjectPopup = (props) => {
 	}, [globalID])
 
 	useEffect(() => {
+		setRelatedStreets([])
+		setRelatedStreets2(false)
+		setRelatedStreets3(false)
+		setRelatedStreets4(false)
+		setRelatedStreets5(false)
+		setRelatedStreets6(false)
+		setRelatedStreets7(false)
+
 		objects
 			.queryFeatures({
 				where: `GAT_ID = ${globalID}`,
@@ -228,17 +249,47 @@ const ObjectPopup = (props) => {
 										].attributes.Pavadinimas
 									tempFeatures.push(tempObj)
 								}
-							}
-
-							if (i === 7) {
 								tempFeatures.sort((a, b) => a.Metai - b.Metai)
 								setRelatedStreets(tempFeatures)
-								setRelatedStreetsShow(true)
+							}
+
+							switch (i) {
+								case 2:
+									setRelatedStreets2(true)
+									break
+								case 3:
+									setRelatedStreets3(true)
+									break
+								case 4:
+									setRelatedStreets4(true)
+									break
+								case 5:
+									setRelatedStreets5(true)
+									break
+								case 6:
+									setRelatedStreets6(true)
+									break
+								case 7:
+									setRelatedStreets7(true)
+									break
 							}
 						})
 				}
 			})
 	}, [globalID])
+
+	useEffect(() => {
+		if (
+			relatedStreets2 &&
+			relatedStreets3 &&
+			relatedStreets4 &&
+			relatedStreets5 &&
+			relatedStreets6 &&
+			relatedStreets7
+		) {
+			setRelatedStreetsShow(true)
+		}
+	}, [relatedStreets2, relatedStreets3, relatedStreets4, relatedStreets5, relatedStreets6, relatedStreets7])
 
 	useEffect(() => {
 		return () => {
@@ -410,29 +461,43 @@ const ObjectPopup = (props) => {
 										</Typography>
 									) : null}
 
-									{relatedStreetsShow && relatedStreets.length > 0 && (
+									{relatedStreetsShow && (
 										<Typography variant="h6" component="div">
 											Susijusios gatvės
 											<Typography component="div">
-												{Object.keys(relatedStreets).map((street) => (
-													<div key={street}>
-														<Link
-															sx={{ mt: 0.5 }}
-															target="_blank"
-															href={
-																""
-																// "https://zemelapiai.vplanas.lt" +
-																// `/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[
-																// 	street
-																// ].Asmenybes_ID.replace(/[{}]/g, "")}`
-															}
-															rel="noopener"
-															textAlign="left"
-															variant="body2"
-														>{`${relatedStreets[street].Pavadinimas} (${relatedStreets[street].Metai})`}</Link>
-														<br></br>
-													</div>
-												))}
+												<Timeline sx={{ m: 0, mt: 1, p: 0 }}>
+													{relatedStreets.map((street, i) => (
+														<TimelineItem key={i}>
+															<TimelineOppositeContent
+																sx={{ mt: 0.1, pl: 1, maxWidth: 50 }}
+																align="right"
+																color="text.secondary"
+															>
+																{street.Metai}
+															</TimelineOppositeContent>
+															<TimelineSeparator>
+																<TimelineDot />
+																{i !== relatedStreets.length - 1 && <TimelineConnector />}
+															</TimelineSeparator>
+															<TimelineContent sx={{ mt: 0 }}>
+																<Link
+																	sx={{ mt: 0.5 }}
+																	target="_blank"
+																	href={
+																		""
+																		// "https://zemelapiai.vplanas.lt" +
+																		// `/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[
+																		// 	street
+																		// ].Asmenybes_ID.replace(/[{}]/g, "")}`
+																	}
+																	rel="noopener"
+																	textAlign="left"
+																	variant="body2"
+																>{`${street.Pavadinimas} (${street.Metai})`}</Link>
+															</TimelineContent>
+														</TimelineItem>
+													))}
+												</Timeline>
 											</Typography>
 										</Typography>
 									)}
