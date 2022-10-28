@@ -493,7 +493,7 @@ const ObjectPopup = (props) => {
 																	rel="noopener"
 																	textAlign="left"
 																	variant="body2"
-																>{`${street.Pavadinimas} (${street.Metai})`}</Link>
+																>{`${street.Pavadinimas}`}</Link>
 															</TimelineContent>
 														</TimelineItem>
 													))}
