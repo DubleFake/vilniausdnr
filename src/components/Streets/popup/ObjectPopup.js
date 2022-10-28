@@ -233,8 +233,8 @@ const ObjectPopup = (props) => {
 						})
 						.then((response_related) => {
 							if (response_related[response.features[0].attributes.OBJECTID]) {
-								const tempObj = {}
-								for (let feature in response_related[response.features[0].attributes.OBJECTID].features) {
+                for (let feature in response_related[response.features[0].attributes.OBJECTID].features) {
+                  const tempObj = {}
 									tempObj.GlobalID =
 										response_related[response.features[0].attributes.OBJECTID].features[
 											feature
