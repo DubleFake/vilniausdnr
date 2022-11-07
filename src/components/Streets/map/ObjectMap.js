@@ -106,12 +106,12 @@ const ObjectMap = (props) => {
 	}, [])
 
 	useEffect(() => {
-		if (!props.historyToggle) {
-			viewHandles.forEach((handle) => {
-				handle.remove()
-			})
-			viewHandles.length = 0
+		viewHandles.forEach((handle) => {
+			handle.remove()
+		})
+		viewHandles.length = 0
 
+		if (!props.historyToggle) {
 			viewHandles.push(
 				view.watch("map.basemap.id", (newBasemap) => {
 					console.log(newBasemap)
@@ -155,10 +155,27 @@ const ObjectMap = (props) => {
 				})
 			)
 		} else {
-			viewHandles.forEach((handle) => {
-				handle.remove()
-			})
-			viewHandles.length = 0
+			viewHandles.push(
+				view.on("click", function (event) {
+					view.hitTest(event).then(function (response) {
+						if (response.results.length) {
+							const tempFeatures = []
+							for (let feature in response.results) {
+								tempFeatures.push(response.results[feature].graphic)
+							}
+
+							console.log(tempFeatures)
+							props.setMapQuery(tempFeatures)
+							navigate(
+								`/vilniausdnr/${i18n.language}/streets/compare/timeline/${tempFeatures[0].attributes.GlobalID.replace(
+									/[{}]/g,
+									""
+								)}`
+							)
+						}
+					})
+				})
+			)
 		}
 	}, [props.historyToggle])
 

@@ -3,6 +3,7 @@ import { Routes, Route, Outlet } from "react-router-dom"
 
 import ObjectMap from "../components/Streets/map/ObjectMap"
 import ObjectPopup from "../components/Streets/popup/ObjectPopup"
+import ObjectPopupTimeline from "../components/Streets/popup/ObjectPopupTimeline"
 import OptionsToggle from "../components/Streets/options/OptionsToggle"
 import Options from "../components/Streets/options/Options"
 import CompareToggle from "../components/Streets/compare/CompareToggle"
@@ -83,6 +84,17 @@ const Plaques = () => {
 					path="object/:globalID"
 					element={
 						<ObjectPopup
+							mapQuery={mapQuery}
+							setSelectedObject={setSelectedObject}
+							initialLoading={initialLoading}
+						/>
+					}
+				/>
+
+				<Route
+					path="compare/timeline/:globalID"
+					element={
+						<ObjectPopupTimeline
 							mapQuery={mapQuery}
 							setSelectedObject={setSelectedObject}
 							initialLoading={initialLoading}
