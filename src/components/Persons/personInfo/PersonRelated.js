@@ -626,7 +626,16 @@ const PersonRelated = (props) => {
 								alignItems="stretch"
 								key={i}
 							>
-								<Typography variant="body2">{org.attributes.Organizacijos_pavadinimas}</Typography>
+								<Typography variant="body2">
+									{org.attributes.Organizacijos_pavadinimas}
+									<Typography sx={{ display: "inline" }} color="text.secondary" variant="body2">
+										<Typography sx={{ display: "inline" }} noWrap={true} component={"span"} variant="body2">
+											{" "}
+											|{" "}
+										</Typography>
+										{org.attributes.Rysio_tipas}
+									</Typography>
+								</Typography>
 							</Grid>
 						))
 					) : (

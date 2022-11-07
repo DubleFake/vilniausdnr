@@ -15,7 +15,6 @@ const PersonHeader = (props) => {
 					align="left"
 					color="#323B4C"
 				>
-					{console.log(props.biographyFeatures)}
 					{props.biographyFeatures[0].attributes.Vardas_lietuviskai +
 						" " +
 						props.biographyFeatures[0].attributes.Pavarde_lietuviskai}
