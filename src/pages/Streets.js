@@ -92,7 +92,7 @@ const Plaques = () => {
 				/>
 
 				<Route
-					path="compare/timeline/:globalID"
+					path="compare/timeline/:globalID/*"
 					element={
 						<ObjectPopupTimeline
 							mapQuery={mapQuery}

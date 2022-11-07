@@ -7,8 +7,8 @@ import Point from "@arcgis/core/geometry/Point"
 import {
 	view,
 	view2,
-	map2,
-	swipeObjects,
+	map,
+  periods,
 	objects,
 	bgExpand,
 	locateWidget,
@@ -106,6 +106,31 @@ const ObjectMap = (props) => {
 	}, [])
 
 	useEffect(() => {
+		if (window.location.href.includes("compare")) {
+      console.log(window.location.href)
+			map.removeAll()
+      map.add(periods[0])
+
+			periods[0]
+				.when(() => {
+					return periods[0].queryExtent()
+				})
+				.then((response) => {
+					view.constraints.geometry = {
+						type: "extent",
+						spatialReference: response.extent.spatialReference,
+						xmin: response.extent.xmin,
+						ymin: response.extent.ymin,
+						xmax: response.extent.xmax,
+						ymax: response.extent.ymax,
+					}
+				})
+
+			view.when(() => {
+				view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+			})
+		}
+
 		viewHandles.forEach((handle) => {
 			handle.remove()
 		})
@@ -167,10 +192,9 @@ const ObjectMap = (props) => {
 							console.log(tempFeatures)
 							props.setMapQuery(tempFeatures)
 							navigate(
-								`/vilniausdnr/${i18n.language}/streets/compare/timeline/${tempFeatures[0].attributes.GlobalID.replace(
-									/[{}]/g,
-									""
-								)}`
+								`/vilniausdnr/${
+									i18n.language
+								}/streets/compare/timeline/${tempFeatures[0].attributes.GlobalID.replace(/[{}]/g, "")}`
 							)
 						}
 					})
