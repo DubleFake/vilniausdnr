@@ -111,8 +111,6 @@ const CompareTimeline = (props) => {
 				handle.remove()
 			})
 			viewHandles.length = 0
-
-			// view.constraints.geometry = {}
 		}
 	}, [])
 

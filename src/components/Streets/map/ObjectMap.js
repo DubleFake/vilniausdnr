@@ -117,6 +117,25 @@ const ObjectMap = (props) => {
 		viewHandles.length = 0
 
 		if (!props.historyToggle) {
+      objects
+			.when(() => {
+				return objects.queryExtent()
+			})
+			.then((response) => {
+				view.constraints.geometry = {
+					type: "extent",
+					spatialReference: response.extent.spatialReference,
+					xmin: response.extent.xmin,
+					ymin: response.extent.ymin,
+					xmax: response.extent.xmax,
+					ymax: response.extent.ymax,
+				}
+			})
+
+		view.when(() => {
+			view.goTo({ target: periods[0].fullExtent.center, zoom: 3 })
+		})
+
 			viewHandles.push(
 				view.watch("map.basemap.id", (newBasemap) => {
 					console.log(newBasemap)
