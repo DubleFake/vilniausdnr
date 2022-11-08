@@ -85,31 +85,34 @@ const ObjectPopupTimeline = (props) => {
 	}
 
 	useEffect(() => {
-		if (!props.initialLoading) {
-			if (props.mapQuery.length > 0) {
-				setPopupOpen(true)
-				setLoading(true)
+		// if (!props.initialLoading) {
+		if (props.mapQuery.length > 0) {
+			setPopupOpen(true)
+			setLoading(true)
 
-				let found = false
-				for (let obj in props.mapQuery) {
-					if (props.mapQuery[obj].attributes.GlobalID.replace(/[{}]/g, "") === globalID) {
-						setPage(parseInt(obj) + 1)
-						found = true
-					}
+			let found = false
+			for (let obj in props.mapQuery) {
+				if (props.mapQuery[obj].attributes.GlobalID.replace(/[{}]/g, "") === globalID) {
+					setPage(parseInt(obj) + 1)
+					found = true
 				}
-
-				if (found) {
-					setQueryObjects(props.mapQuery)
-					setPageCount(props.mapQuery.length)
-				} else {
-					setPageCount(1)
-					setPage(1)
-				}
-
-				setLoading(false)
 			}
+
+			if (found) {
+				setQueryObjects(props.mapQuery)
+				setPageCount(props.mapQuery.length)
+			} else {
+				setPageCount(1)
+				setPage(1)
+			}
+
+			setLoading(false)
 		}
-	}, [globalID, props.initialLoading])
+		// }
+	}, [
+		globalID,
+		// props.initialLoading
+	])
 
 	useEffect(() => {
 		return () => {
@@ -181,14 +184,14 @@ const ObjectPopupTimeline = (props) => {
 													aria-label="close"
 													size="large"
 													onClick={() => {
-														navigate(`/vilniausdnr/${i18n.language}/streets`)
+														navigate(`/vilniausdnr/${i18n.language}/streets/compare/timeline`)
 													}}
 												>
 													<CloseIcon style={{ fontSize: 30 }} />
 												</IconButton>
 											</>
 										}
-										title={props.mapQuery[0].attributes.Pavadinimas}
+										title={props.mapQuery[page - 1].attributes.Pavadinimas}
 									/>
 									<TableContainer sx={{ mb: 1 }} component={Paper}>
 										<Table size="small">

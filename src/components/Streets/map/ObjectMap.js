@@ -8,6 +8,7 @@ import {
 	view,
 	view2,
 	map,
+  map2,
   periods,
 	objects,
 	bgExpand,
@@ -107,28 +108,7 @@ const ObjectMap = (props) => {
 
 	useEffect(() => {
 		if (window.location.href.includes("compare")) {
-      console.log(window.location.href)
-			map.removeAll()
-      map.add(periods[0])
-
-			periods[0]
-				.when(() => {
-					return periods[0].queryExtent()
-				})
-				.then((response) => {
-					view.constraints.geometry = {
-						type: "extent",
-						spatialReference: response.extent.spatialReference,
-						xmin: response.extent.xmin,
-						ymin: response.extent.ymin,
-						xmax: response.extent.xmax,
-						ymax: response.extent.ymax,
-					}
-				})
-
-			view.when(() => {
-				view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
-			})
+      props.setHistoryToggle(true)
 		}
 
 		viewHandles.forEach((handle) => {
@@ -180,26 +160,7 @@ const ObjectMap = (props) => {
 				})
 			)
 		} else {
-			viewHandles.push(
-				view.on("click", function (event) {
-					view.hitTest(event).then(function (response) {
-						if (response.results.length) {
-							const tempFeatures = []
-							for (let feature in response.results) {
-								tempFeatures.push(response.results[feature].graphic)
-							}
 
-							console.log(tempFeatures)
-							props.setMapQuery(tempFeatures)
-							navigate(
-								`/vilniausdnr/${
-									i18n.language
-								}/streets/compare/timeline/${tempFeatures[0].attributes.GlobalID.replace(/[{}]/g, "")}`
-							)
-						}
-					})
-				})
-			)
 		}
 	}, [props.historyToggle])
 

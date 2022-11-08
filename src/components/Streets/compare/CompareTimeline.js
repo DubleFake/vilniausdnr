@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 import { map, view, view2, objects, periods } from "../../../utils/streetsArcgisItems"
 
@@ -7,7 +9,12 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Grid from "@mui/material/Grid"
 
+const viewHandles = []
+
 const CompareTimeline = (props) => {
+	const navigate = useNavigate()
+	const { t, i18n } = useTranslation()
+
 	const [toggle1808, setToggle1808] = useState(true)
 	const [toggle1845, setToggle1845] = useState(false)
 	const [toggle1911, setToggle1911] = useState(false)
@@ -17,6 +24,7 @@ const CompareTimeline = (props) => {
 
 	useEffect(() => {
 		map.removeAll()
+		// map.add(periods[0])
 
 		periods[0]
 			.when(() => {
@@ -33,10 +41,29 @@ const CompareTimeline = (props) => {
 				}
 			})
 
-		view
-			.when(() => {
-				view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+		view.when(() => {
+			view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+		})
+
+		viewHandles.push(
+			view.on("click", function (event) {
+				view.hitTest(event).then(function (response) {
+					if (response.results.length) {
+						const tempFeatures = []
+						for (let feature in response.results) {
+							tempFeatures.push(response.results[feature].graphic)
+						}
+
+						props.setMapQuery(tempFeatures)
+						navigate(
+							`/vilniausdnr/${
+								i18n.language
+							}/streets/compare/timeline/${tempFeatures[0].attributes.GlobalID.replace(/[{}]/g, "")}`
+						)
+					}
+				})
 			})
+		)
 	}, [])
 
 	useEffect(() => {
@@ -77,6 +104,17 @@ const CompareTimeline = (props) => {
 			map.remove(periods[5])
 		}
 	}, [toggle1808, toggle1845, toggle1911, toggle1938, toggle1977, toggle2021])
+
+	useEffect(() => {
+		return () => {
+			viewHandles.forEach((handle) => {
+				handle.remove()
+			})
+			viewHandles.length = 0
+
+			// view.constraints.geometry = {}
+		}
+	}, [])
 
 	return (
 		<Grid

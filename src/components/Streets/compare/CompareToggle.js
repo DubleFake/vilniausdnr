@@ -5,6 +5,7 @@ import { objects, map } from "../../../utils/streetsArcgisItems"
 import CompareTimeline from "../compare/CompareTimeline"
 import CompareSwipe from "../compare/CompareSwipe"
 import CompareWindow from "../compare/CompareWindow"
+import ObjectPopupTimeline from "../../../components/Streets/popup/ObjectPopupTimeline"
 
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
@@ -16,9 +17,9 @@ const CompareLayers = (props) => {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-    if(window.location.href.includes("compare")){
-      props.setHistoryToggle(true)
-    }
+		if (window.location.href.includes("compare")) {
+			props.setHistoryToggle(true)
+		}
 	}, [])
 
 	return (
@@ -71,7 +72,21 @@ const CompareLayers = (props) => {
 					path="compare/timeline"
 					element={
 						<>
-							<CompareTimeline />
+							<CompareTimeline setMapQuery={props.setMapQuery} />
+							<CompareType />
+						</>
+					}
+				/>
+				<Route
+					path="compare/timeline/:globalID"
+					element={
+						<>
+							<ObjectPopupTimeline
+								mapQuery={props.mapQuery}
+								setSelectedObject={props.setSelectedObject}
+								initialLoading={props.initialLoading}
+							/>
+							<CompareTimeline setMapQuery={props.setMapQuery} />
 							<CompareType />
 						</>
 					}
