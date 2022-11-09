@@ -484,11 +484,8 @@ const ObjectPopup = (props) => {
 																	sx={{ mt: 0.5 }}
 																	target="_blank"
 																	href={
-																		""
-																		// "https://zemelapiai.vplanas.lt" +
-																		// `/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[
-																		// 	street
-																		// ].Asmenybes_ID.replace(/[{}]/g, "")}`
+																		"https://zemelapiai.vplanas.lt" +
+																		`/vilniausdnr/${i18n.language}/streets/compare/timeline/${street.GlobalID.replace(/[^0-9]/g,'')}`
 																	}
 																	rel="noopener"
 																	textAlign="left"

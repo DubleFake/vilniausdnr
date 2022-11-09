@@ -61,7 +61,6 @@ const PersonTimeline = (props) => {
 
 				tempFeatures.sort((a, b) => a.attributes.Fakto_data_rikiavimas - b.attributes.Fakto_data_rikiavimas)
 				setTimelineFeatures(tempFeatures)
-				console.log(tempFeatures)
 			})
 	}, [props.globalID])
 

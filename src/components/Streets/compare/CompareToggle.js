@@ -1,7 +1,7 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Routes, Route, useNavigate } from "react-router-dom"
 
-import { objects, map } from "../../../utils/streetsArcgisItems"
+import { objects, map, periods } from "../../../utils/streetsArcgisItems"
 import CompareTimeline from "../compare/CompareTimeline"
 import CompareSwipe from "../compare/CompareSwipe"
 import CompareWindow from "../compare/CompareWindow"
@@ -15,6 +15,13 @@ import CompareType from "./CompareType"
 
 const CompareLayers = (props) => {
 	const navigate = useNavigate()
+	const [initialPeriod, setInitialPeriod] = useState(periods[0])
+	const [toggle1808, setToggle1808] = useState(true)
+	const [toggle1845, setToggle1845] = useState(false)
+	const [toggle1911, setToggle1911] = useState(false)
+	const [toggle1938, setToggle1938] = useState(false)
+	const [toggle1977, setToggle1977] = useState(false)
+	const [toggle2021, setToggle2021] = useState(false)
 
 	useEffect(() => {
 		if (window.location.href.includes("compare")) {
@@ -72,7 +79,22 @@ const CompareLayers = (props) => {
 					path="compare/timeline"
 					element={
 						<>
-							<CompareTimeline setMapQuery={props.setMapQuery} />
+							<CompareTimeline
+								setMapQuery={props.setMapQuery}
+								initialPeriod={initialPeriod}
+								toggle1808={toggle1808}
+								setToggle1808={setToggle1808}
+								toggle1845={toggle1845}
+								setToggle1845={setToggle1845}
+								toggle1911={toggle1911}
+								setToggle1911={setToggle1911}
+								toggle1938={toggle1938}
+								setToggle1938={setToggle1938}
+								toggle1977={toggle1977}
+								setToggle1977={setToggle1977}
+								toggle2021={toggle2021}
+								setToggle2021={setToggle2021}
+							/>
 							<CompareType />
 						</>
 					}
@@ -85,8 +107,24 @@ const CompareLayers = (props) => {
 								mapQuery={props.mapQuery}
 								setSelectedObject={props.setSelectedObject}
 								initialLoading={props.initialLoading}
+								setInitialPeriod={setInitialPeriod}
 							/>
-							<CompareTimeline setMapQuery={props.setMapQuery} />
+							<CompareTimeline
+								setMapQuery={props.setMapQuery}
+								initialPeriod={initialPeriod}
+								toggle1808={toggle1808}
+								setToggle1808={setToggle1808}
+								toggle1845={toggle1845}
+								setToggle1845={setToggle1845}
+								toggle1911={toggle1911}
+								setToggle1911={setToggle1911}
+								toggle1938={toggle1938}
+								setToggle1938={setToggle1938}
+								toggle1977={toggle1977}
+								setToggle1977={setToggle1977}
+								toggle2021={toggle2021}
+								setToggle2021={setToggle2021}
+							/>
 							<CompareType />
 						</>
 					}

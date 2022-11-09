@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import MuiLinkify from "material-ui-linkify"
 import { useTranslation } from "react-i18next"
 
-import { view, objects } from "../../../utils/streetsArcgisItems"
+import { view, objects, periods, map } from "../../../utils/streetsArcgisItems"
 
 import { styled } from "@mui/material/styles"
 import Card from "@mui/material/Card"
@@ -41,23 +41,14 @@ const ObjectPopupTimeline = (props) => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
 
-	const [objectAttr, setObjectAttr] = useState([])
-	const [objectPer, setObjectPer] = useState([])
-	const [objectAtt, setObjectAtt] = useState([])
-	const [relatedStreets, setRelatedStreets] = useState([])
-	const [relatedStreets2, setRelatedStreets2] = useState(false)
-	const [relatedStreets3, setRelatedStreets3] = useState(false)
-	const [relatedStreets4, setRelatedStreets4] = useState(false)
-	const [relatedStreets5, setRelatedStreets5] = useState(false)
-	const [relatedStreets6, setRelatedStreets6] = useState(false)
-	const [relatedStreets7, setRelatedStreets7] = useState(false)
-	const [relatedStreetsShow, setRelatedStreetsShow] = useState(false)
 	const [loading, setLoading] = useState(true)
 	const [queryObjects, setQueryObjects] = useState([])
 	const [popupOpen, setPopupOpen] = useState(false)
 	const [page, setPage] = useState(1)
 	const [pageCount, setPageCount] = useState(1)
 	const [shareTooltip, setShareTooltip] = useState(false)
+	const [relatedStreets, setRelatedStreets] = useState([])
+	const [relatedMaps, setRelatedMaps] = useState([])
 
 	const handlePage = (event, value) => {
 		navigate(
@@ -85,16 +76,51 @@ const ObjectPopupTimeline = (props) => {
 	}
 
 	useEffect(() => {
+		if (props.mapQuery.length === 0) {
+			setPopupOpen(true)
+			setLoading(true)
+			for (let period of periods) {
+				period
+					.queryFeatures({
+						where: `GlobalID = '${globalID}'`,
+						outFields: ["*"],
+						returnGeometry: true,
+					})
+					.then((response) => {
+						if (response.features.length > 0) {
+							setQueryObjects(response.features)
+							setLoading(false)
+							props.setInitialPeriod(period)
+
+							if (highlight) {
+								highlight.remove()
+							}
+
+							map.removeAll()
+							map.add(period)
+							view.whenLayerView(period).then((periodView) => {
+								view.goTo(response.features[0].geometry.extent)
+								highlight = periodView.highlight(response.features[0])
+							})
+						}
+					})
+			}
+		}
+	}, [])
+
+	useEffect(() => {
 		// if (!props.initialLoading) {
 		if (props.mapQuery.length > 0) {
 			setPopupOpen(true)
 			setLoading(true)
 
 			let found = false
+			let tempPage = 0
 			for (let obj in props.mapQuery) {
 				if (props.mapQuery[obj].attributes.GlobalID.replace(/[{}]/g, "") === globalID) {
 					setPage(parseInt(obj) + 1)
 					found = true
+					tempPage = parseInt(obj)
 				}
 			}
 
@@ -106,7 +132,43 @@ const ObjectPopupTimeline = (props) => {
 				setPage(1)
 			}
 
+			for (let period of periods) {
+				if (period.title.replace(/[^0-9]/g, "") === props.mapQuery[tempPage].attributes.Metai) {
+					if (highlight) {
+						highlight.remove()
+					}
+
+					view.whenLayerView(period).then((periodView) => {
+						view.goTo(props.mapQuery[tempPage].geometry.extent)
+						highlight = periodView.highlight(props.mapQuery[tempPage])
+					})
+
+					period
+						.queryRelatedFeatures({
+							outFields: ["*"],
+							relationshipId: 2,
+							returnGeometry: false,
+							objectIds: props.mapQuery[tempPage].attributes.OBJECTID,
+						})
+						.then((response) => {
+							setRelatedStreets(response[props.mapQuery[tempPage].attributes.OBJECTID].features)
+						})
+
+					period
+						.queryRelatedFeatures({
+							outFields: ["*"],
+							relationshipId: 9,
+							returnGeometry: false,
+							objectIds: props.mapQuery[tempPage].attributes.OBJECTID,
+						})
+						.then((response) => {
+							setRelatedMaps(response[props.mapQuery[tempPage].attributes.OBJECTID].features)
+						})
+				}
+			}
+
 			setLoading(false)
+		} else {
 		}
 		// }
 	}, [
@@ -191,38 +253,32 @@ const ObjectPopupTimeline = (props) => {
 												</IconButton>
 											</>
 										}
-										title={props.mapQuery[page - 1].attributes.Pavadinimas}
+										title={queryObjects[page - 1].attributes.Pavadinimas}
 									/>
+
 									<TableContainer sx={{ mb: 1 }} component={Paper}>
 										<Table size="small">
 											<TableBody>
-												{Object.keys(objectAttr).map((attr) =>
-													objectAttr[attr].field === "OBJ_APRAS" ||
-													objectAttr[attr].field === "AUTORIUS" ||
-													objectAttr[attr].field === "OBJ_PAV" ||
-													objectAttr[attr].field === "SALTINIS" ? null : (
-														<TableRow
-															key={objectAttr[attr].field}
-															sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-														>
-															<TableCell component="th" scope="row">
-																{/* {t(`plaques.objectPopup.${objectAttr[attr].field}`)} */}
-																{objectAttr[attr].field}
-															</TableCell>
-															<TableCell align="right">
-																{objectAttr[attr].field === "TIPAS"
-																	? t(`plaques.options.objects.${objectAttr[attr].code}`)
-																	: objectAttr[attr].field === "ATMINT_TIP"
-																	? t(`plaques.options.memories.${objectAttr[attr].code}`)
-																	: objectAttr[attr].value}
-															</TableCell>
-														</TableRow>
-													)
-												)}
+												<TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+													<TableCell component="th" scope="row">
+														{/* {t(`plaques.objectPopup.${objectAttr[attr].field}`)} */}
+														{/* {objectAttr[attr].field} */}
+														Metai
+													</TableCell>
+													<TableCell align="right">
+														{queryObjects[page - 1].attributes.Metai}
+														{/* {objectAttr[attr].field === "TIPAS"
+															? t(`plaques.options.objects.${objectAttr[attr].code}`)
+															: objectAttr[attr].field === "ATMINT_TIP"
+															? t(`plaques.options.memories.${objectAttr[attr].code}`)
+															: objectAttr[attr].value} */}
+													</TableCell>
+												</TableRow>
 											</TableBody>
 										</Table>
 									</TableContainer>
-									{Object.keys(objectAttr).map((attr) =>
+
+									{/* {Object.keys(objectAttr).map((attr) =>
 										objectAttr[attr].field === "OBJ_APRAS" || objectAttr[attr].field === "AUTORIUS" ? (
 											<Typography variant="h6" component="div" key={objectAttr[attr].field}>
 												{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
@@ -231,8 +287,9 @@ const ObjectPopupTimeline = (props) => {
 												</Typography>
 											</Typography>
 										) : null
-									)}
-									{Object.keys(objectAttr).map((attr) =>
+									)} */}
+
+									{/* {Object.keys(objectAttr).map((attr) =>
 										objectAttr[attr].field === "SALTINIS" ? (
 											<Typography variant="h6" component="div" key={objectAttr[attr].field}>
 												{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
@@ -243,9 +300,9 @@ const ObjectPopupTimeline = (props) => {
 												</MuiLinkify>
 											</Typography>
 										) : null
-									)}
+									)} */}
 
-									{objectPer.length ? (
+									{/* {objectPer.length ? (
 										<Typography variant="h6" component="div">
 											{objectPer.length > 1
 												? t("plaques.objectPopup.relatedMany")
@@ -280,9 +337,9 @@ const ObjectPopupTimeline = (props) => {
 												))}
 											</Typography>
 										</Typography>
-									) : null}
+									) : null} */}
 
-									{relatedStreetsShow && (
+									{/* {relatedStreetsShow && (
 										<Typography variant="h6" component="div">
 											Susijusios gatvės
 											<Typography component="div">
@@ -321,9 +378,9 @@ const ObjectPopupTimeline = (props) => {
 												</Timeline>
 											</Typography>
 										</Typography>
-									)}
+									)} */}
 
-									{objectAtt.length
+									{/* {objectAtt.length
 										? Object.keys(objectAtt).map((att) => (
 												<Box sx={{ mt: 1 }} key={att}>
 													<a href={`${objectAtt[att].url}`} target="_blank">
@@ -334,7 +391,7 @@ const ObjectPopupTimeline = (props) => {
 													</a>
 												</Box>
 										  ))
-										: null}
+										: null} */}
 								</>
 							)}
 						</CardContent>
