@@ -108,6 +108,7 @@ const CompareLayers = (props) => {
 								setSelectedObject={props.setSelectedObject}
 								initialLoading={props.initialLoading}
 								setInitialPeriod={setInitialPeriod}
+                setHistoryToggle={props.setHistoryToggle}
 							/>
 							<CompareTimeline
 								setMapQuery={props.setMapQuery}

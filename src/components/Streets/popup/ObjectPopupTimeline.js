@@ -306,7 +306,7 @@ const ObjectPopupTimeline = (props) => {
 									{relatedStreets.length ? (
 										<>
 											<Typography variant="h6" component="div">
-												Susijusios gatvės
+												Dabartiniai gatvės ar jos dalies pavadinimai
 											</Typography>
 											<Typography component="div">
 												{Object.keys(relatedStreets).map((street) => (
@@ -314,25 +314,24 @@ const ObjectPopupTimeline = (props) => {
 														<div key={street}>
 															<Link
 																sx={{ mt: 0.5 }}
-																target="_blank"
-																href={
-																	"https://zemelapiai.vplanas.lt" +
-																	`/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[street].attributes.GAT_ID}`
-																}
-																rel="noopener"
-																textAlign="left"
-																variant="body2"
-
+																// target="_blank"
+																// href={
+																// 	"https://zemelapiai.vplanas.lt" +
+																// 	`/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[street].attributes.GAT_ID}`
+																// }
+																// rel="noopener"
 																// textAlign="left"
-																// component="button"
 																// variant="body2"
-																// onClick={() => {
-																// 	navigate(
-																// 		`/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[
-																// 			street
-																// 		].attributes.GAT_ID}`
-																// 	)
-																// }}
+
+																textAlign="left"
+																component="button"
+																variant="body2"
+																onClick={() => {
+																	props.setHistoryToggle(false)
+																	navigate(
+																		`/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[street].attributes.GAT_ID}`
+																	)
+																}}
 															>{`${relatedStreets[street].attributes.PAV}`}</Link>
 															<br></br>
 														</div>

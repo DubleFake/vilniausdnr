@@ -463,7 +463,7 @@ const ObjectPopup = (props) => {
 
 									{relatedStreetsShow && (
 										<Typography variant="h6" component="div">
-											Susijusios gatvės
+											Istoriniai gatvės ar jos dalies pavadinimai (tik 1808, 1845, 1911, 1938 ir 1977 m.)
 											<Typography component="div">
 												<Timeline sx={{ m: 0, mt: 1, p: 0 }}>
 													{relatedStreets.map((street, i) => (
