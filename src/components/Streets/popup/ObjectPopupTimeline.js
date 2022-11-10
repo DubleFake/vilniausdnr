@@ -76,7 +76,7 @@ const ObjectPopupTimeline = (props) => {
 	}
 
 	useEffect(() => {
-		if (props.mapQuery.length === 0) {
+		if (props.mapQuery.length === 0 || !props.mapQuery.length ) {
 			setPopupOpen(true)
 			setLoading(true)
 
@@ -328,6 +328,8 @@ const ObjectPopupTimeline = (props) => {
 																variant="body2"
 																onClick={() => {
 																	props.setHistoryToggle(false)
+																	map.removeAll()
+																	map.add(objects)
 																	navigate(
 																		`/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[street].attributes.GAT_ID}`
 																	)

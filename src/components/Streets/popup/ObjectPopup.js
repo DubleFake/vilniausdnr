@@ -86,8 +86,9 @@ const ObjectPopup = (props) => {
 			setLoading(true)
 
 			let found = false
+      console.log(props.mapQuery)
 			for (let obj in props.mapQuery) {
-				if (props.mapQuery[obj].attributes.GAT_ID === globalID) {
+				if (!props.mapQuery.GlobalID && props.mapQuery[obj].attributes.GAT_ID === globalID) {
 					setPage(parseInt(obj) + 1)
 					found = true
 				}
@@ -482,16 +483,29 @@ const ObjectPopup = (props) => {
 															<TimelineContent sx={{ mt: 0 }}>
 																<Link
 																	sx={{ mt: 0.5 }}
-																	target="_blank"
-																	href={
-																		"https://zemelapiai.vplanas.lt" +
-																		`/vilniausdnr/${
-																			i18n.language
-																		}/streets/compare/timeline/${street.GlobalID.replace(/[{}]/g, "")}`
-																	}
-																	rel="noopener"
+																	// target="_blank"
+																	// href={
+																	// 	"https://zemelapiai.vplanas.lt" +
+																	// 	`/vilniausdnr/${
+																	// 		i18n.language
+																	// 	}/streets/compare/timeline/${street.GlobalID.replace(/[{}]/g, "")}`
+																	// }
+																	// rel="noopener"
+																	// textAlign="left"
+																	// variant="body2"
+
 																	textAlign="left"
+																	component="button"
 																	variant="body2"
+																	onClick={() => {
+																		props.setHistoryToggle(true)
+																		props.setMapQuery(street)
+																		navigate(
+																			`/vilniausdnr/${
+																				i18n.language
+																			}/streets/compare/timeline/${street.GlobalID.replace(/[{}]/g, "")}`
+																		)
+																	}}
 																>{`${street.Pavadinimas}`}</Link>
 															</TimelineContent>
 														</TimelineItem>

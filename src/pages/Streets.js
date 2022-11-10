@@ -91,6 +91,8 @@ const Plaques = () => {
 							mapQuery={mapQuery}
 							setSelectedObject={setSelectedObject}
 							initialLoading={initialLoading}
+              setHistoryToggle={setHistoryToggle}
+              setMapQuery={setMapQuery}
 						/>
 					}
 				/>
