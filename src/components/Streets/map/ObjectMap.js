@@ -158,6 +158,7 @@ const ObjectMap = (props) => {
 					bgExpand.collapse()
 
 					view.whenLayerView(objects).then((objectsView) => {
+            console.log("first")
 						watchUtils
 							.whenNotOnce(objectsView, "updating")
 							.then(() => {

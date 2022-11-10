@@ -233,8 +233,8 @@ const ObjectPopup = (props) => {
 						})
 						.then((response_related) => {
 							if (response_related[response.features[0].attributes.OBJECTID]) {
-                for (let feature in response_related[response.features[0].attributes.OBJECTID].features) {
-                  const tempObj = {}
+								for (let feature in response_related[response.features[0].attributes.OBJECTID].features) {
+									const tempObj = {}
 									tempObj.GlobalID =
 										response_related[response.features[0].attributes.OBJECTID].features[
 											feature
@@ -485,7 +485,9 @@ const ObjectPopup = (props) => {
 																	target="_blank"
 																	href={
 																		"https://zemelapiai.vplanas.lt" +
-																		`/vilniausdnr/${i18n.language}/streets/compare/timeline/${street.GlobalID.replace(/[^0-9]/g,'')}`
+																		`/vilniausdnr/${
+																			i18n.language
+																		}/streets/compare/timeline/${street.GlobalID.replace(/[{}]/g, "")}`
 																	}
 																	rel="noopener"
 																	textAlign="left"

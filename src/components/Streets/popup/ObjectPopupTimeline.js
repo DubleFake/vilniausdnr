@@ -79,6 +79,7 @@ const ObjectPopupTimeline = (props) => {
 		if (props.mapQuery.length === 0) {
 			setPopupOpen(true)
 			setLoading(true)
+
 			for (let period of periods) {
 				period
 					.queryFeatures({
@@ -102,6 +103,28 @@ const ObjectPopupTimeline = (props) => {
 								view.goTo(response.features[0].geometry.extent)
 								highlight = periodView.highlight(response.features[0])
 							})
+
+							period
+								.queryRelatedFeatures({
+									outFields: ["*"],
+									relationshipId: 2,
+									returnGeometry: false,
+									objectIds: response.features[0].attributes.OBJECTID,
+								})
+								.then((response_related) => {
+									setRelatedStreets(response_related[response.features[0].attributes.OBJECTID].features)
+								})
+
+							period
+								.queryRelatedFeatures({
+									outFields: ["*"],
+									relationshipId: 9,
+									returnGeometry: false,
+									objectIds: response.features[0].attributes.OBJECTID,
+								})
+								.then((response_related) => {
+									setRelatedMaps(response_related[response.features[0].attributes.OBJECTID].features)
+								})
 						}
 					})
 			}
@@ -113,6 +136,8 @@ const ObjectPopupTimeline = (props) => {
 		if (props.mapQuery.length > 0) {
 			setPopupOpen(true)
 			setLoading(true)
+			setRelatedStreets([])
+			setRelatedMaps([])
 
 			let found = false
 			let tempPage = 0
@@ -277,6 +302,84 @@ const ObjectPopupTimeline = (props) => {
 											</TableBody>
 										</Table>
 									</TableContainer>
+
+									{relatedStreets.length ? (
+										<>
+											<Typography variant="h6" component="div">
+												Susijusios gatvės
+											</Typography>
+											<Typography component="div">
+												{Object.keys(relatedStreets).map((street) => (
+													<>
+														<div key={street}>
+															<Link
+																sx={{ mt: 0.5 }}
+																target="_blank"
+																href={
+																	"https://zemelapiai.vplanas.lt" +
+																	`/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[street].attributes.GAT_ID}`
+																}
+																rel="noopener"
+																textAlign="left"
+																variant="body2"
+
+																// textAlign="left"
+																// component="button"
+																// variant="body2"
+																// onClick={() => {
+																// 	navigate(
+																// 		`/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[
+																// 			street
+																// 		].attributes.GAT_ID}`
+																// 	)
+																// }}
+															>{`${relatedStreets[street].attributes.PAV}`}</Link>
+															<br></br>
+														</div>
+													</>
+												))}
+											</Typography>
+										</>
+									) : null}
+
+									{relatedMaps.length ? (
+										<>
+											<Typography variant="h6" component="div">
+												Susiję žemėlapiai
+											</Typography>
+											<Typography component="div">
+												{Object.keys(relatedMaps).map((map) => (
+													<div key={map}>
+														<Link
+															sx={{ mt: 0.5 }}
+															target="_blank"
+															href={
+																"https://zemelapiai.vplanas.lt" +
+																`/vilniausdnr/${i18n.language}/maps/compare/review/${relatedMaps[
+																	map
+																].attributes.GlobalID_zemelapio.replace(/[{}]/g, "")}`
+															}
+															rel="noopener"
+															textAlign="left"
+															variant="body2"
+
+															// textAlign="left"
+															// component="button"
+															// variant="body2"
+															// onClick={() => {
+															// 	navigate(
+															// 		`/vilniausdnr/${i18n.language}/streets/object/${relatedMaps[
+															// 			map
+															// 		].attributes.GlobalID_zemelapio.replace(/[{}]/g, "")}`
+															// 	)
+															// }}
+														>{`${relatedMaps[map].attributes.Pavadinimas}`}</Link>
+														<br></br>
+													</div>
+												))}
+											</Typography>
+										</>
+									) : null}
 
 									{/* {Object.keys(objectAttr).map((attr) =>
 										objectAttr[attr].field === "OBJ_APRAS" || objectAttr[attr].field === "AUTORIUS" ? (
