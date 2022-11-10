@@ -10,7 +10,14 @@ const PersonHeader = (props) => {
 				<Typography
 					sx={{ fontWeight: "bold" }}
 					variant="h3"
-					gutterBottom={props.biographyFeatures[0].attributes.Kuri_kalba_pagrindine === "LT" ? true : false}
+					gutterBottom={
+						props.biographyFeatures[0].attributes.Vardas_pavarde_EN ||
+						props.biographyFeatures[0].attributes.Vardas_pavarde_KITA ||
+						props.biographyFeatures[0].attributes.Vardas_pavarde_PL ||
+						props.biographyFeatures[0].attributes.Vardas_pavarde_RU
+							? false
+							: true
+					}
 					component="div"
 					align="left"
 					color="#323B4C"
@@ -23,7 +30,8 @@ const PersonHeader = (props) => {
 						: null}
 				</Typography>
 
-				{props.biographyFeatures[0].attributes.Kuri_kalba_pagrindine === "EN" ? (
+				{console.log(props.biographyFeatures[0].attributes)}
+				{props.biographyFeatures[0].attributes.Vardas_pavarde_EN ? (
 					<Typography
 						sx={{ fontStyle: "italic" }}
 						color="text.secondary"
@@ -34,7 +42,9 @@ const PersonHeader = (props) => {
 					>
 						{props.biographyFeatures[0].attributes.Vardas_pavarde_EN}
 					</Typography>
-				) : props.biographyFeatures[0].attributes.Kuri_kalba_pagrindine === "KITA" ? (
+				) : null}
+
+				{props.biographyFeatures[0].attributes.Vardas_pavarde_KITA ? (
 					<Typography
 						sx={{ fontStyle: "italic" }}
 						color="text.secondary"
@@ -45,7 +55,9 @@ const PersonHeader = (props) => {
 					>
 						{props.biographyFeatures[0].attributes.Vardas_pavarde_KITA}
 					</Typography>
-				) : props.biographyFeatures[0].attributes.Kuri_kalba_pagrindine === "PL" ? (
+				) : null}
+
+				{props.biographyFeatures[0].attributes.Vardas_pavarde_PL ? (
 					<Typography
 						sx={{ fontStyle: "italic" }}
 						color="text.secondary"
@@ -56,7 +68,9 @@ const PersonHeader = (props) => {
 					>
 						{props.biographyFeatures[0].attributes.Vardas_pavarde_PL}
 					</Typography>
-				) : props.biographyFeatures[0].attributes.Kuri_kalba_pagrindine === "RU" ? (
+				) : null}
+
+				{props.biographyFeatures[0].attributes.Vardas_pavarde_RU ? (
 					<Typography
 						sx={{ fontStyle: "italic" }}
 						color="text.secondary"
