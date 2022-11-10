@@ -99,26 +99,31 @@ const gatves_1808 = new FeatureLayer({
 	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/76",
 	outFields: ["*"],
 	title: "Gatvės 1808",
+	metai: 1808,
 })
 const gatves_1845 = new FeatureLayer({
 	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/89",
 	outFields: ["*"],
 	title: "Gatvės 1845",
+	metai: 1845,
 })
 const gatves_1911 = new FeatureLayer({
 	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/82",
 	outFields: ["*"],
 	title: "Gatvės 1911",
+	metai: 1911,
 })
 const gatves_1938 = new FeatureLayer({
 	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/81",
 	outFields: ["*"],
 	title: "Gatvės 1938",
+	metai: 1938,
 })
 const gatves_1977 = new FeatureLayer({
 	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/90",
 	outFields: ["*"],
 	title: "Gatvės 1977",
+	metai: 1977,
 })
 const gatves_2021 = new FeatureLayer({
 	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/87",

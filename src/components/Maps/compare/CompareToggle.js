@@ -6,6 +6,7 @@ import { map } from "../../../utils/mapsArcgisItems"
 import CompareSwipe from "../compare/CompareSwipe"
 import CompareWindow from "../compare/CompareWindow"
 import CompareReview from "../compare/CompareReview"
+import ObjectPopup from "../popup/ObjectPopup"
 
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
@@ -67,20 +68,25 @@ const CompareLayers = (props) => {
 			</Grid>
 
 			<Routes>
-        <Route
-          path="compare/review"
-          element={
-            <>
-              <CompareReview/>
-              <CompareType />
-            </>
-          }
-        />
+				<Route
+					path="compare/review"
+					element={
+						<>
+							<CompareReview />
+							<CompareType />
+						</>
+					}
+				/>
 				<Route
 					path="compare/review/:globalID"
 					element={
 						<>
-							<CompareReview/>
+							<ObjectPopup
+								// mapQuery={mapQuery}
+								// setSelectedObject={setSelectedObject}
+								// initialLoading={initialLoading}
+							/>
+							<CompareReview />
 							<CompareType />
 						</>
 					}

@@ -84,16 +84,6 @@ const Maps = () => {
 						</>
 					}
 				>
-					{/* <Route
-        path="object/:globalID"
-        element={
-            <ObjectPopup
-                mapQuery={mapQuery}
-                setSelectedObject={setSelectedObject}
-                initialLoading={initialLoading}
-            />
-        }
-    /> */}
 				</Route>
 			</Routes>
 		</>
