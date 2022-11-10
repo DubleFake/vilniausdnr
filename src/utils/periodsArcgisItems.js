@@ -99,26 +99,32 @@ export const objects = new FeatureLayer({
 const period_1808 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1808_m_Vector/MapServer",
 	title: "Periodas 1808",
+  metai: 1808
 })
 const period_1845 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1845_m_Vector/MapServer",
 	title: "Periodas 1845",
+  metai: 1845
 })
 const period_1911 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1911_m_Vector/MapServer",
 	title: "Periodas 1911",
+  metai: 1911
 })
 const period_1938 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1938_m_Vector/MapServer",
 	title: "Periodas 1938",
+  metai: 1938
 })
 const period_1977 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1977_m_Vector/MapServer",
 	title: "Periodas 1977",
+  metai: 1977
 })
 const period_2021 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/2022_m_Vector/MapServer",
 	title: "Periodas 2022",
+  metai: 2022
 })
 export const periods = [period_1808, period_1845, period_1911, period_1938, period_1977, period_2021]
 

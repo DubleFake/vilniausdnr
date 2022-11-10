@@ -5,6 +5,7 @@ import { objects, map } from "../../../utils/periodsArcgisItems"
 import CompareTimeline from "../compare/CompareTimeline"
 import CompareSwipe from "../compare/CompareSwipe"
 import CompareWindow from "../compare/CompareWindow"
+import ObjectPopup from "../popup/ObjectPopup"
 
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
@@ -13,12 +14,12 @@ import Grid from "@mui/material/Grid"
 import CompareType from "./CompareType"
 
 const CompareLayers = (props) => {
-  const navigate = useNavigate()
+	const navigate = useNavigate()
 
 	useEffect(() => {
-    if(window.location.href.includes("compare")){
-      props.setHistoryToggle(true)
-    }
+		if (window.location.href.includes("compare")) {
+			props.setHistoryToggle(true)
+		}
 	}, [])
 
 	return (
@@ -75,6 +76,18 @@ const CompareLayers = (props) => {
 						</>
 					}
 				/>
+
+				<Route
+					path="compare/timeline/:globalID"
+					element={
+						<>
+							{/* <ObjectPopup /> */}
+							<CompareTimeline />
+							<CompareType />
+						</>
+					}
+				/>
+
 				<Route
 					path="compare/swipe"
 					element={
@@ -84,6 +97,7 @@ const CompareLayers = (props) => {
 						</>
 					}
 				/>
+
 				<Route
 					path="compare/window"
 					element={

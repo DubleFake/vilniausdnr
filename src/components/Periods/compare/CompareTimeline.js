@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 import { map, view, objects, periods } from "../../../utils/periodsArcgisItems"
 
@@ -8,56 +10,59 @@ import Typography from "@mui/material/Typography"
 import Grid from "@mui/material/Grid"
 
 const CompareTimeline = (props) => {
-	const [currentPeriod, setCurrentPeriod] = useState(0)
+	const { globalID } = useParams()
+	const navigate = useNavigate()
+	const { t, i18n } = useTranslation()
 
 	useEffect(() => {
-		map.removeAll()
+		if (globalID) {
+			map.removeAll()
 
-    periods[0]
-    .when(() => {
-      return periods[0].queryExtent()
-    })
-    .then((response) => {
-      view.constraints.geometry = {
-        type: "extent",
-        spatialReference: response.extent.spatialReference,
-        xmin: response.extent.xmin,
-        ymin: response.extent.ymin,
-        xmax: response.extent.xmax,
-        ymax: response.extent.ymax,
-      }
-    })
+			const foundPeriod = periods.find((period) => String(period.metai) === globalID)
 
-		view
-			.when(() => {
-				view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+			map.add(foundPeriod)
+			foundPeriod
+				.when(() => {
+					return foundPeriod.queryExtent()
+				})
+				.then((response) => {
+					view.constraints.geometry = {
+						type: "extent",
+						spatialReference: response.extent.spatialReference,
+						xmin: response.extent.xmin,
+						ymin: response.extent.ymin,
+						xmax: response.extent.xmax,
+						ymax: response.extent.ymax,
+					}
+				})
+
+			view.when(() => {
+				view.goTo({ target: foundPeriod.fullExtent.center, zoom: 4 })
 			})
-	}, [])
-
-	useEffect(() => {
-    map.removeAll()
-    map.add(periods[currentPeriod])
-  }, [currentPeriod])
+		} else {
+			navigate(String(periods[0].metai))
+		}
+	}, [globalID])
 
 	useEffect(() => {
 		return () => {
 			map.removeAll()
 			map.add(objects)
 
-      objects
-			.when(() => {
-				return objects.queryExtent()
-			})
-			.then((response) => {
-				view.constraints.geometry = {
-					type: "extent",
-					spatialReference: response.extent.spatialReference,
-					xmin: response.extent.xmin,
-					ymin: response.extent.ymin,
-					xmax: response.extent.xmax,
-					ymax: response.extent.ymax,
-				}
-			})
+			objects
+				.when(() => {
+					return objects.queryExtent()
+				})
+				.then((response) => {
+					view.constraints.geometry = {
+						type: "extent",
+						spatialReference: response.extent.spatialReference,
+						xmin: response.extent.xmin,
+						ymin: response.extent.ymin,
+						xmax: response.extent.xmax,
+						ymax: response.extent.ymax,
+					}
+				})
 		}
 	}, [])
 
@@ -84,61 +89,61 @@ const CompareTimeline = (props) => {
 				variant="contained"
 			>
 				<Button
-					sx={{ borderRadius: 0, backgroundColor: currentPeriod === 0 && "#55AFB0" }}
+					sx={{ borderRadius: 0, backgroundColor: globalID === String(periods[0].metai) && "#55AFB0" }}
 					size="large"
 					variant="contained"
 					onClick={() => {
-						setCurrentPeriod(0)
+						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[0].metai)}`)
 					}}
 				>
 					<Typography variant="button">1808</Typography>
 				</Button>
 				<Button
-					sx={{ borderRadius: 0, backgroundColor: currentPeriod === 1 && "#407D5C" }}
+					sx={{ borderRadius: 0, backgroundColor: globalID === String(periods[1].metai) && "#407D5C" }}
 					size="large"
 					variant="contained"
 					onClick={() => {
-						setCurrentPeriod(1)
+						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[1].metai)}`)
 					}}
 				>
 					<Typography variant="button">1845</Typography>
 				</Button>
 				<Button
-					sx={{ borderRadius: 0, backgroundColor: currentPeriod === 2 && "#007FCC" }}
+					sx={{ borderRadius: 0, backgroundColor: globalID === String(periods[2].metai) && "#007FCC" }}
 					size="large"
 					variant="contained"
 					onClick={() => {
-						setCurrentPeriod(2)
+						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[2].metai)}`)
 					}}
 				>
 					<Typography variant="button">1911</Typography>
 				</Button>
 				<Button
-					sx={{ borderRadius: 0, backgroundColor: currentPeriod === 3 && "#823F86" }}
+					sx={{ borderRadius: 0, backgroundColor: globalID === String(periods[3].metai) && "#823F86" }}
 					size="large"
 					variant="contained"
 					onClick={() => {
-						setCurrentPeriod(3)
+						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[3].metai)}`)
 					}}
 				>
 					<Typography variant="button">1938</Typography>
 				</Button>
 				<Button
-					sx={{ borderRadius: 0, backgroundColor: currentPeriod === 4 && "#EE5066" }}
+					sx={{ borderRadius: 0, backgroundColor: globalID === String(periods[4].metai) && "#EE5066" }}
 					size="large"
 					variant="contained"
 					onClick={() => {
-						setCurrentPeriod(4)
+						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[4].metai)}`)
 					}}
 				>
 					<Typography variant="button">1977</Typography>
 				</Button>
 				<Button
-					sx={{ borderRadius: 0, backgroundColor: currentPeriod === 5 && "#FFAF28" }}
+					sx={{ borderRadius: 0, backgroundColor: globalID === String(periods[5].metai) && "#FFAF28" }}
 					size="large"
 					variant="contained"
 					onClick={() => {
-						setCurrentPeriod(5)
+						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[5].metai)}`)
 					}}
 				>
 					<Typography variant="button">2022</Typography>

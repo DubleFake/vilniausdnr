@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import MuiLinkify from "material-ui-linkify"
 import { useTranslation } from "react-i18next"
 
-import { view, objects } from "../../../utils/periodsArcgisItems"
+import { periods } from "../../../utils/periodsArcgisItems"
 
 import { styled } from "@mui/material/styles"
 import Card from "@mui/material/Card"
@@ -27,6 +27,13 @@ import CircularProgress from "@mui/material/CircularProgress"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Backdrop from "@mui/material/Backdrop"
 import Fade from "@mui/material/Fade"
+import Timeline from "@mui/lab/Timeline"
+import TimelineItem from "@mui/lab/TimelineItem"
+import TimelineSeparator from "@mui/lab/TimelineSeparator"
+import TimelineConnector from "@mui/lab/TimelineConnector"
+import TimelineContent from "@mui/lab/TimelineContent"
+import TimelineDot from "@mui/lab/TimelineDot"
+import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
 
 let highlight
 const ObjectPopup = (props) => {
@@ -34,18 +41,20 @@ const ObjectPopup = (props) => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
 
-	const [objectAttr, setObjectAttr] = useState([])
-	const [objectPer, setObjectPer] = useState([])
-	const [objectAtt, setObjectAtt] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [queryObjects, setQueryObjects] = useState([])
 	const [popupOpen, setPopupOpen] = useState(false)
 	const [page, setPage] = useState(1)
 	const [pageCount, setPageCount] = useState(1)
 	const [shareTooltip, setShareTooltip] = useState(false)
+	const [currentPeriod, setCurrentPeriod] = useState()
 
 	const handlePage = (event, value) => {
-		navigate(`/vilniausdnr/${i18n.language}/streets/object/${queryObjects[value - 1].attributes.GAT_ID}`)
+		navigate(
+			`/vilniausdnr/${i18n.language}/streets/compare/timeline/${queryObjects[
+				value - 1
+			].attributes.GlobalID.replace(/[{}]/g, "")}`
+		)
 	}
 
 	const BootstrapTooltip = styled(({ className, ...props }) => (
@@ -66,104 +75,59 @@ const ObjectPopup = (props) => {
 	}
 
 	useEffect(() => {
-		if (!props.initialLoading) {
-			setPopupOpen(true)
-			setLoading(true)
+		setPopupOpen(true)
+		setLoading(true)
+    
+		const foundPeriod = periods.find((period) => String(period.metai) === globalID)
+		setCurrentPeriod(foundPeriod)
+    console.log(foundPeriod)
+    
+		setLoading(false)
+		// for (let period of periods) {
+		// 	period
+		// 		.queryFeatures({
+		// 			where: `GlobalID = '${globalID}'`,
+		// 			outFields: ["*"],
+		// 			returnGeometry: true,
+		// 		})
+		// 		.then((response) => {
+		// 			if (response.features.length > 0) {
+		// 				setQueryObjects(response.features)
+		// 				setLoading(false)
+		// 				props.setInitialPeriod(period)
 
-			let found = false
-			for (let obj in props.mapQuery) {
-				if (props.mapQuery[obj].attributes.OBJECTID === globalID) {
-					setPage(parseInt(obj) + 1)
-					found = true
-				}
-			}
+		// 				if (highlight) {
+		// 					highlight.remove()
+		// 				}
 
-			if (found) {
-				setQueryObjects(props.mapQuery)
-				setPageCount(props.mapQuery.length)
-			} else {
-				setPageCount(1)
-				setPage(1)
-			}
+		// 				map.removeAll()
+		// 				map.add(period)
+		// 				view.whenLayerView(period).then((periodView) => {
+		// 					view.goTo(response.features[0].geometry.extent)
+		// 					highlight = periodView.highlight(response.features[0])
+		// 				})
 
-			view.whenLayerView(objects).then((objectsView) => {
-				let query = objectsView.createQuery()
-				query.where = `GAT_ID = ${globalID}`
+		// 				period
+		// 					.queryRelatedFeatures({
+		// 						outFields: ["*"],
+		// 						relationshipId: 2,
+		// 						returnGeometry: false,
+		// 						objectIds: response.features[0].attributes.OBJECTID,
+		// 					})
+		// 					.then((response_related) => {
+		// 						setRelatedStreets(response_related[response.features[0].attributes.OBJECTID].features)
+		// 					})
 
-				objects
-					.queryFeatures(query)
-					.then((response) => {
-						if (highlight) {
-							highlight.remove()
-						}
-
-						if (response.features.length === 0) {
-							navigate(`/vilniausdnr/${i18n.language}/streets`)
-							return
-						}
-
-						view.goTo(response.features[0].geometry.extent)
-						highlight = objectsView.highlight(response.features[0])
-						props.setSelectedObject(`${globalID}`)
-
-						return response
-					})
-					.then((response) => {
-						const allAttributes = []
-
-						let count = 0
-						for (let attr in response.features[0].attributes) {
-							if (
-								response.features[0].attributes[attr] === null ||
-								response.features[0].attributes[attr] === "" ||
-								response.features[0].attributes[attr] === 0 ||
-								attr === "OBJECTID" ||
-								attr === "GAT_ID" ||
-								attr === "GAT_ID_1" ||
-								attr === "GAT_GYV_ID" ||
-								attr === "Shape__Length"
-							) {
-							} else {
-								const obj = {}
-
-								obj.alias = response.features[0].layer.fields[count].alias
-								if (response.features[0].layer.fields[count].domain === null) {
-									obj.value = response.features[0].attributes[attr]
-								} else {
-									for (let code in response.features[0].layer.fields[count].domain.codedValues) {
-										if (
-											response.features[0].layer.fields[count].domain.codedValues[code].code ===
-											response.features[0].attributes[attr]
-										) {
-											obj.value = response.features[0].layer.fields[count].domain.codedValues[code].name
-											obj.code = response.features[0].layer.fields[count].domain.codedValues[code].code
-										}
-									}
-								}
-
-								obj.field = attr
-								allAttributes.push(obj)
-							}
-							count++
-						}
-						setObjectAttr(allAttributes)
-						return response.features[0].attributes.OBJECTID
-					})
-					.then(() => {
-						setLoading(false)
-					})
-					.catch((error) => {
-						console.error(error)
-					})
-			})
-		}
-	}, [globalID, props.initialLoading])
+		// 			}
+		// 		})
+		// }
+	}, [globalID])
 
 	useEffect(() => {
 		return () => {
 			setPage(1)
 			setPageCount(1)
-			props.setSelectedObject("")
+			// props.setSelectedObject("")
 			setQueryObjects([])
 			setPopupOpen(false)
 
@@ -178,7 +142,7 @@ const ObjectPopup = (props) => {
 		<>
 			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
 			<Fade in={true} timeout={300} unmountOnExit>
-				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
+				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3, mt: 8.5 }}>
 					<Card
 						sx={{
 							borderRadius: "0px",
@@ -229,106 +193,50 @@ const ObjectPopup = (props) => {
 													aria-label="close"
 													size="large"
 													onClick={() => {
-														navigate(`/vilniausdnr/${i18n.language}/streets`)
+														navigate(`/vilniausdnr/${i18n.language}/streets/compare/timeline`)
 													}}
 												>
 													<CloseIcon style={{ fontSize: 30 }} />
 												</IconButton>
 											</>
 										}
-										title={Object.keys(objectAttr).map((attr) =>
-											objectAttr[attr].field === "PAV" ? objectAttr[attr].value : null
-										)}
+										title={currentPeriod.title}
 									/>
-									<TableContainer sx={{ mb: 1 }} component={Paper}>
+									{/* <TableContainer sx={{ mb: 1 }} component={Paper}>
 										<Table size="small">
 											<TableBody>
-												{Object.keys(objectAttr).map((attr) =>
-													objectAttr[attr].field === "OBJ_APRAS" ||
-													objectAttr[attr].field === "AUTORIUS" ||
-													objectAttr[attr].field === "OBJ_PAV" ||
-													objectAttr[attr].field === "SALTINIS" ? null : (
-														<TableRow
-															key={objectAttr[attr].field}
-															sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-														>
+												{Object.keys(queryObjects.attributes).map((attr) =>
+													queryObjects.attributes[attr] &&
+													attr !== "Nuoroda" &&
+													attr !== "Pavadinimas" &&
+													attr !== "Saltinis" ? (
+														<TableRow key={attr} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 															<TableCell component="th" scope="row">
-																{/* {t(`plaques.objectPopup.${objectAttr[attr].field}`)} */}
-																{objectAttr[attr].field}
+																{console.log(queryObjects.attributes[attr])}
+																{attr}
 															</TableCell>
-															<TableCell align="right">
-																{objectAttr[attr].field === "TIPAS"
-																	? t(`plaques.options.objects.${objectAttr[attr].code}`)
-																	: objectAttr[attr].field === "ATMINT_TIP"
-																	? t(`plaques.options.memories.${objectAttr[attr].code}`)
-																	: objectAttr[attr].value}
-															</TableCell>
+															<TableCell align="right">{queryObjects.attributes[attr]}</TableCell>
 														</TableRow>
-													)
+													) : null
 												)}
 											</TableBody>
 										</Table>
 									</TableContainer>
-									{Object.keys(objectAttr).map((attr) =>
-										objectAttr[attr].field === "OBJ_APRAS" || objectAttr[attr].field === "AUTORIUS" ? (
-											<Typography variant="h6" component="div" key={objectAttr[attr].field}>
-												{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
-												<Typography variant="body2" component="div">
-													{objectAttr[attr].value}
-												</Typography>
-											</Typography>
-										) : null
-									)}
-									{Object.keys(objectAttr).map((attr) =>
-										objectAttr[attr].field === "SALTINIS" ? (
-											<Typography variant="h6" component="div" key={objectAttr[attr].field}>
-												{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
-												<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
-													<Typography variant="body2" component="div">
-														{objectAttr[attr].value}
-													</Typography>
-												</MuiLinkify>
-											</Typography>
-										) : null
-									)}
 
-									{objectPer.length ? (
+									{queryObjects.attributes["Saltinio_nuoroda"] || queryObjects.attributes["Saltinis"] ? (
 										<Typography variant="h6" component="div">
-											{objectPer.length > 1
-												? t("plaques.objectPopup.relatedMany")
-												: t("plaques.objectPopup.relatedOne")}
-											<Typography component="div">
-												{Object.keys(objectPer).map((per) => (
-													<div key={per}>
-														<Link
-															sx={{ mt: 0.5 }}
-															textAlign="left"
-															component="button"
-															variant="body2"
-															onClick={() => {
-																navigate(
-																	`/vilniausdnr/${i18n.language}/plaques/person/${objectPer[per].attributes.OBJECTID}`
-																)
-															}}
-														>{`${objectPer[per].attributes.Vardas__liet_} ${objectPer[per].attributes.Pavardė__liet_}`}</Link>
-														<br></br>
-													</div>
-												))}
+											Šaltinis
+											<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
+												<Typography variant="body2" component="div">
+													{queryObjects.attributes["Saltinio_nuoroda"] &&
+														queryObjects.attributes["Saltinio_nuoroda"]}
+												</Typography>
+											</MuiLinkify>
+											<Typography variant="body2" component="div">
+												{queryObjects.attributes["Saltinis"] && queryObjects.attributes["Saltinis"]}
 											</Typography>
 										</Typography>
-									) : null}
-									{objectAtt.length
-										? Object.keys(objectAtt).map((att) => (
-												<Box sx={{ mt: 1 }} key={att}>
-													<a href={`${objectAtt[att].url}`} target="_blank">
-														<img
-															style={{ maxWidth: "100%", maxHeight: "auto" }}
-															src={`${objectAtt[att].url}`}
-														/>
-													</a>
-												</Box>
-										  ))
-										: null}
+									) : null} */}
 								</>
 							)}
 						</CardContent>
