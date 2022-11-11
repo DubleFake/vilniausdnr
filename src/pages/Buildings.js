@@ -6,6 +6,7 @@ import ObjectPopup from "../components/Buildings/popup/ObjectPopup"
 import OptionsToggle from "../components/Buildings/options/OptionsToggle"
 import Options from "../components/Buildings/options/Options"
 import CompareToggle from "../components/Buildings/compare/CompareToggle"
+import TooltipPlaceholder from "../utils/misc/TooltipPlaceholder"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
@@ -22,6 +23,7 @@ const Buildings = () => {
 	const [visible, setVisible] = useState(false)
 	const [toggleCompareWindow, setToggleCompareWindow] = useState(false)
 	const [historyToggle, setHistoryToggle] = useState(false)
+  const [displayTooltip, setDisplayTooltip] = useState(true)
 
 	useEffect(() => {
 		if (historyToggle) {
@@ -68,6 +70,13 @@ const Buildings = () => {
 									historyToggle={historyToggle}
 									setHistoryToggle={setHistoryToggle}
 								/>
+
+								<TooltipPlaceholder
+									display={displayTooltip}
+									text={`Atsiprašome, ši skiltis šiuo metu vis dar yra kuriama, nepasiekiamas joks jos funkcionalumas ir duomenys.`}
+									setDisplayTooltip={setDisplayTooltip}
+								/>
+
 								<Outlet />
 							</Grid>
 						</Grid>

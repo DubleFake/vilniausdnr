@@ -11,7 +11,7 @@ import Grid from "@mui/material/Grid"
 const TooltipPlaceholder = (props) => {
 	return (
 		props.display && (
-			<Box sx={{ top: "43%", left: "50%", position: "absolute", width: 400 }}>
+			<Box sx={{ top: "43%", left: "calc(50% - 200px)", position: "absolute", width: 400 }}>
 				<Card sx={{ border:"solid 2px red", backgroundColor: "#fcebe6" }} variant="outlined">
 					<CardContent>
 						<Grid container direction="row" justifyContent="center" alignItems="center">
