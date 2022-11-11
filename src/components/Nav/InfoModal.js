@@ -51,7 +51,8 @@ const InfoModal = () => {
 						top: "50%",
 						left: "50%",
 						transform: "translate(-50%, -50%)",
-						width: 600,
+						width: "60%",
+            height: "90%",
 						bgcolor: "rgb(18, 18, 18)",
 						border: "2px solid #000",
 						boxShadow: 24,
@@ -80,7 +81,7 @@ const InfoModal = () => {
 					</Typography>
 					<iframe
 						width="100%"
-						height="310"
+						height="70%"
 						src="https://www.youtube.com/embed/GbuImFI89c0"
 						frameborder="0"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

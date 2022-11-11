@@ -4,6 +4,7 @@ import { Routes, Route, Outlet } from "react-router-dom"
 import Options from "../components/Persons/options/Options"
 import PersonInfo from "../components/Persons/personInfo/PersonInfo"
 import { persons } from "../utils/personsArcgisItems"
+import TooltipPlaceholder from "../utils/misc/TooltipPlaceholder"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
@@ -15,11 +16,19 @@ const Persons = () => {
 	const [selectedObject, setSelectedObject] = useState("")
 	const [initialLoading, setInitialLoading] = useState(true)
 	const [initialObjectsList, setInitialObjectsList] = useState([])
+	const [displayTooltip, setDisplayTooltip] = useState(true)
 
 	useEffect(() => {
 		persons
 			.queryFeatures({
-				outFields: ["OBJECTID", "Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID", "Pagrindine_veikla", "Veiklos_detalizavimas"],
+				outFields: [
+					"OBJECTID",
+					"Vardas_lietuviskai",
+					"Pavarde_lietuviskai",
+					"Asmenybes_ID",
+					"Pagrindine_veikla",
+					"Veiklos_detalizavimas",
+				],
 				where: "",
 				returnGeometry: false,
 			})
@@ -52,12 +61,28 @@ const Persons = () => {
 								setSelectedObject={setSelectedObject}
 								selectedObject={selectedObject}
 							/>
-            <Outlet />
+
+							<TooltipPlaceholder
+								display={displayTooltip}
+								text={`"Įamžintos asmenybės" titulinis puslapis dar kuriamas, prašome pasirinkti konkrečią asmenybę iš
+							sąrašo kairėje.`}
+								setDisplayTooltip={setDisplayTooltip}
+							/>
+
+							<Outlet />
 						</Grid>
 					</>
 				}
 			>
-				<Route path=":globalID" element={<PersonInfo />} />
+				<Route
+					path="/:globalID"
+					element={
+						<>
+							<TooltipPlaceholder display={displayTooltip} />
+							<PersonInfo setDisplayTooltip={setDisplayTooltip} />
+						</>
+					}
+				/>
 			</Route>
 		</Routes>
 	)

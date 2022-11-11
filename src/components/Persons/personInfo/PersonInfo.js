@@ -9,13 +9,14 @@ import PersonHeader from "./PersonHeader"
 
 import Grid from "@mui/material/Grid"
 
-const PersonInfo = () => {
+const PersonInfo = (props) => {
 	const { globalID } = useParams()
 
 	const [biographyFeatures, setBiographyFeatures] = useState([])
 
 	useEffect(() => {
 		setBiographyFeatures([])
+    props.setDisplayTooltip(false)
 
 		persons
 			.queryFeatures({

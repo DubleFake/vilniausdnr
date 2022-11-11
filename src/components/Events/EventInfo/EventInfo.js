@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography"
 import CircularProgress from "@mui/material/CircularProgress"
 import Link from "@mui/material/Link"
 
-const EventInfo = () => {
+const EventInfo = (props) => {
 	const [eventFeatures, setEventFeatures] = useState([])
 	const [relatedPersons, setRelatedPersons] = useState([])
 	const [relatedSources, setRelatedSources] = useState([])
@@ -22,6 +22,7 @@ const EventInfo = () => {
 
 	useEffect(() => {
 		setEventFeatures([])
+		props.setDisplayTooltip(false)
 
 		events
 			.queryFeatures({
@@ -109,7 +110,7 @@ const EventInfo = () => {
 			sx={{
 				maxHeight: window.innerHeight - 90,
 				overflowY: "auto",
-				width: "40vw",
+				width: "calc(100vw - 350px)",
 			}}
 		>
 			{eventFeatures.length > 0 && (

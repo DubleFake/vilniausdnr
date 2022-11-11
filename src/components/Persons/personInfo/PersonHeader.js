@@ -37,7 +37,6 @@ const PersonHeader = (props) => {
 					{props.biographyFeatures[0].attributes.Pseudonimas_ir_slapyvardziai}
 				</Typography>
 
-				{console.log(props.biographyFeatures[0].attributes)}
 				{props.biographyFeatures[0].attributes.Vardas_pavarde_EN ? (
 					<Typography
 						sx={{ fontStyle: "italic" }}

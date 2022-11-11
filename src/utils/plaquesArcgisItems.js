@@ -163,14 +163,14 @@ export const memoryRenderer = {
 }
 
 export const objects = new FeatureLayer({
-	url: "https://utility.arcgis.com/usrsvcs/servers/14627426b83f4fcf8198764db38287f3/rest/services/VilniausDNR/VilniausDNR/MapServer/0",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/1",
 	outFields: ["*"],
 	title: "Lentelės",
 	renderer: objectRenderer,
 })
 
 export const persons = new FeatureLayer({
-	url: "https://utility.arcgis.com/usrsvcs/servers/14627426b83f4fcf8198764db38287f3/rest/services/VilniausDNR/VilniausDNR/MapServer/2",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/3",
 	outFields: ["*"],
 	title: "Asmenys",
 })
