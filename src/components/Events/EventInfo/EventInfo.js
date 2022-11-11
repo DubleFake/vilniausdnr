@@ -110,7 +110,7 @@ const EventInfo = (props) => {
 			sx={{
 				maxHeight: window.innerHeight - 90,
 				overflowY: "auto",
-				width: "calc(100vw - 350px)",
+				width: "calc(100vw - 500px)",
 			}}
 		>
 			{eventFeatures.length > 0 && (

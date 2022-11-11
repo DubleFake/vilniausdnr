@@ -105,13 +105,19 @@ const Filter = (props) => {
 		setSelectedProfession("")
 		setSelectedProfessionDetail("")
 
-    console.log()
-		props.setTableObjectsList(
-			matchSorter(props.objectsList, "", {
-				keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
-				threshold: matchSorter.rankings.MATCHES,
-			})
-		)
+    // console.log()
+		// props.setTableObjectsList(
+		// 	matchSorter(props.objectsList, "", {
+		// 		keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
+		// 		threshold: matchSorter.rankings.MATCHES,
+		// 	})
+		// )
+    const tempSorted = matchSorter(props.objectsList, "", {
+      keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
+      threshold: matchSorter.rankings.MATCHES,
+    })
+    tempSorted.sort((a, b) => !a.attributes.Vardas_lietuviskai - !b.attributes.Vardas_lietuviskai || a.attributes.Vardas_lietuviskai.localeCompare(b.attributes.Vardas_lietuviskai))
+    props.setTableObjectsList(tempSorted)
 	}
 
 	useEffect(() => {

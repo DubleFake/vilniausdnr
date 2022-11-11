@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
+import Point from "@arcgis/core/geometry/Point"
 
 import { view, objects, bgExpand, locateWidget } from "../../../utils/plaquesArcgisItems"
 
@@ -14,6 +15,15 @@ const ObjectMap = (props) => {
 
 	useEffect(() => {
 		view.container = mapDiv.current
+
+    let pt = new Point({
+			x: 582527.5805600522,
+			y: 6061855.557955307,
+			spatialReference: {
+				wkid: 2600,
+			},
+		})
+		view.center = pt
 
 		viewHandles.forEach((handle) => {
 			handle.remove()

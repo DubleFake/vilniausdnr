@@ -45,7 +45,7 @@ const Table = (props) => {
 	return (
 		<Box
 			sx={{
-				width: 350,
+				width: 500,
 				height: "calc(100vh - 87px)",
 				display: "flex",
 				flexDirection: "column",

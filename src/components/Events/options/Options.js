@@ -10,7 +10,7 @@ const Options = (props) => {
 	const [selectedPeriodFilter, setSelectedPeriodFilter] = useState("")
 
 	return (
-		<Box sx={{ bgcolor: "background.paper", width: 350 }}>
+		<Box sx={{ bgcolor: "background.paper", width: 500 }}>
 			<SearchTab
 				initialObjectsList={props.initialObjectsList}
 				setSelectedObject={props.setSelectedObject}

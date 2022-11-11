@@ -29,7 +29,16 @@ const TableItems = (props) => {
 							}}
 							selected={tableObjectsList[index].attributes.OBJECTID === selectedObject}
 						>
-							<ListItemText primary={tableObjectsList[index].attributes.Istorinis_ivykis} />
+							<ListItemText
+								primary={
+									tableObjectsList[index].attributes.Istorinis_ivykis +
+									" (" +
+									String(
+										new Date(tableObjectsList[index].attributes.Ivykio_data).toLocaleDateString("lt-LT")
+									) +
+									")"
+								}
+							/>
 						</ListItemButton>
 					</ListItem>
 				</CellMeasurer>

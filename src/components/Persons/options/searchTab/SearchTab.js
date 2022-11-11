@@ -22,19 +22,39 @@ const Table = (props) => {
 
 	useEffect(() => {
 		if (searchInputValue) {
-			setTableObjectsList(
-				matchSorter(searchObjectsList, searchInputValue, {
-          keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
-					threshold: matchSorter.rankings.MATCHES,
-				})
+			// setTableObjectsList(
+			// 	matchSorter(searchObjectsList, searchInputValue, {
+			//     keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
+			// 		threshold: matchSorter.rankings.MATCHES,
+			// 	})
+			// )
+			const tempSorted = matchSorter(searchObjectsList, "", {
+				keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
+				threshold: matchSorter.rankings.MATCHES,
+			})
+			tempSorted.sort(
+				(a, b) =>
+					!a.attributes.Vardas_lietuviskai - !b.attributes.Vardas_lietuviskai ||
+					a.attributes.Vardas_lietuviskai.localeCompare(b.attributes.Vardas_lietuviskai)
 			)
+			setTableObjectsList(tempSorted)
 		} else {
-			setTableObjectsList(
-				matchSorter(searchObjectsList, "", {
-          keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
-					threshold: matchSorter.rankings.MATCHES,
-				})
+			// setTableObjectsList(
+			// 	matchSorter(searchObjectsList, "", {
+			//     keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
+			// 		threshold: matchSorter.rankings.MATCHES,
+			// 	})
+			// )
+			const tempSorted = matchSorter(searchObjectsList, "", {
+				keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
+				threshold: matchSorter.rankings.MATCHES,
+			})
+			tempSorted.sort(
+				(a, b) =>
+					!a.attributes.Vardas_lietuviskai - !b.attributes.Vardas_lietuviskai ||
+					a.attributes.Vardas_lietuviskai.localeCompare(b.attributes.Vardas_lietuviskai)
 			)
+			setTableObjectsList(tempSorted)
 		}
 	}, [searchObjectsList])
 
@@ -66,7 +86,7 @@ const Table = (props) => {
 						setSelectedObject={props.setSelectedObject}
 						setObjectsList={setObjectsList}
 						setSearchObjectsList={setSearchObjectsList}
-            setTableObjectsList={setTableObjectsList}
+						setTableObjectsList={setTableObjectsList}
 					/>
 					<Count objectCount={objectCount} />
 					<TableItems

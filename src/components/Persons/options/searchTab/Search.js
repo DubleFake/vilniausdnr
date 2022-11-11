@@ -33,6 +33,8 @@ const Search = (props) => {
 			keys: ["Vardas_lietuviskai", "Pavarde_lietuviskai"],
 		})
 
+    matches.sort((a, b) => !a.Vardas_lietuviskai - !b.Vardas_lietuviskai || a.Vardas_lietuviskai.localeCompare(b.Vardas_lietuviskai))
+
 		const tempMatches = []
 		matches.map((obj) =>
 			tempMatches.push({
