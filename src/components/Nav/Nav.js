@@ -7,6 +7,7 @@ import HomeIcon from "./HomeIcon"
 import MenuToggle from "./MenuToggle"
 import LanguageSelect from "./LanguageSelect"
 import LanguageList from "./LanguageList"
+import InfoModal from "./InfoModal"
 
 import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
@@ -50,12 +51,13 @@ const Nav = () => {
 							/>
 						)}
 
-						<Grid container direction="row" justifyContent="space-between" alignItems="center">
-							{location.pathname !== `/vilniausdnr/${i18n.language}` ? (
-								<MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-							) : (
-								<Box></Box>
-							)}
+						{location.pathname !== `/vilniausdnr/${i18n.language}` ? (
+							<MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+						) : (
+							<Box></Box>
+						)}
+						<Grid container direction="row" justifyContent="flex-end" alignItems="center">
+							<InfoModal />
 
 							<LanguageSelect languageOpen={languageOpen} setLanguageOpen={setLanguageOpen} />
 						</Grid>

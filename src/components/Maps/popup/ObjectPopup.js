@@ -195,7 +195,7 @@ const ObjectPopup = (props) => {
 														<ShareIcon style={{ fontSize: 30 }} />
 													</IconButton>
 												</BootstrapTooltip>
-												<IconButton
+												{/* <IconButton
 													color="secondary"
 													aria-label="close"
 													size="large"
@@ -204,7 +204,7 @@ const ObjectPopup = (props) => {
 													}}
 												>
 													<CloseIcon style={{ fontSize: 30 }} />
-												</IconButton>
+												</IconButton> */}
 											</>
 										}
 										title={queryObjects.attributes.Pavadinimas}

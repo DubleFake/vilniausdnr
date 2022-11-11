@@ -10,6 +10,18 @@ const PersonHeader = (props) => {
 				<Typography
 					sx={{ fontWeight: "bold" }}
 					variant="h3"
+					gutterBottom={false}
+					component="div"
+					align="left"
+					color="#323B4C"
+				>
+					{props.biographyFeatures[0].attributes.Vardas_lietuviskai +
+						" " +
+						props.biographyFeatures[0].attributes.Pavarde_lietuviskai}
+				</Typography>
+				<Typography
+					sx={{ fontWeight: "bold" }}
+					variant="h3"
 					gutterBottom={
 						props.biographyFeatures[0].attributes.Vardas_pavarde_EN ||
 						props.biographyFeatures[0].attributes.Vardas_pavarde_KITA ||
@@ -22,12 +34,7 @@ const PersonHeader = (props) => {
 					align="left"
 					color="#323B4C"
 				>
-					{props.biographyFeatures[0].attributes.Vardas_lietuviskai +
-						" " +
-						props.biographyFeatures[0].attributes.Pavarde_lietuviskai}
-					{props.biographyFeatures[0].attributes.Pseudonimas_ir_slapyvardziai
-						? "-" + props.biographyFeatures[0].attributes.Pseudonimas_ir_slapyvardziai
-						: null}
+					{props.biographyFeatures[0].attributes.Pseudonimas_ir_slapyvardziai}
 				</Typography>
 
 				{console.log(props.biographyFeatures[0].attributes)}

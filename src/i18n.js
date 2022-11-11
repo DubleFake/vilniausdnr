@@ -62,7 +62,7 @@ const resources = {
 			home: {
 				periods: "Miestas atskirais istoriniais periodais",
 				plaques: "Skulptūros ir atminimo lentos",
-				persons: "Asmenybės ir jų atminimo ženklai",
+				persons: "Mieste įamžintos asmenybės",
 				maps: "Istoriniai planai ir žemėlapiai",
 				streets: "Miesto gatvės",
 				parts: "Miesto dalys",
@@ -83,7 +83,7 @@ const resources = {
 					objectType: "Objekto tipą",
 					memoryType: "Atminimo tipą",
 					period: "Įrengimo laikotarpis",
-					extent: "Rodyti tik matomus objektus",
+					extent: "Sąraše rodyti tik žemėlapio aprėptyje matomus objektus",
 					legend: "Sutartiniai ženklai",
 					clearFilters: "Išvalyti filtrus",
 					all: "Visi",
@@ -112,7 +112,7 @@ const resources = {
 					periods: {
 						1: "Iki 1795 m. (Respublikos padalinimo)",
 						2: "1796 - 1919 m. (Iki lenkų okupacijos)",
-						3: "1919 - 1939 m.",
+						3: "1919 - 1939 m. (Tarpukariu)",
 						4: "1939 - 1989 m. (Sovietų okupacija)",
 						5: "nuo 1990 m. (Atkūrus nepriklausomybę)",
 					},
@@ -165,7 +165,7 @@ const resources = {
 			home: {
 				periods: "The city in separate historical periods",
 				plaques: "Sculptures and memorial plaques",
-				persons: "Personalities and their signs of remembrance",
+				persons: "Personalities commemorated in the city",
 				maps: "Historical plans and maps",
 				streets: "City streets",
 				parts: "Parts of the city",
@@ -186,7 +186,7 @@ const resources = {
 					objectType: "Object type",
 					memoryType: "Memory type",
 					period: "Installation period",
-					extent: "Show only visible objects",
+					extent: "Show only objects visible on the map in the list",
 					legend: "Legend",
 					clearFilters: "Clear filters",
 					all: "All",
@@ -215,7 +215,7 @@ const resources = {
 					periods: {
 						1: "Before 1795 (Division of the Commonwealth)",
 						2: "1796 - 1919 (Before the Polish occupation)",
-						3: "1919 - 1939",
+						3: "1919 - 1939 (Interwar period)",
 						4: "1939 - 1989 (Soviet occupation)",
 						5: "since 1990 (After restoration of independence)",
 					},

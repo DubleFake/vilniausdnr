@@ -45,7 +45,7 @@ const EventInfo = () => {
 				events
 					.queryRelatedFeatures({
 						outFields: ["*"],
-						relationshipId: 9,
+						relationshipId: 21,
 						returnGeometry: false,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
