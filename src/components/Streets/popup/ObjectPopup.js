@@ -86,7 +86,7 @@ const ObjectPopup = (props) => {
 			setLoading(true)
 
 			let found = false
-      console.log(props.mapQuery)
+			console.log(props.mapQuery)
 			for (let obj in props.mapQuery) {
 				if (!props.mapQuery.GlobalID && props.mapQuery[obj].attributes.GAT_ID === globalID) {
 					setPage(parseInt(obj) + 1)
@@ -225,7 +225,8 @@ const ObjectPopup = (props) => {
 			})
 			.then((response) => {
 				let tempFeatures = []
-				for (let i = 2; i <= 7; i++) {
+				const relateID = [3, 4, 5, 6, 7]
+				for (let i of relateID) {
 					objects
 						.queryRelatedFeatures({
 							outFields: ["GlobalID", "Pavadinimas", "Metai"],
@@ -255,9 +256,9 @@ const ObjectPopup = (props) => {
 							}
 
 							switch (i) {
-								case 2:
-									setRelatedStreets2(true)
-									break
+								// case 2:
+								// 	setRelatedStreets2(true)
+								// 	break
 								case 3:
 									setRelatedStreets3(true)
 									break
@@ -281,7 +282,7 @@ const ObjectPopup = (props) => {
 
 	useEffect(() => {
 		if (
-			relatedStreets2 &&
+			// relatedStreets2 &&
 			relatedStreets3 &&
 			relatedStreets4 &&
 			relatedStreets5 &&

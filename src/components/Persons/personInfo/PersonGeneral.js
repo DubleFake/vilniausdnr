@@ -57,11 +57,12 @@ const PersonGeneral = (props) => {
 				where: `Asmenybes_ID = '{${globalID}}'`,
 			})
 			.then((response) => {
+        console.log(response)
 				setRelatedStreets([])
 				persons
 					.queryRelatedFeatures({
 						outFields: ["PAV", "GAT_ID"],
-						relationshipId: 8,
+						relationshipId: 2,
 						returnGeometry: false,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
