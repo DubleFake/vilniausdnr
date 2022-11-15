@@ -38,28 +38,20 @@ const Nav = () => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
-				<AppBar position="static" sx={{ backgroundColor: "black", height: 90 }}>
+				<AppBar position="static" sx={{ backgroundColor: "#252525", height: 90 }}>
 					<Toolbar className="homeNav">
 						<HomeIcon />
 
-						{location.pathname !== `/vilniausdnr/${i18n.language}` && (
-							<Divider
-								sx={{ mr: 2, backgroundColor: "#D42323" }}
-								orientation="vertical"
-								variant="middle"
-								flexItem
-							/>
-						)}
-
-						{location.pathname !== `/vilniausdnr/${i18n.language}` ? (
-							<MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-						) : (
-							<Box></Box>
-						)}
 						<Grid container direction="row" justifyContent="flex-end" alignItems="center">
 							<InfoModal />
 
 							<LanguageSelect languageOpen={languageOpen} setLanguageOpen={setLanguageOpen} />
+              
+							{location.pathname !== `/vilniausdnr/${i18n.language}` ? (
+								<MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+							) : (
+								<Box></Box>
+							)}
 						</Grid>
 					</Toolbar>
 				</AppBar>

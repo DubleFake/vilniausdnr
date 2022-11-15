@@ -36,7 +36,7 @@ const PersonInfo = (props) => {
 				maxHeight: window.innerHeight - 90,
 				overflowY: "auto",
 				overflowX: "hidden",
-				width: "calc(100vw - 350px)",
+				width: "calc(100vw - 450px)",
 			}}
 		>
 			<Grid item xs={4}>

@@ -22,7 +22,13 @@ const TableItems = (props) => {
 				<CellMeasurer cache={cache} columnIndex={0} key={key} parent={parent} rowIndex={index}>
 					<ListItem style={style} key={key} component="div" disablePadding divider dense>
 						<ListItemButton
-							style={{ paddingLeft: 5, paddingRight: 5 }}
+							sx={{
+								"&.Mui-selected": {
+									transition: "0.3s",
+									backgroundColor: "#F7D5D6",
+									color: "secondary.main",
+								},
+							}}
 							onClick={() => {
 								setSelectedObject(`${tableObjectsList[index].attributes.OBJECTID}`)
 								navigate(`${tableObjectsList[index].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`)

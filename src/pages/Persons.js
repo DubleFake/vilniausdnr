@@ -11,6 +11,11 @@ import Grid from "@mui/material/Grid"
 import Collapse from "@mui/material/Collapse"
 import CircularProgress from "@mui/material/CircularProgress"
 import Backdrop from "@mui/material/Backdrop"
+import Box from "@mui/material/Box"
+import ManageSearchIcon from "@mui/icons-material/ManageSearch"
+import IconButton from "@mui/material/IconButton"
+
+// TEKSTAS PO IKONA IR SUMAZINTI NAV ICONS
 
 const Persons = () => {
 	const [selectedObject, setSelectedObject] = useState("")
@@ -61,6 +66,19 @@ const Persons = () => {
 								setSelectedObject={setSelectedObject}
 								selectedObject={selectedObject}
 							/>
+
+							<Box
+								sx={{
+									display: selectedObject ? "none" : "block",
+									backgroundColor: "#D7D7D7",
+									maxHeight: window.innerHeight - 90,
+									width: "calc(100vw - 450px)",
+								}}
+							>
+								<IconButton sx={{ top: "44%", left: "46%" }} disabled>
+									<ManageSearchIcon sx={{ fontSize: 150 }} />
+								</IconButton>
+							</Box>
 
 							<TooltipPlaceholder
 								display={displayTooltip}

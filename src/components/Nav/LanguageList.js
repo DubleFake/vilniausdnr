@@ -30,7 +30,7 @@ const LanguageList = (props) => {
 	return (
 		<ClickAwayListener mouseEvent="onMouseDown" touchEvent="onTouchStart" onClickAway={handleClickAway}>
 			<Collapse sx={{ position: "absolute", zIndex: 100, right: 0 }} in={props.languageOpen}>
-				<Paper sx={{ backgroundColor: "black" }} square>
+				<Paper sx={{ backgroundColor: "#252525" }} square>
 					<List sx={{ p: 0 }}>
 						<ListItem
 							sx={{
@@ -47,7 +47,7 @@ const LanguageList = (props) => {
 							onClick={() => handleLanguageChange("lt")}
 						>
 							<ListItemButton>
-								<Typography sx={{ color: "#D42323" }} variant="h5">
+								<Typography sx={{ color: "white" }} variant="h5">
 									Lietuvių
 								</Typography>
 							</ListItemButton>
@@ -67,7 +67,7 @@ const LanguageList = (props) => {
 							onClick={() => handleLanguageChange("en")}
 						>
 							<ListItemButton>
-								<Typography sx={{ color: "#D42323" }} variant="h5">
+								<Typography sx={{ color: "white" }} variant="h5">
 									English
 								</Typography>
 							</ListItemButton>

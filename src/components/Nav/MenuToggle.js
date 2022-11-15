@@ -8,7 +8,7 @@ const MenuToggle = (props) => {
 	return (
 		<IconButton
 			onClick={() => props.setMenuOpen(!props.menuOpen)}
-			size="large"
+			size="small"
 			edge="start"
 			color="inherit"
 			aria-label="menu"
@@ -20,9 +20,9 @@ const MenuToggle = (props) => {
 			}}
 		>
 			{props.menuOpen ? (
-				<CloseIcon style={{ color: "#D42323", fontSize: 50 }} />
+				<CloseIcon style={{ color: "white", fontSize: 50 }} />
 			) : (
-				<MenuIcon style={{ color: "#D42323", fontSize: 50 }} />
+				<MenuIcon style={{ color: "white", fontSize: 50 }} />
 			)}
 		</IconButton>
 	)

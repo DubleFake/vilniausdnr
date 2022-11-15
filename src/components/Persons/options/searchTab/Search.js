@@ -2,8 +2,12 @@ import React, { useEffect } from "react"
 import { matchSorter } from "match-sorter"
 import { useTranslation } from "react-i18next"
 
-import TextField from "@mui/material/TextField"
+import OutlinedInput from "@mui/material/OutlinedInput"
 import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
+import SearchIcon from "@mui/icons-material/Search"
+import InputAdornment from "@mui/material/InputAdornment"
+import IconButton from "@mui/material/IconButton"
 
 const Search = (props) => {
 	const { t, i18n } = useTranslation()
@@ -33,7 +37,11 @@ const Search = (props) => {
 			keys: ["Vardas_lietuviskai", "Pavarde_lietuviskai"],
 		})
 
-    matches.sort((a, b) => !a.Vardas_lietuviskai - !b.Vardas_lietuviskai || a.Vardas_lietuviskai.localeCompare(b.Vardas_lietuviskai))
+		matches.sort(
+			(a, b) =>
+				!a.Vardas_lietuviskai - !b.Vardas_lietuviskai ||
+				a.Vardas_lietuviskai.localeCompare(b.Vardas_lietuviskai)
+		)
 
 		const tempMatches = []
 		matches.map((obj) =>
@@ -51,17 +59,27 @@ const Search = (props) => {
 	}
 
 	return (
-		<Box sx={{ ml: 0.5, mr: 0.5 }}>
-			<TextField
-				variant="standard"
+		<Box sx={{ px: 5, pt: 4, backgroundColor: "#F6F6F6" }}>
+			<Typography sx={{ fontWeight: "bold" }} variant="h5">
+				Paieška
+			</Typography>
+			<OutlinedInput
+				variant="outlined"
 				size="small"
-				sx={{ mt: 1 }}
+				sx={{ mt: 1, borderRadius: "30px", backgroundColor: "white", boxShadow: 3 }}
 				fullWidth
 				id="outlined-search"
-				label={t("plaques.options.search") + ".."}
+				placeholder={t("plaques.options.search") + ".."}
 				type="search"
 				value={props.searchInputValue}
 				onChange={handleSearch}
+				endAdornment={
+					<InputAdornment position="end">
+						<IconButton edge="end">
+							<SearchIcon />
+						</IconButton>
+					</InputAdornment>
+				}
 			/>
 		</Box>
 	)

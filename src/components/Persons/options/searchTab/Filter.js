@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next"
 import { matchSorter } from "match-sorter"
 
 import { classifications } from "../../../../utils/personsArcgisItems"
+import Count from "../searchTab/Count"
 
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -12,6 +13,8 @@ import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
 import Snackbar from "@mui/material/Snackbar"
 import MuiAlert from "@mui/material/Alert"
+import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
 
 const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
@@ -105,19 +108,23 @@ const Filter = (props) => {
 		setSelectedProfession("")
 		setSelectedProfessionDetail("")
 
-    // console.log()
+		// console.log()
 		// props.setTableObjectsList(
 		// 	matchSorter(props.objectsList, "", {
 		// 		keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
 		// 		threshold: matchSorter.rankings.MATCHES,
 		// 	})
 		// )
-    const tempSorted = matchSorter(props.objectsList, "", {
-      keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
-      threshold: matchSorter.rankings.MATCHES,
-    })
-    tempSorted.sort((a, b) => !a.attributes.Vardas_lietuviskai - !b.attributes.Vardas_lietuviskai || a.attributes.Vardas_lietuviskai.localeCompare(b.attributes.Vardas_lietuviskai))
-    props.setTableObjectsList(tempSorted)
+		const tempSorted = matchSorter(props.objectsList, "", {
+			keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
+			threshold: matchSorter.rankings.MATCHES,
+		})
+		tempSorted.sort(
+			(a, b) =>
+				!a.attributes.Vardas_lietuviskai - !b.attributes.Vardas_lietuviskai ||
+				a.attributes.Vardas_lietuviskai.localeCompare(b.attributes.Vardas_lietuviskai)
+		)
+		props.setTableObjectsList(tempSorted)
 	}
 
 	useEffect(() => {
@@ -154,7 +161,7 @@ const Filter = (props) => {
 	}, [])
 
 	return (
-		<>
+		<Box>
 			<Snackbar open={showAlert} autoHideDuration={4000} onClose={() => setShowAlert(false)}>
 				<Alert
 					onClose={() => setShowAlert(false)}
@@ -164,10 +171,15 @@ const Filter = (props) => {
 					{t("plaques.options.notFound")}
 				</Alert>
 			</Snackbar>
-			<Box sx={{ ml: 0.5, mr: 0.5 }}>
-				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
+			<Box sx={{ px: 5, pb: 4, backgroundColor: "#F6F6F6" }}>
+				<FormControl
+					// variant="standard"
+					size="small"
+					sx={{ mt: 3, width: "100%", borderRadius: "30px", backgroundColor: "white", boxShadow: 3 }}
+				>
 					<InputLabel id="object-select-label">{t("persons.options.profession")}</InputLabel>
 					<Select
+						sx={{ borderRadius: "30px", backgroundColor: "white" }}
 						labelId="object-select-label"
 						name="object-select"
 						id="object-select"
@@ -187,9 +199,14 @@ const Filter = (props) => {
 				</FormControl>
 
 				{selectedProfession && (
-					<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
+					<FormControl
+						// variant="standard"
+						size="small"
+						sx={{ mt: 3, width: "100%", borderRadius: "30px", backgroundColor: "white", boxShadow: 3 }}
+					>
 						<InputLabel id="memory-select-label">{t("persons.options.profession_detail")}</InputLabel>
 						<Select
+							sx={{ borderRadius: "30px", backgroundColor: "white" }}
 							labelId="memory-select-label"
 							name="memory-select"
 							id="memory-select"
@@ -208,18 +225,24 @@ const Filter = (props) => {
 						</Select>
 					</FormControl>
 				)}
+			</Box>
+			<Grid sx={{ px: 5 }} container direction="row" justifyContent="space-between" alignItems="center">
+				<Typography sx={{ mt: 2, fontWeight: "bold" }} variant="h5">
+					Rezultatai
+					<Count objectCount={props.objectCount}></Count>
+				</Typography>
 
 				<Button
-					variant="contained"
+					variant="text"
 					color="secondary"
 					disableElevation
-					sx={{ mb: 1, mt: 1, width: "100%" }}
+					sx={{ mb: 1, mt: 1, width: "auto", borderRadius: "30px", backgroundColor: "white" }}
 					onClick={handleClearFilters}
 				>
 					{t("plaques.options.clearFilters")}
 				</Button>
-			</Box>
-		</>
+			</Grid>
+		</Box>
 	)
 }
 

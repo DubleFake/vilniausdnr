@@ -65,7 +65,7 @@ const Table = (props) => {
 	return (
 		<Box
 			sx={{
-				width: 350,
+				width: 450,
 				height: "calc(100vh - 87px)",
 				display: "flex",
 				flexDirection: "column",
@@ -87,8 +87,8 @@ const Table = (props) => {
 						setObjectsList={setObjectsList}
 						setSearchObjectsList={setSearchObjectsList}
 						setTableObjectsList={setTableObjectsList}
+            objectCount={objectCount}
 					/>
-					<Count objectCount={objectCount} />
 					<TableItems
 						tableObjectsList={tableObjectsList}
 						setSelectedObject={props.setSelectedObject}
