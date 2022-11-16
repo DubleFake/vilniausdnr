@@ -17,26 +17,80 @@ import Nav from "./components/Nav/Nav"
 import "./i18n"
 import "./css/index.css"
 
-import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { createTheme, ThemeProvider, experimental_sx as sx } from "@mui/material/styles"
 
 const App = () => {
 	const { t, i18n } = useTranslation()
 	intl.setLocale(`${i18n.language}`)
 
+	const appBarHeight = 90
+	const optionsWidth = 450
+
 	const theme = createTheme({
 		palette: {
 			primary: {
-				main: "#000000",
+				main: "#252525",
 			},
 			secondary: {
 				main: "#D42323",
 			},
 		},
+
 		components: {
 			MuiLink: {
 				defaultProps: {
 					color: "secondary",
 				},
+			},
+
+			MuiAppBar: {
+				styleOverrides: {
+					root: sx({
+						height: appBarHeight,
+					}),
+				},
+				defaultProps: {
+					color: "primary",
+				},
+			},
+
+			MuiGrid: {
+				variants: [
+					{
+						props: {
+							variant: "mainGrid",
+						},
+						style: {
+							height: window.innerHeight - appBarHeight,
+							overflowY: "auto",
+							overflowX: "hidden",
+							width: `calc(100vw - ${optionsWidth}px)`,
+						},
+					},
+					{
+						props: {
+							variant: "placeholderGrid",
+						},
+						style: {
+              minHeight: `calc(100vh - ${appBarHeight}px)` 
+						},
+					},
+				],
+			},
+
+			MuiBox: {
+				variants: [
+					{
+						props: {
+							variant: "placeholderBox",
+						},
+						style: {
+							backgroundColor: "#D7D7D7",
+							height: window.innerHeight - appBarHeight,
+							width: `calc(100vw - ${optionsWidth}px)`,
+						},
+					},
+				],
 			},
 		},
 	})

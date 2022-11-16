@@ -11,31 +11,50 @@ import Grid from "@mui/material/Grid"
 const TooltipPlaceholder = (props) => {
 	return (
 		props.display && (
-			<Box sx={{ top: "45%", left: "52%", position: "absolute", width: 400 }}>
-				<Card sx={{ border:"solid 2px red", backgroundColor: "#fcebe6" }} variant="outlined">
-					<CardContent>
-						<Grid container direction="row" justifyContent="center" alignItems="center">
-							<WarningIcon sx={{ mr: 2 }} color="secondary" />
-							<Typography sx={{ fontSize: 20, width: 320 }} variant="body2">
-								{props.text}
-							</Typography>
-						</Grid>
-					</CardContent>
-					<CardActions>
-						<Grid container direction="row" justifyContent="center" alignItems="center">
-							<Button
-								variant="contained"
-								color="secondary"
-								size="large"
-								onClick={() => {
-									props.setDisplayTooltip(false)
-								}}
-							>
-								Supratau
-							</Button>
-						</Grid>
-					</CardActions>
-				</Card>
+			<Box
+				sx={{
+					backgroundColor: "#D7D7D7",
+					height: window.innerHeight - 90,
+					width: "calc(100vw - 450px)",
+				}}
+			>
+				<Grid
+					container
+					spacing={0}
+					direction="column"
+					alignItems="center"
+					justifyContent="center"
+					sx={{ minHeight: "calc(100vh - 90px)" }}
+				>
+					<Grid item xs={3}>
+						<Box sx={{ width: 400, zIndex: 100 }}>
+							<Card sx={{ border: "solid 2px red", backgroundColor: "#fcebe6" }} variant="outlined">
+								<CardContent>
+									<Grid container direction="row" justifyContent="center" alignItems="center">
+										<WarningIcon sx={{ mr: 2 }} color="secondary" />
+										<Typography sx={{ fontSize: 20, width: 320 }} variant="body2">
+											{props.text}
+										</Typography>
+									</Grid>
+								</CardContent>
+								<CardActions>
+									<Grid container direction="row" justifyContent="center" alignItems="center">
+										<Button
+											variant="contained"
+											color="secondary"
+											size="large"
+											onClick={() => {
+												props.setDisplayTooltip(false)
+											}}
+										>
+											Supratau
+										</Button>
+									</Grid>
+								</CardActions>
+							</Card>
+						</Box>
+					</Grid>
+				</Grid>
 			</Box>
 		)
 	)

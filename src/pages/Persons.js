@@ -4,23 +4,14 @@ import { Routes, Route, Outlet } from "react-router-dom"
 import Options from "../components/Persons/options/Options"
 import PersonInfo from "../components/Persons/personInfo/PersonInfo"
 import { persons } from "../utils/personsArcgisItems"
-import TooltipPlaceholder from "../utils/misc/TooltipPlaceholder"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
-import Collapse from "@mui/material/Collapse"
-import CircularProgress from "@mui/material/CircularProgress"
-import Backdrop from "@mui/material/Backdrop"
-import Box from "@mui/material/Box"
-import ManageSearchIcon from "@mui/icons-material/ManageSearch"
-import IconButton from "@mui/material/IconButton"
-import Typography from "@mui/material/Typography"
 
 const Persons = () => {
 	const [selectedObject, setSelectedObject] = useState("")
 	const [initialLoading, setInitialLoading] = useState(true)
 	const [initialObjectsList, setInitialObjectsList] = useState([])
-	const [displayTooltip, setDisplayTooltip] = useState(true)
 
 	useEffect(() => {
 		persons
@@ -65,30 +56,7 @@ const Persons = () => {
 								setSelectedObject={setSelectedObject}
 								selectedObject={selectedObject}
 							/>
-
-							<Box
-								sx={{
-									display: selectedObject ? "none" : "block",
-									backgroundColor: "#D7D7D7",
-									maxHeight: window.innerHeight - 90,
-									width: "calc(100vw - 450px)",
-								}}
-							>
-								<IconButton sx={{ top: "42%", left: "36%" }} disabled>
-									<Grid container direction="column" justifyContent="center" alignItems="center">
-										<ManageSearchIcon sx={{ fontSize: 150 }} />
-										<Typography>Pasirinkite konkrečią asmenybę iš sąrašo kairėje</Typography>
-									</Grid>
-								</IconButton>
-							</Box>
-
-							<TooltipPlaceholder
-								display={displayTooltip}
-								text={`"Įamžintos asmenybės" titulinis puslapis dar kuriamas, prašome pasirinkti konkrečią asmenybę iš
-							sąrašo kairėje.`}
-								setDisplayTooltip={setDisplayTooltip}
-							/>
-
+              <PersonInfo />
 							<Outlet />
 						</Grid>
 					</>
@@ -98,8 +66,7 @@ const Persons = () => {
 					path="/:globalID"
 					element={
 						<>
-							<TooltipPlaceholder display={displayTooltip} />
-							<PersonInfo setDisplayTooltip={setDisplayTooltip} />
+							<PersonInfo/>
 						</>
 					}
 				/>

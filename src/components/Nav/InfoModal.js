@@ -32,7 +32,7 @@ const InfoModal = () => {
 				}}
 				onClick={handleOpen}
 			>
-				<Typography variant="h4" sx={{ color: "white", ml: 0.3, mt: 0.3,fontSize: 25 }}>
+				<Typography variant="h4" sx={{ color: "white", ml: 0.3, mt: 0.3, fontSize: 25 }}>
 					<b>i</b>
 				</Typography>
 			</IconButton>

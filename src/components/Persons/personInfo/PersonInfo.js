@@ -6,6 +6,8 @@ import PersonTimeline from "./PersonTimeline"
 import PersonRelated from "./PersonRelated"
 import PersonGeneral from "./PersonGeneral"
 import PersonHeader from "./PersonHeader"
+import TooltipPlaceholder from "../../../utils/misc/TooltipPlaceholder"
+import EmptyPlaceholder from "../../../utils/misc/EmptyPlaceholder"
 
 import Grid from "@mui/material/Grid"
 
@@ -13,10 +15,11 @@ const PersonInfo = (props) => {
 	const { globalID } = useParams()
 
 	const [biographyFeatures, setBiographyFeatures] = useState([])
+	const [displayTooltip, setDisplayTooltip] = useState(true)
+	const [displayEmpty, setDisplayEmpty] = useState(true)
 
 	useEffect(() => {
 		setBiographyFeatures([])
-    props.setDisplayTooltip(false)
 
 		persons
 			.queryFeatures({
@@ -25,37 +28,51 @@ const PersonInfo = (props) => {
 			})
 			.then((response) => {
 				setBiographyFeatures(response.features)
+				setDisplayEmpty(false)
+				setDisplayTooltip(false)
 			})
 	}, [globalID])
 
-	return (
-		<Grid
-			container
-			spacing={0}
-			sx={{
-				maxHeight: window.innerHeight - 90,
-				overflowY: "auto",
-				overflowX: "hidden",
-				width: "calc(100vw - 450px)",
-			}}
-		>
-			<Grid item xs={4}>
-				<PersonGeneral
-					biographyFeatures={biographyFeatures}
-				/>
-			</Grid>
+	useEffect(() => {
+		return () => {
+			setDisplayEmpty(true)
+			setBiographyFeatures([])
+		}
+	}, [])
 
-			<Grid item xs={12} sm container>
-				<Grid item xs={12}>
-					<PersonHeader biographyFeatures={biographyFeatures} />
-				</Grid>
-				<Grid item xs={6}>
-					<PersonTimeline globalID={globalID} />
-				</Grid>
-				<Grid item xs={6}>
-					<PersonRelated globalID={globalID} />
-				</Grid>
-			</Grid>
+	return (
+		<Grid container spacing={0} variant="mainGrid">
+			{displayEmpty ? (
+				<>
+					<TooltipPlaceholder
+						display={displayTooltip}
+						text={`"Įamžintos asmenybės" titulinis puslapis dar kuriamas, prašome pasirinkti konkrečią asmenybę iš
+							sąrašo kairėje.`}
+						setDisplayTooltip={setDisplayTooltip}
+					/>
+					<EmptyPlaceholder
+						display={displayEmpty}
+						text={"Pasirinkite konkrečią asmenybę iš sąrašo kairėje"}
+					/>
+				</>
+			) : (
+				<>
+					<Grid item xs={4}>
+						<PersonGeneral biographyFeatures={biographyFeatures} />
+					</Grid>
+					<Grid item xs={12} sm container>
+						<Grid item xs={12}>
+							<PersonHeader biographyFeatures={biographyFeatures} />
+						</Grid>
+						<Grid item xs={6}>
+							<PersonTimeline globalID={globalID} />
+						</Grid>
+						<Grid item xs={6}>
+							<PersonRelated globalID={globalID} />
+						</Grid>
+					</Grid>
+				</>
+			)}
 		</Grid>
 	)
 }

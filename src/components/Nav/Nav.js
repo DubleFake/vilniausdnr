@@ -38,7 +38,7 @@ const Nav = () => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
-				<AppBar position="static" sx={{ backgroundColor: "#252525", height: 90 }}>
+				<AppBar position="static">
 					<Toolbar className="homeNav">
 						<HomeIcon />
 
