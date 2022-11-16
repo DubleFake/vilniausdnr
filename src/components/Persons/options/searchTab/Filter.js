@@ -175,11 +175,11 @@ const Filter = (props) => {
 				<FormControl
 					// variant="standard"
 					size="small"
-					sx={{ mt: 3, width: "100%", borderRadius: "30px", backgroundColor: "white", boxShadow: 3 }}
+					sx={{ mt: 3, width: "100%", borderRadius: "30px", height: "50px", backgroundColor: "white", boxShadow: 3 }}
 				>
 					<InputLabel id="object-select-label">{t("persons.options.profession")}</InputLabel>
 					<Select
-						sx={{ borderRadius: "30px", backgroundColor: "white" }}
+						sx={{ borderRadius: "30px", height: "50px", backgroundColor: "white" }}
 						labelId="object-select-label"
 						name="object-select"
 						id="object-select"
@@ -202,11 +202,11 @@ const Filter = (props) => {
 					<FormControl
 						// variant="standard"
 						size="small"
-						sx={{ mt: 3, width: "100%", borderRadius: "30px", backgroundColor: "white", boxShadow: 3 }}
+						sx={{ mt: 3, width: "100%", borderRadius: "30px", height: "50px", backgroundColor: "white", boxShadow: 3 }}
 					>
 						<InputLabel id="memory-select-label">{t("persons.options.profession_detail")}</InputLabel>
 						<Select
-							sx={{ borderRadius: "30px", backgroundColor: "white" }}
+							sx={{ borderRadius: "30px", height: "50px", backgroundColor: "white" }}
 							labelId="memory-select-label"
 							name="memory-select"
 							id="memory-select"

@@ -66,7 +66,7 @@ const Search = (props) => {
 			<OutlinedInput
 				variant="outlined"
 				size="small"
-				sx={{ mt: 1, borderRadius: "30px", backgroundColor: "white", boxShadow: 3 }}
+				sx={{ mt: 1, borderRadius: "30px", backgroundColor: "white", boxShadow: 3, height: "50px" }}
 				fullWidth
 				id="outlined-search"
 				placeholder={t("plaques.options.search") + ".."}
