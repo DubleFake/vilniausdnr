@@ -13,6 +13,7 @@ const MenuToggle = (props) => {
 			color="inherit"
 			aria-label="menu"
 			sx={{
+        mr: 1,
 				"&:hover": {
 					transition: "0.3s",
 					backgroundColor: "#1f1f1f",
@@ -20,9 +21,9 @@ const MenuToggle = (props) => {
 			}}
 		>
 			{props.menuOpen ? (
-				<CloseIcon style={{ color: "white", fontSize: 50 }} />
+				<CloseIcon style={{ color: "white", fontSize: 34 }} />
 			) : (
-				<MenuIcon style={{ color: "white", fontSize: 50 }} />
+				<MenuIcon style={{ color: "white", fontSize: 34 }} />
 			)}
 		</IconButton>
 	)

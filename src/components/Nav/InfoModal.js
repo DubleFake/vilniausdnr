@@ -22,7 +22,7 @@ const InfoModal = () => {
 			<IconButton
 				size="small"
 				sx={{
-					width: 55,
+					width: 43.28,
 					backgroundColor: "#D42323",
 					mr: 1,
 					"&:hover": {
@@ -32,7 +32,7 @@ const InfoModal = () => {
 				}}
 				onClick={handleOpen}
 			>
-				<Typography sx={{ color: "white", fontSize: 30 }}>
+				<Typography variant="h4" sx={{ color: "white", ml: 0.3, mt: 0.3,fontSize: 25 }}>
 					<b>i</b>
 				</Typography>
 			</IconButton>

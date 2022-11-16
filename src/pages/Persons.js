@@ -14,8 +14,7 @@ import Backdrop from "@mui/material/Backdrop"
 import Box from "@mui/material/Box"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import IconButton from "@mui/material/IconButton"
-
-// TEKSTAS PO IKONA IR SUMAZINTI NAV ICONS
+import Typography from "@mui/material/Typography"
 
 const Persons = () => {
 	const [selectedObject, setSelectedObject] = useState("")
@@ -75,8 +74,11 @@ const Persons = () => {
 									width: "calc(100vw - 450px)",
 								}}
 							>
-								<IconButton sx={{ top: "44%", left: "46%" }} disabled>
-									<ManageSearchIcon sx={{ fontSize: 150 }} />
+								<IconButton sx={{ top: "42%", left: "36%" }} disabled>
+									<Grid container direction="column" justifyContent="center" alignItems="center">
+										<ManageSearchIcon sx={{ fontSize: 150 }} />
+										<Typography>Pasirinkite konkrečią asmenybę iš sąrašo kairėje</Typography>
+									</Grid>
 								</IconButton>
 							</Box>
 

@@ -17,7 +17,7 @@ const LanguageSelect = (props) => {
 			size="small"
 			sx={{
 				mr: 1,
-				minWidth: 55,
+				minWidth: 43.28,
 				backgroundColor: "#515151",
 				"&:hover": {
 					transition: "0.3s",
@@ -26,7 +26,7 @@ const LanguageSelect = (props) => {
 			}}
 			onClick={handleLanguageClick}
 		>
-			<Typography id="languageSelect" variant="h4" sx={{ color: "white", ml: 0.3, mt: 0.3 }}>
+			<Typography id="languageSelect" variant="h4" sx={{ color: "white", ml: 0.3, mt: 0.3, fontSize: 25 }}>
 				{i18n.language.toUpperCase()}
 			</Typography>
 		</IconButton>

@@ -20,20 +20,36 @@ const TableItems = (props) => {
 		return (
 			tableObjectsList && (
 				<CellMeasurer cache={cache} columnIndex={0} key={key} parent={parent} rowIndex={index}>
-					<ListItem style={style} key={key} component="div" disablePadding divider dense>
+					<ListItem
+						sx={{
+							"&:hover": {
+								transition: "0.3s",
+								backgroundColor: "#F7D5D6",
+							},
+							"&.Mui-selected": {
+								transition: "0.3s",
+								color: "secondary.main",
+								backgroundColor: "#F7D5D6",
+							},
+						}}
+						style={style}
+						key={key}
+						component="div"
+						disablePadding
+						divider
+						dense
+						selected={`${tableObjectsList[index].attributes.OBJECTID}` === selectedObject}
+					>
 						<ListItemButton
 							sx={{
-								"&.Mui-selected": {
-									transition: "0.3s",
-									backgroundColor: "#F7D5D6",
-									color: "secondary.main",
+								"&:hover": {
+									backgroundColor: "rgba(0,0,0,0)",
 								},
 							}}
 							onClick={() => {
 								setSelectedObject(`${tableObjectsList[index].attributes.OBJECTID}`)
 								navigate(`${tableObjectsList[index].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`)
 							}}
-							selected={`${tableObjectsList[index].attributes.OBJECTID}` === selectedObject}
 						>
 							<ListItemText
 								primary={
