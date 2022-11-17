@@ -41,7 +41,7 @@ const PersonInfo = (props) => {
 	}, [])
 
 	return (
-		<Grid container spacing={0} variant="mainGrid">
+		<Grid container spacing={0} variant="main">
 			{displayEmpty ? (
 				<>
 					<TooltipPlaceholder

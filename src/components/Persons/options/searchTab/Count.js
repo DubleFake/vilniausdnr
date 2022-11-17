@@ -8,7 +8,7 @@ const Count = (props) => {
 	const { t, i18n } = useTranslation()
 
 	return (
-		<Box sx={{ pr: 5, mt: -2, mb: 1 }}>
+		<Box sx={{ mt: -2, mb: 1 }}>
 			<Typography sx={{ fontWeight: "bold", color: "secondary.main" }} variant="body2" component="span">
 				{props.objectCount}
 			</Typography>

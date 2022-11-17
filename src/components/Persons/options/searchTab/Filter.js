@@ -10,15 +10,27 @@ import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Button from "@mui/material/Button"
-import Box from "@mui/material/Box"
+import Container from "@mui/material/Container"
 import Snackbar from "@mui/material/Snackbar"
 import MuiAlert from "@mui/material/Alert"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
+import Slider from "@mui/material/Slider"
 
 const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
+
+const marks = [
+	{
+		value: 1200,
+		label: "1200",
+	},
+	{
+		value: 2020,
+		label: "2020",
+	},
+]
 
 const Filter = (props) => {
 	const { t, i18n } = useTranslation()
@@ -30,6 +42,7 @@ const Filter = (props) => {
 	const [professionInitialDetailCodes, setProfessionInitialDetailCodes] = useState([])
 	const [professionDetailCodes, setProfessionDetailCodes] = useState([])
 	const [filteredByProfession, setFilteredByProfession] = useState([])
+	const [sliderValue, setSliderValue] = React.useState([1300, 2020])
 
 	const handleProfessionSelect = (event) => {
 		if (event.target.value) {
@@ -127,6 +140,10 @@ const Filter = (props) => {
 		props.setTableObjectsList(tempSorted)
 	}
 
+	const handleSliderChange = (event, newValue) => {
+		setSliderValue(newValue)
+	}
+
 	useEffect(() => {
 		props.setSearchObjectsList(props.objectsList)
 	}, [])
@@ -161,7 +178,7 @@ const Filter = (props) => {
 	}, [])
 
 	return (
-		<Box>
+		<>
 			<Snackbar open={showAlert} autoHideDuration={4000} onClose={() => setShowAlert(false)}>
 				<Alert
 					onClose={() => setShowAlert(false)}
@@ -171,15 +188,11 @@ const Filter = (props) => {
 					{t("plaques.options.notFound")}
 				</Alert>
 			</Snackbar>
-			<Box sx={{ px: 5, pb: 4, backgroundColor: "#F6F6F6" }}>
-				<FormControl
-					// variant="standard"
-					size="small"
-					sx={{ mt: 3, width: "100%", borderRadius: "30px", height: "50px", backgroundColor: "white", boxShadow: 3 }}
-				>
+			<Container variant="filter">
+				<FormControl size="small" variant="outlined">
 					<InputLabel id="object-select-label">{t("persons.options.profession")}</InputLabel>
 					<Select
-						sx={{ borderRadius: "30px", height: "50px", backgroundColor: "white" }}
+						variant="outlined"
 						labelId="object-select-label"
 						name="object-select"
 						id="object-select"
@@ -199,11 +212,7 @@ const Filter = (props) => {
 				</FormControl>
 
 				{selectedProfession && (
-					<FormControl
-						// variant="standard"
-						size="small"
-						sx={{ mt: 3, width: "100%", borderRadius: "30px", height: "50px", backgroundColor: "white", boxShadow: 3 }}
-					>
+					<FormControl size="small" variant="outlined">
 						<InputLabel id="memory-select-label">{t("persons.options.profession_detail")}</InputLabel>
 						<Select
 							sx={{ borderRadius: "30px", height: "50px", backgroundColor: "white" }}
@@ -225,24 +234,50 @@ const Filter = (props) => {
 						</Select>
 					</FormControl>
 				)}
-			</Box>
-			<Grid sx={{ px: 5 }} container direction="row" justifyContent="space-between" alignItems="center">
-				<Typography sx={{ mt: 2, fontWeight: "bold" }} variant="h5">
+
+				<Grid container direction="row" justifyContent="center" alignItems="center">
+					<Typography sx={{ mt: 3 }} variant="subtitle2">
+						Metai
+					</Typography>
+				</Grid>
+				<Slider
+					sx={{ ml: "1%", width: "98%" }}
+					value={sliderValue}
+					max={2022}
+					min={1200}
+					size="small"
+					valueLabelDisplay="auto"
+					onChange={handleSliderChange}
+					marks={marks}
+				/>
+				{/* <Grid container direction="row" justifyContent="space-between" alignItems="center">
+					<Typography sx={{ fontSize: 12, mt: -1.2, ml: -1.3 }} variant="subtitle1">
+						1200
+					</Typography>
+					<Typography sx={{ fontSize: 12, mt: -1.2, mr: -1.3 }} variant="subtitle1">
+						2022
+					</Typography>
+				</Grid> */}
+			</Container>
+
+			<Grid variant="result" container direction="row" justifyContent="space-between" alignItems="center">
+				<Typography sx={{ mt: 1, fontWeight: "bold" }} variant="h5">
 					Rezultatai
 					<Count objectCount={props.objectCount}></Count>
 				</Typography>
 
-				<Button
-					variant="text"
-					color="secondary"
-					disableElevation
-					sx={{ mb: 1, mt: 1, width: "auto", borderRadius: "30px", backgroundColor: "white" }}
-					onClick={handleClearFilters}
-				>
-					{t("plaques.options.clearFilters")}
-				</Button>
+				{(props.searchInputValue || selectedProfession) && (
+					<Button
+						color="secondary"
+						disableElevation
+						sx={{ width: "auto", borderRadius: "30px", backgroundColor: "white" }}
+						onClick={handleClearFilters}
+					>
+						{t("plaques.options.clearFilters")}
+					</Button>
+				)}
 			</Grid>
-		</Box>
+		</>
 	)
 }
 

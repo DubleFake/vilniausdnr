@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import Filter from "./Filter"
 import TableItems from "./SearchItems"
 import Search from "./Search"
-import Count from "./Count"
 import { matchSorter } from "match-sorter"
 
 import Box from "@mui/material/Box"
@@ -63,15 +62,7 @@ const Table = (props) => {
 	}, [tableObjectsList])
 
 	return (
-		<Box
-			sx={{
-				width: 450,
-				height: "calc(100vh - 87px)",
-				display: "flex",
-				flexDirection: "column",
-				overflow: "hidden",
-			}}
-		>
+		<Grid variant="options">
 			{objectsList.length ? (
 				<>
 					<Search
@@ -82,12 +73,13 @@ const Table = (props) => {
 					/>
 					<Filter
 						objectsList={objectsList}
+						searchInputValue={searchInputValue}
 						setSearchInputValue={setSearchInputValue}
 						setSelectedObject={props.setSelectedObject}
 						setObjectsList={setObjectsList}
 						setSearchObjectsList={setSearchObjectsList}
 						setTableObjectsList={setTableObjectsList}
-            objectCount={objectCount}
+						objectCount={objectCount}
 					/>
 					<TableItems
 						tableObjectsList={tableObjectsList}
@@ -109,7 +101,7 @@ const Table = (props) => {
 					</Grid>
 				</Grid>
 			)}
-		</Box>
+		</Grid>
 	)
 }
 

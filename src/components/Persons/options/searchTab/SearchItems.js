@@ -21,17 +21,7 @@ const TableItems = (props) => {
 			tableObjectsList && (
 				<CellMeasurer cache={cache} columnIndex={0} key={key} parent={parent} rowIndex={index}>
 					<ListItem
-						sx={{
-							"&:hover": {
-								transition: "0.3s",
-								backgroundColor: "#F7D5D6",
-							},
-							"&.Mui-selected": {
-								transition: "0.3s",
-								color: "secondary.main",
-								backgroundColor: "#F7D5D6",
-							},
-						}}
+						variant="tableItem"
 						style={style}
 						key={key}
 						component="div"
@@ -41,11 +31,7 @@ const TableItems = (props) => {
 						selected={`${tableObjectsList[index].attributes.OBJECTID}` === selectedObject}
 					>
 						<ListItemButton
-							sx={{
-								"&:hover": {
-									backgroundColor: "rgba(0,0,0,0)",
-								},
-							}}
+              variant="tableItemButton"
 							onClick={() => {
 								setSelectedObject(`${tableObjectsList[index].attributes.OBJECTID}`)
 								navigate(`${tableObjectsList[index].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`)

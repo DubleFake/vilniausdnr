@@ -7,27 +7,22 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import WarningIcon from "@mui/icons-material/Warning"
 import Grid from "@mui/material/Grid"
+import Container from "@mui/material/Container"
 
 const TooltipPlaceholder = (props) => {
 	return (
 		props.display && (
-			<Box
-				sx={{
-					backgroundColor: "#D7D7D7",
-					height: window.innerHeight - 90,
-					width: "calc(100vw - 450px)",
-				}}
-			>
+			<Container sx={{zIndex: 1}} variant="placeholder">
 				<Grid
 					container
 					spacing={0}
 					direction="column"
 					alignItems="center"
 					justifyContent="center"
-					sx={{ minHeight: "calc(100vh - 90px)" }}
+					variant="placeholder"
 				>
 					<Grid item xs={3}>
-						<Box sx={{ width: 400, zIndex: 100 }}>
+						<Box sx={{ width: 400}}>
 							<Card sx={{ border: "solid 2px red", backgroundColor: "#fcebe6" }} variant="outlined">
 								<CardContent>
 									<Grid container direction="row" justifyContent="center" alignItems="center">
@@ -55,7 +50,7 @@ const TooltipPlaceholder = (props) => {
 						</Box>
 					</Grid>
 				</Grid>
-			</Box>
+			</Container>
 		)
 	)
 }

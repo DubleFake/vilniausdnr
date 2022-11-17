@@ -3,7 +3,7 @@ import { matchSorter } from "match-sorter"
 import { useTranslation } from "react-i18next"
 
 import OutlinedInput from "@mui/material/OutlinedInput"
-import Box from "@mui/material/Box"
+import Container from "@mui/material/Container"
 import Typography from "@mui/material/Typography"
 import SearchIcon from "@mui/icons-material/Search"
 import InputAdornment from "@mui/material/InputAdornment"
@@ -59,14 +59,13 @@ const Search = (props) => {
 	}
 
 	return (
-		<Box sx={{ px: 5, pt: 4, backgroundColor: "#F6F6F6" }}>
+		<Container variant="filterSearch">
 			<Typography sx={{ fontWeight: "bold" }} variant="h5">
 				Paieška
 			</Typography>
 			<OutlinedInput
 				variant="outlined"
 				size="small"
-				sx={{ mt: 1, borderRadius: "30px", backgroundColor: "white", boxShadow: 3, height: "50px" }}
 				fullWidth
 				id="outlined-search"
 				placeholder={t("plaques.options.search") + ".."}
@@ -81,7 +80,7 @@ const Search = (props) => {
 					</InputAdornment>
 				}
 			/>
-		</Box>
+		</Container>
 	)
 }
 

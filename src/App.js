@@ -24,7 +24,7 @@ const App = () => {
 	intl.setLocale(`${i18n.language}`)
 
 	const appBarHeight = 90
-	const optionsWidth = 450
+	const optionsWidth = 400
 
 	const theme = createTheme({
 		palette: {
@@ -58,7 +58,7 @@ const App = () => {
 				variants: [
 					{
 						props: {
-							variant: "mainGrid",
+							variant: "main",
 						},
 						style: {
 							height: window.innerHeight - appBarHeight,
@@ -69,25 +69,162 @@ const App = () => {
 					},
 					{
 						props: {
-							variant: "placeholderGrid",
+							variant: "options",
 						},
 						style: {
-              minHeight: `calc(100vh - ${appBarHeight}px)` 
+							width: optionsWidth,
+							display: "flex",
+							flexDirection: "column",
+							overflow: "hidden",
+						},
+					},
+					{
+						props: {
+							variant: "placeholder",
+						},
+						style: {
+							height: `calc(100vh - ${appBarHeight}px)`,
+						},
+					},
+					{
+						props: {
+							variant: "result",
+						},
+						style: {
+							paddingLeft: 24,
+							paddingRight: 24,
+							marginTop: 4,
 						},
 					},
 				],
 			},
 
-			MuiBox: {
+			MuiContainer: {
 				variants: [
 					{
 						props: {
-							variant: "placeholderBox",
+							variant: "placeholder",
 						},
 						style: {
+							position: "absolute",
 							backgroundColor: "#D7D7D7",
 							height: window.innerHeight - appBarHeight,
 							width: `calc(100vw - ${optionsWidth}px)`,
+						},
+					},
+					{
+						props: {
+							variant: "filter",
+						},
+						style: {
+							paddingTop: 0,
+							paddingLeft: 24,
+							paddingRight: 24,
+							paddingBottom: 20,
+							backgroundColor: "#F6F6F6",
+						},
+					},
+					{
+						props: {
+							variant: "filterSearch",
+						},
+						style: {
+							paddingTop: 20,
+							paddingLeft: 24,
+							paddingRight: 24,
+							paddingBottom: 0,
+							backgroundColor: "#F6F6F6",
+						},
+					},
+				],
+				defaultProps: {
+					maxWidth: "false",
+					disableGutters: true,
+				},
+			},
+
+			MuiListItem: {
+				variants: [
+					{
+						props: {
+							variant: "tableItem",
+						},
+						style: {
+							"&:hover": {
+								transition: "0.3s",
+								backgroundColor: "#F7D5D6",
+							},
+							"&.Mui-selected": {
+								transition: "0.3s",
+								color: "secondary.main",
+								backgroundColor: "#F7D5D6",
+							},
+						},
+					},
+				],
+			},
+
+			MuiListItemButton: {
+				variants: [
+					{
+						props: {
+							variant: "tableItemButton",
+						},
+						style: {
+							"&:hover": {
+								backgroundColor: "rgba(0,0,0,0)",
+							},
+						},
+					},
+				],
+			},
+
+			MuiOutlinedInput: {
+				variants: [
+					{
+						props: {
+							variant: "outlined",
+						},
+						style: {
+							marginTop: 20,
+							borderRadius: "30px",
+							borderColor: "rgba(0,0,0,0)",
+							backgroundColor: "white",
+							boxShadow: "0px 4px 3px 0px rgba(191,191,191,0.75)",
+							height: "50px",
+						},
+					},
+				],
+			},
+
+			MuiFormControl: {
+				variants: [
+					{
+						props: {
+							variant: "outlined",
+						},
+						style: {
+							marginTop: 20,
+							borderRadius: "30px",
+							backgroundColor: "white",
+							boxShadow: "0px 4px 3px 0px rgba(191,191,191,0.75)",
+							height: "50px",
+							width: "100%",
+						},
+					},
+				],
+			},
+
+			MuiSelect: {
+				variants: [
+					{
+						props: {
+							variant: "outlined",
+						},
+						style: {
+							borderRadius: "30px",
+							height: "50px",
+							backgroundColor: "white",
 						},
 					},
 				],
