@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { matchSorter } from "match-sorter"
 
-import { classifications } from "../../../../utils/personsArcgisItems"
+import { classifications, biography } from "../../../../utils/personsArcgisItems"
 import Count from "../searchTab/Count"
 
 import InputLabel from "@mui/material/InputLabel"
@@ -21,17 +21,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
 
-const marks = [
-	{
-		value: 1200,
-		label: "1200",
-	},
-	{
-		value: 2020,
-		label: "2020",
-	},
-]
-
 const Filter = (props) => {
 	const { t, i18n } = useTranslation()
 
@@ -42,7 +31,18 @@ const Filter = (props) => {
 	const [professionInitialDetailCodes, setProfessionInitialDetailCodes] = useState([])
 	const [professionDetailCodes, setProfessionDetailCodes] = useState([])
 	const [filteredByProfession, setFilteredByProfession] = useState([])
-	const [sliderValue, setSliderValue] = React.useState([1300, 2020])
+	const [yearById, setYearById] = useState({})
+	const [sliderValue, setSliderValue] = useState([1500, 2000])
+	const [sliderMarks, setSliderMarks] = useState([
+		{
+			value: 1500,
+			label: "1500",
+		},
+		{
+			value: 2000,
+			label: "2000",
+		},
+	])
 
 	const handleProfessionSelect = (event) => {
 		if (event.target.value) {
@@ -175,6 +175,54 @@ const Filter = (props) => {
 				setProfessionCodes(tempProfession)
 				setProfessionInitialDetailCodes(tempProfessionDetail)
 			})
+
+		const tempYearById = {}
+
+		biography
+			.queryFeatures({
+				outFields: ["Fakto_data_rikiavimas", "Asmenybes_ID", "Fakto_tipas"],
+				where: "1=1",
+			})
+			.then((response) => {
+				let min = response.features[0].attributes.Fakto_data_rikiavimas
+				let max = response.features[0].attributes.Fakto_data_rikiavimas
+        
+				for (let feature of response.features) {
+					if (feature.attributes.Fakto_tipas === "gimė") {
+						tempYearById[`${feature.attributes.Asmenybes_ID}`] = new Date(
+							feature.attributes.Fakto_data_rikiavimas
+						).getUTCFullYear()
+
+						tempYearById[`${feature.attributes.Asmenybes_ID}`] = new Date(
+							feature.attributes.Fakto_data_rikiavimas
+						).getUTCFullYear()
+
+						if (feature.attributes.Fakto_data_rikiavimas <= min) {
+							min = feature.attributes.Fakto_data_rikiavimas
+						}
+						if (feature.attributes.Fakto_data_rikiavimas > max) {
+							max = feature.attributes.Fakto_data_rikiavimas
+						}
+					}
+				}
+
+				console.log(tempYearById)
+
+				const min_year = new Date(min).getUTCFullYear()
+				const max_year = new Date(max).getUTCFullYear()
+
+				setSliderValue([min_year, max_year])
+				setSliderMarks([
+					{
+						value: min_year,
+						label: min_year,
+					},
+					{
+						value: max_year,
+						label: max_year,
+					},
+				])
+			})
 	}, [])
 
 	return (
@@ -243,12 +291,12 @@ const Filter = (props) => {
 				<Slider
 					sx={{ ml: "1%", width: "98%" }}
 					value={sliderValue}
-					max={2022}
-					min={1200}
+					min={sliderMarks[0].value}
+					max={sliderMarks[1].value}
 					size="small"
 					valueLabelDisplay="auto"
 					onChange={handleSliderChange}
-					marks={marks}
+					marks={sliderMarks}
 				/>
 				{/* <Grid container direction="row" justifyContent="space-between" alignItems="center">
 					<Typography sx={{ fontSize: 12, mt: -1.2, ml: -1.3 }} variant="subtitle1">
