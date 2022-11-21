@@ -27,6 +27,9 @@ import CircularProgress from "@mui/material/CircularProgress"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Backdrop from "@mui/material/Backdrop"
 import Fade from "@mui/material/Fade"
+import Button from "@mui/material/Button"
+
+import Carousel from "react-material-ui-carousel"
 
 let highlight
 const ObjectPopup = (props) => {
@@ -249,163 +252,195 @@ const ObjectPopup = (props) => {
 		<>
 			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
 			<Fade in={true} timeout={300} unmountOnExit>
-				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
-					<Card
-						sx={{
-							borderRadius: "0px",
-							maxWidth: matches ? "auto" : 995,
-							width: matches ? 600 : "100vw",
-							mt: matches ? 1.5 : 0,
-							mr: matches ? 1.5 : 0,
-						}}
-					>
-						<CardContent
-							sx={{
-								maxHeight: window.innerHeight - 170,
-								overflowY: "auto",
-								overflowX: "hidden",
-							}}
-						>
-							{pageCount > 1 ? (
-								<Box component="div" display="flex" justifyContent="center" alignItems="center">
-									<Pagination count={pageCount} page={page} onChange={handlePage} />
-								</Box>
-							) : null}
-							{loading ? (
-								<Box display="flex" justifyContent="center" alignItems="center">
-									<CircularProgress />
-								</Box>
-							) : (
-								<>
-									<CardHeader
-										sx={{ px: 0, pt: 0.5, pb: 1 }}
-										action={
-											<>
-												<BootstrapTooltip
-													open={shareTooltip}
-													leaveDelay={1000}
-													title={t(`plaques.objectPopup.shareUrl`)}
-													arrow
-													placement="top"
-													onClose={() => {
-														setShareTooltip(false)
-													}}
-												>
-													<IconButton color="secondary" aria-label="share" size="large" onClick={handleShare}>
-														<ShareIcon style={{ fontSize: 30 }} />
-													</IconButton>
-												</BootstrapTooltip>
-												<IconButton
-													color="secondary"
-													aria-label="close"
-													size="large"
-													onClick={() => {
-														navigate(`/vilniausdnr/${i18n.language}/plaques`)
-													}}
-												>
-													<CloseIcon style={{ fontSize: 30 }} />
+				<Card variant="popup">
+					<CardContent sx={{ pt: 0 }}>
+						{pageCount > 1 ? (
+							<Box component="div" display="flex" justifyContent="center" alignItems="center">
+								<Pagination color="secondary" count={pageCount} page={page} onChange={handlePage} />
+							</Box>
+						) : null}
+						{loading ? (
+							<Box display="flex" justifyContent="center" alignItems="center">
+								<CircularProgress />
+							</Box>
+						) : (
+							<>
+								{/* {objectAtt.length
+									? Object.keys(objectAtt).map((att) => (
+											<Box sx={{ mt: 1 }} key={att}>
+												<a href={`${objectAtt[att].url}`} target="_blank">
+													<img
+														style={{ maxWidth: "100%", maxHeight: "auto" }}
+														src={`${objectAtt[att].url}`}
+													/>
+												</a>
+											</Box>
+									  ))
+									: null} */}
+
+								{objectAtt.length ? (
+									<Carousel
+										sx={{ mx: -2, mt: 0 }}
+										indicators={false}
+										navButtonsAlwaysVisible={true}
+										animation="slide"
+										duration={1000}
+										autoPlay={false}
+									>
+										{Object.keys(objectAtt).map((att) => (
+											<a href={`${objectAtt[att].url}`} target="_blank">
+												<img style={{ maxWidth: "100%" }} src={`${objectAtt[att].url}`} />
+											</a>
+										))}
+									</Carousel>
+								) : null}
+
+								<CardHeader
+									sx={{ p: 0 }}
+									action={
+										<>
+											<BootstrapTooltip
+												open={shareTooltip}
+												leaveDelay={1000}
+												title={t(`plaques.objectPopup.shareUrl`)}
+												arrow
+												placement="top"
+												onClose={() => {
+													setShareTooltip(false)
+												}}
+											>
+												<IconButton color="secondary" aria-label="share" size="large" onClick={handleShare}>
+													<ShareIcon style={{ fontSize: 30 }} />
 												</IconButton>
-											</>
-										}
-										title={Object.keys(objectAttr).map((attr) =>
-											objectAttr[attr].field === "OBJ_PAV" ? objectAttr[attr].value : null
-										)}
-									/>
-									<TableContainer sx={{ mb: 1 }} component={Paper}>
-										<Table size="small">
-											<TableBody>
-												{Object.keys(objectAttr).map((attr) =>
-													objectAttr[attr].field === "OBJ_APRAS" ||
-													objectAttr[attr].field === "AUTORIUS" ||
-													objectAttr[attr].field === "OBJ_PAV" ||
-													objectAttr[attr].field === "SALTINIS" ? null : (
-														<TableRow
-															key={objectAttr[attr].field}
-															sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-														>
-															<TableCell component="th" scope="row">
-																{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
-															</TableCell>
-															<TableCell align="right">
-																{objectAttr[attr].field === "TIPAS"
-																	? t(`plaques.options.objects.${objectAttr[attr].code}`)
-																	: objectAttr[attr].field === "ATMINT_TIP"
-																	? t(`plaques.options.memories.${objectAttr[attr].code}`)
-																	: objectAttr[attr].value}
-															</TableCell>
-														</TableRow>
-													)
-												)}
-											</TableBody>
-										</Table>
-									</TableContainer>
-									{Object.keys(objectAttr).map((attr) =>
-										objectAttr[attr].field === "OBJ_APRAS" || objectAttr[attr].field === "AUTORIUS" ? (
-											<Typography variant="h6" component="div" key={objectAttr[attr].field}>
-												{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
-												<Typography variant="body2" component="div">
+											</BootstrapTooltip>
+											<IconButton
+												color="secondary"
+												aria-label="close"
+												size="large"
+												onClick={() => {
+													navigate(`/vilniausdnr/${i18n.language}/plaques`)
+												}}
+											>
+												<CloseIcon style={{ fontSize: 30 }} />
+											</IconButton>
+										</>
+									}
+									title={Object.keys(objectAttr).map((attr) =>
+										objectAttr[attr].field === "OBJ_PAV" ? objectAttr[attr].value : null
+									)}
+									titleTypographyProps={{ color: "white" }}
+								/>
+								{/* <TableContainer sx={{ mb: 1 }} component={Paper}>
+									<Table size="small">
+										<TableBody>
+											{Object.keys(objectAttr).map((attr) =>
+												objectAttr[attr].field === "OBJ_APRAS" ||
+												objectAttr[attr].field === "AUTORIUS" ||
+												objectAttr[attr].field === "OBJ_PAV" ||
+												objectAttr[attr].field === "SALTINIS" ? null : (
+													<TableRow
+														key={objectAttr[attr].field}
+														sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+													>
+														<TableCell component="th" scope="row">
+															{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
+														</TableCell>
+														<TableCell align="right">
+															{objectAttr[attr].field === "TIPAS"
+																? t(`plaques.options.objects.${objectAttr[attr].code}`)
+																: objectAttr[attr].field === "ATMINT_TIP"
+																? t(`plaques.options.memories.${objectAttr[attr].code}`)
+																: objectAttr[attr].value}
+														</TableCell>
+													</TableRow>
+												)
+											)}
+										</TableBody>
+									</Table>
+								</TableContainer> */}
+
+								{Object.keys(objectAttr).map(
+									(attr) =>
+										objectAttr[attr].field === "OBJ_APRAS" && (
+											<Typography sx={{ color: "white" }} variant="body2" component="div">
+												{objectAttr[attr].value}
+											</Typography>
+										)
+								)}
+
+								{Object.keys(objectAttr).map(
+									(attr) =>
+										objectAttr[attr].field === "AUTORIUS" && (
+											<Typography sx={{ color: "white" }} variant="h6" component="div">
+												{t(`plaques.objectPopup.AUTORIUS`)}
+												<Typography sx={{ color: "white" }} variant="body2" component="div">
 													{objectAttr[attr].value}
 												</Typography>
 											</Typography>
-										) : null
-									)}
-									{Object.keys(objectAttr).map((attr) =>
-										objectAttr[attr].field === "SALTINIS" ? (
-											<Typography variant="h6" component="div" key={objectAttr[attr].field}>
-												{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
-												<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
-													<Typography variant="body2" component="div">
-														{objectAttr[attr].value}
-													</Typography>
-												</MuiLinkify>
-											</Typography>
-										) : null
-									)}
+										)
+								)}
 
-									{objectPer.length ? (
-										<Typography variant="h6" component="div">
-											{objectPer.length > 1
-												? t("plaques.objectPopup.relatedMany")
-												: t("plaques.objectPopup.relatedOne")}
-											<Typography component="div">
-												{Object.keys(objectPer).map((per) => (
-													<div key={per}>
-														<Link
-															sx={{ mt: 0.5 }}
-															target="_blank"
-															href={
-																"https://zemelapiai.vplanas.lt" +
-																`/vilniausdnr/${i18n.language}/persons/${objectPer[
-																	per
-																].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
-															}
-															rel="noopener"
-															textAlign="left"
-															variant="body2"
-														>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
-														<br></br>
-													</div>
-												))}
-											</Typography>
+								{Object.keys(objectAttr).map((attr) =>
+									objectAttr[attr].field === "SALTINIS" ? (
+										<Typography
+											sx={{ color: "white" }}
+											variant="h6"
+											component="div"
+											key={objectAttr[attr].field}
+										>
+											{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
+											<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
+												<Typography variant="body2" component="div">
+													{objectAttr[attr].value}
+												</Typography>
+											</MuiLinkify>
 										</Typography>
-									) : null}
-									{objectAtt.length
-										? Object.keys(objectAtt).map((att) => (
-												<Box sx={{ mt: 1 }} key={att}>
-													<a href={`${objectAtt[att].url}`} target="_blank">
-														<img
-															style={{ maxWidth: "100%", maxHeight: "auto" }}
-															src={`${objectAtt[att].url}`}
-														/>
-													</a>
-												</Box>
-										  ))
-										: null}
-								</>
-							)}
-						</CardContent>
-					</Card>
-				</Box>
+									) : null
+								)}
+
+								{objectPer.length ? (
+									<Typography sx={{ color: "white" }} variant="h6" component="div">
+										{objectPer.length > 1
+											? t("plaques.objectPopup.relatedMany")
+											: t("plaques.objectPopup.relatedOne")}
+										<Typography component="div">
+											{Object.keys(objectPer).map((per) => (
+												<div key={per}>
+													<Link
+														sx={{ mt: 0.5 }}
+														target="_blank"
+														href={
+															"https://zemelapiai.vplanas.lt" +
+															`/vilniausdnr/${i18n.language}/persons/${objectPer[
+																per
+															].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
+														}
+														rel="noopener"
+														textAlign="left"
+														variant="body2"
+													>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
+													<br></br>
+												</div>
+											))}
+										</Typography>
+									</Typography>
+								) : null}
+								{/* {objectAtt.length
+									? Object.keys(objectAtt).map((att) => (
+											<Box sx={{ mt: 1 }} key={att}>
+												<a href={`${objectAtt[att].url}`} target="_blank">
+													<img
+														style={{ maxWidth: "100%", maxHeight: "auto" }}
+														src={`${objectAtt[att].url}`}
+													/>
+												</a>
+											</Box>
+									  ))
+									: null} */}
+							</>
+						)}
+					</CardContent>
+				</Card>
 			</Fade>
 		</>
 	)

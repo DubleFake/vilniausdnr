@@ -109,7 +109,7 @@ const ObjectMap = (props) => {
 								where: objectsView.filter.where,
 								distance: view.resolution <= 7 ? view.resolution * 15 : 100,
 								spatialRelationship: "intersects",
-								outFields: ["GlobalID"],
+								outFields: ["*"],
 							})
 						})
 						.then((response) => {

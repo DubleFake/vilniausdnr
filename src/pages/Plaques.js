@@ -36,7 +36,7 @@ const Plaques = () => {
 									color="inherit"
 								/>
 							</Backdrop>
-							<Collapse sx={{ maxWidth: 350 }} orientation="horizontal" in={visible}>
+							<Collapse variant="options" orientation="horizontal" in={visible}>
 								<Options
 									initialObjectsList={initialObjectsList}
 									setSelectedObject={setSelectedObject}

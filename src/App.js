@@ -25,14 +25,19 @@ const App = () => {
 
 	const appBarHeight = 90
 	const optionsWidth = 400
+	const tabsHeight = 60
+
+  const lightGray = "#F6F6F6"
+  const darkGray = "#252525"
+  const red = "#D42323"
 
 	const theme = createTheme({
 		palette: {
 			primary: {
-				main: "#252525",
+				main: darkGray,
 			},
 			secondary: {
-				main: "#D42323",
+				main: red,
 			},
 		},
 
@@ -73,6 +78,18 @@ const App = () => {
 						},
 						style: {
 							width: optionsWidth,
+							display: "flex",
+							flexDirection: "column",
+							overflow: "hidden",
+						},
+					},
+					{
+						props: {
+							variant: "optionsTabs",
+						},
+						style: {
+							width: optionsWidth,
+							height: window.innerHeight - appBarHeight - tabsHeight,
 							display: "flex",
 							flexDirection: "column",
 							overflow: "hidden",
@@ -121,7 +138,7 @@ const App = () => {
 							paddingLeft: 24,
 							paddingRight: 24,
 							paddingBottom: 20,
-							backgroundColor: "#F6F6F6",
+							backgroundColor: lightGray,
 						},
 					},
 					{
@@ -133,7 +150,26 @@ const App = () => {
 							paddingLeft: 24,
 							paddingRight: 24,
 							paddingBottom: 0,
-							backgroundColor: "#F6F6F6",
+							backgroundColor: lightGray,
+						},
+					},
+					{
+						props: {
+							variant: "optionsDiv",
+						},
+						style: {
+							width: optionsWidth,
+						},
+					},
+					{
+						props: {
+							variant: "optionsVisualizeTab",
+						},
+						style: {
+							width: optionsWidth,
+							height: "100vh",
+							display: "flex",
+							flexDirection: "column",
 						},
 					},
 				],
@@ -156,7 +192,7 @@ const App = () => {
 							},
 							"&.Mui-selected": {
 								transition: "0.3s",
-								color: "secondary.main",
+								color: red,
 								backgroundColor: "#F7D5D6",
 							},
 						},
@@ -225,6 +261,79 @@ const App = () => {
 							borderRadius: "30px",
 							height: "50px",
 							backgroundColor: "white",
+						},
+					},
+				],
+			},
+
+			MuiCollapse: {
+				variants: [
+					{
+						props: {
+							variant: "outlined",
+						},
+						style: {
+							maxWidth: optionsWidth,
+						},
+					},
+				],
+			},
+
+			MuiTabs: {
+				styleOverrides: {
+					root: sx({
+						"& .MuiTabs-indicator": {
+							display: "flex",
+							justifyContent: "center",
+						},
+					}),
+				},
+			},
+
+			MuiTab: {
+				styleOverrides: {
+					root: sx({
+						height: tabsHeight,
+						backgroundColor: lightGray,
+					}),
+				},
+			},
+
+			MuiToggleButton: {
+				styleOverrides: {
+					root: sx({
+						position: "fixed",
+						zIndex: 2,
+						height: "20vh",
+						top: `calc(40vh + ${appBarHeight / 2}px)`,
+						width: "25px",
+						bgcolor: "secondary.main",
+						borderRadius: 0,
+						transition: "0.3s",
+						"&:hover": {
+							bgcolor: "secondary.dark",
+						},
+					}),
+				},
+			},
+
+			MuiCard: {
+				variants: [
+					{
+						props: {
+							variant: "popup",
+						},
+						style: {
+							borderRadius: "0px",
+							width: 500,
+							backgroundColor: darkGray,
+							top: 0 + appBarHeight,
+							right: 0,
+							position: "fixed",
+							zIndex: 3,
+							maxHeight: window.innerHeight - appBarHeight - 16,
+							overflowY: "auto",
+							overflowX: "hidden",
 						},
 					},
 				],

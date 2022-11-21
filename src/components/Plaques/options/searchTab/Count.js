@@ -8,13 +8,9 @@ const Count = (props) => {
 	const { t, i18n } = useTranslation()
 
 	return (
-		<Box sx={{ ml: 1, float: "left" }}>
-			<Typography variant="body2" component="span">
-				{t("plaques.options.count")}:
-				<Typography sx={{ color: "secondary.main" }} variant="body2" component="span">
-					{" "}
-					{props.objectCount}
-				</Typography>
+		<Box sx={{ mt: -2, mb: 1 }}>
+			<Typography sx={{ fontWeight: "bold", color: "secondary.main" }} variant="body2" component="span">
+				{props.objectCount}
 			</Typography>
 		</Box>
 	)

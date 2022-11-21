@@ -4,7 +4,6 @@ import TableItems from "./SearchItems"
 import Search from "./Search"
 import { matchSorter } from "match-sorter"
 
-import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import CircularProgress from "@mui/material/CircularProgress"
 

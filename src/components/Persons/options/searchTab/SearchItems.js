@@ -31,7 +31,7 @@ const TableItems = (props) => {
 						selected={`${tableObjectsList[index].attributes.OBJECTID}` === selectedObject}
 					>
 						<ListItemButton
-              variant="tableItemButton"
+							variant="tableItemButton"
 							onClick={() => {
 								setSelectedObject(`${tableObjectsList[index].attributes.OBJECTID}`)
 								navigate(`${tableObjectsList[index].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`)

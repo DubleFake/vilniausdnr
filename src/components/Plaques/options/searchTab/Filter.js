@@ -3,22 +3,37 @@ import { useTranslation } from "react-i18next"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
 
 import { objects, view, objectRenderer, memoryRenderer } from "../../../../utils/plaquesArcgisItems"
+import Count from "../searchTab/Count"
 
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Button from "@mui/material/Button"
-import Box from "@mui/material/Box"
+import Container from "@mui/material/Container"
 import Snackbar from "@mui/material/Snackbar"
 import MuiAlert from "@mui/material/Alert"
 import FormGroup from "@mui/material/FormGroup"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import Checkbox from "@mui/material/Checkbox"
+import Slider from "@mui/material/Slider"
+import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
 
 const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
+
+const marks = [
+	{
+		value: 1200,
+		label: "1200",
+	},
+	{
+		value: 2020,
+		label: "2020",
+	},
+]
 
 const viewHandles = []
 
@@ -27,6 +42,7 @@ const Filter = (props) => {
 
 	const [showAlert, setShowAlert] = useState(false)
 	const [extentCheck, setExtentCheck] = useState(false)
+	const [sliderValue, setSliderValue] = useState([1300, 2020])
 
 	const handleObjectSelect = (event) => {
 		props.setSelectedObject("")
@@ -58,6 +74,7 @@ const Filter = (props) => {
 		viewHandles.length = 0
 		props.setSearchObjectsList(props.objectsList)
 	}
+
 	const handleExtent = () => {
 		view.whenLayerView(objects).then((objectsView) => {
 			if (!extentCheck) {
@@ -77,6 +94,10 @@ const Filter = (props) => {
 		})
 
 		setExtentCheck(!extentCheck)
+	}
+
+	const handleSliderChange = (event, newValue) => {
+		setSliderValue(newValue)
 	}
 
 	useEffect(() => {
@@ -156,7 +177,7 @@ const Filter = (props) => {
 								setShowAlert(true)
 								props.setSelectedObjectFilter("")
 								props.setSelectedMemoryFilter("")
-                props.setSelectedPeriodFilter("")
+								props.setSelectedPeriodFilter("")
 							}
 						})
 				}
@@ -226,10 +247,11 @@ const Filter = (props) => {
 					{t("plaques.options.notFound")}
 				</Alert>
 			</Snackbar>
-			<Box sx={{ ml: 0.5, mr: 0.5 }}>
-				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
+			<Container variant="filter">
+				<FormControl variant="outlined" size="small">
 					<InputLabel id="object-select-label">{t("plaques.options.objectType")}</InputLabel>
 					<Select
+						variant="outlined"
 						labelId="object-select-label"
 						name="object-select"
 						id="object-select"
@@ -248,30 +270,34 @@ const Filter = (props) => {
 					</Select>
 				</FormControl>
 
-				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
-					<InputLabel id="memory-select-label">{t("plaques.options.memoryType")}</InputLabel>
-					<Select
-						labelId="memory-select-label"
-						name="memory-select"
-						id="memory-select"
-						value={props.selectedMemoryFilter}
-						label={t("plaques.options.memoryType")}
-						onChange={handleMemorySelect}
-					>
-						<MenuItem value="">
-							<em>{t("plaques.options.all")}</em>
-						</MenuItem>
-						{memoryRenderer.uniqueValueInfos.map((object) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value}>
-								{t(`plaques.options.memories.${object.value}`)}
+				{props.selectedObjectFilter && (
+					<FormControl variant="outlined" size="small">
+						<InputLabel id="memory-select-label">{t("plaques.options.memoryType")}</InputLabel>
+						<Select
+							variant="outlined"
+							labelId="memory-select-label"
+							name="memory-select"
+							id="memory-select"
+							value={props.selectedMemoryFilter}
+							label={t("plaques.options.memoryType")}
+							onChange={handleMemorySelect}
+						>
+							<MenuItem value="">
+								<em>{t("plaques.options.all")}</em>
 							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
+							{memoryRenderer.uniqueValueInfos.map((object) => (
+								<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value}>
+									{t(`plaques.options.memories.${object.value}`)}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				)}
 
-				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
+				<FormControl variant="outlined" size="small">
 					<InputLabel id="period-label">{t("plaques.options.period")}</InputLabel>
 					<Select
+						sx={{ borderRadius: "30px", height: "50px", backgroundColor: "white" }}
 						labelId="period-label"
 						name="period"
 						id="period"
@@ -300,23 +326,47 @@ const Filter = (props) => {
 					</Select>
 				</FormControl>
 
+				<Grid container direction="row" justifyContent="center" alignItems="center">
+					<Typography sx={{ mt: 3 }} variant="subtitle2">
+						Metai
+					</Typography>
+				</Grid>
+				<Slider
+					sx={{ ml: "1%", width: "98%" }}
+					value={sliderValue}
+					max={2022}
+					min={1200}
+					size="small"
+					valueLabelDisplay="auto"
+					onChange={handleSliderChange}
+					marks={marks}
+				/>
+
 				<FormGroup>
 					<FormControlLabel
 						control={<Checkbox checked={extentCheck} onChange={handleExtent} />}
 						label={t("plaques.options.extent")}
 					/>
 				</FormGroup>
+			</Container>
 
-				<Button
-					variant="contained"
-					color="secondary"
-					disableElevation
-					sx={{ mb: 1, width: "100%" }}
-					onClick={handleClearFilters}
-				>
-					{t("plaques.options.clearFilters")}
-				</Button>
-			</Box>
+			<Grid variant="result" container direction="row" justifyContent="space-between" alignItems="center">
+				<Typography sx={{ mt: 1, fontWeight: "bold" }} variant="h5">
+					Rezultatai
+					<Count objectCount={props.objectCount}></Count>
+				</Typography>
+
+				{(props.searchInputValue || props.selectedObjectFilter || props.selectedMemoryFilter || props.selectedPeriodFilter) && (
+					<Button
+						color="secondary"
+						disableElevation
+						sx={{ width: "auto", borderRadius: "30px", backgroundColor: "white" }}
+						onClick={handleClearFilters}
+					>
+						{t("plaques.options.clearFilters")}
+					</Button>
+				)}
+			</Grid>
 		</>
 	)
 }

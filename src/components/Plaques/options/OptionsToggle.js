@@ -7,19 +7,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
 const TableToggle = (props) => {
 	return (
 		<ToggleButton
-			sx={{
-				position: "fixed",
-				zIndex: 2,
-				height: "20vh",
-				top: "calc(40vh + 45px)",
-				width: "25px",
-				bgcolor: "secondary.main",
-				borderRadius: 0,
-				transition: "0.3s",
-				"&:hover": {
-					bgcolor: "secondary.dark",
-				},
-			}}
+			variant="optionsToggle"
 			value="check"
 			selected={false}
 			onChange={() => {

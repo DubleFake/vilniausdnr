@@ -215,7 +215,7 @@ const Filter = (props) => {
 					<FormControl size="small" variant="outlined">
 						<InputLabel id="memory-select-label">{t("persons.options.profession_detail")}</InputLabel>
 						<Select
-							sx={{ borderRadius: "30px", height: "50px", backgroundColor: "white" }}
+							variant="outlined"
 							labelId="memory-select-label"
 							name="memory-select"
 							id="memory-select"
