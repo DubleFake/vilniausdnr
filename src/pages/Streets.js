@@ -49,7 +49,7 @@ const Plaques = () => {
 									color="inherit"
 								/>
 							</Backdrop> */}
-							<Collapse sx={{ maxWidth: 350 }} orientation="horizontal" in={visible}>
+							<Collapse variant="options" orientation="horizontal" in={visible}>
 								<Options
 									initialObjectsList={initialObjectsList}
 									setSelectedObject={setSelectedObject}
@@ -58,7 +58,7 @@ const Plaques = () => {
 								/>
 							</Collapse>
 
-							<Grid item xs>
+							<Grid variant="compareMain" item xs>
 								{!historyToggle && <OptionsToggle visible={visible} setVisible={setVisible} />}
 								<ObjectMap
 									setInitialObjectsList={setInitialObjectsList}
@@ -67,16 +67,16 @@ const Plaques = () => {
 									setInitialObjectsClasses={setInitialObjectsClasses}
 									toggleCompareWindow={toggleCompareWindow}
 									historyToggle={historyToggle}
-                  setHistoryToggle={setHistoryToggle}
-                  />
+									setHistoryToggle={setHistoryToggle}
+								/>
 								<CompareToggle
 									setToggleCompareWindow={setToggleCompareWindow}
 									historyToggle={historyToggle}
 									setHistoryToggle={setHistoryToggle}
 									setMapQuery={setMapQuery}
-                  mapQuery={mapQuery}
-                  setSelectedObject={setSelectedObject}
-                  initialLoading={initialLoading}
+									mapQuery={mapQuery}
+									setSelectedObject={setSelectedObject}
+									initialLoading={initialLoading}
 								/>
 								<Outlet />
 							</Grid>
@@ -91,8 +91,8 @@ const Plaques = () => {
 							mapQuery={mapQuery}
 							setSelectedObject={setSelectedObject}
 							initialLoading={initialLoading}
-              setHistoryToggle={setHistoryToggle}
-              setMapQuery={setMapQuery}
+							setHistoryToggle={setHistoryToggle}
+							setMapQuery={setMapQuery}
 						/>
 					}
 				/>

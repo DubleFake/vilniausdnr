@@ -23,7 +23,7 @@ const Buildings = () => {
 	const [visible, setVisible] = useState(false)
 	const [toggleCompareWindow, setToggleCompareWindow] = useState(false)
 	const [historyToggle, setHistoryToggle] = useState(false)
-  const [displayTooltip, setDisplayTooltip] = useState(true)
+	const [displayTooltip, setDisplayTooltip] = useState(true)
 
 	useEffect(() => {
 		if (historyToggle) {
@@ -47,7 +47,7 @@ const Buildings = () => {
 									color="inherit"
 								/>
 							</Backdrop> */}
-							<Collapse sx={{ maxWidth: 350 }} orientation="horizontal" in={visible}>
+							<Collapse variant="options" orientation="horizontal" in={visible}>
 								<Options
 									initialObjectsList={initialObjectsList}
 									setSelectedObject={setSelectedObject}
@@ -56,7 +56,7 @@ const Buildings = () => {
 								/>
 							</Collapse>
 
-							<Grid item xs>
+							<Grid variant="compareMain" item xs>
 								{!historyToggle && <OptionsToggle visible={visible} setVisible={setVisible} />}
 								<ObjectMap
 									setInitialObjectsList={setInitialObjectsList}

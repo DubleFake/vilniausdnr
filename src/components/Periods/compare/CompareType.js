@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
@@ -11,25 +11,24 @@ import Grid from "@mui/material/Grid"
 const CompareType = () => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
-  const [selectedCompare, setSelectedCompare] = useState(0)
+	const [selectedCompare, setSelectedCompare] = useState(0)
 
-  useEffect(() => {
-
-    switch(true) {
-      case window.location.href.includes("timeline"):
-        setSelectedCompare(0)
-        break
-      case window.location.href.includes("swipe"):
-        setSelectedCompare(1)
-        break
-      case window.location.href.includes("window"):
-        setSelectedCompare(2)
-        break
-    }
-  }, [])
+	useEffect(() => {
+		switch (true) {
+			case window.location.href.includes("timeline"):
+				setSelectedCompare(0)
+				break
+			case window.location.href.includes("swipe"):
+				setSelectedCompare(1)
+				break
+			case window.location.href.includes("window"):
+				setSelectedCompare(2)
+				break
+		}
+	}, [])
 
 	const handleCompareChange = (event) => {
-    setSelectedCompare(event.target.value)
+		setSelectedCompare(event.target.value)
 		switch (event.target.value) {
 			case 0:
 				navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline`)
@@ -46,33 +45,21 @@ const CompareType = () => {
 	}
 
 	return (
-		<Grid
-			sx={{
-				backgroundColor: "yellow",
-				width: "100%",
-				height: "0%",
-				bottom: window.innerHeight - 90,
-				position: "relative",
-				zIndex: 2,
-			}}
-			container
-			direction="row"
-			justifyContent="right"
-			alignItems="flex-start"
-		>
+		<Grid variant="compareType" container direction="row" justifyContent="left" alignItems="flex-start">
 			<FormControl
 				sx={{
-					mt: 1.5,
-					mr: 1.5,
-					width: 170,
-					backgroundColor: "white",
+					width: "205px",
+					height: "45px",
+					boxShadow: 0,
+					mt: 2,
+					ml: 2,
 				}}
-				variant="filled"
+				variant="outlined"
 				size="small"
 				id="swipe-select"
 			>
-				<InputLabel>Vaizdavimas</InputLabel>
-				<Select label="Sluoksnis" value={selectedCompare} onChange={handleCompareChange}>
+				{/* <InputLabel>Vaizdavimas</InputLabel> */}
+				<Select variant="outlined" value={selectedCompare} onChange={handleCompareChange}>
 					<MenuItem sx={{ whiteSpace: "unset" }} key={0} value={0}>
 						Laiko juosta
 					</MenuItem>

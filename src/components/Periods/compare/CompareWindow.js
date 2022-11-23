@@ -115,18 +115,20 @@ const CompareWindow = (props) => {
 				sx={{
 					bottom: 16,
 					mt: -7.5,
-					mr: 2,
-					width: 150,
+					mr: 6,
+					width: "150px",
+					height: "45px",
 					backgroundColor: "white",
+          boxShadow: 0,
 				}}
-				variant="filled"
+				variant="outlined"
 				size="small"
 				id="swipe-select"
 			>
-				<InputLabel>Kairys sluoksnis</InputLabel>
+				{/* <InputLabel>Kairys sluoksnis</InputLabel> */}
 				<Select
 					value={selectedLeftPeriod}
-					label="Sluoksnis"
+					// label="Sluoksnis"
 					// defaultValue="0"
 					onChange={handleLeftSelect}
 				>
@@ -144,18 +146,20 @@ const CompareWindow = (props) => {
 				sx={{
 					bottom: 16,
 					mt: -7.5,
-					ml: 2,
-					width: 150,
+					ml: 6,
+					width: "150px",
+					height: "45px",
 					backgroundColor: "white",
+          boxShadow: 0,
 				}}
-				variant="filled"
+				variant="outlined"
 				size="small"
 				id="swipe-select"
 			>
-				<InputLabel>Dešinys sluoksnis</InputLabel>
+				{/* <InputLabel>Dešinys sluoksnis</InputLabel> */}
 				<Select
 					value={selectedRightPeriod}
-					label="Sluoksnis"
+					// label="Sluoksnis"
 					// defaultValue="0"
 					onChange={handleRightSelect}
 				>

@@ -31,10 +31,9 @@ const CompareSwipe = () => {
 				}
 			})
 
-		view
-			.when(() => {
-				view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
-			})
+		view.when(() => {
+			view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+		})
 
 		const swipeWidgetFind = view.ui.find("swipe-layers")
 		if (swipeWidgetFind !== null) {
@@ -67,20 +66,20 @@ const CompareSwipe = () => {
 			map.removeAll()
 			map.add(objects)
 
-      objects
-			.when(() => {
-				return objects.queryExtent()
-			})
-			.then((response) => {
-				view.constraints.geometry = {
-					type: "extent",
-					spatialReference: response.extent.spatialReference,
-					xmin: response.extent.xmin,
-					ymin: response.extent.ymin,
-					xmax: response.extent.xmax,
-					ymax: response.extent.ymax,
-				}
-			})
+			objects
+				.when(() => {
+					return objects.queryExtent()
+				})
+				.then((response) => {
+					view.constraints.geometry = {
+						type: "extent",
+						spatialReference: response.extent.spatialReference,
+						xmin: response.extent.xmin,
+						ymin: response.extent.ymin,
+						xmax: response.extent.xmax,
+						ymax: response.extent.ymax,
+					}
+				})
 		}
 	}, [])
 
@@ -175,18 +174,20 @@ const CompareSwipe = () => {
 				sx={{
 					bottom: 16,
 					mt: -7.5,
-					mr: 2,
-					width: 150,
+					mr: 6,
+					width: "150px",
+					height: "45px",
 					backgroundColor: "white",
+          boxShadow: 0,
 				}}
-				variant="filled"
+				variant="outlined"
 				size="small"
 				id="swipe-select"
 			>
-				<InputLabel>Kairys sluoksnis</InputLabel>
+				{/* <InputLabel>Kairys sluoksnis</InputLabel> */}
 				<Select
 					value={selectedLeftPeriod}
-					label="Sluoksnis"
+					// label="Sluoksnis"
 					// defaultValue="0"
 					onChange={handleLeftSelect}
 				>
@@ -204,18 +205,20 @@ const CompareSwipe = () => {
 				sx={{
 					bottom: 16,
 					mt: -7.5,
-					ml: 2,
-					width: 150,
+					ml: 6,
+					width: "150px",
+					height: "45px",
 					backgroundColor: "white",
+          boxShadow: 0,
 				}}
-				variant="filled"
+				variant="outlined"
 				size="small"
 				id="swipe-select"
 			>
-				<InputLabel>Dešinys sluoksnis</InputLabel>
+				{/* <InputLabel>Dešinys sluoksnis</InputLabel> */}
 				<Select
 					value={selectedRightPeriod}
-					label="Sluoksnis"
+					// label="Sluoksnis"
 					// defaultValue="0"
 					onChange={handleRightSelect}
 				>

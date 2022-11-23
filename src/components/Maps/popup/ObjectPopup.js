@@ -149,7 +149,7 @@ const ObjectPopup = (props) => {
 		<>
 			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
 			<Fade in={true} timeout={300} unmountOnExit>
-				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3, mt: 8.5 }}>
+				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3, mt: 0.5 }}>
 					<Card
 						sx={{
 							borderRadius: "0px",

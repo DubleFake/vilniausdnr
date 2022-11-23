@@ -59,7 +59,9 @@ const CompareReview = (props) => {
 						}
 					}
 				} else {
-					const defaultMap = response.features.find((map) => map.attributes.GlobalID_zemelapio === "42e1492a-d5ac-4d09-ac03-90a6efb54d6e")
+					const defaultMap = response.features.find(
+						(map) => map.attributes.GlobalID_zemelapio === "42e1492a-d5ac-4d09-ac03-90a6efb54d6e"
+					)
 					navigate(defaultMap.attributes.GlobalID_zemelapio)
 				}
 
@@ -79,8 +81,8 @@ const CompareReview = (props) => {
 	}, [globalID])
 
 	const handleGroupChange = (event) => {
-    const mapByGroup = mapList.find(map => map.group === groupList[event.target.value])
-    navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByGroup.globalid_map}`)
+		const mapByGroup = mapList.find((map) => map.group === groupList[event.target.value])
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByGroup.globalid_map}`)
 
 		setSelectedGroup(groupList[event.target.value])
 		setSelectedGroupValue(event.target.value)
@@ -108,17 +110,17 @@ const CompareReview = (props) => {
 			>
 				<FormControl
 					sx={{
-						mt: 1.5,
-						width: "auto",
-						minWidth: 125,
-						backgroundColor: "white",
+						width: "205px",
+						height: "45px",
+						boxShadow: 0,
+						mt: 2,
+						ml: 2,
 					}}
-					variant="filled"
+					variant="outlined"
 					size="small"
 					id="swipe-select"
 				>
-					<InputLabel>Grupė</InputLabel>
-					<Select label="Grupe" value={selectedGroupValue} onChange={handleGroupChange}>
+					<Select value={selectedGroupValue} onChange={handleGroupChange}>
 						{groupList.map((group, index) => (
 							<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
 								{group}
@@ -143,16 +145,17 @@ const CompareReview = (props) => {
 					sx={{
 						bottom: 16,
 						mt: -8,
-						width: "auto",
-						minWidth: 125,
 						backgroundColor: "white",
+						width: "205px",
+						height: "45px",
+						boxShadow: 0,
+						ml: 2,
 					}}
-					variant="filled"
+					variant="outlined"
 					size="small"
 					id="swipe-select"
 				>
-					<InputLabel>Žemėlapis</InputLabel>
-					<Select label="Zemelapis" value={selectedMapValue} onChange={handleMapChange}>
+					<Select value={selectedMapValue} onChange={handleMapChange}>
 						{mapList.map((map, index) =>
 							map.group === selectedGroup ? (
 								<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>

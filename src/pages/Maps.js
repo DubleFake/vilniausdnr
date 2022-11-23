@@ -54,8 +54,8 @@ const Maps = () => {
                     color="inherit"
                 />
             </Backdrop> */}
-            {/* sito collapse reikia kad mapu aukstis butu 100% ?? */}
-								<Collapse sx={{ maxWidth: 350 }} orientation="horizontal" in={visible}> 
+								{/* sito collapse reikia kad mapu aukstis butu 100% ?? */}
+								<Collapse variant="options" orientation="horizontal" in={visible}>
 									<Options
 										initialObjectsList={initialObjectsList}
 										setSelectedObject={setSelectedObject}
@@ -64,7 +64,7 @@ const Maps = () => {
 									/>
 								</Collapse>
 
-								<Grid item xs>
+								<Grid variant="compareMain" item xs>
 									{/* {!historyToggle && <OptionsToggle visible={visible} setVisible={setVisible} />} */}
 									<ObjectMap
 										setInitialObjectsList={setInitialObjectsList}
@@ -83,8 +83,7 @@ const Maps = () => {
 							</Grid>
 						</>
 					}
-				>
-				</Route>
+				></Route>
 			</Routes>
 		</>
 	)

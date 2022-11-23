@@ -168,7 +168,7 @@ export const objects = new FeatureLayer({
 		"OBJECTID",
 		"TIPAS",
 		"OBJ_PAV",
-		"ATMINT_TIPAS",
+		"ATMINT_TIP",
 		"OBJ_LAIK_TIP",
 		"OBJ_APRAS",
 		"AUTORIUS",

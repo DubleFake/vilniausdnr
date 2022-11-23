@@ -27,9 +27,9 @@ const App = () => {
 	const optionsWidth = 400
 	const tabsHeight = 60
 
-  const lightGray = "#F6F6F6"
-  const darkGray = "#252525"
-  const red = "#D42323"
+	const lightGray = "#F6F6F6"
+	const darkGray = "#252525"
+	const red = "#D42323"
 
 	const theme = createTheme({
 		palette: {
@@ -111,6 +111,40 @@ const App = () => {
 							paddingLeft: 24,
 							paddingRight: 24,
 							marginTop: 4,
+						},
+					},
+					{
+						props: {
+							variant: "compareType",
+						},
+						style: {
+							backgroundColor: "transparent",
+							width: "100%",
+							height: "0%",
+							bottom: window.innerHeight - appBarHeight,
+							position: "relative",
+							zIndex: 2,
+						},
+					},
+					{
+						props: {
+							variant: "compareMain",
+						},
+						style: {
+							height: window.innerHeight - appBarHeight,
+						},
+					},
+					{
+						props: {
+							variant: "compareTimelineButtons",
+						},
+						style: {
+							backgroundColor: "transparent",
+							width: "100%",
+							height: "0%",
+							bottom: 72,
+							position: "relative",
+							zIndex: 2,
 						},
 					},
 				],
@@ -248,6 +282,19 @@ const App = () => {
 							width: "100%",
 						},
 					},
+					{
+						props: {
+							variant: "filled",
+						},
+						style: {
+							marginTop: 20,
+							borderRadius: "30px",
+							backgroundColor: "white",
+							boxShadow: "0px 4px 3px 0px rgba(191,191,191,0.75)",
+							height: "50px",
+							width: "100%",
+						},
+					},
 				],
 			},
 
@@ -256,6 +303,16 @@ const App = () => {
 					{
 						props: {
 							variant: "outlined",
+						},
+						style: {
+							borderRadius: "30px",
+							height: "50px",
+							backgroundColor: "white",
+						},
+					},
+					{
+						props: {
+							variant: "filled",
 						},
 						style: {
 							borderRadius: "30px",
@@ -334,6 +391,25 @@ const App = () => {
 							maxHeight: window.innerHeight - appBarHeight - 16,
 							overflowY: "auto",
 							overflowX: "hidden",
+						},
+					},
+				],
+			},
+
+			MuiButton: {
+				variants: [
+					{
+						props: {
+							variant: "timeline",
+						},
+						style: {
+							marginLeft: "5px",
+							marginRight: "5px",
+							boxSizing: "border-box",
+							width: "98px",
+							height: "45px",
+							border: "1px solid rgba(255, 255, 255, 0.2)",
+							borderRadius: "30px",
 						},
 					},
 				],
