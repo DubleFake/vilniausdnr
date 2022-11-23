@@ -14,12 +14,6 @@ import IconButton from "@mui/material/IconButton"
 import ShareIcon from "@mui/icons-material/Share"
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip"
 import Typography from "@mui/material/Typography"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell from "@mui/material/TableCell"
-import TableContainer from "@mui/material/TableContainer"
-import TableRow from "@mui/material/TableRow"
-import Paper from "@mui/material/Paper"
 import Link from "@mui/material/Link"
 import Box from "@mui/material/Box"
 import Pagination from "@mui/material/Pagination"
@@ -204,6 +198,7 @@ const ObjectPopup = (props) => {
 									objectIds: OBJECTID,
 								})
 								.then((response) => {
+									console.log(response)
 									if (Object.keys(response).length === 0) {
 										setObjectAtt([])
 										return
@@ -278,14 +273,65 @@ const ObjectPopup = (props) => {
 									  ))
 									: null} */}
 
+								<IconButton
+									color="primary"
+									aria-label="close"
+									size="small"
+									onClick={() => {
+										navigate(`/vilniausdnr/${i18n.language}/plaques`)
+									}}
+									sx={{
+										mt: 1,
+										mr: 1,
+										position: "fixed",
+										zIndex: 10,
+										right: 0,
+										backgroundColor: "#F6F6F6",
+										"&:hover": {
+											transition: "0.3s",
+											backgroundColor: "white",
+										},
+									}}
+								>
+									<CloseIcon sx={{ fontSize: 25 }} />
+								</IconButton>
+
 								{objectAtt.length ? (
 									<Carousel
 										sx={{ mx: -2, mt: 0 }}
-										indicators={false}
 										navButtonsAlwaysVisible={true}
 										animation="slide"
+										swipe={false}
 										duration={1000}
 										autoPlay={false}
+										navButtonsProps={{
+											style: {
+												backgroundColor: "rgba(246, 246, 246, 0.8)",
+												color: "black",
+												// "&:hover": {
+												// 	transition: "0.3s",
+												// 	backgroundColor: "white",
+												// },
+											},
+										}}
+										indicatorIconButtonProps={{
+											style: {
+												padding: 2,
+												color: "#F6F6F6",
+											},
+										}}
+										activeIndicatorIconButtonProps={{
+											style: {
+												color: "#D42323",
+											},
+										}}
+										indicatorContainerProps={{
+											style: {
+												marginTop: -40,
+												position: "absolute",
+												zIndex: 5,
+											},
+										}}
 									>
 										{Object.keys(objectAtt).map((att) => (
 											<a href={`${objectAtt[att].url}`} target="_blank">
@@ -313,22 +359,12 @@ const ObjectPopup = (props) => {
 													<ShareIcon style={{ fontSize: 30 }} />
 												</IconButton>
 											</BootstrapTooltip>
-											<IconButton
-												color="secondary"
-												aria-label="close"
-												size="large"
-												onClick={() => {
-													navigate(`/vilniausdnr/${i18n.language}/plaques`)
-												}}
-											>
-												<CloseIcon style={{ fontSize: 30 }} />
-											</IconButton>
 										</>
 									}
 									title={Object.keys(objectAttr).map((attr) =>
 										objectAttr[attr].field === "OBJ_PAV" ? objectAttr[attr].value : null
 									)}
-									titleTypographyProps={{ color: "white" }}
+									titleTypographyProps={{ color: "white", fontWeight: "bold" }}
 								/>
 								{/* <TableContainer sx={{ mb: 1 }} component={Paper}>
 									<Table size="small">
