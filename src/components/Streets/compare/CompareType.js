@@ -29,33 +29,20 @@ const CompareType = () => {
 	}
 
 	return (
-		<Grid
-			sx={{
-				backgroundColor: "yellow",
-				width: "100%",
-				height: "0%",
-				bottom: window.innerHeight - 90,
-				position: "relative",
-				zIndex: 2,
-			}}
-			container
-			direction="row"
-			justifyContent="right"
-			alignItems="flex-start"
-		>
+		<Grid variant="compareType" container direction="row" justifyContent="left" alignItems="flex-start">
 			<FormControl
 				sx={{
-					mt: 1.5,
-					mr: 1.5,
-					width: 170,
-					backgroundColor: "white",
+					width: "auto",
+					height: "45px",
+					boxShadow: 0,
+					mt: 2,
+					ml: 2,
 				}}
-				variant="filled"
+				variant="outlined"
 				size="small"
 				id="swipe-select"
 			>
-				<InputLabel>Vaizdavimas</InputLabel>
-				<Select label="Sluoksnis" defaultValue="0" onChange={handleCompareChange}>
+				<Select defaultValue="0" onChange={handleCompareChange}>
 					<MenuItem sx={{ whiteSpace: "unset" }} key={0} value={0}>
 						Laiko juosta
 					</MenuItem>

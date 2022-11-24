@@ -43,15 +43,7 @@ const Table = (props) => {
 	}, [tableObjectsList])
 
 	return (
-		<Box
-			sx={{
-				width: 500,
-				height: "calc(100vh - 87px)",
-				display: "flex",
-				flexDirection: "column",
-				overflow: "hidden",
-			}}
-		>
+		<Grid variant="optionsTabs">
 			{objectsList.length ? (
 				<>
 					<Search
@@ -70,7 +62,7 @@ const Table = (props) => {
 						setSelectedObjectFilter={props.setSelectedObjectFilter}
 						selectedMemoryFilter={props.selectedMemoryFilter}
 						setSelectedMemoryFilter={props.setSelectedMemoryFilter}
-            selectedPeriodFilter={props.selectedPeriodFilter}
+						selectedPeriodFilter={props.selectedPeriodFilter}
 						setSelectedPeriodFilter={props.setSelectedPeriodFilter}
 						setVisibleObjectIcons={props.setVisibleObjectIcons}
 						setVisibleMemoryIcons={props.setVisibleMemoryIcons}
@@ -96,7 +88,7 @@ const Table = (props) => {
 					</Grid>
 				</Grid>
 			)}
-		</Box>
+		</Grid>
 	)
 }
 

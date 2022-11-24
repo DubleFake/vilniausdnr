@@ -31,24 +31,17 @@ const CompareLayers = (props) => {
 
 	return (
 		<>
-			<Grid
-				sx={{
-					backgroundColor: "yellow",
-					width: "100%",
-					height: "0%",
-					bottom: window.innerHeight - 90,
-					position: "relative",
-					zIndex: 2,
-				}}
-				container
-				direction="row"
-				justifyContent="center"
-				alignItems="flex-start"
-			>
-				<ButtonGroup sx={{ mt: 1.5 }} variant="contained">
+			<Grid variant="compareType" container direction="row" justifyContent="center" alignItems="flex-start">
+				<ButtonGroup sx={{ mt: 1.5 }}>
 					<Button
-						sx={{ width: 95 }}
-						color={props.historyToggle ? "primary" : "secondary"}
+						variant="timeline"
+						sx={{
+							width: 95,
+							backgroundColor: props.historyToggle ? "white" : "#D72E30",
+							"&:hover": {
+								backgroundColor: props.historyToggle ? "white" : "#D72E30",
+							},
+						}}
 						onClick={() => {
 							map.removeAll()
 							map.add(objects)
@@ -59,8 +52,14 @@ const CompareLayers = (props) => {
 						<Typography variant="button">dabartis</Typography>
 					</Button>
 					<Button
-						sx={{ width: 95 }}
-						color={props.historyToggle ? "secondary" : "primary"}
+						variant="timeline"
+						sx={{
+							width: 95,
+							backgroundColor: props.historyToggle ? "#D72E30" : "white",
+							"&:hover": {
+								backgroundColor: props.historyToggle ? "#D72E30" : "white",
+							},
+						}}
 						onClick={() => {
 							const url = window.location.href
 							if (!url.includes("compare")) {
@@ -108,7 +107,7 @@ const CompareLayers = (props) => {
 								setSelectedObject={props.setSelectedObject}
 								initialLoading={props.initialLoading}
 								setInitialPeriod={setInitialPeriod}
-                setHistoryToggle={props.setHistoryToggle}
+								setHistoryToggle={props.setHistoryToggle}
 							/>
 							<CompareTimeline
 								setMapQuery={props.setMapQuery}

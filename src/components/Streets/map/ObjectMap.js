@@ -189,8 +189,8 @@ const ObjectMap = (props) => {
 
 		view.ui.empty("top-left")
 
-		view.ui.add(bgExpand, "top-left")
-		view.ui.add(locateWidget, "top-left")
+		view.ui.add(bgExpand, "top-right")
+		view.ui.add(locateWidget, "bottom-right")
 	}, [i18n.language])
 
 	useEffect(() => {

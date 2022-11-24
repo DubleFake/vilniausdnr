@@ -31,10 +31,9 @@ const CompareSwipe = () => {
 				}
 			})
 
-		view
-			.when(() => {
-				view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
-			})
+		view.when(() => {
+			view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+		})
 
 		const swipeWidgetFind = view.ui.find("swipe-layers")
 		if (swipeWidgetFind !== null) {
@@ -157,18 +156,18 @@ const CompareSwipe = () => {
 				sx={{
 					bottom: 16,
 					mt: -7.5,
-					mr: 2,
-					width: 150,
+					mr: 8,
+					width: "auto",
+					height: "45px",
 					backgroundColor: "white",
+					boxShadow: 0,
 				}}
-				variant="filled"
+				variant="outlined"
 				size="small"
 				id="swipe-select"
 			>
-				<InputLabel>Kairys sluoksnis</InputLabel>
 				<Select
 					value={selectedLeftPeriod}
-					label="Sluoksnis"
 					// defaultValue="0"
 					onChange={handleLeftSelect}
 				>
@@ -186,18 +185,18 @@ const CompareSwipe = () => {
 				sx={{
 					bottom: 16,
 					mt: -7.5,
-					ml: 2,
-					width: 150,
+					ml: 8,
+					width: "auto",
+					height: "45px",
 					backgroundColor: "white",
+					boxShadow: 0,
 				}}
-				variant="filled"
+				variant="outlined"
 				size="small"
 				id="swipe-select"
 			>
-				<InputLabel>Dešinys sluoksnis</InputLabel>
 				<Select
 					value={selectedRightPeriod}
-					label="Sluoksnis"
 					// defaultValue="0"
 					onChange={handleRightSelect}
 				>

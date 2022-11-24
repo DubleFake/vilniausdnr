@@ -106,13 +106,7 @@ const EventInfo = (props) => {
 	}, [globalID])
 
 	return (
-		<Box
-			sx={{
-				maxHeight: window.innerHeight - 90,
-				overflowY: "auto",
-				width: "calc(100vw - 500px)",
-			}}
-		>
+		<Grid container spacing={0} variant="main">
 			{eventFeatures.length > 0 && (
 				<Grid container direction="column" justifyContent="flex-start" alignItems="center">
 					<Typography
@@ -224,7 +218,7 @@ const EventInfo = (props) => {
 					)}
 				</Grid>
 			)}
-		</Box>
+		</Grid>
 	)
 }
 

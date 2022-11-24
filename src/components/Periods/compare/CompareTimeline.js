@@ -74,96 +74,98 @@ const CompareTimeline = (props) => {
 			justifyContent="center"
 			alignItems="flex-start"
 		>
-			<Button
-				sx={{
-					background: globalID === String(periods[0].metai) ? "#55AFB0" : "white",
-					"&:hover": {
-						backgroundColor: "#55AFB0",
-					},
-				}}
-				size="large"
-				variant="timeline"
-				onClick={() => {
-					navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[0].metai)}`)
-				}}
-			>
-				<Typography variant="button">1808</Typography>
-			</Button>
-			<Button
-				sx={{
-					background: globalID === String(periods[1].metai) ? "#407D5C" : "white",
-					"&:hover": {
-						backgroundColor: "#407D5C",
-					},
-				}}
-				size="large"
-				variant="timeline"
-				onClick={() => {
-					navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[1].metai)}`)
-				}}
-			>
-				<Typography variant="button">1845</Typography>
-			</Button>
-			<Button
-				sx={{
-					background: globalID === String(periods[2].metai) ? "#007FCC" : "white",
-					"&:hover": {
-						backgroundColor: "#007FCC",
-					},
-				}}
-				size="large"
-				variant="timeline"
-				onClick={() => {
-					navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[2].metai)}`)
-				}}
-			>
-				<Typography variant="button">1911</Typography>
-			</Button>
-			<Button
-				sx={{
-					background: globalID === String(periods[3].metai) ? "#823F86" : "white",
-					"&:hover": {
-						backgroundColor: "#823F86",
-					},
-				}}
-				size="large"
-				variant="timeline"
-				onClick={() => {
-					navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[3].metai)}`)
-				}}
-			>
-				<Typography variant="button">1938</Typography>
-			</Button>
-			<Button
-				sx={{
-					background: globalID === String(periods[4].metai) ? "#EE5066" : "white",
-					"&:hover": {
-						backgroundColor: "#EE5066",
-					},
-				}}
-				size="large"
-				variant="timeline"
-				onClick={() => {
-					navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[4].metai)}`)
-				}}
-			>
-				<Typography variant="button">1977</Typography>
-			</Button>
-			<Button
-				sx={{
-					background: globalID === String(periods[5].metai) ? "#FFAF28" : "white",
-					"&:hover": {
-						backgroundColor: "#FFAF28",
-					},
-				}}
-				size="large"
-				variant="timeline"
-				onClick={() => {
-					navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[5].metai)}`)
-				}}
-			>
-				<Typography variant="button">2022</Typography>
-			</Button>
+			<ButtonGroup>
+				<Button
+					sx={{
+						background: globalID === String(periods[0].metai) ? "#55AFB0" : "white",
+						"&:hover": {
+							backgroundColor: "#55AFB0",
+						},
+					}}
+					size="large"
+					variant="timeline"
+					onClick={() => {
+						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[0].metai)}`)
+					}}
+				>
+					<Typography variant="button">1808</Typography>
+				</Button>
+				<Button
+					sx={{
+						background: globalID === String(periods[1].metai) ? "#407D5C" : "white",
+						"&:hover": {
+							backgroundColor: "#407D5C",
+						},
+					}}
+					size="large"
+					variant="timeline"
+					onClick={() => {
+						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[1].metai)}`)
+					}}
+				>
+					<Typography variant="button">1845</Typography>
+				</Button>
+				<Button
+					sx={{
+						background: globalID === String(periods[2].metai) ? "#007FCC" : "white",
+						"&:hover": {
+							backgroundColor: "#007FCC",
+						},
+					}}
+					size="large"
+					variant="timeline"
+					onClick={() => {
+						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[2].metai)}`)
+					}}
+				>
+					<Typography variant="button">1911</Typography>
+				</Button>
+				<Button
+					sx={{
+						background: globalID === String(periods[3].metai) ? "#823F86" : "white",
+						"&:hover": {
+							backgroundColor: "#823F86",
+						},
+					}}
+					size="large"
+					variant="timeline"
+					onClick={() => {
+						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[3].metai)}`)
+					}}
+				>
+					<Typography variant="button">1938</Typography>
+				</Button>
+				<Button
+					sx={{
+						background: globalID === String(periods[4].metai) ? "#EE5066" : "white",
+						"&:hover": {
+							backgroundColor: "#EE5066",
+						},
+					}}
+					size="large"
+					variant="timeline"
+					onClick={() => {
+						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[4].metai)}`)
+					}}
+				>
+					<Typography variant="button">1977</Typography>
+				</Button>
+				<Button
+					sx={{
+						background: globalID === String(periods[5].metai) ? "#FFAF28" : "white",
+						"&:hover": {
+							backgroundColor: "#FFAF28",
+						},
+					}}
+					size="large"
+					variant="timeline"
+					onClick={() => {
+						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[5].metai)}`)
+					}}
+				>
+					<Typography variant="button">2022</Typography>
+				</Button>
+			</ButtonGroup>
 		</Grid>
 	)
 }

@@ -83,7 +83,7 @@ function Tile(props) {
 				/>
 				<Typography
 					className="hoverMore"
-					sx={{ color: propTextColor, display: "none" }}
+					sx={{ color: propTextColor, display: "none", px: 10}}
 					align="center"
 					variant="body1"
 					fontSize={"16px"}

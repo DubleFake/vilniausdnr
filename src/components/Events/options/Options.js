@@ -2,7 +2,7 @@ import React, { useState } from "react"
 
 import SearchTab from "./searchTab/SearchTab"
 
-import Box from "@mui/material/Box"
+import Container from "@mui/material/Container"
 
 const Options = (props) => {
 	const [selectedObjectFilter, setSelectedObjectFilter] = useState("")
@@ -10,7 +10,7 @@ const Options = (props) => {
 	const [selectedPeriodFilter, setSelectedPeriodFilter] = useState("")
 
 	return (
-		<Box sx={{ bgcolor: "background.paper", width: 500 }}>
+		<Container variant="optionsDiv">
 			<SearchTab
 				initialObjectsList={props.initialObjectsList}
 				setSelectedObject={props.setSelectedObject}
@@ -22,7 +22,7 @@ const Options = (props) => {
 				selectedPeriodFilter={selectedPeriodFilter}
 				setSelectedPeriodFilter={setSelectedPeriodFilter}
 			/>
-		</Box>
+		</Container>
 	)
 }
 

@@ -82,7 +82,7 @@ const CompareTimeline = (props) => {
 			view.goTo({ target: props.initialPeriod.fullExtent.center, zoom: 4 })
 		})
 
-    props.setToggle1808(false)
+		props.setToggle1808(false)
 		switch (parseInt(props.initialPeriod.title.replace(/\D/g, ""))) {
 			case 1808:
 				props.setToggle1808(true)
@@ -142,7 +142,14 @@ const CompareTimeline = (props) => {
 		} else {
 			map.remove(periods[5])
 		}
-	}, [props.toggle1808, props.toggle1845, props.toggle1911, props.toggle1938, props.toggle1977, props.toggle2021])
+	}, [
+		props.toggle1808,
+		props.toggle1845,
+		props.toggle1911,
+		props.toggle1938,
+		props.toggle1977,
+		props.toggle2021,
+	])
 
 	useEffect(() => {
 		return () => {
@@ -155,30 +162,20 @@ const CompareTimeline = (props) => {
 
 	return (
 		<Grid
-			sx={{
-				backgroundColor: "yellow",
-				width: "100%",
-				height: "0%",
-				position: "relative",
-			}}
+			variant="compareTimelineButtons"
 			container
 			direction="row"
 			justifyContent="center"
 			alignItems="flex-start"
 		>
-			<ButtonGroup
-				sx={{
-					bottom: 16,
-					mt: -8.5,
-					// width: 150,
-					// height: 48,
-				}}
-				variant="contained"
-			>
+			<ButtonGroup>
 				<Button
-					sx={{ borderRadius: 0, backgroundColor: props.toggle1808 && "#55AFB0" }}
+					sx={{
+						background: props.toggle1808 ? "#55AFB0" : "white",
+						"&:hover": { backgroundColor: "#55AFB0" },
+					}}
 					size="large"
-					variant="contained"
+					variant="timeline"
 					onClick={() => {
 						props.setToggle1808(!props.toggle1808)
 					}}
@@ -186,9 +183,12 @@ const CompareTimeline = (props) => {
 					<Typography variant="button">1808</Typography>
 				</Button>
 				<Button
-					sx={{ borderRadius: 0, backgroundColor: props.toggle1845 && "#407D5C" }}
+					sx={{
+						background: props.toggle1845 ? "#407D5C" : "white",
+						"&:hover": { backgroundColor: "#407D5C" },
+					}}
 					size="large"
-					variant="contained"
+					variant="timeline"
 					onClick={() => {
 						props.setToggle1845(!props.toggle1845)
 					}}
@@ -196,9 +196,12 @@ const CompareTimeline = (props) => {
 					<Typography variant="button">1845</Typography>
 				</Button>
 				<Button
-					sx={{ borderRadius: 0, backgroundColor: props.toggle1911 && "#007FCC" }}
+					sx={{
+						background: props.toggle1911 ? "#007FCC" : "white",
+						"&:hover": { backgroundColor: "#007FCC" },
+					}}
 					size="large"
-					variant="contained"
+					variant="timeline"
 					onClick={() => {
 						props.setToggle1911(!props.toggle1911)
 					}}
@@ -206,9 +209,12 @@ const CompareTimeline = (props) => {
 					<Typography variant="button">1911</Typography>
 				</Button>
 				<Button
-					sx={{ borderRadius: 0, backgroundColor: props.toggle1938 && "#823F86" }}
+					sx={{
+						background: props.toggle1938 ? "#823F86" : "white",
+						"&:hover": { backgroundColor: "#823F86" },
+					}}
 					size="large"
-					variant="contained"
+					variant="timeline"
 					onClick={() => {
 						props.setToggle1938(!props.toggle1938)
 					}}
@@ -216,9 +222,12 @@ const CompareTimeline = (props) => {
 					<Typography variant="button">1938</Typography>
 				</Button>
 				<Button
-					sx={{ borderRadius: 0, backgroundColor: props.toggle1977 && "#EE5066" }}
+					sx={{
+						background: props.toggle1977 ? "#EE5066" : "white",
+						"&:hover": { backgroundColor: "#EE5066" },
+					}}
 					size="large"
-					variant="contained"
+					variant="timeline"
 					onClick={() => {
 						props.setToggle1977(!props.toggle1977)
 					}}
@@ -226,9 +235,12 @@ const CompareTimeline = (props) => {
 					<Typography variant="button">1977</Typography>
 				</Button>
 				<Button
-					sx={{ borderRadius: 0, backgroundColor: props.toggle2021 && "#FFAF28" }}
+					sx={{
+						background: props.toggle2021 ? "#FFAF28" : "white",
+						"&:hover": { backgroundColor: "#FFAF28" },
+					}}
 					size="large"
-					variant="contained"
+					variant="timeline"
 					onClick={() => {
 						props.setToggle2021(!props.toggle2021)
 					}}

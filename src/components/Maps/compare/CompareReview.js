@@ -110,7 +110,7 @@ const CompareReview = (props) => {
 			>
 				<FormControl
 					sx={{
-						width: "205px",
+						width: "auto",
 						height: "45px",
 						boxShadow: 0,
 						mt: 2,
@@ -146,7 +146,7 @@ const CompareReview = (props) => {
 						bottom: 16,
 						mt: -8,
 						backgroundColor: "white",
-						width: "205px",
+						width: "auto",
 						height: "45px",
 						boxShadow: 0,
 						ml: 2,

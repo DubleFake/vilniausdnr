@@ -161,17 +161,18 @@ const CompareWindow = (props) => {
 			>
 				<FormControl
 					sx={{
-						mr: 2,
 						mt: 1.5,
-						width: 250,
+						mr: 8,
+						width: "auto",
+						height: "45px",
 						backgroundColor: "white",
+						boxShadow: 0,
 					}}
-					variant="filled"
+					variant="outlined"
 					size="small"
 					id="swipe-select"
 				>
-					<InputLabel>Kairio sluoksnio grupė</InputLabel>
-					<Select label="Grupe" value={selectedGroupValueLeft} onChange={handleGroupChangeLeft}>
+					<Select value={selectedGroupValueLeft} onChange={handleGroupChangeLeft}>
 						{groupList.map((group, index) => (
 							<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
 								{group}
@@ -181,17 +182,18 @@ const CompareWindow = (props) => {
 				</FormControl>
 				<FormControl
 					sx={{
-						ml: 2,
 						mt: 1.5,
-						width: 250,
+						ml: 8,
+						width: "auto",
+						height: "45px",
 						backgroundColor: "white",
+						boxShadow: 0,
 					}}
-					variant="filled"
+					variant="outlined"
 					size="small"
 					id="swipe-select"
 				>
-					<InputLabel>Dešinio sluoksnio grupė</InputLabel>
-					<Select label="Grupe" value={selectedGroupValueRight} onChange={handleGroupChangeRight}>
+					<Select value={selectedGroupValueRight} onChange={handleGroupChangeRight}>
 						{groupList.map((group, index) => (
 							<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
 								{group}
@@ -216,16 +218,17 @@ const CompareWindow = (props) => {
 					sx={{
 						bottom: 16,
 						mt: -7.5,
-						mr: 2,
-						width: 250,
+						mr: 8,
+						width: "auto",
+						height: "45px",
 						backgroundColor: "white",
+						boxShadow: 0,
 					}}
-					variant="filled"
+					variant="outlined"
 					size="small"
 					id="swipe-select"
 				>
-					<InputLabel>Kairys sluoksnis</InputLabel>
-					<Select value={selectedLeftMap} label="Sluoksnis" onChange={handleLeftSelect}>
+					<Select value={selectedLeftMap} onChange={handleLeftSelect}>
 						{mapList.map(
 							(object, index) =>
 								object.globalid_map !== mapList[selectedRightMap].globalid_map &&
@@ -237,20 +240,22 @@ const CompareWindow = (props) => {
 						)}
 					</Select>
 				</FormControl>
+
 				<FormControl
 					sx={{
 						bottom: 16,
 						mt: -7.5,
-						ml: 2,
-						width: 250,
+						ml: 8,
+						width: "auto",
+						height: "45px",
 						backgroundColor: "white",
+						boxShadow: 0,
 					}}
-					variant="filled"
+					variant="outlined"
 					size="small"
 					id="swipe-select"
 				>
-					<InputLabel>Dešinys sluoksnis</InputLabel>
-					<Select value={selectedRightMap} label="Sluoksnis" onChange={handleRightSelect}>
+					<Select value={selectedRightMap} onChange={handleRightSelect}>
 						{mapList.map(
 							(object, index) =>
 								object.globalid_map !== mapList[selectedLeftMap].globalid_map &&

@@ -48,7 +48,7 @@ const CompareType = () => {
 		<Grid variant="compareType" container direction="row" justifyContent="left" alignItems="flex-start">
 			<FormControl
 				sx={{
-					width: "205px",
+					width: "auto",
 					height: "45px",
 					boxShadow: 0,
 					mt: 2,

@@ -174,8 +174,8 @@ const CompareSwipe = () => {
 				sx={{
 					bottom: 16,
 					mt: -7.5,
-					mr: 6,
-					width: "150px",
+					mr: 8,
+					width: "auto",
 					height: "45px",
 					backgroundColor: "white",
           boxShadow: 0,
@@ -205,8 +205,8 @@ const CompareSwipe = () => {
 				sx={{
 					bottom: 16,
 					mt: -7.5,
-					ml: 6,
-					width: "150px",
+					ml: 8,
+					width: "auto",
 					height: "45px",
 					backgroundColor: "white",
           boxShadow: 0,

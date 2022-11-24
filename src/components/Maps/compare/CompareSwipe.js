@@ -94,7 +94,7 @@ const CompareSwipe = () => {
 					swipeWidgetFind.destroy()
 				}
 
-		    map.removeAll()
+				map.removeAll()
 				map.addMany([tempMaps[mapByIdLeft.index], tempMaps[mapByIdRight.index]])
 
 				const swipe = new Swipe({
@@ -123,8 +123,8 @@ const CompareSwipe = () => {
 	}, [])
 
 	const handleLeftSelect = (event) => {
-    const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
-    navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`)
+		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`)
 
 		const swipeWidgetFind = view.ui.find("swipe-layers")
 		if (swipeWidgetFind !== null) {
@@ -149,8 +149,8 @@ const CompareSwipe = () => {
 	}
 
 	const handleRightSelect = (event) => {
-    const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
-    navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`)
+		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`)
 
 		const swipeWidgetFind = view.ui.find("swipe-layers")
 		if (swipeWidgetFind !== null) {
@@ -175,15 +175,19 @@ const CompareSwipe = () => {
 	}
 
 	const handleGroupChangeLeft = (event) => {
-    const mapByGroup = mapList.find(map => map.group === groupList[event.target.value] && map.index !== String(selectedRightMap))
-    navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByGroup.globalid_map}/${globalIDRight}`)
+		const mapByGroup = mapList.find(
+			(map) => map.group === groupList[event.target.value] && map.index !== String(selectedRightMap)
+		)
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByGroup.globalid_map}/${globalIDRight}`)
 
 		setSelectedGroupLeft(groupList[event.target.value])
 		setSelectedGroupValueLeft(event.target.value)
 	}
 	const handleGroupChangeRight = (event) => {
-    const mapByGroup = mapList.find(map => map.group === groupList[event.target.value] && map.index !== String(selectedLeftMap))
-    navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByGroup.globalid_map}`)
+		const mapByGroup = mapList.find(
+			(map) => map.group === groupList[event.target.value] && map.index !== String(selectedLeftMap)
+		)
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByGroup.globalid_map}`)
 
 		setSelectedGroupRight(groupList[event.target.value])
 		setSelectedGroupValueRight(event.target.value)
@@ -207,17 +211,18 @@ const CompareSwipe = () => {
 			>
 				<FormControl
 					sx={{
-						mr: 2,
 						mt: 1.5,
-						width: 250,
+						mr: 8,
+						width: "auto",
+						height: "45px",
 						backgroundColor: "white",
+						boxShadow: 0,
 					}}
-					variant="filled"
+					variant="outlined"
 					size="small"
 					id="swipe-select"
 				>
-					<InputLabel>Kairio sluoksnio grupė</InputLabel>
-					<Select label="Grupe" value={selectedGroupValueLeft} onChange={handleGroupChangeLeft}>
+					<Select value={selectedGroupValueLeft} onChange={handleGroupChangeLeft}>
 						{groupList.map((group, index) => (
 							<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
 								{group}
@@ -227,17 +232,18 @@ const CompareSwipe = () => {
 				</FormControl>
 				<FormControl
 					sx={{
-						ml: 2,
 						mt: 1.5,
-						width: 250,
+						ml: 8,
+						width: "auto",
+						height: "45px",
 						backgroundColor: "white",
+						boxShadow: 0,
 					}}
-					variant="filled"
+					variant="outlined"
 					size="small"
 					id="swipe-select"
 				>
-					<InputLabel>Dešinio sluoksnio grupė</InputLabel>
-					<Select label="Grupe" value={selectedGroupValueRight} onChange={handleGroupChangeRight}>
+					<Select value={selectedGroupValueRight} onChange={handleGroupChangeRight}>
 						{groupList.map((group, index) => (
 							<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
 								{group}
@@ -262,16 +268,17 @@ const CompareSwipe = () => {
 					sx={{
 						bottom: 16,
 						mt: -7.5,
-						mr: 2,
-						width: 250,
+						mr: 8,
+						width: "auto",
+						height: "45px",
 						backgroundColor: "white",
+						boxShadow: 0,
 					}}
-					variant="filled"
+					variant="outlined"
 					size="small"
 					id="swipe-select"
 				>
-					<InputLabel>Kairys sluoksnis</InputLabel>
-					<Select value={selectedLeftMap} label="Sluoksnis" onChange={handleLeftSelect}>
+					<Select value={selectedLeftMap} onChange={handleLeftSelect}>
 						{mapList.map(
 							(object, index) =>
 								object.globalid_map !== mapList[selectedRightMap].globalid_map &&
@@ -287,16 +294,17 @@ const CompareSwipe = () => {
 					sx={{
 						bottom: 16,
 						mt: -7.5,
-						ml: 2,
-						width: 250,
+						ml: 8,
+						width: "auto",
+						height: "45px",
 						backgroundColor: "white",
+						boxShadow: 0,
 					}}
-					variant="filled"
+					variant="outlined"
 					size="small"
 					id="swipe-select"
 				>
-					<InputLabel>Dešinys sluoksnis</InputLabel>
-					<Select value={selectedRightMap} label="Sluoksnis" onChange={handleRightSelect}>
+					<Select value={selectedRightMap} onChange={handleRightSelect}>
 						{mapList.map(
 							(object, index) =>
 								object.globalid_map !== mapList[selectedLeftMap].globalid_map &&

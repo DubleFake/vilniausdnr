@@ -219,7 +219,6 @@ const ObjectPopup = (props) => {
 													attr !== "Saltinis" ? (
 														<TableRow key={attr} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 															<TableCell component="th" scope="row">
-																{console.log(queryObjects.attributes[attr])}
 																{attr}
 															</TableCell>
 															<TableCell align="right">{queryObjects.attributes[attr]}</TableCell>
