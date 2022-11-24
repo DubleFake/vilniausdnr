@@ -10,7 +10,7 @@ import Persons from "./pages/Persons"
 import Maps from "./pages/Maps"
 import Streets from "./pages/Streets"
 import Parts from "./pages/Parts"
-import Addresses from "./pages/Addresses"
+import Foto from "./pages/Foto"
 import Buildings from "./pages/Buildings"
 import Events from "./pages/Events"
 import Nav from "./components/Nav/Nav"
@@ -27,9 +27,9 @@ const App = () => {
 	const optionsWidth = 400
 	const tabsHeight = 60
 
-	const lightGray = "#F6F6F6"
+	const lightGray = "#EBEBEB"
 	const darkGray = "#252525"
-	const red = "#D42323"
+	const red = "#D72E30"
 
 	const theme = createTheme({
 		palette: {
@@ -429,7 +429,7 @@ const App = () => {
 						<Route path="maps/*" element={<Maps />} />
 						<Route path="streets/*" element={<Streets />} />
 						<Route path="parts/*" element={<Parts />} />
-						<Route path="addresses/*" element={<Addresses />} />
+						<Route path="foto/*" element={<Foto />} />
 						<Route path="buildings/*" element={<Buildings />} />
 						<Route path="events/*" element={<Events />} />
 					</Route>

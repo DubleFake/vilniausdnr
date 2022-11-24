@@ -86,7 +86,6 @@ const ObjectPopup = (props) => {
 			setLoading(true)
 
 			let found = false
-			console.log(props.mapQuery)
 			for (let obj in props.mapQuery) {
 				if (!props.mapQuery.GlobalID && props.mapQuery[obj].attributes.GAT_ID === globalID) {
 					setPage(parseInt(obj) + 1)
@@ -187,7 +186,7 @@ const ObjectPopup = (props) => {
 				objects
 					.queryRelatedFeatures({
 						outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
-						relationshipId: 8,
+						relationshipId: 2,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
 					.then((response_related) => {

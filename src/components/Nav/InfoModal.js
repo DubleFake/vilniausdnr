@@ -38,7 +38,7 @@ const InfoModal = () => {
 			</IconButton>
 
 			<Modal
-				sx={{ zIndex: 10 }}
+				sx={{ zIndex: 1000 }}
 				disableEnforceFocus
 				open={open}
 				onClose={handleClose}
