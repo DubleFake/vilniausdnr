@@ -55,16 +55,21 @@ function Tile(props) {
 				backgroundColor: propBackgroundColor,
 				"&:hover": {
 					backgroundColor: propBackgroundColor,
-					transition: "0.3s",
+					transition: "0.5s",
 					opacity: 0.8,
 					"& .hoverIcon": {
 						color: propIconColor,
 						fontSize: 70,
+						transition: "0.5s cubic-bezier(0.215, 0.610, 0.355, 1.000)",
 					},
 					"& .hoverMore": {
-						display: "block",
+						fontSize: "16px",
+						opacity: 1,
+						transition: "opacity 0.5s",
 					},
-					"& .hoverTitle": {},
+					"& .hoverTitle": {
+						transition: "0.5s cubic-bezier(0.215, 0.610, 0.355, 1.000)",
+					},
 				},
 			}}
 		>
@@ -79,18 +84,29 @@ function Tile(props) {
 					className="hoverIcon"
 					component={propIcon}
 					inheritViewBox
-					sx={{ color: propIconColor, fontSize: 150 }}
+					sx={{
+						color: propIconColor,
+						fontSize: 150,
+						transition: "0.5s cubic-bezier(0.215, 0.610, 0.355, 1.000)",
+					}}
 				/>
 				<Typography
 					className="hoverMore"
-					sx={{ color: propTextColor, display: "none", px: 10}}
+					sx={{ color: propTextColor, fontSize: "0px", opacity: 0, transition: "opacity 0.5s", px: 10 }}
 					align="center"
 					variant="body1"
-					fontSize={"16px"}
 				>
 					{propTextMore}
 				</Typography>
-				<Typography className="hoverTitle" sx={{ color: propTextColor }} variant="body1" fontSize={"22px"}>
+				<Typography
+					className="hoverTitle"
+					sx={{
+						color: propTextColor,
+						fontSize: "22px",
+						transition: "0.5s cubic-bezier(0.215, 0.610, 0.355, 1.000)",
+					}}
+					variant="body1"
+				>
 					{propText}
 				</Typography>
 			</Grid>
@@ -138,7 +154,7 @@ const Home = (props) => {
 					<Grid item xs={4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"36vh"}
+							propHeight={"47vh"}
 							propBackgroundColor={bgGray}
 							propTo={"maps"}
 							propIcon={mapsIcon}
@@ -153,7 +169,7 @@ const Home = (props) => {
 					<Grid item xs={4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"36vh"}
+							propHeight={"47vh"}
 							propBackgroundColor={bgRed}
 							propTo={"streets"}
 							propIcon={streetsIcon}
@@ -168,7 +184,7 @@ const Home = (props) => {
 					<Grid item xs={4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"36vh"}
+							propHeight={"47vh"}
 							propBackgroundColor={bgWhite}
 							propTo={"buildings"}
 							propIcon={buildingsIcon}
@@ -184,7 +200,7 @@ const Home = (props) => {
 					<Grid item xs={3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"25vh"}
+							propHeight={"39vh"}
 							propBackgroundColor={bgRed}
 							propTo={"foto"}
 							propIcon={fotoIcon}
@@ -197,7 +213,7 @@ const Home = (props) => {
 					<Grid item xs={3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"25vh"}
+							propHeight={"39vh"}
 							propBackgroundColor={bgWhite}
 							propTo={"plaques"}
 							propIcon={signsIcon}
@@ -212,7 +228,7 @@ const Home = (props) => {
 					<Grid item xs={6}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"25vh"}
+							propHeight={"39vh"}
 							propBackgroundColor={bgGray}
 							propTo={"periods"}
 							propIcon={periodsIcon}
@@ -228,7 +244,7 @@ const Home = (props) => {
 					<Grid item xs={6}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"25vh"}
+							propHeight={"39vh"}
 							propBackgroundColor={bgGray}
 							propTo={"events"}
 							propIcon={eventsIcon}
@@ -243,7 +259,7 @@ const Home = (props) => {
 					<Grid item xs={3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"25vh"}
+							propHeight={"39vh"}
 							propBackgroundColor={bgRed}
 							propTo={"parts"}
 							propIcon={partsIcon}
@@ -258,7 +274,7 @@ const Home = (props) => {
 					<Grid item xs={3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"25vh"}
+							propHeight={"39vh"}
 							propBackgroundColor={bgWhite}
 							propTo={"persons"}
 							propIcon={personsIcon}
