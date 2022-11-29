@@ -326,7 +326,7 @@ const Filter = (props) => {
 					</Select>
 				</FormControl>
 
-				<Grid container direction="row" justifyContent="center" alignItems="center">
+				{/* <Grid container direction="row" justifyContent="center" alignItems="center">
 					<Typography sx={{ mt: 3 }} variant="subtitle2">
 						Metai
 					</Typography>
@@ -340,9 +340,9 @@ const Filter = (props) => {
 					valueLabelDisplay="auto"
 					onChange={handleSliderChange}
 					marks={marks}
-				/>
+				/> */}
 
-				<FormGroup>
+				<FormGroup sx={{mt: 1}}>
 					<FormControlLabel
 						control={<Checkbox checked={extentCheck} onChange={handleExtent} />}
 						label={t("plaques.options.extent")}

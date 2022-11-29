@@ -11,7 +11,7 @@ import AppBar from "@mui/material/AppBar"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import Typography from "@mui/material/Typography"
-import Box from "@mui/material/Box"
+import Container from "@mui/material/Container"
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props
@@ -25,9 +25,9 @@ function TabPanel(props) {
 			{...other}
 		>
 			{value === index && (
-				<Box sx={{ width: 350 }}>
+				<Container variant="optionsDiv">
 					<Typography component={"div"}>{children}</Typography>
-				</Box>
+				</Container>
 			)}
 		</div>
 	)
@@ -47,7 +47,7 @@ function a11yProps(index) {
 }
 
 const Options = (props) => {
-  const { t, i18n } = useTranslation()
+	const { t, i18n } = useTranslation()
 	const theme = useTheme()
 
 	const [value, setValue] = useState(0)
@@ -64,37 +64,17 @@ const Options = (props) => {
 	}
 
 	return (
-		<Box sx={{ bgcolor: "background.paper", width: 350 }}>
-			<AppBar position="static">
+		<Container variant="optionsDiv">
+			<AppBar sx={{ height: "auto" }} position="static">
 				<Tabs
 					value={value}
 					onChange={handleChange}
 					indicatorColor="secondary"
-					textColor="secondary"
+					// textColor="secondary"
 					variant="fullWidth"
 				>
-					<Tab
-						sx={{
-							color: "secondary.dark",
-							transition: "0.3s",
-							"&:hover": {
-								bgcolor: "primary.light",
-							},
-						}}
-						label={t("plaques.options.search")}
-						{...a11yProps(0)}
-					/>
-					<Tab
-						sx={{
-							color: "secondary.dark",
-							transition: "0.3s",
-							"&:hover": {
-								bgcolor: "primary.light",
-							},
-						}}
-						label={t("plaques.options.visualization")}
-						{...a11yProps(1)}
-					/>
+					<Tab label={t("plaques.options.search")} {...a11yProps(0)} />
+					<Tab label={t("plaques.options.visualization")} {...a11yProps(1)} />
 				</Tabs>
 			</AppBar>
 			<SwipeableViews
@@ -105,27 +85,27 @@ const Options = (props) => {
 				<TabPanel value={value} index={0} dir={theme.direction}>
 					<SearchTab
 						initialObjectsList={props.initialObjectsList}
-            initialObjectsClasses={props.initialObjectsClasses}
+						initialObjectsClasses={props.initialObjectsClasses}
 						setSelectedObject={props.setSelectedObject}
 						selectedObject={props.selectedObject}
 						selectedObjectFilter={selectedObjectFilter}
 						setSelectedObjectFilter={setSelectedObjectFilter}
-            setVisibleObjectIcons={setVisibleObjectIcons}
+						setVisibleObjectIcons={setVisibleObjectIcons}
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
-					{/* <Box sx={{ width: 350, height: "100vh", display: "flex", flexDirection: "column" }}> */}
+					<Container variant="optionsVisualizeTab">
 						<VisualizationTab
 							selectedObjectFilter={selectedObjectFilter}
 							visualizationType={visualizationType}
 							setVisualizationType={setVisualizationType}
 							visibleObjectIcons={visibleObjectIcons}
-              initialObjectsClasses={props.initialObjectsClasses}
+							initialObjectsClasses={props.initialObjectsClasses}
 						/>
-					{/* </Box> */}
+					</Container>
 				</TabPanel>
 			</SwipeableViews>
-		</Box>
+		</Container>
 	)
 }
 

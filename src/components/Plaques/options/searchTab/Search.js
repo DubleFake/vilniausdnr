@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next"
 
 import OutlinedInput from "@mui/material/OutlinedInput"
 import Container from "@mui/material/Container"
-import Typography from "@mui/material/Typography"
 import SearchIcon from "@mui/icons-material/Search"
 import InputAdornment from "@mui/material/InputAdornment"
 import IconButton from "@mui/material/IconButton"
@@ -24,9 +23,6 @@ const Search = (props) => {
 
 	return (
 		<Container variant="filterSearch">
-			{/* <Typography sx={{ fontWeight: "bold" }} variant="h5">
-				Paieška
-			</Typography> */}
 			<OutlinedInput
 				variant="outlined"
 				size="small"

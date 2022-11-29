@@ -3,18 +3,18 @@ import { useTranslation } from "react-i18next"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
 
 import { objects, view } from "../../../../utils/streetsArcgisItems"
+import Count from "./Count"
 
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Button from "@mui/material/Button"
-import Box from "@mui/material/Box"
+import Grid from "@mui/material/Grid"
+import Container from "@mui/material/Container"
+import Typography from "@mui/material/Typography"
 import Snackbar from "@mui/material/Snackbar"
 import MuiAlert from "@mui/material/Alert"
-import FormGroup from "@mui/material/FormGroup"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Checkbox from "@mui/material/Checkbox"
 
 const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
@@ -102,7 +102,7 @@ const Filter = (props) => {
 							outFields: ["OBJECTID", "GAT_ID", "KATEGOR", "PAV", "Klasė", "Poklasis"],
 							//outFields: objectsView.availableFields,
 							where: objectsView.filter.where,
-              geometry: null,
+							geometry: null,
 							returnGeometry: false,
 						})
 						.then((response) => {
@@ -199,10 +199,11 @@ const Filter = (props) => {
 					{t("plaques.options.notFound")}
 				</Alert>
 			</Snackbar>
-			<Box sx={{ ml: 0.5, mr: 0.5 }}>
-				<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
+			<Container variant="filter">
+				<FormControl variant="outlined" size="small">
 					<InputLabel id="object-select-label">Objekto klasė</InputLabel>
 					<Select
+						variant="outlined"
 						labelId="object-select-label"
 						name="object-select"
 						id="object-select"
@@ -220,10 +221,11 @@ const Filter = (props) => {
 						))}
 					</Select>
 				</FormControl>
-				{props.selectedObjectFilter !== "" && (
-					<FormControl variant="standard" size="small" sx={{ mt: 1, width: "100%" }}>
+				{props.selectedObjectFilter && (
+					<FormControl variant="outlined" size="small">
 						<InputLabel id="object-select-label">Objekto poklasė</InputLabel>
 						<Select
+							variant="outlined"
 							labelId="object-select-label"
 							name="object-select"
 							id="object-select"
@@ -253,17 +255,28 @@ const Filter = (props) => {
 						label={t("plaques.options.extent")}
 					/>
 				</FormGroup> */}
+			</Container>
 
-				<Button
-					variant="contained"
-					color="secondary"
-					disableElevation
-					sx={{ mt: 1, mb: 1, width: "100%" }}
-					onClick={handleClearFilters}
-				>
-					{t("plaques.options.clearFilters")}
-				</Button>
-			</Box>
+			<Grid variant="result" container direction="row" justifyContent="space-between" alignItems="center">
+				<Typography sx={{ mt: 1, fontWeight: "bold" }} variant="h5">
+					Rezultatai
+					<Count objectCount={props.objectCount}></Count>
+				</Typography>
+
+				{(props.searchInputValue ||
+					props.selectedObjectFilter ||
+					props.selectedMemoryFilter ||
+					props.selectedPeriodFilter) && (
+					<Button
+						color="secondary"
+						disableElevation
+						sx={{ width: "auto", borderRadius: "30px", backgroundColor: "white" }}
+						onClick={handleClearFilters}
+					>
+						{t("plaques.options.clearFilters")}
+					</Button>
+				)}
+			</Grid>
 		</>
 	)
 }

@@ -145,7 +145,7 @@ const Home = (props) => {
 				>
 					<img src={VilniausLogo} width="40%" />
 				</Grid>
-				<Box sx={{ top: -(window.innerHeight / 3), position: "relative", zIndex: 90 }}>
+				<Box sx={{ top: -(window.innerHeight / 2.3), position: "relative", zIndex: 90 }}>
 					<img src={VilniausSkyline} width="100%" />
 				</Box>
 			</Box>

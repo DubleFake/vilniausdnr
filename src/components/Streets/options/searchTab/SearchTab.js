@@ -4,7 +4,6 @@ import TableItems from "./SearchItems"
 import Search from "./Search"
 import { matchSorter } from "match-sorter"
 
-import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import CircularProgress from "@mui/material/CircularProgress"
 
@@ -13,6 +12,7 @@ const Table = (props) => {
 	const [searchObjectsList, setSearchObjectsList] = useState([])
 	const [tableObjectsList, setTableObjectsList] = useState([])
 	const [searchInputValue, setSearchInputValue] = useState("")
+	const [objectCount, setObjectCount] = useState(0)
 
 	useEffect(() => {
 		setObjectsList(props.initialObjectsList)
@@ -36,8 +36,12 @@ const Table = (props) => {
 		}
 	}, [searchObjectsList])
 
+	useEffect(() => {
+		setObjectCount(tableObjectsList.length)
+	}, [tableObjectsList])
+
 	return (
-		<Box sx={{ width: 350, height: "calc(100vh - 135px)", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+		<Grid variant="optionsTabs">
 			{objectsList.length ? (
 				<>
 					<Search
@@ -54,8 +58,12 @@ const Table = (props) => {
 						setSearchObjectsList={setSearchObjectsList}
 						selectedObjectFilter={props.selectedObjectFilter}
 						setSelectedObjectFilter={props.setSelectedObjectFilter}
-            setVisibleObjectIcons={props.setVisibleObjectIcons}
-            initialObjectsClasses={props.initialObjectsClasses}
+						setVisibleObjectIcons={props.setVisibleObjectIcons}
+						initialObjectsClasses={props.initialObjectsClasses}
+						objectCount={objectCount}
+						selectedMemoryFilter={props.selectedMemoryFilter}
+						selectedPeriodFilter={props.selectedPeriodFilter}
+						searchInputValue={searchInputValue}
 					/>
 					<TableItems
 						tableObjectsList={tableObjectsList}
@@ -77,7 +85,7 @@ const Table = (props) => {
 					</Grid>
 				</Grid>
 			)}
-		</Box>
+		</Grid>
 	)
 }
 

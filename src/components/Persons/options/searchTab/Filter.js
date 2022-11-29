@@ -283,7 +283,7 @@ const Filter = (props) => {
 					</FormControl>
 				)}
 
-				<Grid container direction="row" justifyContent="center" alignItems="center">
+				{/* <Grid container direction="row" justifyContent="center" alignItems="center">
 					<Typography sx={{ mt: 3 }} variant="subtitle2">
 						Metai
 					</Typography>
@@ -297,15 +297,7 @@ const Filter = (props) => {
 					valueLabelDisplay="auto"
 					onChange={handleSliderChange}
 					marks={sliderMarks}
-				/>
-				{/* <Grid container direction="row" justifyContent="space-between" alignItems="center">
-					<Typography sx={{ fontSize: 12, mt: -1.2, ml: -1.3 }} variant="subtitle1">
-						1200
-					</Typography>
-					<Typography sx={{ fontSize: 12, mt: -1.2, mr: -1.3 }} variant="subtitle1">
-						2022
-					</Typography>
-				</Grid> */}
+				/> */}
 			</Container>
 
 			<Grid variant="result" container direction="row" justifyContent="space-between" alignItems="center">
