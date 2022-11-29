@@ -58,7 +58,7 @@ function Tile(props) {
 					transition: "0.3s",
 					opacity: 0.8,
 					"& .hoverIcon": {
-						mt: "10%",
+						mt: propHeight === 480 ? 10 : 4,
 						color: propIconColor,
 						fontSize: propHeight === 480 ? 50 : 32,
 						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
@@ -69,7 +69,7 @@ function Tile(props) {
 						transition: "opacity 0.3s",
 					},
 					"& .hoverTitle": {
-						mb: "8%",
+						mb: propHeight === 480 ? 5 : 3,
 						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
 					},
 				},
@@ -96,7 +96,7 @@ function Tile(props) {
 				<Typography
 					className="hoverTitle"
 					sx={{
-						mb: 10,
+						mb: propHeight === 480 ? 8 : 6,
 						color: propTextColor,
 						fontSize: "22px",
 						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
