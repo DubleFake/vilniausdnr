@@ -55,29 +55,31 @@ function Tile(props) {
 				backgroundColor: propBackgroundColor,
 				"&:hover": {
 					backgroundColor: propBackgroundColor,
-					transition: "0.5s",
+					transition: "0.3s",
 					opacity: 0.8,
 					"& .hoverIcon": {
+						mt: "10%",
 						color: propIconColor,
-						fontSize: 70,
-						transition: "0.5s cubic-bezier(0.215, 0.610, 0.355, 1.000)",
+						fontSize: propHeight === 480 ? 50 : 32,
+						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
 					},
 					"& .hoverMore": {
 						fontSize: "16px",
 						opacity: 1,
-						transition: "opacity 0.5s",
+						transition: "opacity 0.3s",
 					},
 					"& .hoverTitle": {
-						transition: "0.5s cubic-bezier(0.215, 0.610, 0.355, 1.000)",
+						mb: "8%",
+						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
 					},
 				},
 			}}
 		>
 			<Grid
-				sx={{ height: "100%" }}
+				sx={{ height: "100%", position: "absolute", zIndex: 20 }}
 				container
 				direction="column"
-				justifyContent="space-evenly"
+				justifyContent="space-between"
 				alignItems="center"
 			>
 				<SvgIcon
@@ -85,30 +87,44 @@ function Tile(props) {
 					component={propIcon}
 					inheritViewBox
 					sx={{
+						mt: propHeight === 480 ? 20 : 10,
 						color: propIconColor,
-						fontSize: 150,
-						transition: "0.5s cubic-bezier(0.215, 0.610, 0.355, 1.000)",
+						fontSize: propHeight === 480 ? 120 : 80,
+						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
 					}}
 				/>
 				<Typography
-					className="hoverMore"
-					sx={{ color: propTextColor, fontSize: "0px", opacity: 0, transition: "opacity 0.5s", px: 10 }}
-					align="center"
-					variant="body1"
-				>
-					{propTextMore}
-				</Typography>
-				<Typography
 					className="hoverTitle"
 					sx={{
+						mb: 10,
 						color: propTextColor,
 						fontSize: "22px",
-						transition: "0.5s cubic-bezier(0.215, 0.610, 0.355, 1.000)",
+						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
 					}}
 					variant="body1"
 				>
 					{propText}
 				</Typography>
+			</Grid>
+
+			<Grid
+				sx={{ position: "absolute", zIndex: 10 }}
+				container
+				spacing={0}
+				direction="column"
+				alignItems="center"
+				justifyContent="center"
+			>
+				<Grid item xs={3}>
+					<Typography
+						className="hoverMore"
+						sx={{ color: propTextColor, fontSize: "0px", opacity: 0, transition: "opacity 0.3s", px: 10 }}
+						align="center"
+						variant="body1"
+					>
+						{propTextMore}
+					</Typography>
+				</Grid>
 			</Grid>
 		</Button>
 	)
@@ -154,7 +170,7 @@ const Home = (props) => {
 					<Grid item xs={4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"47vh"}
+							propHeight={480}
 							propBackgroundColor={bgGray}
 							propTo={"maps"}
 							propIcon={mapsIcon}
@@ -169,7 +185,7 @@ const Home = (props) => {
 					<Grid item xs={4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"47vh"}
+							propHeight={480}
 							propBackgroundColor={bgRed}
 							propTo={"streets"}
 							propIcon={streetsIcon}
@@ -184,7 +200,7 @@ const Home = (props) => {
 					<Grid item xs={4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"47vh"}
+							propHeight={480}
 							propBackgroundColor={bgWhite}
 							propTo={"buildings"}
 							propIcon={buildingsIcon}
@@ -200,7 +216,7 @@ const Home = (props) => {
 					<Grid item xs={3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"39vh"}
+							propHeight={302}
 							propBackgroundColor={bgRed}
 							propTo={"foto"}
 							propIcon={fotoIcon}
@@ -213,7 +229,7 @@ const Home = (props) => {
 					<Grid item xs={3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"39vh"}
+							propHeight={302}
 							propBackgroundColor={bgWhite}
 							propTo={"plaques"}
 							propIcon={signsIcon}
@@ -228,7 +244,7 @@ const Home = (props) => {
 					<Grid item xs={6}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"39vh"}
+							propHeight={302}
 							propBackgroundColor={bgGray}
 							propTo={"periods"}
 							propIcon={periodsIcon}
@@ -244,7 +260,7 @@ const Home = (props) => {
 					<Grid item xs={6}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"39vh"}
+							propHeight={302}
 							propBackgroundColor={bgGray}
 							propTo={"events"}
 							propIcon={eventsIcon}
@@ -259,7 +275,7 @@ const Home = (props) => {
 					<Grid item xs={3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"39vh"}
+							propHeight={302}
 							propBackgroundColor={bgRed}
 							propTo={"parts"}
 							propIcon={partsIcon}
@@ -274,7 +290,7 @@ const Home = (props) => {
 					<Grid item xs={3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={"39vh"}
+							propHeight={302}
 							propBackgroundColor={bgWhite}
 							propTo={"persons"}
 							propIcon={personsIcon}
