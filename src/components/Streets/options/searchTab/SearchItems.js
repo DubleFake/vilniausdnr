@@ -20,14 +20,22 @@ const TableItems = (props) => {
 		return (
 			tableObjectsList && (
 				<CellMeasurer cache={cache} columnIndex={0} key={key} parent={parent} rowIndex={index}>
-					<ListItem style={style} key={key} component="div" disablePadding divider dense>
+					<ListItem
+						variant="tableItem"
+						style={style}
+						key={key}
+						component="div"
+						disablePadding
+						divider
+						dense
+						selected={tableObjectsList[index].attributes.GAT_ID === parseInt(selectedObject)}
+					>
 						<ListItemButton
-							style={{ paddingLeft: 5, paddingRight: 5 }}
+							variant="tableItemButton"
 							onClick={() => {
 								setSelectedObject(`${tableObjectsList[index].attributes.GAT_ID}`)
 								navigate(`object/${tableObjectsList[index].attributes.GAT_ID}`)
 							}}
-							selected={tableObjectsList[index].attributes.GAT_ID === selectedObject}
 						>
 							<ListItemText primary={tableObjectsList[index].attributes.PAV} />
 						</ListItemButton>
