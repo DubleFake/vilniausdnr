@@ -84,7 +84,6 @@ const ObjectPopup = (props) => {
 				returnGeometry: false,
 			})
 			.then((response) => {
-				console.log(response.features[0].attributes)
 				setQueryObjects(response.features[0])
 
 				setLoading(false)
@@ -146,7 +145,7 @@ const ObjectPopup = (props) => {
 
 	const matches = useMediaQuery("(min-width:995px)")
 	return (
-		<>
+		<Box sx={{ visibility: popupOpen ? "visible" : "hidden" }}>
 			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
 			<Fade in={true} timeout={300} unmountOnExit>
 				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3, mt: 0.5 }}>
@@ -195,16 +194,16 @@ const ObjectPopup = (props) => {
 														<ShareIcon style={{ fontSize: 30 }} />
 													</IconButton>
 												</BootstrapTooltip>
-												{/* <IconButton
+												<IconButton
 													color="secondary"
 													aria-label="close"
 													size="large"
 													onClick={() => {
-														navigate(`/vilniausdnr/${i18n.language}/streets/compare/timeline`)
+														setPopupOpen(false)
 													}}
 												>
 													<CloseIcon style={{ fontSize: 30 }} />
-												</IconButton> */}
+												</IconButton>
 											</>
 										}
 										title={queryObjects.attributes.Pavadinimas}
@@ -234,7 +233,8 @@ const ObjectPopup = (props) => {
 											Šaltinis
 											<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
 												<Typography variant="body2" component="div">
-													{queryObjects.attributes["Saltinio_nuoroda"] && queryObjects.attributes["Saltinio_nuoroda"]}
+													{queryObjects.attributes["Saltinio_nuoroda"] &&
+														queryObjects.attributes["Saltinio_nuoroda"]}
 												</Typography>
 											</MuiLinkify>
 											<Typography variant="body2" component="div">
@@ -248,7 +248,7 @@ const ObjectPopup = (props) => {
 					</Card>
 				</Box>
 			</Fade>
-		</>
+		</Box>
 	)
 }
 
