@@ -21,9 +21,9 @@ import CircularProgress from "@mui/material/CircularProgress"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Backdrop from "@mui/material/Backdrop"
 import Fade from "@mui/material/Fade"
-import Button from "@mui/material/Button"
 
-import Carousel from "react-material-ui-carousel"
+import { Carousel } from "react-responsive-carousel"
+import "react-responsive-carousel/lib/styles/carousel.min.css"
 
 let highlight
 const ObjectPopup = (props) => {
@@ -71,6 +71,10 @@ const ObjectPopup = (props) => {
 		if (!props.initialLoading) {
 			setPopupOpen(true)
 			setLoading(true)
+			setObjectAttr([])
+			setObjectPer([])
+			setObjectAtt([])
+			setQueryObjects([])
 
 			let found = false
 			for (let obj in props.mapQuery) {
@@ -198,7 +202,6 @@ const ObjectPopup = (props) => {
 									objectIds: OBJECTID,
 								})
 								.then((response) => {
-									console.log(response)
 									if (Object.keys(response).length === 0) {
 										setObjectAtt([])
 										return
@@ -297,48 +300,63 @@ const ObjectPopup = (props) => {
 								</IconButton>
 
 								{objectAtt.length ? (
-									<Carousel
-										sx={{ mx: -2, mt: 0 }}
-										navButtonsAlwaysVisible={true}
-										animation="slide"
-										swipe={false}
-										duration={1000}
-										autoPlay={false}
-										navButtonsProps={{
-											style: {
-												backgroundColor: "rgba(246, 246, 246, 0.8)",
-												color: "black",
-												// "&:hover": {
-												// 	transition: "0.3s",
-												// 	backgroundColor: "white",
-												// },
-											},
-										}}
-										indicatorIconButtonProps={{
-											style: {
-												padding: 2,
-												color: "#F6F6F6",
-											},
-										}}
-										activeIndicatorIconButtonProps={{
-											style: {
-												color: "#D42323",
-											},
-										}}
-										indicatorContainerProps={{
-											style: {
-												marginTop: -40,
-												position: "absolute",
-												zIndex: 5,
-											},
-										}}
-									>
-										{Object.keys(objectAtt).map((att) => (
-											<a href={`${objectAtt[att].url}`} target="_blank">
-												<img style={{ maxWidth: "100%" }} src={`${objectAtt[att].url}`} />
-											</a>
-										))}
-									</Carousel>
+									// <Carousel
+									// 	sx={{ mx: -2, mt: 0 }}
+									// 	navButtonsAlwaysVisible={true}
+									// 	animation="slide"
+									// 	swipe={false}
+									// 	duration={1000}
+									// 	autoPlay={false}
+									// 	navButtonsProps={{
+									// 		style: {
+									// 			backgroundColor: "rgba(246, 246, 246, 0.8)",
+									// 			color: "black",
+									// 			// "&:hover": {
+									// 			// 	transition: "0.3s",
+									// 			// 	backgroundColor: "white",
+									// 			// },
+									// 		},
+									// 	}}
+									// 	indicatorIconButtonProps={{
+									// 		style: {
+									// 			padding: 2,
+									// 			color: "#F6F6F6",
+									// 		},
+									// 	}}
+									// 	activeIndicatorIconButtonProps={{
+									// 		style: {
+									// 			color: "#D42323",
+									// 		},
+									// 	}}
+									// 	indicatorContainerProps={{
+									// 		style: {
+									// 			marginTop: -40,
+									// 			position: "absolute",
+									// 			zIndex: 5,
+									// 		},
+									// 	}}
+									// >
+									// 	{Object.keys(objectAtt).map((att) => (
+									// 		<a href={`${objectAtt[att].url}`} target="_blank">
+									// 			<img style={{ maxWidth: "100%" }} src={`${objectAtt[att].url}`} />
+									// 		</a>
+									// 	))}
+									// </Carousel>
+									<Box sx={{ mx: -2 }}>
+										<Carousel
+											dynamicHeight={true}
+											infiniteLoop={true}
+											showThumbs={false}
+											autoFocus={true}
+											showStatus={false}
+										>
+											{Object.keys(objectAtt).map((att) => (
+												<div key={att}>
+													<img src={`${objectAtt[att].url}`} />
+												</div>
+											))}
+										</Carousel>
+									</Box>
 								) : null}
 
 								<CardHeader
