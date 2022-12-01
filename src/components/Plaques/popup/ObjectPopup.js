@@ -21,6 +21,8 @@ import CircularProgress from "@mui/material/CircularProgress"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Backdrop from "@mui/material/Backdrop"
 import Fade from "@mui/material/Fade"
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
+import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 
 import { Carousel } from "react-responsive-carousel"
 import "react-responsive-carousel/lib/styles/carousel.min.css"
@@ -300,48 +302,6 @@ const ObjectPopup = (props) => {
 								</IconButton>
 
 								{objectAtt.length ? (
-									// <Carousel
-									// 	sx={{ mx: -2, mt: 0 }}
-									// 	navButtonsAlwaysVisible={true}
-									// 	animation="slide"
-									// 	swipe={false}
-									// 	duration={1000}
-									// 	autoPlay={false}
-									// 	navButtonsProps={{
-									// 		style: {
-									// 			backgroundColor: "rgba(246, 246, 246, 0.8)",
-									// 			color: "black",
-									// 			// "&:hover": {
-									// 			// 	transition: "0.3s",
-									// 			// 	backgroundColor: "white",
-									// 			// },
-									// 		},
-									// 	}}
-									// 	indicatorIconButtonProps={{
-									// 		style: {
-									// 			padding: 2,
-									// 			color: "#F6F6F6",
-									// 		},
-									// 	}}
-									// 	activeIndicatorIconButtonProps={{
-									// 		style: {
-									// 			color: "#D42323",
-									// 		},
-									// 	}}
-									// 	indicatorContainerProps={{
-									// 		style: {
-									// 			marginTop: -40,
-									// 			position: "absolute",
-									// 			zIndex: 5,
-									// 		},
-									// 	}}
-									// >
-									// 	{Object.keys(objectAtt).map((att) => (
-									// 		<a href={`${objectAtt[att].url}`} target="_blank">
-									// 			<img style={{ maxWidth: "100%" }} src={`${objectAtt[att].url}`} />
-									// 		</a>
-									// 	))}
-									// </Carousel>
 									<Box sx={{ mx: -2 }}>
 										<Carousel
 											dynamicHeight={true}
@@ -349,6 +309,90 @@ const ObjectPopup = (props) => {
 											showThumbs={false}
 											autoFocus={true}
 											showStatus={false}
+											renderArrowPrev={(onClickHandler, hasPrev, label) =>
+												hasPrev && (
+													<IconButton
+														sx={{
+															backgroundColor: "rgba(246, 246, 246, 0.8)",
+															color: "black",
+															position: "absolute",
+															zIndex: 2,
+															top: "calc(50% - 20px)",
+															width: 40,
+															height: 40,
+															cursor: "pointer",
+															left: 15,
+															"&:hover": {
+																backgroundColor: "rgba(246, 246, 246, 0.8)",
+															},
+														}}
+														onClick={onClickHandler}
+													>
+														<ChevronLeftIcon sx={{ fontSize: 30 }} />
+													</IconButton>
+												)
+											}
+											renderArrowNext={(onClickHandler, hasNext, label) =>
+												hasNext && (
+													<IconButton
+														sx={{
+															backgroundColor: "rgba(246, 246, 246, 0.8)",
+															color: "black",
+															position: "absolute",
+															zIndex: 2,
+															top: "calc(50% - 20px)",
+															width: 40,
+															height: 40,
+															cursor: "pointer",
+															right: 15,
+															"&:hover": {
+																backgroundColor: "rgba(246, 246, 246, 0.8)",
+															},
+														}}
+														onClick={onClickHandler}
+													>
+														<ChevronRightIcon sx={{ fontSize: 30 }} />
+													</IconButton>
+												)
+											}
+											renderIndicator={(onClickHandler, isSelected, index, label) => {
+												if (isSelected) {
+													return (
+														<li
+															style={{
+																background: "#D42323",
+																width: 10,
+																height: 10,
+																display: "inline-block",
+																margin: "0 5px",
+																borderRadius: "10px",
+															}}
+															aria-label={`Selected: ${label} ${index + 1}`}
+															// title={`Selected: ${label} ${index + 1}`}
+														/>
+													)
+												}
+												return (
+													<li
+														style={{
+															background: "#F6F6F6",
+															width: 10,
+															height: 10,
+															display: "inline-block",
+															margin: "0 5px",
+															borderRadius: "10px",
+														}}
+														onClick={onClickHandler}
+														onKeyDown={onClickHandler}
+														value={index}
+														key={index}
+														role="button"
+														tabIndex={0}
+														aria-label={`${label} ${index + 1}`}
+														// title={`${label} ${index + 1}`}
+													/>
+												)
+											}}
 										>
 											{Object.keys(objectAtt).map((att) => (
 												<div key={att}>

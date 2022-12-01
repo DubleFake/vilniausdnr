@@ -12,11 +12,26 @@ body {
 	background-color: #d423230f;
 }
 
-html {
-  overflow: scroll;
-  overflow-x: hidden;
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+	scrollbar-width: auto;
+	scrollbar-color: #000000 #ebebeb;
 }
-::-webkit-scrollbar {
-  width: 0;  /* Remove scrollbar space */
-  background: transparent;  /* Optional: just make scrollbar invisible */
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+	background: #ebebeb;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #000000;
+	border-radius: 50px;
+	border: 0px none #ffffff;
 }
