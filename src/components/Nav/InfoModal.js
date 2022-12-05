@@ -5,11 +5,16 @@ import Typography from "@mui/material/Typography"
 import Modal from "@mui/material/Modal"
 import IconButton from "@mui/material/IconButton"
 import Grid from "@mui/material/Grid"
+import { useTheme } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 const InfoModal = () => {
 	const [open, setOpen] = useState(false)
 	const handleOpen = () => setOpen(true)
 	const handleClose = () => setOpen(false)
+
+	const theme = useTheme()
+	const matchesLG = useMediaQuery(theme.breakpoints.down("lg"))
 
 	useEffect(() => {
 		if (window.location.pathname === "/vilniausdnr/lt") {
@@ -57,12 +62,22 @@ const InfoModal = () => {
 						border: "2px solid #000",
 						boxShadow: 24,
 						p: 4,
+						overflowY: "auto",
+						minWidth: 800,
 					}}
 				>
-					<Typography sx={{ color: "white" }} id="modal-modal-title" variant="h6" component="h2">
+					<Typography
+						sx={{ color: "white", fontSize: matchesLG ? "1rem" : "1.25rem" }}
+						id="modal-modal-title"
+						variant="h6"
+						component="h2"
+					>
 						Esate tęstinėje „Vilniaus DNR“ svetainės versijoje.
 					</Typography>
-					<Typography sx={{ color: "white", mt: 2, mb: 2 }} id="modal-modal-description">
+					<Typography
+						sx={{ color: "white", mt: 2, mb: 2, fontSize: matchesLG ? "0.75rem" : "1rem" }}
+						id="modal-modal-description"
+					>
 						Svetainė <b>šiuo metu yra kuriama</b>, todėl:
 						<ul>
 							<li sx={{ mt: 1 }}>ne visos jos skiltys ir funkcionalumas veikia;</li>
@@ -87,7 +102,10 @@ const InfoModal = () => {
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 						allowFullScreen="allowFullScreen"
 					></iframe>
-					<Typography sx={{ color: "white", mt: 2 }} id="modal-modal-description">
+					<Typography
+						sx={{ color: "white", mt: 2, fontSize: matchesLG ? "0.75rem" : "1rem" }}
+						id="modal-modal-description"
+					>
 						Kilus klausimams, pastebėjus klaidų ar turint pasiūlymų rašykite el. paštu{" "}
 						<b>donatas.gudelis@vplanas.lt</b>
 					</Typography>
