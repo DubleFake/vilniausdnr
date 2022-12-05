@@ -15,7 +15,7 @@ body {
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {
-	scrollbar-width: auto;
+	scrollbar-width: thin;
 	scrollbar-color: #000000 #ebebeb;
 }
 

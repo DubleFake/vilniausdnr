@@ -40,7 +40,7 @@ const Plaques = () => {
 				element={
 					<>
 						<Grid container spacing={0}>
-							{/* <Backdrop
+							<Backdrop
 								sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
 								open={initialLoading}
 							>
@@ -48,7 +48,7 @@ const Plaques = () => {
 									sx={{ position: "fixed", top: window.innerHeight / 2 + 25 }}
 									color="inherit"
 								/>
-							</Backdrop> */}
+							</Backdrop>
 							<Collapse variant="options" orientation="horizontal" in={visible}>
 								<Options
 									initialObjectsList={initialObjectsList}
@@ -58,8 +58,7 @@ const Plaques = () => {
 								/>
 							</Collapse>
 
-							<Grid variant="compareMain" item xs>
-								{!historyToggle && <OptionsToggle visible={visible} setVisible={setVisible} />}
+							<Grid item xs>
 								<ObjectMap
 									setInitialObjectsList={setInitialObjectsList}
 									setInitialLoading={setInitialLoading}
@@ -78,6 +77,7 @@ const Plaques = () => {
 									setSelectedObject={setSelectedObject}
 									initialLoading={initialLoading}
 								/>
+								{!historyToggle && <OptionsToggle visible={visible} setVisible={setVisible} />}
 								<Outlet />
 							</Grid>
 						</Grid>

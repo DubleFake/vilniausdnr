@@ -18,6 +18,7 @@ import "./i18n"
 import "./css/index.css"
 
 import { createTheme, ThemeProvider, experimental_sx as sx } from "@mui/material/styles"
+import { Redeem } from "@mui/icons-material"
 
 const App = () => {
 	const { t, i18n } = useTranslation()
@@ -357,21 +358,26 @@ const App = () => {
 			},
 
 			MuiToggleButton: {
-				styleOverrides: {
-					root: sx({
-						position: "fixed",
-						zIndex: 2,
-						height: "20vh",
-						top: `calc(40vh + ${appBarHeight / 2}px)`,
-						width: "25px",
-						bgcolor: "secondary.main",
-						borderRadius: 0,
-						transition: "0.3s",
-						"&:hover": {
-							bgcolor: "secondary.dark",
+				variants: [
+					{
+						props: {
+							variant: "optionsToggle",
 						},
-					}),
-				},
+						style: {
+							position: "fixed",
+							zIndex: 2,
+							height: "20vh",
+							top: `calc(40vh + ${appBarHeight / 2}px)`,
+							width: "25px",
+							backgroundColor: red,
+							borderRadius: 0,
+							transition: "0.3s",
+							"&:hover": {
+								backgroundColor: red,
+							},
+						},
+					},
+				],
 			},
 
 			MuiCard: {

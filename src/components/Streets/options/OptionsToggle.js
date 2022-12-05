@@ -7,20 +7,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
 const OptionsToggle = (props) => {
 	return (
 		<ToggleButton
-			sx={{
-				position: "absolute",
-				zIndex: 2,
-				height: "20vh",
-				top: "calc(40vh + 45px)",
-				width: "25px",
-				bgcolor: "secondary.main",
-				borderRadius: 0,
-				transition: "0.3s",
-				"&:hover": {
-					bgcolor: "secondary.dark",
-				},
-				float: "left",
-			}}
+			variant="optionsToggle"
 			value="check"
 			selected={false}
 			onChange={() => {
