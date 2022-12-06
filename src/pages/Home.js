@@ -175,8 +175,7 @@ const Home = (props) => {
 						/>
 						<Typography sx={{ fontSize: "22px", color: "white", mt: "50px" }} align="center">
 							Sveikiname apsilankius „Vilniaus DNR“ svetainėje.
-						</Typography>
-						<Typography sx={{ fontSize: "22px", color: "white" }} align="center">
+							<br />
 							Čia rasite istorinius miesto žemėlapius bei įrankius juos nagrinėti įvairiais pjūviais.
 							Kviečiame tyrinėti Vilnių!
 						</Typography>
