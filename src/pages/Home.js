@@ -60,7 +60,7 @@ function Tile(props) {
 					"& .hoverIcon": {
 						mt: propHeight === 480 ? 10 : 4,
 						color: propIconColor,
-						fontSize: propHeight === 480 ? 50 : 32,
+						fontSize: propHeight === 480 ? 80 : 32,
 						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
 					},
 					"& .hoverMore": {
@@ -89,7 +89,7 @@ function Tile(props) {
 					sx={{
 						mt: propHeight === 480 ? 20 : 10,
 						color: propIconColor,
-						fontSize: propHeight === 480 ? 120 : 80,
+						fontSize: propHeight === 480 ? 150 : 80,
 						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
 					}}
 				/>
@@ -150,21 +150,43 @@ const Home = (props) => {
 	const bgGray = "#252525"
 
 	return (
-		<Container sx={{ overflowY: "scroll", height: window.innerHeight - 90 }}>
-			<Box sx={{ height: "40vh", width: "100%", backgroundColor: bgGray }}>
-				<Grid
-					sx={{ position: "relative", zIndex: 100, top: "15vh" }}
-					container
-					direction="row"
-					justifyContent="center"
-					alignItems="center"
-				>
-					<img src={VilniausLogo} width="40%" />
-				</Grid>
-				<Box sx={{ top: -(window.innerHeight / 2.3), position: "relative", zIndex: 90 }}>
-					<img src={VilniausSkyline} width="100%" />
+		<Container sx={{ overflowY: "auto", height: window.innerHeight - 90 }}>
+			{location.pathname === `/vilniausdnr/${i18n.language}` && (
+				<Box sx={{ height: 510, width: "100%", backgroundColor: bgGray }}>
+					<Grid
+						sx={{ position: "relative", zIndex: 100, top: "10vh" }}
+						container
+						direction="column"
+						justifyContent="center"
+						alignItems="center"
+					>
+						<img src={VilniausLogo} width="35%" />
+						<hr
+							style={{
+								position: "relative",
+								zIndex: 100,
+								color: bgRed,
+								backgroundColor: bgRed,
+								height: 2,
+								width: 60,
+								border: "none",
+								marginTop: "50px",
+							}}
+						/>
+						<Typography sx={{ fontSize: "22px", color: "white", mt: "50px" }} align="center">
+							Sveikiname apsilankius „Vilniaus DNR“ svetainėje.
+						</Typography>
+						<Typography sx={{ fontSize: "22px", color: "white" }} align="center">
+							Čia rasite istorinius miesto žemėlapius bei įrankius juos nagrinėti įvairiais pjūviais.
+							Kviečiame tyrinėti Vilnių!
+						</Typography>
+					</Grid>
+					<Box sx={{ top: -(window.innerHeight / 2), position: "relative", zIndex: 90 }}>
+						<img src={VilniausSkyline} width="100%" />
+					</Box>
 				</Box>
-			</Box>
+			)}
+
 			<Box sx={{ position: "relative", backgroundColor: "white", zIndex: 100 }}>
 				<Grid container spacing={0}>
 					<Grid item xs={4}>

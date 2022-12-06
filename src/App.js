@@ -41,6 +41,12 @@ const App = () => {
 			},
 		},
 
+		typography: {
+			allVariants: {
+				fontWeight: 450,
+			},
+		},
+
 		components: {
 			MuiLink: {
 				defaultProps: {
