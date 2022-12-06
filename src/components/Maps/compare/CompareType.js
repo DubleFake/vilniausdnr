@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
-import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
+import InputAdornment from "@mui/material/InputAdornment"
+import Typography from "@mui/material/Typography"
 
 const CompareType = () => {
 	const navigate = useNavigate()
@@ -34,10 +35,6 @@ const CompareType = () => {
 				navigate(`/vilniausdnr/${i18n.language}/maps/compare/review`)
 				break
 
-			// case 1:
-			// 	navigate(`/vilniausdnr/${i18n.language}/maps/compare/timeline`)
-			// 	break
-
 			case 1:
 				navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe`)
 				break
@@ -62,17 +59,55 @@ const CompareType = () => {
 				size="small"
 				id="swipe-select"
 			>
-				<Select variant="outlined" value={selectedCompare} onChange={handleCompareChange}>
-					<MenuItem sx={{ whiteSpace: "unset" }} key={0} value={0}>
+				<Select
+					variant="outlined"
+					value={selectedCompare}
+					onChange={handleCompareChange}
+					startAdornment={
+						<InputAdornment position="start">
+							<Typography sx={{ color: "black" }}>Režimas:</Typography>
+						</InputAdornment>
+					}
+					renderValue={(value) => (
+						<Typography sx={{ color: "#D72E30" }}>
+							{value === 0 ? "Peržiūra" : value === 1 ? "Slenkanti juosta" : "Langai"}
+						</Typography>
+					)}
+				>
+					<MenuItem
+						sx={{
+							whiteSpace: "unset",
+							"&.Mui-selected": {
+								color: "#D72E30",
+							},
+						}}
+						key={0}
+						value={0}
+					>
 						Peržiūra
 					</MenuItem>
-					{/* <MenuItem sx={{ whiteSpace: "unset" }} key={1} value={1}>
-						Laiko juosta
-					</MenuItem> */}
-					<MenuItem sx={{ whiteSpace: "unset" }} key={1} value={1}>
+					<MenuItem
+						sx={{
+							whiteSpace: "unset",
+							"&.Mui-selected": {
+								color: "#D72E30",
+							},
+						}}
+						key={1}
+						value={1}
+					>
 						Slenkanti juosta
 					</MenuItem>
-					<MenuItem sx={{ whiteSpace: "unset" }} key={2} value={2}>
+					<MenuItem
+						sx={{
+							whiteSpace: "unset",
+							"&.Mui-selected": {
+								color: "#D72E30",
+							},
+						}}
+						key={2}
+						value={2}
+					>
 						Langai
 					</MenuItem>
 				</Select>

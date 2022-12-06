@@ -5,11 +5,12 @@ import { useTranslation } from "react-i18next"
 import { map, view, maps } from "../../../utils/mapsArcgisItems"
 
 import Swipe from "@arcgis/core/widgets/Swipe"
-import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
+import InputAdornment from "@mui/material/InputAdornment"
+import Typography from "@mui/material/Typography"
 
 import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
@@ -23,10 +24,10 @@ const CompareSwipe = () => {
 	const [selectedRightMap, setSelectedRightMap] = useState(7)
 	const [mapList, setmapList] = useState([])
 	const [groupList, setGroupList] = useState([])
-	const [selectedGroupLeft, setSelectedGroupLeft] = useState("")
-	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState("")
-	const [selectedGroupRight, setSelectedGroupRight] = useState("")
-	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState("")
+	const [selectedGroupLeft, setSelectedGroupLeft] = useState("1")
+	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState("1")
+	const [selectedGroupRight, setSelectedGroupRight] = useState("2")
+	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState("2")
 
 	useEffect(() => {
 		const tempMaps = []
@@ -222,9 +223,27 @@ const CompareSwipe = () => {
 					size="small"
 					id="swipe-select"
 				>
-					<Select value={selectedGroupValueLeft} onChange={handleGroupChangeLeft}>
+					<Select
+						value={selectedGroupValueLeft}
+						onChange={handleGroupChangeLeft}
+						startAdornment={
+							<InputAdornment position="start">
+								<Typography sx={{ color: "black" }}>Kairė grupė:</Typography>
+							</InputAdornment>
+						}
+						renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{groupList[value]}</Typography>}
+					>
 						{groupList.map((group, index) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+							<MenuItem
+								sx={{
+									whiteSpace: "unset",
+									"&.Mui-selected": {
+										color: "#D72E30",
+									},
+								}}
+								key={index}
+								value={index}
+							>
 								{group}
 							</MenuItem>
 						))}
@@ -243,9 +262,27 @@ const CompareSwipe = () => {
 					size="small"
 					id="swipe-select"
 				>
-					<Select value={selectedGroupValueRight} onChange={handleGroupChangeRight}>
+					<Select
+						value={selectedGroupValueRight}
+						onChange={handleGroupChangeRight}
+						startAdornment={
+							<InputAdornment position="start">
+								<Typography sx={{ color: "black" }}>Dešinė grupė:</Typography>
+							</InputAdornment>
+						}
+						renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{groupList[value]}</Typography>}
+					>
 						{groupList.map((group, index) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+							<MenuItem
+								sx={{
+									whiteSpace: "unset",
+									"&.Mui-selected": {
+										color: "#D72E30",
+									},
+								}}
+								key={index}
+								value={index}
+							>
 								{group}
 							</MenuItem>
 						))}
@@ -278,17 +315,39 @@ const CompareSwipe = () => {
 					size="small"
 					id="swipe-select"
 				>
-					<Select value={selectedLeftMap} onChange={handleLeftSelect}>
-						{mapList.map(
-							(object, index) =>
-								object.globalid_map !== mapList[selectedRightMap].globalid_map &&
-								object.group === selectedGroupLeft && (
-									<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
-										{object.title}
-									</MenuItem>
-								)
-						)}
-					</Select>
+					{mapList.length && (
+						<Select
+							value={selectedLeftMap}
+							onChange={handleLeftSelect}
+							startAdornment={
+								<InputAdornment position="start">
+									<Typography sx={{ color: "black" }}>Kairys žemėlapis:</Typography>
+								</InputAdornment>
+							}
+							renderValue={(value) => (
+								<Typography sx={{ color: "#D72E30" }}>{mapList[value].title}</Typography>
+							)}
+						>
+							{mapList.map(
+								(object, index) =>
+									object.globalid_map !== mapList[selectedRightMap].globalid_map &&
+									object.group === selectedGroupLeft && (
+										<MenuItem
+											sx={{
+												whiteSpace: "unset",
+												"&.Mui-selected": {
+													color: "#D72E30",
+												},
+											}}
+											key={index}
+											value={index}
+										>
+											{object.title}
+										</MenuItem>
+									)
+							)}
+						</Select>
+					)}
 				</FormControl>
 				<FormControl
 					sx={{
@@ -304,17 +363,39 @@ const CompareSwipe = () => {
 					size="small"
 					id="swipe-select"
 				>
-					<Select value={selectedRightMap} onChange={handleRightSelect}>
-						{mapList.map(
-							(object, index) =>
-								object.globalid_map !== mapList[selectedLeftMap].globalid_map &&
-								object.group === selectedGroupRight && (
-									<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
-										{object.title}
-									</MenuItem>
-								)
-						)}
-					</Select>
+					{mapList.length && (
+						<Select
+							value={selectedRightMap}
+							onChange={handleRightSelect}
+							startAdornment={
+								<InputAdornment position="start">
+									<Typography sx={{ color: "black" }}>Dešinys žemėlapis:</Typography>
+								</InputAdornment>
+							}
+							renderValue={(value) => (
+								<Typography sx={{ color: "#D72E30" }}>{mapList[value].title}</Typography>
+							)}
+						>
+							{mapList.map(
+								(object, index) =>
+									object.globalid_map !== mapList[selectedLeftMap].globalid_map &&
+									object.group === selectedGroupRight && (
+										<MenuItem
+											sx={{
+												whiteSpace: "unset",
+												"&.Mui-selected": {
+													color: "#D72E30",
+												},
+											}}
+											key={index}
+											value={index}
+										>
+											{object.title}
+										</MenuItem>
+									)
+							)}
+						</Select>
+					)}
 				</FormControl>
 			</Grid>
 		</>

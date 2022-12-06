@@ -4,11 +4,12 @@ import { useTranslation } from "react-i18next"
 
 import { map, maps } from "../../../utils/mapsArcgisItems"
 
-import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
+import InputAdornment from "@mui/material/InputAdornment"
+import Typography from "@mui/material/Typography"
 
 import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
@@ -120,9 +121,27 @@ const CompareReview = (props) => {
 					size="small"
 					id="swipe-select"
 				>
-					<Select value={selectedGroupValue} onChange={handleGroupChange}>
+					<Select
+						value={selectedGroupValue}
+						onChange={handleGroupChange}
+						startAdornment={
+							<InputAdornment position="start">
+								<Typography sx={{ color: "black" }}>Grupė:</Typography>
+							</InputAdornment>
+						}
+						renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{groupList[value]}</Typography>}
+					>
 						{groupList.map((group, index) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+							<MenuItem
+								sx={{
+									whiteSpace: "unset",
+									"&.Mui-selected": {
+										color: "#D72E30",
+									},
+								}}
+								key={index}
+								value={index}
+							>
 								{group}
 							</MenuItem>
 						))}
@@ -155,10 +174,28 @@ const CompareReview = (props) => {
 					size="small"
 					id="swipe-select"
 				>
-					<Select value={selectedMapValue} onChange={handleMapChange}>
+					<Select
+						value={selectedMapValue}
+						onChange={handleMapChange}
+						startAdornment={
+							<InputAdornment position="start">
+								<Typography sx={{ color: "black" }}>Žemėlapis:</Typography>
+							</InputAdornment>
+						}
+						renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{mapList[value].title}</Typography>}
+					>
 						{mapList.map((map, index) =>
 							map.group === selectedGroup ? (
-								<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+								<MenuItem
+									sx={{
+										whiteSpace: "unset",
+										"&.Mui-selected": {
+											color: "#D72E30",
+										},
+									}}
+									key={index}
+									value={index}
+								>
 									{map.title}
 								</MenuItem>
 							) : null
