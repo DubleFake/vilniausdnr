@@ -270,29 +270,27 @@ const Filter = (props) => {
 					</Select>
 				</FormControl>
 
-				{props.selectedObjectFilter && (
-					<FormControl variant="outlined" size="small">
-						<InputLabel id="memory-select-label">{t("plaques.options.memoryType")}</InputLabel>
-						<Select
-							variant="outlined"
-							labelId="memory-select-label"
-							name="memory-select"
-							id="memory-select"
-							value={props.selectedMemoryFilter}
-							label={t("plaques.options.memoryType")}
-							onChange={handleMemorySelect}
-						>
-							<MenuItem value="">
-								<em>{t("plaques.options.all")}</em>
+				<FormControl variant="outlined" size="small">
+					<InputLabel id="memory-select-label">{t("plaques.options.memoryType")}</InputLabel>
+					<Select
+						variant="outlined"
+						labelId="memory-select-label"
+						name="memory-select"
+						id="memory-select"
+						value={props.selectedMemoryFilter}
+						label={t("plaques.options.memoryType")}
+						onChange={handleMemorySelect}
+					>
+						<MenuItem value="">
+							<em>{t("plaques.options.all")}</em>
+						</MenuItem>
+						{memoryRenderer.uniqueValueInfos.map((object) => (
+							<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value}>
+								{t(`plaques.options.memories.${object.value}`)}
 							</MenuItem>
-							{memoryRenderer.uniqueValueInfos.map((object) => (
-								<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value}>
-									{t(`plaques.options.memories.${object.value}`)}
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
-				)}
+						))}
+					</Select>
+				</FormControl>
 
 				<FormControl variant="outlined" size="small">
 					<InputLabel id="period-label">{t("plaques.options.period")}</InputLabel>
@@ -342,7 +340,7 @@ const Filter = (props) => {
 					marks={marks}
 				/> */}
 
-				<FormGroup sx={{mt: 1}}>
+				<FormGroup sx={{ mt: 1 }}>
 					<FormControlLabel
 						control={<Checkbox checked={extentCheck} onChange={handleExtent} />}
 						label={t("plaques.options.extent")}
@@ -356,7 +354,10 @@ const Filter = (props) => {
 					<Count objectCount={props.objectCount}></Count>
 				</Typography>
 
-				{(props.searchInputValue || props.selectedObjectFilter || props.selectedMemoryFilter || props.selectedPeriodFilter) && (
+				{(props.searchInputValue ||
+					props.selectedObjectFilter ||
+					props.selectedMemoryFilter ||
+					props.selectedPeriodFilter) && (
 					<Button
 						color="secondary"
 						disableElevation

@@ -18,7 +18,6 @@ import "./i18n"
 import "./css/index.css"
 
 import { createTheme, ThemeProvider, experimental_sx as sx } from "@mui/material/styles"
-import { Redeem } from "@mui/icons-material"
 
 const App = () => {
 	const { t, i18n } = useTranslation()

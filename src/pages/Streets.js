@@ -42,7 +42,7 @@ const Plaques = () => {
 						<Grid container spacing={0}>
 							<Backdrop
 								sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-								open={initialLoading}
+								open={false}
 							>
 								<CircularProgress
 									sx={{ position: "fixed", top: window.innerHeight / 2 + 25 }}

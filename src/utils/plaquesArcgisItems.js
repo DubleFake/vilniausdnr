@@ -176,7 +176,7 @@ export const objects = new FeatureLayer({
 		"GlobalID",
 	],
 	title: "Lentelės",
-	// renderer: objectRenderer,
+	renderer: objectRenderer,
 })
 
 export const persons = new FeatureLayer({
