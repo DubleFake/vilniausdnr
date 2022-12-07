@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react"
 
-import { map, view, view2, objects, periods } from "../../../utils/streetsArcgisItems"
+import { map, view, periods } from "../../../utils/streetsArcgisItems"
 
 import Swipe from "@arcgis/core/widgets/Swipe"
-import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
+import InputAdornment from "@mui/material/InputAdornment"
+import Typography from "@mui/material/Typography"
 
 const CompareSwipe = () => {
 	const [selectedLeftPeriod, setSelectedLeftPeriod] = useState(0)
@@ -168,13 +169,27 @@ const CompareSwipe = () => {
 			>
 				<Select
 					value={selectedLeftPeriod}
-					// defaultValue="0"
 					onChange={handleLeftSelect}
+					startAdornment={
+						<InputAdornment position="start">
+							<Typography sx={{ color: "black" }}>Kairė:</Typography>
+						</InputAdornment>
+					}
+					renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{periods[value].title}</Typography>}
 				>
 					{periods.map(
 						(object, index) =>
 							index !== selectedRightPeriod && (
-								<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+								<MenuItem
+									sx={{
+										whiteSpace: "unset",
+										"&.Mui-selected": {
+											color: "#D72E30",
+										},
+									}}
+									key={index}
+									value={index}
+								>
 									{object.title}
 								</MenuItem>
 							)
@@ -197,13 +212,27 @@ const CompareSwipe = () => {
 			>
 				<Select
 					value={selectedRightPeriod}
-					// defaultValue="0"
 					onChange={handleRightSelect}
+					startAdornment={
+						<InputAdornment position="start">
+							<Typography sx={{ color: "black" }}>Dešinė:</Typography>
+						</InputAdornment>
+					}
+					renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{periods[value].title}</Typography>}
 				>
 					{periods.map(
 						(object, index) =>
 							index !== selectedLeftPeriod && (
-								<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+								<MenuItem
+									sx={{
+										whiteSpace: "unset",
+										"&.Mui-selected": {
+											color: "#D72E30",
+										},
+									}}
+									key={index}
+									value={index}
+								>
 									{object.title}
 								</MenuItem>
 							)

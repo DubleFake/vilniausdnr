@@ -26,6 +26,10 @@ const CompareLayers = (props) => {
 	useEffect(() => {
 		if (window.location.href.includes("compare")) {
 			props.setHistoryToggle(true)
+		} else {
+			map.removeAll()
+			map.add(objects)
+			props.setHistoryToggle(false)
 		}
 	}, [])
 

@@ -3,11 +3,12 @@ import React, { useState, useEffect } from "react"
 import { map, view, objects, periods } from "../../../utils/periodsArcgisItems"
 
 import Swipe from "@arcgis/core/widgets/Swipe"
-import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
+import InputAdornment from "@mui/material/InputAdornment"
+import Typography from "@mui/material/Typography"
 
 const CompareSwipe = () => {
 	const [selectedLeftPeriod, setSelectedLeftPeriod] = useState(0)
@@ -178,23 +179,35 @@ const CompareSwipe = () => {
 					width: "auto",
 					height: "45px",
 					backgroundColor: "white",
-          boxShadow: 0,
+					boxShadow: 0,
 				}}
 				variant="outlined"
 				size="small"
 				id="swipe-select"
 			>
-				{/* <InputLabel>Kairys sluoksnis</InputLabel> */}
 				<Select
 					value={selectedLeftPeriod}
-					// label="Sluoksnis"
-					// defaultValue="0"
 					onChange={handleLeftSelect}
+					startAdornment={
+						<InputAdornment position="start">
+							<Typography sx={{ color: "black" }}>Kairė:</Typography>
+						</InputAdornment>
+					}
+					renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{periods[value].title}</Typography>}
 				>
 					{periods.map(
 						(object, index) =>
 							index !== selectedRightPeriod && (
-								<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+								<MenuItem
+									sx={{
+										whiteSpace: "unset",
+										"&.Mui-selected": {
+											color: "#D72E30",
+										},
+									}}
+									key={index}
+									value={index}
+								>
 									{object.title}
 								</MenuItem>
 							)
@@ -209,23 +222,35 @@ const CompareSwipe = () => {
 					width: "auto",
 					height: "45px",
 					backgroundColor: "white",
-          boxShadow: 0,
+					boxShadow: 0,
 				}}
 				variant="outlined"
 				size="small"
 				id="swipe-select"
 			>
-				{/* <InputLabel>Dešinys sluoksnis</InputLabel> */}
 				<Select
 					value={selectedRightPeriod}
-					// label="Sluoksnis"
-					// defaultValue="0"
 					onChange={handleRightSelect}
+					startAdornment={
+						<InputAdornment position="start">
+							<Typography sx={{ color: "black" }}>Dešinė:</Typography>
+						</InputAdornment>
+					}
+					renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{periods[value].title}</Typography>}
 				>
 					{periods.map(
 						(object, index) =>
 							index !== selectedLeftPeriod && (
-								<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+								<MenuItem
+									sx={{
+										whiteSpace: "unset",
+										"&.Mui-selected": {
+											color: "#D72E30",
+										},
+									}}
+									key={index}
+									value={index}
+								>
 									{object.title}
 								</MenuItem>
 							)

@@ -14,20 +14,6 @@ const CompareType = () => {
 	const { t, i18n } = useTranslation()
 	const [selectedCompare, setSelectedCompare] = useState(0)
 
-	useEffect(() => {
-		switch (true) {
-			case window.location.href.includes("review"):
-				setSelectedCompare(0)
-				break
-			case window.location.href.includes("swipe"):
-				setSelectedCompare(1)
-				break
-			case window.location.href.includes("window"):
-				setSelectedCompare(2)
-				break
-		}
-	}, [])
-
 	const handleCompareChange = (event) => {
 		setSelectedCompare(event.target.value)
 		switch (event.target.value) {
@@ -44,6 +30,20 @@ const CompareType = () => {
 				break
 		}
 	}
+
+	useEffect(() => {
+		switch (true) {
+			case window.location.href.includes("review"):
+				setSelectedCompare(0)
+				break
+			case window.location.href.includes("swipe"):
+				setSelectedCompare(1)
+				break
+			case window.location.href.includes("window"):
+				setSelectedCompare(2)
+				break
+		}
+	}, [])
 
 	return (
 		<Grid variant="compareType" container direction="row" justifyContent="left" alignItems="flex-start">
@@ -70,7 +70,7 @@ const CompareType = () => {
 					}
 					renderValue={(value) => (
 						<Typography sx={{ color: "#D72E30" }}>
-							{value === 0 ? "Peržiūra" : value === 1 ? "Slenkanti juosta" : "Langai"}
+							{value === 0 ? "Peržiūra" : value === 1 ? "Slenkanti juosta" : "Du langai"}
 						</Typography>
 					)}
 				>
@@ -108,7 +108,7 @@ const CompareType = () => {
 						key={2}
 						value={2}
 					>
-						Langai
+						Du langai
 					</MenuItem>
 				</Select>
 			</FormControl>
