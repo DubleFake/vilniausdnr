@@ -177,12 +177,17 @@ const CompareReview = (props) => {
 					<Select
 						value={selectedMapValue}
 						onChange={handleMapChange}
-						startAdornment={
-							<InputAdornment position="start">
-								<Typography sx={{ color: "black" }}>Žemėlapis:</Typography>
-							</InputAdornment>
-						}
-						renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{mapList[value].title}</Typography>}
+						renderValue={(value) => (
+							<Typography sx={{ color: "#D72E30" }}>
+								<Typography sx={{ color: "black", display: "inline" }}>Žemėlapis: </Typography>{" "}
+								{mapList[value].title}
+							</Typography>
+						)}
+						onOpen={() => console.log("open")}
+						onClose={() => console.log("close")}
+						MenuProps={{
+              
+						}}
 					>
 						{mapList.map((map, index) =>
 							map.group === selectedGroup ? (
