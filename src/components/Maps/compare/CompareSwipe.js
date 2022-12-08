@@ -213,7 +213,7 @@ const CompareSwipe = () => {
 				<FormControl
 					sx={{
 						mt: 1.5,
-						mr: 8,
+						mr: 85,
 						width: "auto",
 						height: "45px",
 						backgroundColor: "white",
@@ -249,10 +249,25 @@ const CompareSwipe = () => {
 						))}
 					</Select>
 				</FormControl>
+			</Grid>
+			<Grid
+				sx={{
+					backgroundColor: "yellow",
+					width: "100%",
+					height: "0%",
+					bottom: window.innerHeight - 90,
+					position: "relative",
+					zIndex: 2,
+				}}
+				container
+				direction="row"
+				justifyContent="center"
+				alignItems="flex-start"
+			>
 				<FormControl
 					sx={{
 						mt: 1.5,
-						ml: 8,
+						ml: 85,
 						width: "auto",
 						height: "45px",
 						backgroundColor: "white",
@@ -305,7 +320,7 @@ const CompareSwipe = () => {
 					sx={{
 						bottom: 16,
 						mt: -7.5,
-						mr: 8,
+						mr: 85,
 						width: "auto",
 						height: "45px",
 						backgroundColor: "white",
@@ -349,11 +364,24 @@ const CompareSwipe = () => {
 						</Select>
 					)}
 				</FormControl>
+			</Grid>
+			<Grid
+				sx={{
+					backgroundColor: "yellow",
+					width: "100%",
+					height: "0%",
+					position: "relative",
+				}}
+				container
+				direction="row"
+				justifyContent="center"
+				alignItems="flex-start"
+			>
 				<FormControl
 					sx={{
 						bottom: 16,
 						mt: -7.5,
-						ml: 8,
+						ml: 85,
 						width: "auto",
 						height: "45px",
 						backgroundColor: "white",
