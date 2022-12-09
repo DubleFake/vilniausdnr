@@ -3,7 +3,6 @@ import { Routes, Route, Outlet } from "react-router-dom"
 
 import ObjectMap from "../components/Plaques/map/ObjectMap"
 import ObjectPopup from "../components/Plaques/popup/ObjectPopup"
-import PersonPopup from "../components/Plaques/popup/PersonPopup"
 import TableToggle from "../components/Plaques/options/OptionsToggle"
 import Options from "../components/Plaques/options/Options"
 import "../css/signs.css"
