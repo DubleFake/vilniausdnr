@@ -18,10 +18,10 @@ export const objects = new FeatureLayer({
 		type: "simple",
 		symbol: {
 			type: "simple-marker",
-			size: 6,
+			size: 7,
 			color: "red",
 			outline: {
-				width: 0.5,
+				width: 1,
 				color: "white",
 			},
 		},

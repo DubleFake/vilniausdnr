@@ -109,7 +109,7 @@ const ObjectPopup = (props) => {
 							return
 						}
 
-						view.goTo(response.features[0].geometry)
+						view.goTo({ target: response.features[0].geometry, zoom: 8 })
 						highlight = objectsView.highlight(response.features[0])
 						props.setSelectedObject(`${globalID}`)
 
