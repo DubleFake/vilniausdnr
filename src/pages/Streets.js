@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Routes, Route, Outlet } from "react-router-dom"
+import { useTheme } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 import ObjectMap from "../components/Streets/map/ObjectMap"
 import ObjectPopup from "../components/Streets/popup/ObjectPopup"
@@ -27,11 +29,16 @@ const Plaques = () => {
 	const [toggleCompareWindow, setToggleCompareWindow] = useState(false)
 	const [historyToggle, setHistoryToggle] = useState(false)
 
+	const theme = useTheme()
+	const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
+
 	useEffect(() => {
-		if (historyToggle) {
+		if (!historyToggle && !initialLoading && !isMobile) {
+			setVisible(true)
+		} else {
 			setVisible(false)
 		}
-	}, [historyToggle])
+	}, [isMobile, historyToggle, initialLoading])
 
 	return (
 		<Routes>
@@ -40,10 +47,7 @@ const Plaques = () => {
 				element={
 					<>
 						<Grid container spacing={0}>
-							<Backdrop
-								sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-								open={false}
-							>
+							<Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={false}>
 								<CircularProgress
 									sx={{ position: "fixed", top: window.innerHeight / 2 + 25 }}
 									color="inherit"
@@ -68,15 +72,17 @@ const Plaques = () => {
 									historyToggle={historyToggle}
 									setHistoryToggle={setHistoryToggle}
 								/>
-								<CompareToggle
-									setToggleCompareWindow={setToggleCompareWindow}
-									historyToggle={historyToggle}
-									setHistoryToggle={setHistoryToggle}
-									setMapQuery={setMapQuery}
-									mapQuery={mapQuery}
-									setSelectedObject={setSelectedObject}
-									initialLoading={initialLoading}
-								/>
+								{(!isMobile || !visible) && (
+									<CompareToggle
+										setToggleCompareWindow={setToggleCompareWindow}
+										historyToggle={historyToggle}
+										setHistoryToggle={setHistoryToggle}
+										setMapQuery={setMapQuery}
+										mapQuery={mapQuery}
+										setSelectedObject={setSelectedObject}
+										initialLoading={initialLoading}
+									/>
+								)}
 								{!historyToggle && <OptionsToggle visible={visible} setVisible={setVisible} />}
 								<Outlet />
 							</Grid>

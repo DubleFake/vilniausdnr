@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { objects, objectRenderer } from "../../../../utils/streetsArcgisItems"
 
-import Box from "@mui/material/Box"
+import Grid from "@mui/material/Grid"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import Divider from "@mui/material/Divider"
@@ -13,11 +13,9 @@ import ColorLensIcon from "@mui/icons-material/ColorLens"
 const Legends = (props) => {
 	const { t, i18n } = useTranslation()
 	const uniqueValues = objects.renderer.uniqueValueInfos
-	console.log(uniqueValues)
-	console.log(objectRenderer.uniqueValueInfos)
 
 	return (
-		<Box sx={{ width: 350, bgcolor: "background.paper" }}>
+		<Grid variant="optionsTabs">
 			<Typography sx={{ m: 1, mb: 0 }} variant="subtitle1">
 				{t("plaques.options.legend") + ":"}
 			</Typography>
@@ -78,7 +76,7 @@ const Legends = (props) => {
 					</div>
 				))} */}
 			</List>
-		</Box>
+		</Grid>
 	)
 }
 

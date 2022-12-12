@@ -70,7 +70,6 @@ const Options = (props) => {
 					value={value}
 					onChange={handleChange}
 					indicatorColor="secondary"
-					// textColor="secondary"
 					variant="fullWidth"
 				>
 					<Tab label={t("plaques.options.search")} {...a11yProps(0)} />
@@ -94,7 +93,6 @@ const Options = (props) => {
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
-					<Container variant="optionsVisualizeTab">
 						<VisualizationTab
 							selectedObjectFilter={selectedObjectFilter}
 							visualizationType={visualizationType}
@@ -102,7 +100,6 @@ const Options = (props) => {
 							visibleObjectIcons={visibleObjectIcons}
 							initialObjectsClasses={props.initialObjectsClasses}
 						/>
-					</Container>
 				</TabPanel>
 			</SwipeableViews>
 		</Container>
