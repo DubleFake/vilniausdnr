@@ -248,7 +248,7 @@ const ObjectPopup = (props) => {
 										</TableBody>
 									</Table>
 								</TableContainer> */}
-								<Box sx={{ my: 1, mx: -2 }}>
+								<Box sx={{ my: 1, mx: -2, display: 'flex', justifyContent: 'center' }}>
 									<a href={`${objectAttr.Nuotraukos_URL}`} target="_blank">
 										<img
 											style={{ maxWidth: "100%", maxHeight: "auto" }}
