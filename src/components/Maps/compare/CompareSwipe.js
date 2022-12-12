@@ -226,12 +226,12 @@ const CompareSwipe = () => {
 					<Select
 						value={selectedGroupValueLeft}
 						onChange={handleGroupChangeLeft}
-						startAdornment={
-							<InputAdornment position="start">
-								<Typography sx={{ color: "black" }}>Kairė grupė:</Typography>
-							</InputAdornment>
-						}
-						renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{groupList[value]}</Typography>}
+						renderValue={(value) => (
+							<Typography sx={{ color: "#D72E30" }}>
+								<Typography sx={{ color: "black", display: "inline" }}>Kairė grupė: </Typography>
+								{groupList[value]}
+							</Typography>
+						)}
 					>
 						{groupList.map((group, index) => (
 							<MenuItem
@@ -240,6 +240,7 @@ const CompareSwipe = () => {
 									"&.Mui-selected": {
 										color: "#D72E30",
 									},
+									justifyContent: "center",
 								}}
 								key={index}
 								value={index}
@@ -280,12 +281,12 @@ const CompareSwipe = () => {
 					<Select
 						value={selectedGroupValueRight}
 						onChange={handleGroupChangeRight}
-						startAdornment={
-							<InputAdornment position="start">
-								<Typography sx={{ color: "black" }}>Dešinė grupė:</Typography>
-							</InputAdornment>
-						}
-						renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{groupList[value]}</Typography>}
+						renderValue={(value) => (
+							<Typography sx={{ color: "#D72E30" }}>
+								<Typography sx={{ color: "black", display: "inline" }}>Dešinė grupė: </Typography>
+								{groupList[value]}
+							</Typography>
+						)}
 					>
 						{groupList.map((group, index) => (
 							<MenuItem
@@ -294,6 +295,7 @@ const CompareSwipe = () => {
 									"&.Mui-selected": {
 										color: "#D72E30",
 									},
+									justifyContent: "center",
 								}}
 								key={index}
 								value={index}
@@ -334,14 +336,22 @@ const CompareSwipe = () => {
 						<Select
 							value={selectedLeftMap}
 							onChange={handleLeftSelect}
-							startAdornment={
-								<InputAdornment position="start">
-									<Typography sx={{ color: "black" }}>Kairys žemėlapis:</Typography>
-								</InputAdornment>
-							}
 							renderValue={(value) => (
-								<Typography sx={{ color: "#D72E30" }}>{mapList[value].title}</Typography>
+								<Typography sx={{ color: "#D72E30" }}>
+									<Typography sx={{ color: "black", display: "inline" }}>Kairys žemėlapis: </Typography>
+									{mapList[value].title}
+								</Typography>
 							)}
+							MenuProps={{
+								anchorOrigin: {
+									vertical: "top",
+									horizontal: "left",
+								},
+								transformOrigin: {
+									vertical: "bottom",
+									horizontal: "left",
+								},
+							}}
 						>
 							{mapList.map(
 								(object, index) =>
@@ -353,6 +363,7 @@ const CompareSwipe = () => {
 												"&.Mui-selected": {
 													color: "#D72E30",
 												},
+												justifyContent: "center",
 											}}
 											key={index}
 											value={index}
@@ -395,14 +406,22 @@ const CompareSwipe = () => {
 						<Select
 							value={selectedRightMap}
 							onChange={handleRightSelect}
-							startAdornment={
-								<InputAdornment position="start">
-									<Typography sx={{ color: "black" }}>Dešinys žemėlapis:</Typography>
-								</InputAdornment>
-							}
 							renderValue={(value) => (
-								<Typography sx={{ color: "#D72E30" }}>{mapList[value].title}</Typography>
+								<Typography sx={{ color: "#D72E30" }}>
+									<Typography sx={{ color: "black", display: "inline" }}>Dešinys žemėlapis: </Typography>
+									{mapList[value].title}
+								</Typography>
 							)}
+							MenuProps={{
+								anchorOrigin: {
+									vertical: "top",
+									horizontal: "left",
+								},
+								transformOrigin: {
+									vertical: "bottom",
+									horizontal: "left",
+								},
+							}}
 						>
 							{mapList.map(
 								(object, index) =>
@@ -414,6 +433,7 @@ const CompareSwipe = () => {
 												"&.Mui-selected": {
 													color: "#D72E30",
 												},
+												justifyContent: "center",
 											}}
 											key={index}
 											value={index}

@@ -114,7 +114,6 @@ const ObjectPopup = (props) => {
 						props.setSelectedObject(`${globalID}`)
 
 						setObjectAttr(response.features[0].attributes)
-						console.log(response.features[0].attributes)
 						setLoading(false)
 					})
 					.catch((error) => {
@@ -177,7 +176,7 @@ const ObjectPopup = (props) => {
 										navigate(`/vilniausdnr/${i18n.language}/foto`)
 									}}
 									sx={{
-										mt: 1,
+										mt: 0.9,
 										mr: 1,
 										position: "fixed",
 										zIndex: 10,

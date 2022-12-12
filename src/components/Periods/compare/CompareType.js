@@ -63,13 +63,10 @@ const CompareType = () => {
 					variant="outlined"
 					value={selectedCompare}
 					onChange={handleCompareChange}
-					startAdornment={
-						<InputAdornment position="start">
-							<Typography sx={{ color: "black" }}>Režimas:</Typography>
-						</InputAdornment>
-					}
 					renderValue={(value) => (
 						<Typography sx={{ color: "#D72E30" }}>
+							<Typography sx={{ color: "black", display: "inline" }}>Režimas: </Typography>
+
 							{value === 0 ? "Peržiūra" : value === 1 ? "Slenkanti juosta" : "Du langai"}
 						</Typography>
 					)}
@@ -80,6 +77,7 @@ const CompareType = () => {
 							"&.Mui-selected": {
 								color: "#D72E30",
 							},
+							justifyContent: "center",
 						}}
 						key={0}
 						value={0}
@@ -92,6 +90,7 @@ const CompareType = () => {
 							"&.Mui-selected": {
 								color: "#D72E30",
 							},
+							justifyContent: "center",
 						}}
 						key={1}
 						value={1}
@@ -104,6 +103,7 @@ const CompareType = () => {
 							"&.Mui-selected": {
 								color: "#D72E30",
 							},
+							justifyContent: "center",
 						}}
 						key={2}
 						value={2}

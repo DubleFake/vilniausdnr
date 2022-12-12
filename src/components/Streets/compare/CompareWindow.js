@@ -101,12 +101,22 @@ const CompareWindow = (props) => {
 				<Select
 					value={selectedLeftPeriod}
 					onChange={handleLeftSelect}
-					startAdornment={
-						<InputAdornment position="start">
-							<Typography sx={{ color: "black" }}>Kairė:</Typography>
-						</InputAdornment>
-					}
-					renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{periods[value].title}</Typography>}
+					renderValue={(value) => (
+						<Typography sx={{ color: "#D72E30" }}>
+							<Typography sx={{ color: "black", display: "inline" }}>Kairė: </Typography>
+							{periods[value].title}
+						</Typography>
+					)}
+					MenuProps={{
+						anchorOrigin: {
+							vertical: "top",
+							horizontal: "left",
+						},
+						transformOrigin: {
+							vertical: "bottom",
+							horizontal: "left",
+						},
+					}}
 				>
 					{periods.map(
 						(object, index) =>
@@ -117,6 +127,7 @@ const CompareWindow = (props) => {
 										"&.Mui-selected": {
 											color: "#D72E30",
 										},
+										justifyContent: "center",
 									}}
 									key={index}
 									value={index}
@@ -143,14 +154,23 @@ const CompareWindow = (props) => {
 			>
 				<Select
 					value={selectedRightPeriod}
-					// defaultValue="0"
 					onChange={handleRightSelect}
-					startAdornment={
-						<InputAdornment position="start">
-							<Typography sx={{ color: "black" }}>Dešinė:</Typography>
-						</InputAdornment>
-					}
-					renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{periods[value].title}</Typography>}
+					renderValue={(value) => (
+						<Typography sx={{ color: "#D72E30" }}>
+							<Typography sx={{ color: "black", display: "inline" }}>Dešinė: </Typography>
+							{periods[value].title}
+						</Typography>
+					)}
+					MenuProps={{
+						anchorOrigin: {
+							vertical: "top",
+							horizontal: "left",
+						},
+						transformOrigin: {
+							vertical: "bottom",
+							horizontal: "left",
+						},
+					}}
 				>
 					{periods.map(
 						(object, index) =>
@@ -161,6 +181,7 @@ const CompareWindow = (props) => {
 										"&.Mui-selected": {
 											color: "#D72E30",
 										},
+										justifyContent: "center",
 									}}
 									key={index}
 									value={index}

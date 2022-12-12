@@ -124,12 +124,12 @@ const CompareReview = (props) => {
 					<Select
 						value={selectedGroupValue}
 						onChange={handleGroupChange}
-						startAdornment={
-							<InputAdornment position="start">
-								<Typography sx={{ color: "black" }}>Grupė:</Typography>
-							</InputAdornment>
-						}
-						renderValue={(value) => <Typography sx={{ color: "#D72E30" }}>{groupList[value]}</Typography>}
+						renderValue={(value) => (
+							<Typography sx={{ color: "#D72E30" }}>
+								<Typography sx={{ color: "black", display: "inline" }}>Grupė: </Typography>
+								{groupList[value]}
+							</Typography>
+						)}
 					>
 						{groupList.map((group, index) => (
 							<MenuItem
@@ -138,6 +138,7 @@ const CompareReview = (props) => {
 									"&.Mui-selected": {
 										color: "#D72E30",
 									},
+									justifyContent: "center",
 								}}
 								key={index}
 								value={index}
@@ -179,10 +180,20 @@ const CompareReview = (props) => {
 						onChange={handleMapChange}
 						renderValue={(value) => (
 							<Typography sx={{ color: "#D72E30" }}>
-								<Typography sx={{ color: "black", display: "inline" }}>Žemėlapis: </Typography>{" "}
+								<Typography sx={{ color: "black", display: "inline" }}>Žemėlapis: </Typography>
 								{mapList[value].title}
 							</Typography>
 						)}
+						MenuProps={{
+							anchorOrigin: {
+								vertical: "top",
+								horizontal: "left",
+							},
+							transformOrigin: {
+								vertical: "bottom",
+								horizontal: "left",
+							},
+						}}
 					>
 						{mapList.map((map, index) =>
 							map.group === selectedGroup ? (
