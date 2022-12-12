@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next"
 
 import { persons } from "../../../utils/personsArcgisItems"
 import { ReactComponent as random_ikona } from "../../../utils/icons/personIcons/random_ikona.svg"
+import person_placeholder from "../../../utils/icons/personIcons/person_placeholder.png"
 
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
@@ -57,7 +58,7 @@ const PersonGeneral = (props) => {
 				where: `Asmenybes_ID = '{${globalID}}'`,
 			})
 			.then((response) => {
-        console.log(response)
+				console.log(response)
 				setRelatedStreets([])
 				persons
 					.queryRelatedFeatures({
@@ -93,7 +94,11 @@ const PersonGeneral = (props) => {
 						// maxHeight: { xs: 233, md: 167 },
 						// maxWidth: { xs: 350, md: 250 },
 					}}
-					src={props.biographyFeatures[0].attributes.Nuotrauka}
+					src={
+						props.biographyFeatures[0].attributes.Nuotrauka
+							? props.biographyFeatures[0].attributes.Nuotrauka
+							: person_placeholder
+					}
 				/>
 				<Typography
 					sx={{ mx: 4, mt: 1, fontStyle: "italic" }}
@@ -107,7 +112,7 @@ const PersonGeneral = (props) => {
 				</Typography>
 
 				<Typography
-					sx={{ mx: 4, mt: 4, mb: 6 }}
+					sx={{ mx: 4, mt: 2, mb: 2 }}
 					color="white"
 					variant="body2"
 					gutterBottom
