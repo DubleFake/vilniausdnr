@@ -140,10 +140,10 @@ Tile.propTypes = {
 
 const Home = (props) => {
 	const { t, i18n } = useTranslation()
-
+	console.log(window.innerWidth)
 	const theme = useTheme()
-	const matchesLg = useMediaQuery(theme.breakpoints.up("lg"))
-	const matchesMd = useMediaQuery(theme.breakpoints.up("md"))
+	const isDownMd = useMediaQuery(theme.breakpoints.down("md"))
+	const isDownLg = useMediaQuery(theme.breakpoints.down("lg"))
 
 	const bgWhite = "#EBEBEB"
 	const bgRed = "#D72E30"
@@ -188,7 +188,7 @@ const Home = (props) => {
 
 			<Box sx={{ position: "relative", backgroundColor: "white", zIndex: 100 }}>
 				<Grid container spacing={0}>
-					<Grid item xs={4}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={480}
@@ -203,7 +203,7 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={4}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={480}
@@ -218,7 +218,7 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={4}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={480}
@@ -234,7 +234,7 @@ const Home = (props) => {
 						/>
 					</Grid>
 
-					<Grid item xs={3}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={302}
@@ -247,7 +247,7 @@ const Home = (props) => {
 							propTextMore={"Skiltyje bus pateikiamos Vilniaus miesto fotografijos ir atvirutės"}
 						/>
 					</Grid>
-					<Grid item xs={3}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={302}
@@ -262,7 +262,7 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 6}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={302}
@@ -278,7 +278,7 @@ const Home = (props) => {
 						/>
 					</Grid>
 
-					<Grid item xs={6}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 6}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={302}
@@ -293,7 +293,7 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={3}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={302}
@@ -308,7 +308,7 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={3}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={302}
