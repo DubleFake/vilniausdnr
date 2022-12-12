@@ -16,7 +16,6 @@ const Table = (props) => {
 
 	useEffect(() => {
 		setObjectsList(props.initialObjectsList)
-    console.log(props.initialObjectsList)
 	}, [props.initialObjectsList])
 
 	useEffect(() => {

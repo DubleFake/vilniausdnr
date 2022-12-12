@@ -183,11 +183,6 @@ const CompareReview = (props) => {
 								{mapList[value].title}
 							</Typography>
 						)}
-						onOpen={() => console.log("open")}
-						onClose={() => console.log("close")}
-						MenuProps={{
-              
-						}}
 					>
 						{mapList.map((map, index) =>
 							map.group === selectedGroup ? (
@@ -197,6 +192,7 @@ const CompareReview = (props) => {
 										"&.Mui-selected": {
 											color: "#D72E30",
 										},
+										justifyContent: "center",
 									}}
 									key={index}
 									value={index}

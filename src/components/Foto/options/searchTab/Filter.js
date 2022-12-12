@@ -80,7 +80,7 @@ const Filter = (props) => {
 			if (!extentCheck) {
 				objectsView
 					.queryFeatures({
-						outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
+						outFields: ["*"],
 						where: objectsView.filter.where,
 						geometry: view.extent,
 						returnGeometry: false,
@@ -212,7 +212,7 @@ const Filter = (props) => {
 			} else {
 				objectsView
 					.queryFeatures({
-						outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
+						outFields: ["*"],
 						where: objectsView.filter ? objectsView.filter.where : null,
 						geometry: null,
 						returnGeometry: false,

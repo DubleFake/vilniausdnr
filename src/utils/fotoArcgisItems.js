@@ -14,7 +14,18 @@ export const objects = new FeatureLayer({
 	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/Atminties_objektai_nuotraukos/FeatureServer/1116",
 	outFields: ["*"],
 	title: "Foto",
-	// renderer: objectRenderer,
+	renderer: {
+		type: "simple",
+		symbol: {
+			type: "simple-marker",
+			size: 6,
+			color: "red",
+			outline: {
+				width: 0.5,
+				color: "white",
+			},
+		},
+	},
 })
 
 const basemap1 = new Basemap({
