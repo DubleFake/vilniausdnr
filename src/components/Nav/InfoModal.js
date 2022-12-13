@@ -14,6 +14,7 @@ const InfoModal = () => {
 	const handleClose = () => setOpen(false)
 
 	const theme = useTheme()
+	const matchesMD = useMediaQuery(theme.breakpoints.down("md"))
 	const matchesLG = useMediaQuery(theme.breakpoints.down("lg"))
 
 	useEffect(() => {
@@ -56,14 +57,14 @@ const InfoModal = () => {
 						top: "50%",
 						left: "50%",
 						transform: "translate(-50%, -50%)",
-						width: "60%",
+						width: matchesMD ? "100%" : "60%",
 						height: "90%",
 						bgcolor: "rgb(18, 18, 18)",
 						border: "2px solid #000",
 						boxShadow: 24,
 						p: 4,
 						overflowY: "auto",
-						minWidth: 800,
+						minWidth: matchesMD ? null : 800,
 					}}
 				>
 					<Typography
