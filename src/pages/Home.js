@@ -47,33 +47,90 @@ function Tile(props) {
 			onClick={() => location.pathname !== `/vilniausdnr/${i18n.language}` && setMenuOpen(false)}
 			to={`${propTo}`}
 			variant="contained"
-			sx={{
-				borderRadius: 0,
-				boxShadow: "none",
-				textTransform: "none",
-				height: propHeight,
-				backgroundColor: propBackgroundColor,
-				"&:hover": {
-					backgroundColor: propBackgroundColor,
-					transition: "0.3s",
-					opacity: 0.8,
-					"& .hoverIcon": {
-						mt: propHeight === 480 ? 10 : 4,
-						color: propIconColor,
-						fontSize: propHeight === 480 ? 80 : 32,
-						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
-					},
-					"& .hoverMore": {
-						fontSize: "16px",
-						opacity: 1,
-						transition: "opacity 0.3s",
-					},
-					"& .hoverTitle": {
-						mb: propHeight === 480 ? 5 : 3,
-						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
-					},
-				},
-			}}
+			sx={
+				propHeight === 370
+					? {
+							borderRadius: 0,
+							boxShadow: "none",
+							textTransform: "none",
+							height: propHeight,
+							backgroundColor: propBackgroundColor,
+							"&:hover": {
+								backgroundColor: propBackgroundColor,
+								transition: "0.3s",
+								opacity: 0.8,
+							},
+							"& .hoverIcon": {
+								mt: propHeight === 480 ? 10 : 4,
+								color: propIconColor,
+								fontSize: propHeight === 480 ? 80 : 32,
+								transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
+							},
+							"& .hoverMore": {
+								fontSize: "16px",
+								opacity: 1,
+								transition: "opacity 0.3s",
+							},
+							"& .hoverTitle": {
+								mb: propHeight === 480 ? 5 : 3,
+								transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
+							},
+					  }
+					: {
+							borderRadius: 0,
+							boxShadow: "none",
+							textTransform: "none",
+							height: propHeight,
+							backgroundColor: propBackgroundColor,
+							"&:hover": {
+								backgroundColor: propBackgroundColor,
+								transition: "0.3s",
+								opacity: 0.8,
+								"& .hoverIcon": {
+									mt: propHeight === 480 ? 10 : 4,
+									color: propIconColor,
+									fontSize: propHeight === 480 ? 80 : 32,
+									transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
+								},
+								"& .hoverMore": {
+									fontSize: "16px",
+									opacity: 1,
+									transition: "opacity 0.3s",
+								},
+								"& .hoverTitle": {
+									mb: propHeight === 480 ? 5 : 3,
+									transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
+								},
+							},
+					  }
+			}
+			// sx={{
+			// 	borderRadius: 0,
+			// 	boxShadow: "none",
+			// 	textTransform: "none",
+			// 	height: propHeight,
+			// 	backgroundColor: propBackgroundColor,
+			// 	"&:hover": {
+			// 		backgroundColor: propBackgroundColor,
+			// 		transition: "0.3s",
+			// 		opacity: 0.8,
+			// 		"& .hoverIcon": {
+			// 			mt: propHeight === 480 ? 10 : 4,
+			// 			color: propIconColor,
+			// 			fontSize: propHeight === 480 ? 80 : 32,
+			// 			transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
+			// 		},
+			// 		"& .hoverMore": {
+			// 			fontSize: "16px",
+			// 			opacity: 1,
+			// 			transition: "opacity 0.3s",
+			// 		},
+			// 		"& .hoverTitle": {
+			// 			mb: propHeight === 480 ? 5 : 3,
+			// 			transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
+			// 		},
+			// 	},
+			// }}
 		>
 			<Grid
 				sx={{ height: "100%", position: "absolute", zIndex: 20 }}
@@ -102,6 +159,7 @@ function Tile(props) {
 						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
 					}}
 					variant="body1"
+					align="center"
 				>
 					{propText}
 				</Typography>
@@ -140,26 +198,28 @@ Tile.propTypes = {
 
 const Home = (props) => {
 	const { t, i18n } = useTranslation()
-  console.log(window.innerWidth)
+	console.log(window.innerWidth)
 	const theme = useTheme()
+	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
 	const isDownMd = useMediaQuery(theme.breakpoints.down("md"))
+	const isDownLg = useMediaQuery(theme.breakpoints.down("lg"))
 
 	const bgWhite = "#EBEBEB"
 	const bgRed = "#D72E30"
 	const bgGray = "#252525"
 
 	return (
-		<Container sx={{ overflowY: "auto", height: window.innerHeight - 90 }}>
+		<Container sx={{ overflowY: "auto", overflowX: "hidden", height: window.innerHeight - 90 }}>
 			{location.pathname === `/vilniausdnr/${i18n.language}` && (
 				<Box sx={{ height: 510, width: "100%", backgroundColor: bgGray }}>
 					<Grid
-						sx={{ position: "relative", zIndex: 100, top: "10vh" }}
+						sx={{ position: "relative", zIndex: 100, top: "10vh", height: "auto" }}
 						container
 						direction="column"
 						justifyContent="center"
 						alignItems="center"
 					>
-						<img src={VilniausLogo} width="35%" />
+						<img src={VilniausLogo} width={isDownMd ? 300 : 500} />
 						<hr
 							style={{
 								position: "relative",
@@ -172,6 +232,17 @@ const Home = (props) => {
 								marginTop: "50px",
 							}}
 						/>
+						<img
+							src={VilniausSkyline}
+							style={{
+								position: "absolute",
+								bottom: isDownMd ? -198 : -198,
+								width: isDownMd ? 1000 : "100%",
+								zIndex: -1,
+								pointerEvents: "none",
+								marginRight: "5px",
+							}}
+						/>
 						<Typography sx={{ fontSize: "22px", color: "white", mt: "50px" }} align="center">
 							Sveikiname apsilankius „Vilniaus DNR“ svetainėje.
 							<br />
@@ -179,18 +250,15 @@ const Home = (props) => {
 							Kviečiame tyrinėti Vilnių!
 						</Typography>
 					</Grid>
-					<Box sx={{ top: -(window.innerHeight / 2), position: "relative", zIndex: 90 }}>
-						<img src={VilniausSkyline} width="100%" />
-					</Box>
 				</Box>
 			)}
 
 			<Box sx={{ position: "relative", backgroundColor: "white", zIndex: 100 }}>
 				<Grid container spacing={0}>
-					<Grid item xs={isDownMd ? 12 : 4}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={480}
+							propHeight={isDownSm ? 370 : isDownLg ? 302 : 480}
 							propBackgroundColor={bgGray}
 							propTo={"maps"}
 							propIcon={mapsIcon}
@@ -202,10 +270,10 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={isDownMd ? 12 : 4}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={480}
+							propHeight={isDownSm ? 370 : isDownLg ? 302 : 480}
 							propBackgroundColor={bgRed}
 							propTo={"streets"}
 							propIcon={streetsIcon}
@@ -217,10 +285,10 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={isDownMd ? 12 : 4}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={480}
+							propHeight={isDownSm ? 370 : isDownLg ? 302 : 480}
 							propBackgroundColor={bgWhite}
 							propTo={"buildings"}
 							propIcon={buildingsIcon}
@@ -233,10 +301,10 @@ const Home = (props) => {
 						/>
 					</Grid>
 
-					<Grid item xs={isDownMd ? 12 : 3}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={302}
+							propHeight={isDownSm ? 370 : isDownLg ? 302 : 302}
 							propBackgroundColor={bgRed}
 							propTo={"foto"}
 							propIcon={fotoIcon}
@@ -246,10 +314,10 @@ const Home = (props) => {
 							propTextMore={"Skiltyje bus pateikiamos Vilniaus miesto fotografijos ir atvirutės"}
 						/>
 					</Grid>
-					<Grid item xs={isDownMd ? 12 : 3}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={302}
+							propHeight={isDownSm ? 370 : isDownLg ? 302 : 302}
 							propBackgroundColor={bgWhite}
 							propTo={"plaques"}
 							propIcon={signsIcon}
@@ -261,10 +329,10 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={isDownMd ? 12 : 6}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 6}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={302}
+							propHeight={isDownSm ? 370 : isDownLg ? 302 : 302}
 							propBackgroundColor={bgGray}
 							propTo={"periods"}
 							propIcon={periodsIcon}
@@ -277,10 +345,10 @@ const Home = (props) => {
 						/>
 					</Grid>
 
-					<Grid item xs={isDownMd ? 12 : 6}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 6}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={302}
+							propHeight={isDownSm ? 370 : isDownLg ? 302 : 302}
 							propBackgroundColor={bgGray}
 							propTo={"events"}
 							propIcon={eventsIcon}
@@ -292,10 +360,10 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={isDownMd ? 12 : 3}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={302}
+							propHeight={isDownSm ? 370 : isDownLg ? 302 : 302}
 							propBackgroundColor={bgRed}
 							propTo={"parts"}
 							propIcon={partsIcon}
@@ -307,10 +375,10 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={isDownMd ? 12 : 3}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 12 : 3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
-							propHeight={302}
+							propHeight={isDownSm ? 370 : isDownLg ? 302 : 302}
 							propBackgroundColor={bgWhite}
 							propTo={"persons"}
 							propIcon={personsIcon}
