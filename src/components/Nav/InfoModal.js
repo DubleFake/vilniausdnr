@@ -73,7 +73,7 @@ const InfoModal = () => {
 						variant="h6"
 						component="h2"
 					>
-						Esate tęstinėje „Vilniaus DNR“ svetainės versijoje.
+						Esate testinėje „Vilniaus DNR“ svetainės versijoje.
 					</Typography>
 					<Typography
 						sx={{ color: "white", mt: 2, mb: 2, fontSize: matchesLG ? "0.75rem" : "1rem" }}
