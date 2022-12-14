@@ -26,12 +26,22 @@ body {
 
 *::-webkit-scrollbar-track {
 	background: #ebebeb;
-  border: 0px none #ffffff;
-  border-radius: 50px;
+	border: 0px none #ffffff;
+	border-radius: 50px;
 }
 
 *::-webkit-scrollbar-thumb {
 	background-color: #000000;
 	border-radius: 50px;
 	border: 0px none #ffffff;
+}
+
+.esri-swipe__handle {
+	background: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 57.4 52.8' style='enable-background:new 0 0 57.4 52.8;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23DC2829;%7D .st1%7Bfill:none;stroke:%23FFFFFF;stroke-linecap:round;stroke-miterlimit:10;%7D%0A%3C/style%3E%3Cg%3E%3Cpath class='st0' d='M39,3H17.4c-1.7,0-3.3,0.9-4.2,2.4L2.3,24.1c-0.9,1.5-0.9,3.3,0,4.8l10.8,18.7c0.9,1.5,2.5,2.4,4.2,2.4h21.6 c1.7,0,3.3-0.9,4.2-2.4l10.8-18.7c0.9-1.5,0.9-3.3,0-4.8L43.1,5.4C42.3,3.8,40.7,3,39,3z'/%3E%3Cg%3E%3Cg%3E%3Cline class='st1' x1='13.4' y1='26.4' x2='19.4' y2='20.5'/%3E%3Cline class='st1' x1='19.4' y1='32.5' x2='13.5' y2='26.5'/%3E%3C/g%3E%3Cg%3E%3Cline class='st1' x1='44.2' y1='26.6' x2='38.2' y2='32.5'/%3E%3Cline class='st1' x1='38.3' y1='20.5' x2='44.2' y2='26.5'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+	border: 0;
+	background-repeat: no-repeat;
+}
+
+.esri-swipe__handle-icon {
+	display: none;
 }

@@ -38,7 +38,6 @@ const CompareReview = (props) => {
 				if (globalID) {
 					for (let feature in response.features) {
 						mapGroupSet.add(response.features[feature].attributes.Grupe)
-
 						if (response.features[feature].attributes.Tipas === "Tile Layer") {
 							const mapLayer = new TileLayer({
 								url: response.features[feature].attributes.Nuoroda,
@@ -49,8 +48,18 @@ const CompareReview = (props) => {
 							})
 							tempMapList.push(mapLayer)
 						} else if (response.features[feature].attributes.Tipas === "Map Layer") {
+							let subLayer
+							let urlNew
+
+							if (response.features[feature].attributes.Nuoroda) {
+								const urlSplit = response.features[feature].attributes.Nuoroda.split("/")
+								subLayer = parseInt(urlSplit.slice(-1))
+								urlNew = urlSplit.slice(0, -1).join("/")
+							}
+
 							const mapLayer = new MapImageLayer({
-								url: response.features[feature].attributes.Nuoroda,
+								url: isNaN(subLayer) ? response.features[feature].attributes.Nuoroda : urlNew,
+								sublayers: isNaN(subLayer) ? [{}] : [{ id: subLayer }],
 								title: response.features[feature].attributes.Pavadinimas,
 								group: response.features[feature].attributes.Grupe,
 								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
@@ -185,6 +194,7 @@ const CompareReview = (props) => {
 							</Typography>
 						)}
 						MenuProps={{
+							sx: { maxHeight: "50%" },
 							anchorOrigin: {
 								vertical: "top",
 								horizontal: "left",
