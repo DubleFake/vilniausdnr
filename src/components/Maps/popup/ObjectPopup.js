@@ -20,6 +20,7 @@ import TableCell from "@mui/material/TableCell"
 import TableContainer from "@mui/material/TableContainer"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
+import Grid from "@mui/material/Grid"
 import Link from "@mui/material/Link"
 import Box from "@mui/material/Box"
 import Pagination from "@mui/material/Pagination"
@@ -27,13 +28,6 @@ import CircularProgress from "@mui/material/CircularProgress"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Backdrop from "@mui/material/Backdrop"
 import Fade from "@mui/material/Fade"
-import Timeline from "@mui/lab/Timeline"
-import TimelineItem from "@mui/lab/TimelineItem"
-import TimelineSeparator from "@mui/lab/TimelineSeparator"
-import TimelineConnector from "@mui/lab/TimelineConnector"
-import TimelineContent from "@mui/lab/TimelineContent"
-import TimelineDot from "@mui/lab/TimelineDot"
-import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
 
 let highlight
 const ObjectPopup = (props) => {
@@ -42,19 +36,11 @@ const ObjectPopup = (props) => {
 	const { t, i18n } = useTranslation()
 
 	const [loading, setLoading] = useState(true)
-	const [queryObjects, setQueryObjects] = useState([])
+	const [queryObjects, setQueryObjects] = useState({})
 	const [popupOpen, setPopupOpen] = useState(false)
 	const [page, setPage] = useState(1)
 	const [pageCount, setPageCount] = useState(1)
 	const [shareTooltip, setShareTooltip] = useState(false)
-
-	const handlePage = (event, value) => {
-		navigate(
-			`/vilniausdnr/${i18n.language}/streets/compare/timeline/${queryObjects[
-				value - 1
-			].attributes.GlobalID.replace(/[{}]/g, "")}`
-		)
-	}
 
 	const BootstrapTooltip = styled(({ className, ...props }) => (
 		<Tooltip {...props} arrow classes={{ popper: className }} />
@@ -84,7 +70,7 @@ const ObjectPopup = (props) => {
 				returnGeometry: false,
 			})
 			.then((response) => {
-				setQueryObjects(response.features[0])
+				setQueryObjects(response.features[0].attributes)
 
 				setLoading(false)
 			})
@@ -134,7 +120,7 @@ const ObjectPopup = (props) => {
 			setPage(1)
 			setPageCount(1)
 			// props.setSelectedObject("")
-			setQueryObjects([])
+			setQueryObjects({})
 			setPopupOpen(false)
 
 			if (highlight) {
@@ -149,22 +135,8 @@ const ObjectPopup = (props) => {
 			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
 			<Fade in={true} timeout={300} unmountOnExit>
 				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3, mt: 0.5 }}>
-					<Card
-						sx={{
-							borderRadius: "0px",
-							maxWidth: matches ? "auto" : 995,
-							width: matches ? 600 : "100vw",
-							mt: matches ? 1.5 : 0,
-							mr: matches ? 1.5 : 0,
-						}}
-					>
-						<CardContent
-							sx={{
-								maxHeight: window.innerHeight - 170,
-								overflowY: "auto",
-								overflowX: "hidden",
-							}}
-						>
+					<Card variant="popup">
+						<CardContent sx={{ pt: 0, px: 4 }}>
 							{pageCount > 1 ? (
 								<Box component="div" display="flex" justifyContent="center" alignItems="center">
 									<Pagination count={pageCount} page={page} onChange={handlePage} />
@@ -176,72 +148,136 @@ const ObjectPopup = (props) => {
 								</Box>
 							) : (
 								<>
+									<IconButton
+										color="primary"
+										aria-label="close"
+										size="small"
+										onClick={() => {
+											setPopupOpen(false)
+										}}
+										sx={{
+											mt: 0.3,
+											mr: 1,
+											position: "fixed",
+											zIndex: 10,
+											right: 0,
+											backgroundColor: "#F6F6F6",
+											"&:hover": {
+												transition: "0.3s",
+												backgroundColor: "white",
+											},
+										}}
+									>
+										<CloseIcon sx={{ fontSize: 25 }} />
+									</IconButton>
+
 									<CardHeader
-										sx={{ px: 0, pt: 0.5, pb: 1 }}
-										action={
+										sx={{ p: 0, mt: 0 }}
+										title={
 											<>
-												<BootstrapTooltip
-													open={shareTooltip}
-													leaveDelay={1000}
-													title={t(`plaques.objectPopup.shareUrl`)}
-													arrow
-													placement="top"
-													onClose={() => {
-														setShareTooltip(false)
-													}}
+												<Typography
+													sx={{ color: "white", fontWeight: 600, fontSize: "26px", display: "inline" }}
 												>
-													<IconButton color="secondary" aria-label="share" size="large" onClick={handleShare}>
-														<ShareIcon style={{ fontSize: 30 }} />
-													</IconButton>
-												</BootstrapTooltip>
-												<IconButton
-													color="secondary"
-													aria-label="close"
-													size="large"
-													onClick={() => {
-														setPopupOpen(false)
-													}}
-												>
-													<CloseIcon style={{ fontSize: 30 }} />
-												</IconButton>
+													{queryObjects.Pavadinimas}
+													<BootstrapTooltip
+														open={shareTooltip}
+														leaveDelay={1000}
+														title={t(`plaques.objectPopup.shareUrl`)}
+														arrow
+														placement="top"
+														onClose={() => {
+															setShareTooltip(false)
+														}}
+													>
+														<IconButton
+															color="secondary"
+															aria-label="share"
+															size="medium"
+															onClick={handleShare}
+															sx={{ mt: -0.5 }}
+														>
+															<ShareIcon style={{ fontSize: 25 }} />
+														</IconButton>
+													</BootstrapTooltip>
+												</Typography>
 											</>
 										}
-										title={queryObjects.attributes.Pavadinimas}
 									/>
-									<TableContainer sx={{ mb: 1 }} component={Paper}>
-										<Table size="small">
-											<TableBody>
-												{Object.keys(queryObjects.attributes).map((attr) =>
-													queryObjects.attributes[attr] &&
-													attr !== "Nuoroda" &&
-													attr !== "Pavadinimas" &&
-													attr !== "Saltinis" ? (
-														<TableRow key={attr} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-															<TableCell component="th" scope="row">
-																{attr}
-															</TableCell>
-															<TableCell align="right">{queryObjects.attributes[attr]}</TableCell>
-														</TableRow>
-													) : null
-												)}
-											</TableBody>
-										</Table>
-									</TableContainer>
 
-									{queryObjects.attributes["Saltinio_nuoroda"] || queryObjects.attributes["Saltinis"] ? (
-										<Typography variant="h6" component="div">
-											Šaltinis
-											<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
-												<Typography variant="body2" component="div">
-													{queryObjects.attributes["Saltinio_nuoroda"] &&
-														queryObjects.attributes["Saltinio_nuoroda"]}
-												</Typography>
-											</MuiLinkify>
-											<Typography variant="body2" component="div">
-												{queryObjects.attributes["Saltinis"] && queryObjects.attributes["Saltinis"]}
-											</Typography>
+									{queryObjects.Mastelis && (
+										<Typography
+											sx={{ color: "white", fontWeight: 500, fontSize: "14px" }}
+											variant="body2"
+											component="div"
+										>
+											{queryObjects.Mastelis}
 										</Typography>
-									) : null}
+									)}
+
+									{queryObjects.Aprasymas && (
+										<Typography
+											sx={{ color: "white", fontWeight: 400, mt: 2 }}
+											variant="body2"
+											component="div"
+										>
+											{queryObjects.Aprasymas}
+										</Typography>
+									)}
+
+									{(queryObjects.Saltinis || queryObjects.Autorius) && (
+										<hr
+											style={{
+												color: "gray",
+												backgroundColor: "gray",
+												height: 1,
+												width: "100%",
+												border: "none",
+												marginTop: 15,
+												marginBottom: 25,
+											}}
+										/>
+									)}
+
+									<Grid container spacing={2}>
+										{queryObjects.Autorius !== "-" && queryObjects.Autorius !== null && (
+											<Grid item xs={6}>
+												<Typography
+													sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+													variant="h6"
+													component="div"
+												>
+													{t(`plaques.objectPopup.AUTORIUS`)}
+													<Typography
+														sx={{ color: "white", fontWeight: 400 }}
+														variant="body2"
+														component="div"
+													>
+														{queryObjects.Autorius}
+													</Typography>
+												</Typography>
+											</Grid>
+										)}
+                    {console.log(queryObjects)}
+										{queryObjects.Saltinis && (
+											<Grid item xs={6}>
+												<Typography
+													sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+													variant="h6"
+													component="div"
+												>
+													{t("plaques.objectPopup.SALTINIS")}
+												</Typography>
+												<Link
+													sx={{ mt: 0.5 }}
+													target="_blank"
+													href={`${queryObjects.Saltinio_nuoroda}`}
+													rel="noopener"
+													textAlign="left"
+													variant="body2"
+												>{`${queryObjects.Saltinis}`}</Link>
+											</Grid>
+										)}
+									</Grid>
 								</>
 							)}
 						</CardContent>
