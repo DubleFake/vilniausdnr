@@ -414,8 +414,6 @@ const App = () => {
 							variant: "timeline",
 						},
 						style: {
-							marginLeft: "4px",
-							marginRight: "4px",
 							boxSizing: "border-box",
 							width: "98px",
 							height: "45px",

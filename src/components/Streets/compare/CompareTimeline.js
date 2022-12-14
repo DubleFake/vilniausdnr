@@ -172,7 +172,8 @@ const CompareTimeline = (props) => {
 				<Button
 					sx={{
 						background: props.toggle1808 ? "#55AFB0" : "white",
-						"&:hover": { backgroundColor: "#55AFB0" },
+						color: props.toggle1808 ? "white" : "black",
+						"&:hover": { backgroundColor: "#55AFB0", color: "white" },
 					}}
 					size="large"
 					variant="timeline"
@@ -185,7 +186,8 @@ const CompareTimeline = (props) => {
 				<Button
 					sx={{
 						background: props.toggle1845 ? "#407D5C" : "white",
-						"&:hover": { backgroundColor: "#407D5C" },
+						color: props.toggle1845 ? "white" : "black",
+						"&:hover": { backgroundColor: "#407D5C", color: "white" },
 					}}
 					size="large"
 					variant="timeline"
@@ -198,7 +200,8 @@ const CompareTimeline = (props) => {
 				<Button
 					sx={{
 						background: props.toggle1911 ? "#007FCC" : "white",
-						"&:hover": { backgroundColor: "#007FCC" },
+						color: props.toggle1911 ? "white" : "black",
+						"&:hover": { backgroundColor: "#007FCC", color: "white" },
 					}}
 					size="large"
 					variant="timeline"
@@ -211,7 +214,8 @@ const CompareTimeline = (props) => {
 				<Button
 					sx={{
 						background: props.toggle1938 ? "#823F86" : "white",
-						"&:hover": { backgroundColor: "#823F86" },
+						color: props.toggle1938 ? "white" : "black",
+						"&:hover": { backgroundColor: "#823F86", color: "white" },
 					}}
 					size="large"
 					variant="timeline"
@@ -224,7 +228,8 @@ const CompareTimeline = (props) => {
 				<Button
 					sx={{
 						background: props.toggle1977 ? "#EE5066" : "white",
-						"&:hover": { backgroundColor: "#EE5066" },
+						color: props.toggle1977 ? "white" : "black",
+						"&:hover": { backgroundColor: "#EE5066", color: "white" },
 					}}
 					size="large"
 					variant="timeline"
@@ -237,7 +242,8 @@ const CompareTimeline = (props) => {
 				<Button
 					sx={{
 						background: props.toggle2021 ? "#FFAF28" : "white",
-						"&:hover": { backgroundColor: "#FFAF28" },
+						color: props.toggle2021 ? "white" : "black",
+						"&:hover": { backgroundColor: "#FFAF28", color: "white" },
 					}}
 					size="large"
 					variant="timeline"

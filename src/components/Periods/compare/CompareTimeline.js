@@ -78,8 +78,10 @@ const CompareTimeline = (props) => {
 				<Button
 					sx={{
 						background: globalID === String(periods[0].metai) ? "#55AFB0" : "white",
+						color: globalID === String(periods[0].metai) ? "white" : "black",
 						"&:hover": {
 							backgroundColor: "#55AFB0",
+							color: "white",
 						},
 					}}
 					size="large"
@@ -93,8 +95,10 @@ const CompareTimeline = (props) => {
 				<Button
 					sx={{
 						background: globalID === String(periods[1].metai) ? "#407D5C" : "white",
+						color: globalID === String(periods[1].metai) ? "white" : "black",
 						"&:hover": {
 							backgroundColor: "#407D5C",
+							color: "white",
 						},
 					}}
 					size="large"
@@ -108,8 +112,10 @@ const CompareTimeline = (props) => {
 				<Button
 					sx={{
 						background: globalID === String(periods[2].metai) ? "#007FCC" : "white",
+						color: globalID === String(periods[2].metai) ? "white" : "black",
 						"&:hover": {
 							backgroundColor: "#007FCC",
+							color: "white",
 						},
 					}}
 					size="large"
@@ -123,8 +129,10 @@ const CompareTimeline = (props) => {
 				<Button
 					sx={{
 						background: globalID === String(periods[3].metai) ? "#823F86" : "white",
+						color: globalID === String(periods[3].metai) ? "white" : "black",
 						"&:hover": {
 							backgroundColor: "#823F86",
+							color: "white",
 						},
 					}}
 					size="large"
@@ -138,8 +146,10 @@ const CompareTimeline = (props) => {
 				<Button
 					sx={{
 						background: globalID === String(periods[4].metai) ? "#EE5066" : "white",
+						color: globalID === String(periods[4].metai) ? "white" : "black",
 						"&:hover": {
 							backgroundColor: "#EE5066",
+							color: "white",
 						},
 					}}
 					size="large"
@@ -153,8 +163,10 @@ const CompareTimeline = (props) => {
 				<Button
 					sx={{
 						background: globalID === String(periods[5].metai) ? "#FFAF28" : "white",
+						color: globalID === String(periods[5].metai) ? "white" : "black",
 						"&:hover": {
 							backgroundColor: "#FFAF28",
+							color: "white",
 						},
 					}}
 					size="large"
