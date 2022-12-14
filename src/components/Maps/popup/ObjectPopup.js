@@ -257,7 +257,7 @@ const ObjectPopup = (props) => {
 												</Typography>
 											</Grid>
 										)}
-                    {console.log(queryObjects)}
+                    
 										{queryObjects.Saltinis && (
 											<Grid item xs={6}>
 												<Typography
