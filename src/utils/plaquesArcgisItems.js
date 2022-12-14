@@ -174,6 +174,7 @@ export const objects = new FeatureLayer({
 		"AUTORIUS",
 		"SALTINIS",
 		"GlobalID",
+		"VIETA",
 	],
 	title: "Lentelės",
 	renderer: objectRenderer,
@@ -182,6 +183,7 @@ export const objects = new FeatureLayer({
 export const persons = new FeatureLayer({
 	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/3",
 	title: "Asmenys",
+	outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai"],
 })
 
 const basemap1 = new Basemap({

@@ -8,6 +8,10 @@ import Grid from "@mui/material/Grid"
 import { useTheme } from "@mui/material/styles"
 import useMediaQuery from "@mui/material/useMediaQuery"
 
+import { ReactComponent as infoIcon } from "../../utils/icons/homeIcons/info.svg"
+
+import SvgIcon from "@mui/material/SvgIcon"
+
 const InfoModal = () => {
 	const [open, setOpen] = useState(false)
 	const handleOpen = () => setOpen(true)
@@ -25,23 +29,21 @@ const InfoModal = () => {
 
 	return (
 		<div>
-			<IconButton
-				size="small"
+			<SvgIcon
+				component={infoIcon}
+				inheritViewBox
 				sx={{
-					width: 43.28,
-					backgroundColor: "#D42323",
+					mt: 0.75,
 					mr: 1,
-					"&:hover": {
-						transition: "0.3s",
-						backgroundColor: "#941818",
-					},
+					fontSize: 52,
+					cursor: "pointer",
+					// "&:hover": {
+					// 	transition: "0.3s",
+					// 	color: "#941818",
+					// },
 				}}
 				onClick={handleOpen}
-			>
-				<Typography variant="h4" sx={{ color: "white", ml: 0.3, mt: 0.3, fontSize: 25 }}>
-					<b>i</b>
-				</Typography>
-			</IconButton>
+			/>
 
 			<Modal
 				sx={{ zIndex: 1000 }}

@@ -21,6 +21,7 @@ import CircularProgress from "@mui/material/CircularProgress"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Backdrop from "@mui/material/Backdrop"
 import Fade from "@mui/material/Fade"
+import Grid from "@mui/material/Grid"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 
@@ -143,10 +144,16 @@ const ObjectPopup = (props) => {
 			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
 			<Fade in={true} timeout={300} unmountOnExit>
 				<Card variant="popup">
-					<CardContent sx={{ pt: 0 }}>
+					<CardContent sx={{ pt: 0, px: 4 }}>
 						{pageCount > 1 ? (
 							<Box component="div" display="flex" justifyContent="center" alignItems="center">
-								<Pagination color="secondary" count={pageCount} page={page} onChange={handlePage} />
+								<Pagination
+									sx={{ mb: 1, ".MuiPaginationItem-root": { color: "white" } }}
+									color="secondary"
+									count={pageCount}
+									page={page}
+									onChange={handlePage}
+								/>
 							</Box>
 						) : null}
 						{loading ? (
@@ -176,7 +183,7 @@ const ObjectPopup = (props) => {
 										navigate(`/vilniausdnr/${i18n.language}/foto`)
 									}}
 									sx={{
-										mt: 0.9,
+										mt: 2,
 										mr: 1,
 										position: "fixed",
 										zIndex: 10,
@@ -191,64 +198,7 @@ const ObjectPopup = (props) => {
 									<CloseIcon sx={{ fontSize: 25 }} />
 								</IconButton>
 
-								<CardHeader
-									sx={{ p: 0 }}
-									action={
-										<>
-											<BootstrapTooltip
-												open={shareTooltip}
-												leaveDelay={1000}
-												title={t(`plaques.objectPopup.shareUrl`)}
-												arrow
-												placement="top"
-												onClose={() => {
-													setShareTooltip(false)
-												}}
-											>
-												<IconButton
-													sx={{ mr: 5, mt: 0.2 }}
-													color="secondary"
-													aria-label="share"
-													size="large"
-													onClick={handleShare}
-												>
-													<ShareIcon style={{ fontSize: 30 }} />
-												</IconButton>
-											</BootstrapTooltip>
-										</>
-									}
-									title={objectAttr.Pavadinimas}
-									titleTypographyProps={{ color: "white", fontWeight: "bold" }}
-								/>
-								{/* <TableContainer sx={{ mb: 1 }} component={Paper}>
-									<Table size="small">
-										<TableBody>
-											{Object.keys(objectAttr).map((attr) =>
-												objectAttr[attr].field === "OBJ_APRAS" ||
-												objectAttr[attr].field === "AUTORIUS" ||
-												objectAttr[attr].field === "OBJ_PAV" ||
-												objectAttr[attr].field === "SALTINIS" ? null : (
-													<TableRow
-														key={objectAttr[attr].field}
-														sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-													>
-														<TableCell component="th" scope="row">
-															{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
-														</TableCell>
-														<TableCell align="right">
-															{objectAttr[attr].field === "TIPAS"
-																? t(`plaques.options.objects.${objectAttr[attr].code}`)
-																: objectAttr[attr].field === "ATMINT_TIP"
-																? t(`plaques.options.memories.${objectAttr[attr].code}`)
-																: objectAttr[attr].value}
-														</TableCell>
-													</TableRow>
-												)
-											)}
-										</TableBody>
-									</Table>
-								</TableContainer> */}
-								<Box sx={{ my: 1, mx: -2, display: 'flex', justifyContent: 'center' }}>
+								<Box sx={{ my: 1, mx: -4, mt: -1, display: "flex", justifyContent: "center" }}>
 									<a href={`${objectAttr.Nuotraukos_URL}`} target="_blank">
 										<img
 											style={{ maxWidth: "100%", maxHeight: "auto" }}
@@ -257,15 +207,98 @@ const ObjectPopup = (props) => {
 									</a>
 								</Box>
 
-								<Typography sx={{ color: "white" }} variant="h6" component="div">
-									{objectAttr.Saltinis}
-								</Typography>
+								<CardHeader
+									sx={{ p: 0, mt: 2 }}
+									title={
+										<>
+											<Typography
+												sx={{ color: "white", fontWeight: 600, fontSize: "26px", display: "inline" }}
+											>
+												{objectAttr.Pavadinimas}
+												<BootstrapTooltip
+													open={shareTooltip}
+													leaveDelay={1000}
+													title={t(`plaques.objectPopup.shareUrl`)}
+													arrow
+													placement="top"
+													onClose={() => {
+														setShareTooltip(false)
+													}}
+												>
+													<IconButton
+														color="secondary"
+														aria-label="share"
+														size="medium"
+														onClick={handleShare}
+														sx={{ mt: -0.5 }}
+													>
+														<ShareIcon style={{ fontSize: 25 }} />
+													</IconButton>
+												</BootstrapTooltip>
+											</Typography>
+										</>
+									}
+								/>
 
-								<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
-									<Typography variant="body2" component="div">
-										{objectAttr.Saltinio_nuoroda}
+								{objectAttr.Data_tekstu && (
+									<Typography
+										sx={{ color: "white", fontWeight: 500, fontSize: "14px" }}
+										variant="body2"
+										component="div"
+									>
+										{objectAttr.Data_tekstu}
 									</Typography>
-								</MuiLinkify>
+								)}
+
+								{(objectAttr.Saltinis || objectAttr.Autorius) && (
+									<hr
+										style={{
+											color: "gray",
+											backgroundColor: "gray",
+											height: 1,
+											width: "100%",
+											border: "none",
+											marginTop: 15,
+											marginBottom: 25,
+										}}
+									/>
+								)}
+
+								<Grid container spacing={2}>
+									{objectAttr.Autorius !== "-" && (
+										<Grid item xs={6}>
+											<Typography
+												sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+												variant="h6"
+												component="div"
+											>
+												{t(`plaques.objectPopup.AUTORIUS`)}
+												<Typography sx={{ color: "white", fontWeight: 400 }} variant="body2" component="div">
+													{objectAttr.Autorius}
+												</Typography>
+											</Typography>
+										</Grid>
+									)}
+									{objectAttr.Saltinis && (
+										<Grid item xs={6}>
+											<Typography
+												sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+												variant="h6"
+												component="div"
+											>
+												{t("plaques.objectPopup.SALTINIS")}
+											</Typography>
+											<Link
+												sx={{ mt: 0.5 }}
+												target="_blank"
+												href={`${objectAttr.Saltinio_nuoroda}`}
+												rel="noopener"
+												textAlign="left"
+												variant="body2"
+											>{`${objectAttr.Saltinis}`}</Link>
+										</Grid>
+									)}
+								</Grid>
 							</>
 						)}
 					</CardContent>

@@ -17,13 +17,10 @@ export const objects = new FeatureLayer({
 	renderer: {
 		type: "simple",
 		symbol: {
-			type: "simple-marker",
-			size: 7,
-			color: "red",
-			outline: {
-				width: 1,
-				color: "white",
-			},
+			type: "picture-marker",
+			url: `${origin}/vilniausdnr/fotoIcons/nuotraukos.svg`,
+			width: 20,
+			height: 23, //*1.15 ratio to width
 		},
 	},
 })

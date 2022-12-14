@@ -198,7 +198,6 @@ Tile.propTypes = {
 
 const Home = (props) => {
 	const { t, i18n } = useTranslation()
-	console.log(window.innerWidth)
 	const theme = useTheme()
 	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
 	const isDownMd = useMediaQuery(theme.breakpoints.down("md"))

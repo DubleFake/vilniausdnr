@@ -340,12 +340,12 @@ const Filter = (props) => {
 					marks={marks}
 				/> */}
 
-				{/* <FormGroup sx={{ mt: 1 }}>
+				<FormGroup sx={{ mt: 1 }}>
 					<FormControlLabel
 						control={<Checkbox checked={extentCheck} onChange={handleExtent} />}
 						label={t("plaques.options.extent")}
 					/>
-				</FormGroup> */}
+				</FormGroup>
 			</Container>
 
 			<Grid variant="result" container direction="row" justifyContent="space-between" alignItems="center">

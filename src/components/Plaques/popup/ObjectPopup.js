@@ -21,6 +21,7 @@ import CircularProgress from "@mui/material/CircularProgress"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Backdrop from "@mui/material/Backdrop"
 import Fade from "@mui/material/Fade"
+import Grid from "@mui/material/Grid"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 
@@ -33,7 +34,7 @@ const ObjectPopup = (props) => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
 
-	const [objectAttr, setObjectAttr] = useState([])
+	const [objectAttr, setObjectAttr] = useState({})
 	const [objectPer, setObjectPer] = useState([])
 	const [objectAtt, setObjectAtt] = useState([])
 	const [loading, setLoading] = useState(true)
@@ -122,54 +123,7 @@ const ObjectPopup = (props) => {
 							return response
 						})
 						.then((response) => {
-							const allAttributes = []
-
-							let count = 0
-							for (let attr in response.features[0].attributes) {
-								if (
-									response.features[0].attributes[attr] === null ||
-									response.features[0].attributes[attr] === "" ||
-									response.features[0].attributes[attr] === 0 ||
-									attr === "OBJECTID" ||
-									attr === "IDENTIFIK" ||
-									attr === "REG_TURTAS" ||
-									attr === "VERTE" ||
-									attr === "UZSAKOVAS" ||
-									attr === "PRIZIURI" ||
-									attr === "PASTABA" ||
-									attr === "Atmobj_id_temp" ||
-									attr === "last_edited_user" ||
-									attr === "last_edited_date" ||
-									attr === "SHAPE" ||
-									attr === "GlobalID" ||
-									attr === "OBJ_FOTO" ||
-									attr === "created_user" ||
-									attr === "created_date"
-								) {
-								} else {
-									const obj = {}
-
-									obj.alias = response.features[0].layer.fields[count].alias
-									if (response.features[0].layer.fields[count].domain === null) {
-										obj.value = response.features[0].attributes[attr]
-									} else {
-										for (let code in response.features[0].layer.fields[count].domain.codedValues) {
-											if (
-												response.features[0].layer.fields[count].domain.codedValues[code].code ===
-												response.features[0].attributes[attr]
-											) {
-												obj.value = response.features[0].layer.fields[count].domain.codedValues[code].name
-												obj.code = response.features[0].layer.fields[count].domain.codedValues[code].code
-											}
-										}
-									}
-
-									obj.field = attr
-									allAttributes.push(obj)
-								}
-								count++
-							}
-							setObjectAttr(allAttributes)
+							setObjectAttr(response.features[0].attributes)
 							return response.features[0].attributes.OBJECTID
 						})
 						.then((OBJECTID) => {
@@ -253,10 +207,16 @@ const ObjectPopup = (props) => {
 			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
 			<Fade in={true} timeout={300} unmountOnExit>
 				<Card variant="popup">
-					<CardContent sx={{ pt: 0 }}>
+					<CardContent sx={{ pt: 0, px: 4 }}>
 						{pageCount > 1 ? (
 							<Box component="div" display="flex" justifyContent="center" alignItems="center">
-								<Pagination color="secondary" count={pageCount} page={page} onChange={handlePage} />
+								<Pagination
+									sx={{ mb: 1, ".MuiPaginationItem-root": { color: "white" } }}
+									color="secondary"
+									count={pageCount}
+									page={page}
+									onChange={handlePage}
+								/>
 							</Box>
 						) : null}
 						{loading ? (
@@ -302,7 +262,7 @@ const ObjectPopup = (props) => {
 								</IconButton>
 
 								{objectAtt.length ? (
-									<Box sx={{ mx: -2 }}>
+									<Box sx={{ mx: -4 }}>
 										<Carousel
 											dynamicHeight={true}
 											infiniteLoop={true}
@@ -404,137 +364,133 @@ const ObjectPopup = (props) => {
 								) : null}
 
 								<CardHeader
-									sx={{ p: 0 }}
-									action={
+									sx={{ p: 0, mt: 2 }}
+									title={
 										<>
-											<BootstrapTooltip
-												open={shareTooltip}
-												leaveDelay={1000}
-												title={t(`plaques.objectPopup.shareUrl`)}
-												arrow
-												placement="top"
-												onClose={() => {
-													setShareTooltip(false)
-												}}
+											<Typography
+												sx={{ color: "white", fontWeight: 600, fontSize: "26px", display: "inline" }}
 											>
-												<IconButton color="secondary" aria-label="share" size="large" onClick={handleShare}>
-													<ShareIcon style={{ fontSize: 30 }} />
-												</IconButton>
-											</BootstrapTooltip>
+												{objectAttr.OBJ_PAV}
+												<BootstrapTooltip
+													open={shareTooltip}
+													leaveDelay={1000}
+													title={t(`plaques.objectPopup.shareUrl`)}
+													arrow
+													placement="top"
+													onClose={() => {
+														setShareTooltip(false)
+													}}
+												>
+													<IconButton
+														color="secondary"
+														aria-label="share"
+														size="medium"
+														onClick={handleShare}
+														sx={{ mt: -0.5 }}
+													>
+														<ShareIcon style={{ fontSize: 25 }} />
+													</IconButton>
+												</BootstrapTooltip>
+											</Typography>
 										</>
 									}
-									title={Object.keys(objectAttr).map((attr) =>
-										objectAttr[attr].field === "OBJ_PAV" ? objectAttr[attr].value : null
-									)}
-									titleTypographyProps={{ color: "white", fontWeight: "bold" }}
 								/>
-								{/* <TableContainer sx={{ mb: 1 }} component={Paper}>
-									<Table size="small">
-										<TableBody>
-											{Object.keys(objectAttr).map((attr) =>
-												objectAttr[attr].field === "OBJ_APRAS" ||
-												objectAttr[attr].field === "AUTORIUS" ||
-												objectAttr[attr].field === "OBJ_PAV" ||
-												objectAttr[attr].field === "SALTINIS" ? null : (
-													<TableRow
-														key={objectAttr[attr].field}
-														sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-													>
-														<TableCell component="th" scope="row">
-															{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
-														</TableCell>
-														<TableCell align="right">
-															{objectAttr[attr].field === "TIPAS"
-																? t(`plaques.options.objects.${objectAttr[attr].code}`)
-																: objectAttr[attr].field === "ATMINT_TIP"
-																? t(`plaques.options.memories.${objectAttr[attr].code}`)
-																: objectAttr[attr].value}
-														</TableCell>
-													</TableRow>
-												)
-											)}
-										</TableBody>
-									</Table>
-								</TableContainer> */}
 
-								{Object.keys(objectAttr).map(
-									(attr) =>
-										objectAttr[attr].field === "OBJ_APRAS" && (
-											<Typography sx={{ color: "white" }} variant="body2" component="div">
-												{objectAttr[attr].value}
-											</Typography>
-										)
-								)}
-
-								{Object.keys(objectAttr).map(
-									(attr) =>
-										objectAttr[attr].field === "AUTORIUS" && (
-											<Typography sx={{ color: "white" }} variant="h6" component="div">
-												{t(`plaques.objectPopup.AUTORIUS`)}
-												<Typography sx={{ color: "white" }} variant="body2" component="div">
-													{objectAttr[attr].value}
-												</Typography>
-											</Typography>
-										)
-								)}
-
-								{Object.keys(objectAttr).map((attr) =>
-									objectAttr[attr].field === "SALTINIS" ? (
-										<Typography
-											sx={{ color: "white" }}
-											variant="h6"
-											component="div"
-											key={objectAttr[attr].field}
-										>
-											{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
-											<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
-												<Typography variant="body2" component="div">
-													{objectAttr[attr].value}
-												</Typography>
-											</MuiLinkify>
-										</Typography>
-									) : null
-								)}
-
-								{objectPer.length ? (
-									<Typography sx={{ color: "white" }} variant="h6" component="div">
-										{objectPer.length > 1
-											? t("plaques.objectPopup.relatedMany")
-											: t("plaques.objectPopup.relatedOne")}
-										<Typography component="div">
-											{Object.keys(objectPer).map((per) => (
-												<div key={per}>
-													<Link
-														sx={{ mt: 0.5 }}
-														target="_blank"
-														href={
-															"https://zemelapiai.vplanas.lt" +
-															`/vilniausdnr/${i18n.language}/persons/${objectPer[
-																per
-															].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
-														}
-														rel="noopener"
-														textAlign="left"
-														variant="body2"
-													>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
-													<br></br>
-												</div>
-											))}
-										</Typography>
+								{objectAttr.VIETA && (
+									<Typography
+										sx={{ color: "white", fontWeight: 500, fontSize: "14px" }}
+										variant="body2"
+										component="div"
+									>
+										{objectAttr.VIETA}
 									</Typography>
-								) : null}
-								{/* {objectAtt.length
-									? Object.keys(objectAtt).map((att) => (
-											<Box sx={{ mt: 1 }} key={att}>
-												<a href={`${objectAtt[att].url}`} target="_blank">
-													<img
-														style={{ maxWidth: "100%", maxHeight: "auto" }}
-														src={`${objectAtt[att].url}`}
-													/>
-												</a>
-											</Box>
-									  ))
-									: null} */}
+								)}
+
+								{objectAttr.OBJ_APRAS && (
+									<Typography sx={{ color: "white", fontWeight: 400, mt: 2 }} variant="body2" component="div">
+										{objectAttr.OBJ_APRAS}
+									</Typography>
+								)}
+
+								{(objectAttr.AUTORIUS || objectAttr.SALTINIS || objectPer.length > 0) && (
+									<hr
+										style={{
+											color: "gray",
+											backgroundColor: "gray",
+											height: 1,
+											width: "100%",
+											border: "none",
+											marginTop: 15,
+											marginBottom: 25,
+										}}
+									/>
+								)}
+
+								<Grid container spacing={2}>
+									{objectAttr.AUTORIUS && (
+										<Grid item xs={6}>
+											<Typography
+												sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+												variant="h6"
+												component="div"
+											>
+												{t(`plaques.objectPopup.AUTORIUS`)}
+												<Typography sx={{ color: "white", fontWeight: 400 }} variant="body2" component="div">
+													{objectAttr.AUTORIUS}
+												</Typography>
+											</Typography>
+										</Grid>
+									)}
+									{objectAttr.SALTINIS && (
+										<Grid item xs={6}>
+											<Typography
+												sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+												variant="h6"
+												component="div"
+											>
+												{t("plaques.objectPopup.SALTINIS")}
+												<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
+													<Typography variant="body2" component="div">
+														{objectAttr.SALTINIS}
+													</Typography>
+												</MuiLinkify>
+											</Typography>
+										</Grid>
+									)}
+									{objectPer.length ? (
+										<Grid item xs={6}>
+											<Typography
+												sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+												variant="h6"
+												component="div"
+											>
+												{objectPer.length > 1
+													? t("plaques.objectPopup.relatedMany")
+													: t("plaques.objectPopup.relatedOne")}
+												<Typography component="div">
+													{Object.keys(objectPer).map((per) => (
+														<div key={per}>
+															<Link
+																sx={{ mt: 0.5 }}
+																target="_blank"
+																href={
+																	"https://zemelapiai.vplanas.lt" +
+																	`/vilniausdnr/${i18n.language}/persons/${objectPer[
+																		per
+																	].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
+																}
+																rel="noopener"
+																textAlign="left"
+																variant="body2"
+															>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
+															<br></br>
+														</div>
+													))}
+												</Typography>
+											</Typography>
+										</Grid>
+									) : null}
+								</Grid>
 							</>
 						)}
 					</CardContent>
