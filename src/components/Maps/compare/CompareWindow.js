@@ -306,11 +306,11 @@ const CompareWindow = (props) => {
 								sx: { maxHeight: "50%" },
 								anchorOrigin: {
 									vertical: "top",
-									horizontal: "left",
+									horizontal: "center",
 								},
 								transformOrigin: {
 									vertical: "bottom",
-									horizontal: "left",
+									horizontal: "center",
 								},
 							}}
 						>
@@ -377,11 +377,11 @@ const CompareWindow = (props) => {
 								sx: { maxHeight: "50%" },
 								anchorOrigin: {
 									vertical: "top",
-									horizontal: "left",
+									horizontal: "center",
 								},
 								transformOrigin: {
 									vertical: "bottom",
-									horizontal: "left",
+									horizontal: "center",
 								},
 							}}
 						>

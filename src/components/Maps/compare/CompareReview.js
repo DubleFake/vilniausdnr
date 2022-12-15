@@ -196,12 +196,12 @@ const CompareReview = (props) => {
 						MenuProps={{
 							sx: { maxHeight: "50%" },
 							anchorOrigin: {
-								vertical: "top",
-								horizontal: "left",
+                vertical: 'top',
+                horizontal: 'center',
 							},
 							transformOrigin: {
-								vertical: "bottom",
-								horizontal: "left",
+                vertical: 'bottom',
+                horizontal: 'center',
 							},
 						}}
 					>

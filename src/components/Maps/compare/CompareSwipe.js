@@ -354,14 +354,14 @@ const CompareSwipe = () => {
 							)}
 							MenuProps={{
 								sx: { maxHeight: "50%" },
-								anchorOrigin: {
-									vertical: "top",
-									horizontal: "left",
-								},
-								transformOrigin: {
-									vertical: "bottom",
-									horizontal: "left",
-								},
+                anchorOrigin: {
+                  vertical: 'top',
+                  horizontal: 'center',
+                },
+                transformOrigin: {
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                },
 							}}
 						>
 							{mapList.map(
@@ -425,14 +425,14 @@ const CompareSwipe = () => {
 							)}
 							MenuProps={{
 								sx: { maxHeight: "50%" },
-								anchorOrigin: {
-									vertical: "top",
-									horizontal: "left",
-								},
-								transformOrigin: {
-									vertical: "bottom",
-									horizontal: "left",
-								},
+                anchorOrigin: {
+                  vertical: 'top',
+                  horizontal: 'center',
+                },
+                transformOrigin: {
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                },
 							}}
 						>
 							{mapList.map(
