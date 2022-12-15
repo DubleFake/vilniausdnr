@@ -15,20 +15,22 @@ const ObjectMap = (props) => {
 
 	useEffect(() => {
 		view.container = mapDiv.current
-    
-    let pt = new Point({
-      x: 582527.5805600522,
+
+		let pt = new Point({
+			x: 582527.5805600522,
 			y: 6061855.557955307,
 			spatialReference: {
-        wkid: 2600,
+				wkid: 2600,
 			},
 		})
 		view.center = pt
-    
+
 		viewHandles.forEach((handle) => {
-      handle.remove()
+			handle.remove()
 		})
 		viewHandles.length = 0
+
+		objects.visible = false
 
 		view.whenLayerView(objects).then((objectsView) => {
 			watchUtils.whenFalseOnce(objectsView, "updating").then(() => {
