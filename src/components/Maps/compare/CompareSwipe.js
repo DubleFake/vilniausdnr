@@ -92,13 +92,6 @@ const CompareSwipe = () => {
 				const mapByIdLeft = tempMaps.find((map) => map.globalid_map === globalIDLeft)
 				const mapByIdRight = tempMaps.find((map) => map.globalid_map === globalIDRight)
 
-				setSelectedGroupLeft(mapByIdLeft.group)
-				setSelectedGroupValueLeft([...mapGroupSet].indexOf(mapByIdLeft.group))
-				setSelectedLeftMap(mapByIdLeft.index)
-				setSelectedGroupRight(mapByIdRight.group)
-				setSelectedGroupValueRight([...mapGroupSet].indexOf(mapByIdRight.group))
-				setSelectedRightMap(mapByIdRight.index)
-
 				const swipeWidgetFind = view.ui.find("swipe-layers")
 				if (swipeWidgetFind !== null) {
 					view.ui.remove(swipeWidgetFind)
@@ -118,8 +111,29 @@ const CompareSwipe = () => {
 				})
 
 				view.ui.add(swipe)
+
+				setSelectedGroupLeft(mapByIdLeft.group)
+				setSelectedGroupValueLeft([...mapGroupSet].indexOf(mapByIdLeft.group))
+				setSelectedLeftMap(mapByIdLeft.index)
+				setSelectedGroupRight(mapByIdRight.group)
+				setSelectedGroupValueRight([...mapGroupSet].indexOf(mapByIdRight.group))
+				setSelectedRightMap(mapByIdRight.index)
 			})
 	}, [globalIDLeft, globalIDRight])
+
+	useEffect(() => {
+		view.when(() => {
+			const swipeWidgetFind = view.ui.find("swipe-layers")
+			const swipeSelectTop = document.getElementById("swipe-select-top")
+			const swipeSelectBottom = document.getElementById("swipe-select-bottom")
+			swipeSelectTop.style.left = "0%"
+			swipeSelectBottom.style.left = "0%"
+			swipeWidgetFind.watch("position", (newPos) => {
+				swipeSelectTop.style.left = `${newPos - 50}%`
+				swipeSelectBottom.style.left = `${newPos - 50}%`
+			})
+		})
+	}, [selectedLeftMap, selectedRightMap])
 
 	useEffect(() => {
 		return () => {
@@ -219,6 +233,7 @@ const CompareSwipe = () => {
 				direction="row"
 				justifyContent="center"
 				alignItems="flex-start"
+				id="swipe-select-top"
 			>
 				<FormControl
 					sx={{
@@ -260,24 +275,10 @@ const CompareSwipe = () => {
 						))}
 					</Select>
 				</FormControl>
-			</Grid>
-			<Grid
-				sx={{
-					backgroundColor: "yellow",
-					width: "100%",
-					height: "0%",
-					bottom: window.innerHeight - 90,
-					position: "relative",
-					zIndex: 2,
-				}}
-				container
-				direction="row"
-				justifyContent="center"
-				alignItems="flex-start"
-			>
+
 				<FormControl
 					sx={{
-						mt: 1.5,
+						mt: -5.5,
 						ml: 85,
 						width: "auto",
 						height: "45px",
@@ -327,6 +328,7 @@ const CompareSwipe = () => {
 				direction="row"
 				justifyContent="center"
 				alignItems="flex-start"
+				id="swipe-select-bottom"
 			>
 				<FormControl
 					sx={{
@@ -354,14 +356,14 @@ const CompareSwipe = () => {
 							)}
 							MenuProps={{
 								sx: { maxHeight: "50%" },
-                anchorOrigin: {
-                  vertical: 'top',
-                  horizontal: 'center',
-                },
-                transformOrigin: {
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                },
+								anchorOrigin: {
+									vertical: "top",
+									horizontal: "center",
+								},
+								transformOrigin: {
+									vertical: "bottom",
+									horizontal: "center",
+								},
 							}}
 						>
 							{mapList.map(
@@ -386,19 +388,7 @@ const CompareSwipe = () => {
 						</Select>
 					)}
 				</FormControl>
-			</Grid>
-			<Grid
-				sx={{
-					backgroundColor: "yellow",
-					width: "100%",
-					height: "0%",
-					position: "relative",
-				}}
-				container
-				direction="row"
-				justifyContent="center"
-				alignItems="flex-start"
-			>
+
 				<FormControl
 					sx={{
 						bottom: 16,
@@ -425,14 +415,14 @@ const CompareSwipe = () => {
 							)}
 							MenuProps={{
 								sx: { maxHeight: "50%" },
-                anchorOrigin: {
-                  vertical: 'top',
-                  horizontal: 'center',
-                },
-                transformOrigin: {
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                },
+								anchorOrigin: {
+									vertical: "top",
+									horizontal: "center",
+								},
+								transformOrigin: {
+									vertical: "bottom",
+									horizontal: "center",
+								},
 							}}
 						>
 							{mapList.map(

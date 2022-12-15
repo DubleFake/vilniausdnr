@@ -57,6 +57,17 @@ const CompareSwipe = () => {
 	}, [])
 
 	useEffect(() => {
+		view.when(() => {
+			const swipeWidgetFind = view.ui.find("swipe-layers")
+			const swipeSelectLeft = document.getElementById("swipe-select")
+			swipeSelectLeft.style.left = "0%"
+			swipeWidgetFind.watch("position", (newPos) => {
+				swipeSelectLeft.style.left = `${newPos - 50}%`
+			})
+		})
+	}, [selectedLeftPeriod, selectedRightPeriod])
+
+	useEffect(() => {
 		return () => {
 			const swipeWidgetFind = view.ui.find("swipe-layers")
 			if (swipeWidgetFind !== null) {
@@ -170,6 +181,7 @@ const CompareSwipe = () => {
 			direction="row"
 			justifyContent="center"
 			alignItems="flex-start"
+			id="swipe-select"
 		>
 			<FormControl
 				sx={{
