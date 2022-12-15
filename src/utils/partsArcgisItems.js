@@ -30,7 +30,7 @@ const origin = new URL(url).origin
 // })
 
 export const objects = new FeatureLayer({
-	url: "https://opencity.vplanas.lt/server/rest/services/Testavimai/Vietovardziai/MapServer/44",
+	url: "https://opencity.vplanas.lt/server/rest/services/Testavimai/Vietovardziai/MapServer/46",
 })
 
 export const all = new MapImageLayer({
@@ -70,7 +70,7 @@ export const basemaps = [basemap1, basemap2, basemap3]
 
 export const map = new Map({
 	basemap: basemap2,
-	layers: [all],
+	layers: [all, objects],
 })
 
 export const view = new MapView({

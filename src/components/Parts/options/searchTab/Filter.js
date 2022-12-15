@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
 
-import { objects, view, objectRenderer, memoryRenderer } from "../../../../utils/plaquesArcgisItems"
+import { objects, view, objectRenderer, memoryRenderer } from "../../../../utils/partsArcgisItems"
 import Count from "../searchTab/Count"
 
 import InputLabel from "@mui/material/InputLabel"
@@ -80,10 +80,10 @@ const Filter = (props) => {
 			if (!extentCheck) {
 				objectsView
 					.queryFeatures({
-						outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
+						outFields: ["*"],
 						where: objectsView.filter.where,
 						geometry: view.extent,
-						returnGeometry: false,
+						returnGeometry: true,
 					})
 					.then((response) => {
 						if (response.features.length) {
@@ -101,89 +101,93 @@ const Filter = (props) => {
 	}
 
 	useEffect(() => {
-		let query = ""
+		props.setSearchObjectsList(props.objectsList)
+	}, [])
 
-		if (props.selectedObjectFilter !== "" && props.selectedMemoryFilter === "") {
-			query = `TIPAS = ${props.selectedObjectFilter}`
-		} else if (props.selectedObjectFilter === "" && props.selectedMemoryFilter !== "") {
-			query = `ATMINT_TIP = ${props.selectedMemoryFilter}`
-		} else if (props.selectedObjectFilter !== "" && props.selectedMemoryFilter !== "") {
-			query = `ATMINT_TIP = ${props.selectedMemoryFilter} AND TIPAS = ${props.selectedObjectFilter}`
-		}
+	// useEffect(() => {
+	// 	let query = ""
 
-		if (
-			props.selectedPeriodFilter !== "" &&
-			props.selectedObjectFilter === "" &&
-			props.selectedMemoryFilter === ""
-		) {
-			query = `OBJ_LAIK_TIP = ${props.selectedPeriodFilter}`
-		} else if (
-			props.selectedPeriodFilter !== "" &&
-			(props.selectedObjectFilter !== "" || props.selectedMemoryFilter !== "")
-		) {
-			let add_period = query.concat(" ", `AND OBJ_LAIK_TIP = ${props.selectedPeriodFilter}`)
-			query = add_period
-		}
+	// 	if (props.selectedObjectFilter !== "" && props.selectedMemoryFilter === "") {
+	// 		query = `TIPAS = ${props.selectedObjectFilter}`
+	// 	} else if (props.selectedObjectFilter === "" && props.selectedMemoryFilter !== "") {
+	// 		query = `ATMINT_TIP = ${props.selectedMemoryFilter}`
+	// 	} else if (props.selectedObjectFilter !== "" && props.selectedMemoryFilter !== "") {
+	// 		query = `ATMINT_TIP = ${props.selectedMemoryFilter} AND TIPAS = ${props.selectedObjectFilter}`
+	// 	}
 
-		if (
-			props.selectedObjectFilter === "" &&
-			props.selectedMemoryFilter === "" &&
-			props.selectedPeriodFilter === ""
-		) {
-			query = ""
-		}
+	// 	if (
+	// 		props.selectedPeriodFilter !== "" &&
+	// 		props.selectedObjectFilter === "" &&
+	// 		props.selectedMemoryFilter === ""
+	// 	) {
+	// 		query = `OBJ_LAIK_TIP = ${props.selectedPeriodFilter}`
+	// 	} else if (
+	// 		props.selectedPeriodFilter !== "" &&
+	// 		(props.selectedObjectFilter !== "" || props.selectedMemoryFilter !== "")
+	// 	) {
+	// 		let add_period = query.concat(" ", `AND OBJ_LAIK_TIP = ${props.selectedPeriodFilter}`)
+	// 		query = add_period
+	// 	}
 
-		view.whenLayerView(objects).then((objectsView) => {
-			watchUtils.whenNotOnce(objectsView, "updating").then(() => {
-				objectsView.filter = {
-					//geometry: extentCheck ? view.extent : null,
-					where: query,
-				}
+	// 	if (
+	// 		props.selectedObjectFilter === "" &&
+	// 		props.selectedMemoryFilter === "" &&
+	// 		props.selectedPeriodFilter === ""
+	// 	) {
+	// 		query = ""
+	// 	}
 
-				if (!extentCheck) {
-					objectsView
-						.queryFeatures({
-							outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
-							where: objectsView.filter.where,
-							returnGeometry: false,
-						})
-						.then((response) => {
-							const objectTypes = new Set()
-							const memoryTypes = new Set()
+	// 	view.whenLayerView(objects).then((objectsView) => {
+	// 		watchUtils.whenNotOnce(objectsView, "updating").then(() => {
+	// 			objectsView.filter = {
+	// 				//geometry: extentCheck ? view.extent : null,
+	// 				where: query,
+	// 			}
 
-							if (response.features.length) {
-								props.setSearchObjectsList(response.features)
-								if (query !== "") {
-									for (let feature in response.features) {
-										for (let attribute in response.features[feature].attributes) {
-											if (attribute === "TIPAS") {
-												if (response.features[feature].attributes[attribute] !== null) {
-													objectTypes.add(response.features[feature].attributes[attribute])
-												}
-											} else if (attribute === "ATMINT_TIP") {
-												if (response.features[feature].attributes[attribute] !== null) {
-													memoryTypes.add(response.features[feature].attributes[attribute])
-												}
-											}
-										}
-									}
-									props.setVisibleObjectIcons([...objectTypes])
-									props.setVisibleMemoryIcons([...memoryTypes])
-								} else {
-									props.setVisibleObjectIcons([])
-									props.setVisibleMemoryIcons([])
-								}
-							} else {
-								setShowAlert(true)
-								props.setSelectedObjectFilter("")
-								props.setSelectedMemoryFilter("")
-								props.setSelectedPeriodFilter("")
-							}
-						})
-				}
-			})
-		})
-	}, [props.selectedObjectFilter, props.selectedMemoryFilter, props.selectedPeriodFilter])
+	// 			if (!extentCheck) {
+	// 				objectsView
+	// 					.queryFeatures({
+	// 						outFields: ["*"],
+	// 						where: objectsView.filter.where,
+	// 						returnGeometry: false,
+	// 					})
+	// 					.then((response) => {
+	// 						const objectTypes = new Set()
+	// 						const memoryTypes = new Set()
+
+	// 						if (response.features.length) {
+	// 							props.setSearchObjectsList(response.features)
+	// 							if (query !== "") {
+	// 								for (let feature in response.features) {
+	// 									for (let attribute in response.features[feature].attributes) {
+	// 										if (attribute === "TIPAS") {
+	// 											if (response.features[feature].attributes[attribute] !== null) {
+	// 												objectTypes.add(response.features[feature].attributes[attribute])
+	// 											}
+	// 										} else if (attribute === "ATMINT_TIP") {
+	// 											if (response.features[feature].attributes[attribute] !== null) {
+	// 												memoryTypes.add(response.features[feature].attributes[attribute])
+	// 											}
+	// 										}
+	// 									}
+	// 								}
+	// 								props.setVisibleObjectIcons([...objectTypes])
+	// 								props.setVisibleMemoryIcons([...memoryTypes])
+	// 							} else {
+	// 								props.setVisibleObjectIcons([])
+	// 								props.setVisibleMemoryIcons([])
+	// 							}
+	// 						} else {
+	// 							setShowAlert(true)
+	// 							props.setSelectedObjectFilter("")
+	// 							props.setSelectedMemoryFilter("")
+	// 							props.setSelectedPeriodFilter("")
+	// 						}
+	// 					})
+	// 			}
+	// 		})
+	// 	})
+	// }, [props.selectedObjectFilter, props.selectedMemoryFilter, props.selectedPeriodFilter])
 
 	useEffect(() => {
 		viewHandles.forEach((handle) => {
@@ -198,10 +202,10 @@ const Filter = (props) => {
 						if (!updating) {
 							objectsView
 								.queryFeatures({
-									outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
+									outFields: ["*"],
 									where: objectsView.filter.where,
 									geometry: view.extent,
-									returnGeometry: false,
+									returnGeometry: true,
 								})
 								.then((response) => {
 									props.setSearchObjectsList(response.features)
@@ -212,10 +216,10 @@ const Filter = (props) => {
 			} else {
 				objectsView
 					.queryFeatures({
-						outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
+						outFields: ["*"],
 						where: objectsView.filter ? objectsView.filter.where : null,
 						geometry: null,
-						returnGeometry: false,
+						returnGeometry: true,
 					})
 					.then((response) => {
 						if (response.features.length) {
@@ -248,7 +252,7 @@ const Filter = (props) => {
 				</Alert>
 			</Snackbar>
 			<Container variant="filter">
-				<FormControl variant="outlined" size="small">
+				{/* <FormControl variant="outlined" size="small">
 					<InputLabel id="object-select-label">{t("plaques.options.objectType")}</InputLabel>
 					<Select
 						variant="outlined"
@@ -290,9 +294,9 @@ const Filter = (props) => {
 							</MenuItem>
 						))}
 					</Select>
-				</FormControl>
+				</FormControl> */}
 
-				<FormControl variant="outlined" size="small">
+				{/* <FormControl variant="outlined" size="small">
 					<InputLabel id="period-label">{t("plaques.options.period")}</InputLabel>
 					<Select
 						sx={{ borderRadius: "30px", height: "50px", backgroundColor: "white" }}
@@ -322,7 +326,7 @@ const Filter = (props) => {
 							{t(`plaques.options.periods.${5}`)}
 						</MenuItem>
 					</Select>
-				</FormControl>
+				</FormControl> */}
 
 				{/* <Grid container direction="row" justifyContent="center" alignItems="center">
 					<Typography sx={{ mt: 3 }} variant="subtitle2">
@@ -340,12 +344,12 @@ const Filter = (props) => {
 					marks={marks}
 				/> */}
 
-				<FormGroup sx={{ mt: 1 }}>
+				{/* <FormGroup sx={{ mt: 1 }}>
 					<FormControlLabel
 						control={<Checkbox checked={extentCheck} onChange={handleExtent} />}
 						label={t("plaques.options.extent")}
 					/>
-				</FormGroup>
+				</FormGroup> */}
 			</Container>
 
 			<Grid variant="result" container direction="row" justifyContent="space-between" alignItems="center">

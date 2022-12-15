@@ -29,15 +29,14 @@ const ObjectMap = (props) => {
       handle.remove()
 		})
 		viewHandles.length = 0
-    props.setInitialLoading(false) //temp
 
 		view.whenLayerView(objects).then((objectsView) => {
 			watchUtils.whenFalseOnce(objectsView, "updating").then(() => {
-				objectsView
+				objects
 					.queryFeatures({
-						outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
+						outFields: ["*"],
 						where: "",
-						returnGeometry: false,
+						returnGeometry: true,
 					})
 					.then((response) => {
 						if (response.features.length) {
@@ -97,36 +96,36 @@ const ObjectMap = (props) => {
 		// 	}
 		// })
 
-		viewHandles.push(
-			view.on("click", (event) => {
-				bgExpand.collapse()
+		// viewHandles.push(
+		// 	view.on("click", (event) => {
+		// 		bgExpand.collapse()
 
-				view.whenLayerView(objects).then((objectsView) => {
-					watchUtils
-						.whenNotOnce(objectsView, "updating")
-						.then(() => {
-							return objectsView.queryFeatures({
-								geometry: event.mapPoint,
-								where: objectsView.filter.where,
-								distance: view.resolution <= 7 ? view.resolution * 15 : 100,
-								spatialRelationship: "intersects",
-								outFields: ["*"],
-							})
-						})
-						.then((response) => {
-							if (response.features.length > 0) {
-								props.setMapQuery(response.features)
-								navigate(
-									`/vilniausdnr/${i18n.language}/plaques/object/${response.features[0].attributes.GlobalID.replace(
-										/[{}]/g,
-										""
-									)}`
-								)
-							}
-						})
-				})
-			})
-		)
+		// 		view.whenLayerView(objects).then((objectsView) => {
+		// 			watchUtils
+		// 				.whenNotOnce(objectsView, "updating")
+		// 				.then(() => {
+		// 					return objectsView.queryFeatures({
+		// 						geometry: event.mapPoint,
+		// 						where: objectsView.filter.where,
+		// 						distance: view.resolution <= 7 ? view.resolution * 15 : 100,
+		// 						spatialRelationship: "intersects",
+		// 						outFields: ["*"],
+		// 					})
+		// 				})
+		// 				.then((response) => {
+		// 					if (response.features.length > 0) {
+		// 						props.setMapQuery(response.features)
+		// 						navigate(
+		// 							`/vilniausdnr/${i18n.language}/plaques/object/${response.features[0].attributes.GlobalID.replace(
+		// 								/[{}]/g,
+		// 								""
+		// 							)}`
+		// 						)
+		// 					}
+		// 				})
+		// 		})
+		// 	})
+		// )
 	}, [])
 
 	useEffect(() => {

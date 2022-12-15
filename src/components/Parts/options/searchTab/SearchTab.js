@@ -22,14 +22,14 @@ const Table = (props) => {
 		if (searchInputValue) {
 			setTableObjectsList(
 				matchSorter(searchObjectsList, searchInputValue, {
-					keys: [(item) => item.attributes.OBJ_PAV],
+					keys: [(item) => item.attributes.Pavad],
 					threshold: matchSorter.rankings.MATCHES,
 				})
 			)
 		} else {
 			setTableObjectsList(
 				matchSorter(searchObjectsList, "", {
-					keys: [(item) => item.attributes.OBJ_PAV],
+					keys: [(item) => item.attributes.Pavad],
 					threshold: matchSorter.rankings.MATCHES,
 				})
 			)

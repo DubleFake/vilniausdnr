@@ -6,6 +6,10 @@ import ListItem from "@mui/material/ListItem"
 import ListItemButton from "@mui/material/ListItemButton"
 import ListItemText from "@mui/material/ListItemText"
 
+import { view, objects } from "../../../../utils/partsArcgisItems"
+
+let highlight
+
 const TableItems = (props) => {
 	const navigate = useNavigate()
 	const cache = new CellMeasurerCache({
@@ -28,16 +32,26 @@ const TableItems = (props) => {
 						disablePadding
 						divider
 						dense
-						selected={tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "") === selectedObject}
+						selected={parseInt(tableObjectsList[index].attributes.OBJECTID) === parseInt(selectedObject)}
 					>
 						<ListItemButton
 							variant="tableItemButton"
 							onClick={() => {
-								setSelectedObject(`${tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "")}`)
-								navigate(`object/${tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "")}`)
+								setSelectedObject(`${tableObjectsList[index].attributes.OBJECTID}`)
+								console.log(tableObjectsList[index])
+								view.goTo({ target: tableObjectsList[index].geometry.extent })
+
+								view.whenLayerView(objects).then((objectsView) => {
+									if (highlight) {
+										highlight.remove()
+									}
+
+									// highlight = objectsView.highlight(tableObjectsList[index])
+								})
+								// navigate(`object/${tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "")}`)
 							}}
 						>
-							<ListItemText primary={tableObjectsList[index].attributes.OBJ_PAV} />
+							<ListItemText primary={tableObjectsList[index].attributes.Pavad} />
 						</ListItemButton>
 					</ListItem>
 				</CellMeasurer>

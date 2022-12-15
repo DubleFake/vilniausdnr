@@ -35,13 +35,13 @@ const Parts = () => {
 									color="inherit"
 								/>
 							</Backdrop>
-							{/* <Collapse variant="options" orientation="horizontal" in={visible}>
+							<Collapse variant="options" orientation="horizontal" in={visible}>
 								<Options
 									initialObjectsList={initialObjectsList}
 									setSelectedObject={setSelectedObject}
 									selectedObject={selectedObject}
 								/>
-							</Collapse> */}
+							</Collapse>
 
 							<Grid item xs>
 								<ObjectMap
@@ -49,7 +49,7 @@ const Parts = () => {
 									setInitialLoading={setInitialLoading}
 									setMapQuery={setMapQuery}
 								/>
-								{/* <TableToggle visible={visible} setVisible={setVisible} /> */}
+								<TableToggle visible={visible} setVisible={setVisible} />
 								<Outlet />
 							</Grid>
 						</Grid>

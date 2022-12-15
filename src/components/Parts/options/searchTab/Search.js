@@ -15,7 +15,7 @@ const Search = (props) => {
 		props.setSearchInputValue(event.target.value)
 		props.setTableObjectsList(
 			matchSorter(props.searchObjectsList, event.target.value, {
-				keys: [(item) => item.attributes.OBJ_PAV],
+				keys: [(item) => item.attributes.Pavad],
 				threshold: matchSorter.rankings.MATCHES,
 			})
 		)
