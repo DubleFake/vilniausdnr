@@ -16,7 +16,7 @@ const ObjectMap = (props) => {
 	useEffect(() => {
 		view.container = mapDiv.current
 
-    let pt = new Point({
+		let pt = new Point({
 			x: 582527.5805600522,
 			y: 6061855.557955307,
 			spatialReference: {
@@ -29,6 +29,10 @@ const ObjectMap = (props) => {
 			handle.remove()
 		})
 		viewHandles.length = 0
+
+		// objects.featureReduction = {
+		// 	type: "cluster",
+		// }
 
 		view.whenLayerView(objects).then((objectsView) => {
 			watchUtils.whenFalseOnce(objectsView, "updating").then(() => {
@@ -116,10 +120,9 @@ const ObjectMap = (props) => {
 							if (response.features.length > 0) {
 								props.setMapQuery(response.features)
 								navigate(
-									`/vilniausdnr/${i18n.language}/plaques/object/${response.features[0].attributes.GlobalID.replace(
-										/[{}]/g,
-										""
-									)}`
+									`/vilniausdnr/${
+										i18n.language
+									}/plaques/object/${response.features[0].attributes.GlobalID.replace(/[{}]/g, "")}`
 								)
 							}
 						})
