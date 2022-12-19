@@ -10,6 +10,10 @@ import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
 import InputAdornment from "@mui/material/InputAdornment"
 import Typography from "@mui/material/Typography"
+import Button from "@mui/material/Button"
+import Menu from "@mui/material/Menu"
+import { NestedMenuItem } from "mui-nested-menu"
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 
 import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
@@ -24,6 +28,26 @@ const CompareReview = (props) => {
 	const [selectedGroup, setSelectedGroup] = useState("")
 	const [selectedGroupValue, setSelectedGroupValue] = useState("")
 	const [selectedMapValue, setSelectedMapValue] = useState("")
+
+	const [anchorEl, setAnchorEl] = React.useState(null)
+	const open = Boolean(anchorEl)
+
+	const handleClick = (e) => setAnchorEl(e.currentTarget)
+
+	const handleClose = () => setAnchorEl(null)
+
+	const handleGroupChange = (event) => {
+		const mapByGroup = mapList.find((map) => map.group === groupList[event.target.value])
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByGroup.globalid_map}`)
+
+		setSelectedGroup(groupList[event.target.value])
+		setSelectedGroupValue(event.target.value)
+	}
+	const handleMapChange = (event) => {
+		handleClose()
+		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
+	}
 
 	useEffect(() => {
 		maps
@@ -90,21 +114,9 @@ const CompareReview = (props) => {
 			})
 	}, [globalID])
 
-	const handleGroupChange = (event) => {
-		const mapByGroup = mapList.find((map) => map.group === groupList[event.target.value])
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByGroup.globalid_map}`)
-
-		setSelectedGroup(groupList[event.target.value])
-		setSelectedGroupValue(event.target.value)
-	}
-	const handleMapChange = (event) => {
-		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
-	}
-
 	return (
 		<>
-			<Grid
+			{/* <Grid
 				sx={{
 					backgroundColor: "yellow",
 					width: "100%",
@@ -157,7 +169,7 @@ const CompareReview = (props) => {
 						))}
 					</Select>
 				</FormControl>
-			</Grid>
+			</Grid> */}
 			<Grid
 				sx={{
 					backgroundColor: "yellow",
@@ -170,7 +182,73 @@ const CompareReview = (props) => {
 				justifyContent="center"
 				alignItems="flex-start"
 			>
-				<FormControl
+				<Button
+					sx={{
+						mt: -10,
+						borderRadius: "30px",
+						height: "45px",
+						backgroundColor: "white",
+						"&:hover": { backgroundColor: "white" },
+						textTransform: "none",
+					}}
+					onClick={handleClick}
+					endIcon={<ArrowDropDownIcon />}
+				>
+					<Typography sx={{ color: "#D72E30" }}>
+						<Typography sx={{ color: "black", display: "inline" }}>Žemėlapis: </Typography>
+						{selectedMapValue && mapList[selectedMapValue].title}
+					</Typography>
+				</Button>
+
+				<Menu
+					anchorEl={anchorEl}
+					open={open}
+					onClose={handleClose}
+					anchorOrigin={{
+						vertical: "top",
+						horizontal: "center",
+					}}
+					transformOrigin={{
+						vertical: "bottom",
+						horizontal: "center",
+					}}
+					// PaperProps={{
+					// 	style: {
+					// 		pointerEvents: "auto",
+					// 		overflowY: "scroll",
+					// 		maxHeight: 500,
+					// 	},
+					// }}
+				>
+					{groupList.map((group, groupIndex) => (
+						<NestedMenuItem
+							rightIcon={<ArrowDropDownIcon />}
+							label={group}
+							key={groupIndex}
+							parentMenuOpen={open}
+						>
+							{mapList.map((map, index) =>
+								map.group === group ? (
+									<MenuItem
+										sx={{
+											whiteSpace: "unset",
+											"&.Mui-selected": {
+												color: "#D72E30",
+											},
+											justifyContent: "center",
+										}}
+										key={index}
+										value={index}
+										onClick={handleMapChange}
+									>
+										{map.title}
+									</MenuItem>
+								) : null
+							)}
+						</NestedMenuItem>
+					))}
+				</Menu>
+				{/* <FormControl
 					sx={{
 						bottom: 16,
 						mt: -8,
@@ -223,7 +301,7 @@ const CompareReview = (props) => {
 							) : null
 						)}
 					</Select>
-				</FormControl>
+				</FormControl> */}
 			</Grid>
 		</>
 	)
