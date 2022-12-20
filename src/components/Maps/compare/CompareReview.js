@@ -116,60 +116,6 @@ const CompareReview = (props) => {
 
 	return (
 		<>
-			{/* <Grid
-				sx={{
-					backgroundColor: "yellow",
-					width: "100%",
-					height: "0%",
-					bottom: window.innerHeight - 90,
-					position: "relative",
-					zIndex: 2,
-				}}
-				container
-				direction="row"
-				justifyContent="center"
-				alignItems="flex-start"
-			>
-				<FormControl
-					sx={{
-						width: "auto",
-						height: "45px",
-						boxShadow: 0,
-						mt: 2,
-						ml: 2,
-					}}
-					variant="outlined"
-					size="small"
-					id="swipe-select"
-				>
-					<Select
-						value={selectedGroupValue}
-						onChange={handleGroupChange}
-						renderValue={(value) => (
-							<Typography sx={{ color: "#D72E30" }}>
-								<Typography sx={{ color: "black", display: "inline" }}>Grupė: </Typography>
-								{groupList[value]}
-							</Typography>
-						)}
-					>
-						{groupList.map((group, index) => (
-							<MenuItem
-								sx={{
-									whiteSpace: "unset",
-									"&.Mui-selected": {
-										color: "#D72E30",
-									},
-									justifyContent: "center",
-								}}
-								key={index}
-								value={index}
-							>
-								{group}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
-			</Grid> */}
 			<Grid
 				sx={{
 					backgroundColor: "yellow",
@@ -212,16 +158,13 @@ const CompareReview = (props) => {
 						vertical: "bottom",
 						horizontal: "center",
 					}}
-					// PaperProps={{
-					// 	style: {
-					// 		pointerEvents: "auto",
-					// 		overflowY: "scroll",
-					// 		maxHeight: 500,
-					// 	},
-					// }}
 				>
 					{groupList.map((group, groupIndex) => (
 						<NestedMenuItem
+							sx={{
+								color: groupIndex === selectedGroupValue && "#D72E30",
+								backgroundColor: map.globalid_map === globalID && "#F7D5D6",
+							}}
 							rightIcon={<ArrowDropDownIcon />}
 							label={group}
 							key={groupIndex}
@@ -232,9 +175,8 @@ const CompareReview = (props) => {
 									<MenuItem
 										sx={{
 											whiteSpace: "unset",
-											"&.Mui-selected": {
-												color: "#D72E30",
-											},
+											color: map.globalid_map === globalID && "#D72E30",
+											backgroundColor: map.globalid_map === globalID && "#F7D5D6",
 											justifyContent: "center",
 										}}
 										key={index}
@@ -248,60 +190,6 @@ const CompareReview = (props) => {
 						</NestedMenuItem>
 					))}
 				</Menu>
-				{/* <FormControl
-					sx={{
-						bottom: 16,
-						mt: -8,
-						backgroundColor: "white",
-						width: "auto",
-						height: "45px",
-						boxShadow: 0,
-						ml: 2,
-					}}
-					variant="outlined"
-					size="small"
-					id="swipe-select"
-				>
-					<Select
-						value={selectedMapValue}
-						onChange={handleMapChange}
-						renderValue={(value) => (
-							<Typography sx={{ color: "#D72E30" }}>
-								<Typography sx={{ color: "black", display: "inline" }}>Žemėlapis: </Typography>
-								{mapList[value].title}
-							</Typography>
-						)}
-						MenuProps={{
-							sx: { maxHeight: "50%" },
-							anchorOrigin: {
-                vertical: 'top',
-                horizontal: 'center',
-							},
-							transformOrigin: {
-                vertical: 'bottom',
-                horizontal: 'center',
-							},
-						}}
-					>
-						{mapList.map((map, index) =>
-							map.group === selectedGroup ? (
-								<MenuItem
-									sx={{
-										whiteSpace: "unset",
-										"&.Mui-selected": {
-											color: "#D72E30",
-										},
-										justifyContent: "center",
-									}}
-									key={index}
-									value={index}
-								>
-									{map.title}
-								</MenuItem>
-							) : null
-						)}
-					</Select>
-				</FormControl> */}
 			</Grid>
 		</>
 	)

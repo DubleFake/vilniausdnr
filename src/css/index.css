@@ -45,3 +45,7 @@ body {
 .esri-swipe__handle-icon {
 	display: none;
 }
+
+.MuiPopover-paper {
+  pointer-events: auto;
+}
