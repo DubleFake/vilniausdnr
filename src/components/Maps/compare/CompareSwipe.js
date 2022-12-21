@@ -6,11 +6,12 @@ import { map, view, maps } from "../../../utils/mapsArcgisItems"
 
 import Swipe from "@arcgis/core/widgets/Swipe"
 import MenuItem from "@mui/material/MenuItem"
-import FormControl from "@mui/material/FormControl"
-import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
-import InputAdornment from "@mui/material/InputAdornment"
 import Typography from "@mui/material/Typography"
+import Button from "@mui/material/Button"
+import Menu from "@mui/material/Menu"
+import { NestedMenuItem } from "mui-nested-menu"
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 
 import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
@@ -22,12 +23,80 @@ const CompareSwipe = () => {
 
 	const [selectedLeftMap, setSelectedLeftMap] = useState(8)
 	const [selectedRightMap, setSelectedRightMap] = useState(7)
-	const [mapList, setmapList] = useState([])
+	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
-	const [selectedGroupLeft, setSelectedGroupLeft] = useState("1")
 	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState("1")
-	const [selectedGroupRight, setSelectedGroupRight] = useState("2")
 	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState("2")
+
+	const [anchorElLeft, setAnchorElLeft] = React.useState(null)
+	const openLeft = Boolean(anchorElLeft)
+
+	const handleClickLeft = (e) => setAnchorElLeft(e.currentTarget)
+
+	const handleCloseLeft = () => setAnchorElLeft(null)
+
+	const [anchorElRight, setAnchorElRight] = React.useState(null)
+	const openRight = Boolean(anchorElRight)
+
+	const handleClickRight = (e) => setAnchorElRight(e.currentTarget)
+
+	const handleCloseRight = () => setAnchorElRight(null)
+
+	const handleLeftSelect = (event) => {
+		handleCloseLeft()
+
+		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`)
+
+		const swipeWidgetFind = view.ui.find("swipe-layers")
+		if (swipeWidgetFind !== null) {
+			view.ui.remove(swipeWidgetFind)
+			swipeWidgetFind.destroy()
+		}
+
+		map.remove(mapList[selectedLeftMap])
+		map.add(mapList[event.target.value])
+
+		const swipe = new Swipe({
+			view: view,
+			leadingLayers: [mapList[event.target.value]],
+			trailingLayers: [mapList[selectedRightMap]],
+			direction: "horizontal",
+			position: 50,
+			id: "swipe-layers",
+		})
+		view.ui.add(swipe)
+
+		setSelectedLeftMap(event.target.value)
+	}
+
+	const handleRightSelect = (event) => {
+    handleCloseRight()
+
+		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`)
+
+		const swipeWidgetFind = view.ui.find("swipe-layers")
+		if (swipeWidgetFind !== null) {
+			view.ui.remove(swipeWidgetFind)
+			swipeWidgetFind.destroy()
+		}
+
+		map.remove(mapList[selectedRightMap])
+		map.add(mapList[event.target.value])
+
+		const swipe = new Swipe({
+			view: view,
+			leadingLayers: [mapList[selectedLeftMap]],
+			trailingLayers: [mapList[event.target.value]],
+			direction: "horizontal",
+			position: 50,
+			id: "swipe-layers",
+		})
+		view.ui.add(swipe)
+
+		setSelectedRightMap(event.target.value)
+	}
 
 	useEffect(() => {
 		const tempMaps = []
@@ -87,7 +156,7 @@ const CompareSwipe = () => {
 				}
 
 				setGroupList([...mapGroupSet])
-				setmapList(tempMaps)
+				setMapList(tempMaps)
 
 				const mapByIdLeft = tempMaps.find((map) => map.globalid_map === globalIDLeft)
 				const mapByIdRight = tempMaps.find((map) => map.globalid_map === globalIDRight)
@@ -112,10 +181,8 @@ const CompareSwipe = () => {
 
 				view.ui.add(swipe)
 
-				setSelectedGroupLeft(mapByIdLeft.group)
 				setSelectedGroupValueLeft([...mapGroupSet].indexOf(mapByIdLeft.group))
 				setSelectedLeftMap(mapByIdLeft.index)
-				setSelectedGroupRight(mapByIdRight.group)
 				setSelectedGroupValueRight([...mapGroupSet].indexOf(mapByIdRight.group))
 				setSelectedRightMap(mapByIdRight.index)
 			})
@@ -124,12 +191,9 @@ const CompareSwipe = () => {
 	useEffect(() => {
 		view.when(() => {
 			const swipeWidgetFind = view.ui.find("swipe-layers")
-			const swipeSelectTop = document.getElementById("swipe-select-top")
 			const swipeSelectBottom = document.getElementById("swipe-select-bottom")
-			swipeSelectTop.style.left = "0%"
 			swipeSelectBottom.style.left = "0%"
 			swipeWidgetFind.watch("position", (newPos) => {
-				swipeSelectTop.style.left = `${newPos - 50}%`
 				swipeSelectBottom.style.left = `${newPos - 50}%`
 			})
 		})
@@ -147,176 +211,7 @@ const CompareSwipe = () => {
 		}
 	}, [])
 
-	const handleLeftSelect = (event) => {
-		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`)
-
-		const swipeWidgetFind = view.ui.find("swipe-layers")
-		if (swipeWidgetFind !== null) {
-			view.ui.remove(swipeWidgetFind)
-			swipeWidgetFind.destroy()
-		}
-
-		map.remove(mapList[selectedLeftMap])
-		map.add(mapList[event.target.value])
-
-		const swipe = new Swipe({
-			view: view,
-			leadingLayers: [mapList[event.target.value]],
-			trailingLayers: [mapList[selectedRightMap]],
-			direction: "horizontal",
-			position: 50,
-			id: "swipe-layers",
-		})
-		view.ui.add(swipe)
-
-		setSelectedLeftMap(event.target.value)
-	}
-
-	const handleRightSelect = (event) => {
-		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`)
-
-		const swipeWidgetFind = view.ui.find("swipe-layers")
-		if (swipeWidgetFind !== null) {
-			view.ui.remove(swipeWidgetFind)
-			swipeWidgetFind.destroy()
-		}
-
-		map.remove(mapList[selectedRightMap])
-		map.add(mapList[event.target.value])
-
-		const swipe = new Swipe({
-			view: view,
-			leadingLayers: [mapList[selectedLeftMap]],
-			trailingLayers: [mapList[event.target.value]],
-			direction: "horizontal",
-			position: 50,
-			id: "swipe-layers",
-		})
-		view.ui.add(swipe)
-
-		setSelectedRightMap(event.target.value)
-	}
-
-	const handleGroupChangeLeft = (event) => {
-		const mapByGroup = mapList.find(
-			(map) => map.group === groupList[event.target.value] && map.index !== String(selectedRightMap)
-		)
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByGroup.globalid_map}/${globalIDRight}`)
-
-		setSelectedGroupLeft(groupList[event.target.value])
-		setSelectedGroupValueLeft(event.target.value)
-	}
-	const handleGroupChangeRight = (event) => {
-		const mapByGroup = mapList.find(
-			(map) => map.group === groupList[event.target.value] && map.index !== String(selectedLeftMap)
-		)
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByGroup.globalid_map}`)
-
-		setSelectedGroupRight(groupList[event.target.value])
-		setSelectedGroupValueRight(event.target.value)
-	}
-
 	return (
-		<>
-			<Grid
-				sx={{
-					backgroundColor: "yellow",
-					width: "100%",
-					height: "0%",
-					bottom: window.innerHeight - 90,
-					position: "relative",
-					zIndex: 2,
-				}}
-				container
-				direction="row"
-				justifyContent="center"
-				alignItems="flex-start"
-				id="swipe-select-top"
-			>
-				<FormControl
-					sx={{
-						mt: 1.5,
-						mr: 85,
-						width: "auto",
-						height: "45px",
-						backgroundColor: "white",
-						boxShadow: 0,
-					}}
-					variant="outlined"
-					size="small"
-					id="swipe-select"
-				>
-					<Select
-						value={selectedGroupValueLeft}
-						onChange={handleGroupChangeLeft}
-						renderValue={(value) => (
-							<Typography sx={{ color: "#D72E30" }}>
-								<Typography sx={{ color: "black", display: "inline" }}>Kairė grupė: </Typography>
-								{groupList[value]}
-							</Typography>
-						)}
-					>
-						{groupList.map((group, index) => (
-							<MenuItem
-								sx={{
-									whiteSpace: "unset",
-									"&.Mui-selected": {
-										color: "#D72E30",
-									},
-									justifyContent: "center",
-								}}
-								key={index}
-								value={index}
-							>
-								{group}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
-
-				<FormControl
-					sx={{
-						mt: -5.5,
-						ml: 85,
-						width: "auto",
-						height: "45px",
-						backgroundColor: "white",
-						boxShadow: 0,
-					}}
-					variant="outlined"
-					size="small"
-					id="swipe-select"
-				>
-					<Select
-						value={selectedGroupValueRight}
-						onChange={handleGroupChangeRight}
-						renderValue={(value) => (
-							<Typography sx={{ color: "#D72E30" }}>
-								<Typography sx={{ color: "black", display: "inline" }}>Dešinė grupė: </Typography>
-								{groupList[value]}
-							</Typography>
-						)}
-					>
-						{groupList.map((group, index) => (
-							<MenuItem
-								sx={{
-									whiteSpace: "unset",
-									"&.Mui-selected": {
-										color: "#D72E30",
-									},
-									justifyContent: "center",
-								}}
-								key={index}
-								value={index}
-							>
-								{group}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
-			</Grid>
 			<Grid
 				sx={{
 					backgroundColor: "yellow",
@@ -330,125 +225,153 @@ const CompareSwipe = () => {
 				alignItems="flex-start"
 				id="swipe-select-bottom"
 			>
-				<FormControl
-					sx={{
-						bottom: 16,
-						mt: -7.5,
-						mr: 85,
-						width: "auto",
-						height: "45px",
-						backgroundColor: "white",
-						boxShadow: 0,
-					}}
-					variant="outlined"
-					size="small"
-					id="swipe-select"
-				>
-					{mapList.length && (
-						<Select
-							value={selectedLeftMap}
-							onChange={handleLeftSelect}
-							renderValue={(value) => (
-								<Typography sx={{ color: "#D72E30" }}>
-									<Typography sx={{ color: "black", display: "inline" }}>Kairys žemėlapis: </Typography>
-									{mapList[value].title}
-								</Typography>
-							)}
-							MenuProps={{
-								sx: { maxHeight: "50%" },
-								anchorOrigin: {
-									vertical: "top",
-									horizontal: "center",
-								},
-								transformOrigin: {
-									vertical: "bottom",
-									horizontal: "center",
-								},
+				{mapList.length && (
+					<>
+						<Button
+							sx={{
+								bottom: 16,
+								mt: -7.5,
+								mr: 85,
+								width: "auto",
+								height: "45px",
+								borderRadius: "30px",
+								backgroundColor: "white",
+								"&:hover": { backgroundColor: "white" },
+								textTransform: "none",
+							}}
+							onClick={handleClickLeft}
+							endIcon={<ArrowDropDownIcon />}
+						>
+							<Typography sx={{ color: "#D72E30" }}>
+								<Typography sx={{ color: "black", display: "inline" }}>Kairys žemėlapis: </Typography>
+								{mapList[selectedLeftMap].title}
+							</Typography>
+						</Button>
+						<Menu
+							anchorEl={anchorElLeft}
+							open={openLeft}
+							onClose={handleCloseLeft}
+							anchorOrigin={{
+								vertical: "top",
+								horizontal: "center",
+							}}
+							transformOrigin={{
+								vertical: "bottom",
+								horizontal: "center",
 							}}
 						>
-							{mapList.map(
-								(object, index) =>
-									object.globalid_map !== mapList[selectedRightMap].globalid_map &&
-									object.group === selectedGroupLeft && (
-										<MenuItem
-											sx={{
-												whiteSpace: "unset",
-												"&.Mui-selected": {
-													color: "#D72E30",
-												},
-												justifyContent: "center",
-											}}
-											key={index}
-											value={index}
-										>
-											{object.title}
-										</MenuItem>
-									)
-							)}
-						</Select>
-					)}
-				</FormControl>
-
-				<FormControl
-					sx={{
-						bottom: 16,
-						mt: -7.5,
-						ml: 85,
-						width: "auto",
-						height: "45px",
-						backgroundColor: "white",
-						boxShadow: 0,
-					}}
-					variant="outlined"
-					size="small"
-					id="swipe-select"
-				>
-					{mapList.length && (
-						<Select
-							value={selectedRightMap}
-							onChange={handleRightSelect}
-							renderValue={(value) => (
-								<Typography sx={{ color: "#D72E30" }}>
-									<Typography sx={{ color: "black", display: "inline" }}>Dešinys žemėlapis: </Typography>
-									{mapList[value].title}
-								</Typography>
-							)}
-							MenuProps={{
-								sx: { maxHeight: "50%" },
-								anchorOrigin: {
-									vertical: "top",
-									horizontal: "center",
-								},
-								transformOrigin: {
-									vertical: "bottom",
-									horizontal: "center",
-								},
+							{groupList.map((group, groupIndex) => (
+								<NestedMenuItem
+									sx={{
+										color: groupIndex === selectedGroupValueLeft && "#D72E30",
+                    backgroundColor: groupIndex === selectedGroupValueLeft && "#F7D5D6"
+									}}
+									rightIcon={<ArrowDropDownIcon />}
+									label={group}
+									key={groupIndex}
+									parentMenuOpen={openLeft}
+								>
+									{mapList.map((map, index) =>
+										map.group === group ? (
+											<MenuItem
+												sx={{
+													whiteSpace: "unset",
+													color: map.globalid_map === globalIDLeft && "#D72E30",
+													backgroundColor: map.globalid_map === globalIDLeft && "#F7D5D6",
+													justifyContent: "center",
+												}}
+												key={index}
+												value={index}
+												onClick={handleLeftSelect}
+											>
+												{map.title}
+											</MenuItem>
+										) : null
+									)}
+								</NestedMenuItem>
+							))}
+						</Menu>
+					</>
+				)}
+				{mapList.length && (
+					<>
+						<Button
+							sx={{
+                bottom: 16,
+                mt: -7.5,
+                ml: 85,
+								width: "auto",
+								height: "45px",
+								borderRadius: "30px",
+								backgroundColor: "white",
+								"&:hover": { backgroundColor: "white" },
+								textTransform: "none",
+							}}
+							onClick={handleClickRight}
+							endIcon={<ArrowDropDownIcon />}
+						>
+							<Typography sx={{ color: "#D72E30" }}>
+								<Typography sx={{ color: "black", display: "inline" }}>Dešinys žemėlapis: </Typography>
+								{mapList[selectedRightMap].title}
+							</Typography>
+						</Button>
+						<Menu
+							anchorEl={anchorElRight}
+							open={openRight}
+							onClose={handleCloseRight}
+							anchorOrigin={{
+								vertical: "top",
+								horizontal: "center",
+							}}
+							transformOrigin={{
+								vertical: "bottom",
+								horizontal: "center",
 							}}
 						>
-							{mapList.map(
-								(object, index) =>
-									object.globalid_map !== mapList[selectedLeftMap].globalid_map &&
-									object.group === selectedGroupRight && (
-										<MenuItem
-											sx={{
-												whiteSpace: "unset",
-												"&.Mui-selected": {
-													color: "#D72E30",
-												},
-												justifyContent: "center",
-											}}
-											key={index}
-											value={index}
-										>
-											{object.title}
-										</MenuItem>
-									)
-							)}
-						</Select>
-					)}
-				</FormControl>
+							{groupList.map((group, groupIndex) => (
+								<NestedMenuItem
+									sx={{
+										color: groupIndex === selectedGroupValueRight && "#D72E30",
+										backgroundColor: groupIndex === selectedGroupValueRight && "#F7D5D6",
+									}}
+									rightIcon={<ArrowDropDownIcon />}
+									label={group}
+									key={groupIndex}
+									parentMenuOpen={openRight}
+                  MenuProps={{
+                    anchorOrigin: {
+                      vertical: "top",
+                      horizontal: "left",
+                    },
+                    transformOrigin: {
+                      vertical: "top",
+                      horizontal: "right",
+                    },
+                  }}
+								>
+									{mapList.map((map, index) =>
+										map.group === group ? (
+											<MenuItem
+												sx={{
+													whiteSpace: "unset",
+													color: map.globalid_map === globalIDRight && "#D72E30",
+													backgroundColor: map.globalid_map === globalIDRight && "#F7D5D6",
+													justifyContent: "center",
+												}}
+												key={index}
+												value={index}
+												onClick={handleRightSelect}
+											>
+												{map.title}
+											</MenuItem>
+										) : null
+									)}
+								</NestedMenuItem>
+							))}
+						</Menu>
+					</>
+				)}
 			</Grid>
-		</>
 	)
 }
 

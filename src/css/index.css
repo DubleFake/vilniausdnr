@@ -49,3 +49,9 @@ body {
 .MuiPopover-paper {
   pointer-events: auto;
 }
+
+.MuiMenu-list {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  
+}

@@ -5,10 +5,7 @@ import { useTranslation } from "react-i18next"
 import { map, maps } from "../../../utils/mapsArcgisItems"
 
 import MenuItem from "@mui/material/MenuItem"
-import FormControl from "@mui/material/FormControl"
-import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
-import InputAdornment from "@mui/material/InputAdornment"
 import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import Menu from "@mui/material/Menu"
@@ -25,7 +22,6 @@ const CompareReview = (props) => {
 
 	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
-	const [selectedGroup, setSelectedGroup] = useState("")
 	const [selectedGroupValue, setSelectedGroupValue] = useState("")
 	const [selectedMapValue, setSelectedMapValue] = useState("")
 
@@ -36,13 +32,6 @@ const CompareReview = (props) => {
 
 	const handleClose = () => setAnchorEl(null)
 
-	const handleGroupChange = (event) => {
-		const mapByGroup = mapList.find((map) => map.group === groupList[event.target.value])
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByGroup.globalid_map}`)
-
-		setSelectedGroup(groupList[event.target.value])
-		setSelectedGroupValue(event.target.value)
-	}
 	const handleMapChange = (event) => {
 		handleClose()
 		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
@@ -104,7 +93,6 @@ const CompareReview = (props) => {
 
 				const mapById = tempMapList.find((map) => map.globalid_map === globalID)
 				if (mapById) {
-					setSelectedGroup(mapById.group)
 					setSelectedGroupValue([...mapGroupSet].indexOf(mapById.group))
 					setSelectedMapValue(mapById.index)
 
@@ -163,7 +151,7 @@ const CompareReview = (props) => {
 						<NestedMenuItem
 							sx={{
 								color: groupIndex === selectedGroupValue && "#D72E30",
-								backgroundColor: map.globalid_map === globalID && "#F7D5D6",
+                backgroundColor: groupIndex === selectedGroupValue && "#F7D5D6"
 							}}
 							rightIcon={<ArrowDropDownIcon />}
 							label={group}
