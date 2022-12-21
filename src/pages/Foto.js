@@ -1,5 +1,7 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Routes, Route, Outlet } from "react-router-dom"
+import { useTheme } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 import ObjectMap from "../components/Foto/map/ObjectMap"
 import ObjectPopup from "../components/Foto/popup/ObjectPopup"
@@ -18,6 +20,17 @@ const Foto = () => {
 	const [initialObjectsList, setInitialObjectsList] = useState([])
 	const [mapQuery, setMapQuery] = useState([])
 	const [visible, setVisible] = useState(false)
+
+	const theme = useTheme()
+	const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
+
+	useEffect(() => {
+		if (!initialLoading && !isMobile) {
+			setVisible(true)
+		} else {
+			setVisible(false)
+		}
+	}, [isMobile, initialLoading])
 
 	return (
 		<Routes>
