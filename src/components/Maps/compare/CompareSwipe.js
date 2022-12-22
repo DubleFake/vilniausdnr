@@ -21,12 +21,12 @@ const CompareSwipe = () => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
 
-	const [selectedLeftMap, setSelectedLeftMap] = useState(8)
-	const [selectedRightMap, setSelectedRightMap] = useState(7)
+	const [selectedLeftMap, setSelectedLeftMap] = useState(0)
+	const [selectedRightMap, setSelectedRightMap] = useState(1)
 	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
-	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState(1)
-	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState(2)
+	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState(3)
+	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState(3)
 
 	const [anchorElLeft, setAnchorElLeft] = React.useState(null)
 	const openLeft = Boolean(anchorElLeft)
@@ -71,7 +71,7 @@ const CompareSwipe = () => {
 	}
 
 	const handleRightSelect = (event) => {
-    handleCloseRight()
+		handleCloseRight()
 
 		const mapByIndex = mapList[event.target.value]
 		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`)
@@ -158,8 +158,10 @@ const CompareSwipe = () => {
 				setGroupList([...mapGroupSet])
 				setMapList(tempMaps)
 
-        map.removeAll()
-        tempMaps.find((mapByIndex, index) => {
+				let leftMap
+				let rightMap
+
+				tempMaps.find((mapByIndex, index) => {
 					if (mapByIndex.globalid_map === globalIDLeft) {
 						setSelectedLeftMap(index)
 						groupList.find((groupByName, groupIndex) => {
@@ -167,18 +169,20 @@ const CompareSwipe = () => {
 								setSelectedGroupValueLeft(groupIndex)
 							}
 						})
-						map.add(tempMaps[index])
-					}
-					else if (mapByIndex.globalid_map === globalIDRight) {
+						leftMap = tempMaps[index]
+					} else if (mapByIndex.globalid_map === globalIDRight) {
 						setSelectedRightMap(index)
 						groupList.find((groupByName, groupIndex) => {
 							if (groupByName === mapByIndex.group) {
 								setSelectedGroupValueRight(groupIndex)
 							}
 						})
-						map.add(tempMaps[index])
+						rightMap = tempMaps[index]
 					}
 				})
+
+				map.removeAll()
+				map.addMany([leftMap, rightMap])
 
 				const swipeWidgetFind = view.ui.find("swipe-layers")
 				if (swipeWidgetFind !== null) {
@@ -187,8 +191,8 @@ const CompareSwipe = () => {
 				}
 				const swipe = new Swipe({
 					view: view,
-					leadingLayers: [map.layers.items[1]],
-					trailingLayers: [map.layers.items[0]],
+					leadingLayers: [leftMap],
+					trailingLayers: [rightMap],
 					direction: "horizontal",
 					position: 50,
 					id: "swipe-layers",
@@ -222,166 +226,166 @@ const CompareSwipe = () => {
 	}, [])
 
 	return (
-			<Grid
-				sx={{
-					backgroundColor: "yellow",
-					width: "100%",
-					height: "0%",
-					position: "relative",
-				}}
-				container
-				direction="row"
-				justifyContent="center"
-				alignItems="flex-start"
-				id="swipe-select-bottom"
-			>
-				{mapList.length && (
-					<>
-						<Button
-							sx={{
-								bottom: 16,
-								mt: -7.5,
-								mr: 85,
-								width: "auto",
-								height: "45px",
-								borderRadius: "30px",
-								backgroundColor: "white",
-								"&:hover": { backgroundColor: "white" },
-								textTransform: "none",
-							}}
-							onClick={handleClickLeft}
-							endIcon={<ArrowDropDownIcon />}
-						>
-							<Typography sx={{ color: "#D72E30" }}>
-								<Typography sx={{ color: "black", display: "inline" }}>Kairys žemėlapis: </Typography>
-								{mapList[selectedLeftMap].title}
-							</Typography>
-						</Button>
-						<Menu
-							anchorEl={anchorElLeft}
-							open={openLeft}
-							onClose={handleCloseLeft}
-							anchorOrigin={{
-								vertical: "top",
-								horizontal: "center",
-							}}
-							transformOrigin={{
-								vertical: "bottom",
-								horizontal: "center",
-							}}
-						>
-							{groupList.map((group, groupIndex) => (
-								<NestedMenuItem
-									sx={{
-										color: groupIndex === selectedGroupValueLeft && "#D72E30",
-                    backgroundColor: groupIndex === selectedGroupValueLeft && "#F7D5D6"
-									}}
-									rightIcon={<ArrowDropDownIcon />}
-									label={group}
-									key={groupIndex}
-									parentMenuOpen={openLeft}
-								>
-									{mapList.map((map, index) =>
-										map.group === group ? (
-											<MenuItem
-												sx={{
-													whiteSpace: "unset",
-													color: map.globalid_map === globalIDLeft && "#D72E30",
-													backgroundColor: map.globalid_map === globalIDLeft && "#F7D5D6",
-													justifyContent: "center",
-												}}
-												key={index}
-												value={index}
-												onClick={handleLeftSelect}
-											>
-												{map.title}
-											</MenuItem>
-										) : null
-									)}
-								</NestedMenuItem>
-							))}
-						</Menu>
-					</>
-				)}
-				{mapList.length && (
-					<>
-						<Button
-							sx={{
-                bottom: 16,
-                mt: -7.5,
-                ml: 85,
-								width: "auto",
-								height: "45px",
-								borderRadius: "30px",
-								backgroundColor: "white",
-								"&:hover": { backgroundColor: "white" },
-								textTransform: "none",
-							}}
-							onClick={handleClickRight}
-							endIcon={<ArrowDropDownIcon />}
-						>
-							<Typography sx={{ color: "#D72E30" }}>
-								<Typography sx={{ color: "black", display: "inline" }}>Dešinys žemėlapis: </Typography>
-								{mapList[selectedRightMap].title}
-							</Typography>
-						</Button>
-						<Menu
-							anchorEl={anchorElRight}
-							open={openRight}
-							onClose={handleCloseRight}
-							anchorOrigin={{
-								vertical: "top",
-								horizontal: "center",
-							}}
-							transformOrigin={{
-								vertical: "bottom",
-								horizontal: "center",
-							}}
-						>
-							{groupList.map((group, groupIndex) => (
-								<NestedMenuItem
-									sx={{
-										color: groupIndex === selectedGroupValueRight && "#D72E30",
-										backgroundColor: groupIndex === selectedGroupValueRight && "#F7D5D6",
-									}}
-									rightIcon={<ArrowDropDownIcon />}
-									label={group}
-									key={groupIndex}
-									parentMenuOpen={openRight}
-                  MenuProps={{
-                    anchorOrigin: {
-                      vertical: "top",
-                      horizontal: "left",
-                    },
-                    transformOrigin: {
-                      vertical: "top",
-                      horizontal: "right",
-                    },
-                  }}
-								>
-									{mapList.map((map, index) =>
-										map.group === group ? (
-											<MenuItem
-												sx={{
-													whiteSpace: "unset",
-													color: map.globalid_map === globalIDRight && "#D72E30",
-													backgroundColor: map.globalid_map === globalIDRight && "#F7D5D6",
-													justifyContent: "center",
-												}}
-												key={index}
-												value={index}
-												onClick={handleRightSelect}
-											>
-												{map.title}
-											</MenuItem>
-										) : null
-									)}
-								</NestedMenuItem>
-							))}
-						</Menu>
-					</>
-				)}
-			</Grid>
+		<Grid
+			sx={{
+				backgroundColor: "yellow",
+				width: "100%",
+				height: "0%",
+				position: "relative",
+			}}
+			container
+			direction="row"
+			justifyContent="center"
+			alignItems="flex-start"
+			id="swipe-select-bottom"
+		>
+			{mapList.length && (
+				<>
+					<Button
+						sx={{
+							bottom: 16,
+							mt: -7.5,
+							mr: 85,
+							width: "auto",
+							height: "45px",
+							borderRadius: "30px",
+							backgroundColor: "white",
+							"&:hover": { backgroundColor: "white" },
+							textTransform: "none",
+						}}
+						onClick={handleClickLeft}
+						endIcon={<ArrowDropDownIcon />}
+					>
+						<Typography sx={{ color: "#D72E30" }}>
+							<Typography sx={{ color: "black", display: "inline" }}>Kairys žemėlapis: </Typography>
+							{mapList[selectedLeftMap].title}
+						</Typography>
+					</Button>
+					<Menu
+						anchorEl={anchorElLeft}
+						open={openLeft}
+						onClose={handleCloseLeft}
+						anchorOrigin={{
+							vertical: "top",
+							horizontal: "center",
+						}}
+						transformOrigin={{
+							vertical: "bottom",
+							horizontal: "center",
+						}}
+					>
+						{groupList.map((group, groupIndex) => (
+							<NestedMenuItem
+								sx={{
+									color: groupIndex === selectedGroupValueLeft && "#D72E30",
+									backgroundColor: groupIndex === selectedGroupValueLeft && "#F7D5D6",
+								}}
+								rightIcon={<ArrowDropDownIcon />}
+								label={group}
+								key={groupIndex}
+								parentMenuOpen={openLeft}
+							>
+								{mapList.map((map, index) =>
+									map.group === group ? (
+										<MenuItem
+											sx={{
+												whiteSpace: "unset",
+												color: map.globalid_map === globalIDLeft && "#D72E30",
+												backgroundColor: map.globalid_map === globalIDLeft && "#F7D5D6",
+												justifyContent: "center",
+											}}
+											key={index}
+											value={index}
+											onClick={handleLeftSelect}
+										>
+											{map.title}
+										</MenuItem>
+									) : null
+								)}
+							</NestedMenuItem>
+						))}
+					</Menu>
+				</>
+			)}
+			{mapList.length && (
+				<>
+					<Button
+						sx={{
+							bottom: 16,
+							mt: -7.5,
+							ml: 85,
+							width: "auto",
+							height: "45px",
+							borderRadius: "30px",
+							backgroundColor: "white",
+							"&:hover": { backgroundColor: "white" },
+							textTransform: "none",
+						}}
+						onClick={handleClickRight}
+						endIcon={<ArrowDropDownIcon />}
+					>
+						<Typography sx={{ color: "#D72E30" }}>
+							<Typography sx={{ color: "black", display: "inline" }}>Dešinys žemėlapis: </Typography>
+							{mapList[selectedRightMap].title}
+						</Typography>
+					</Button>
+					<Menu
+						anchorEl={anchorElRight}
+						open={openRight}
+						onClose={handleCloseRight}
+						anchorOrigin={{
+							vertical: "top",
+							horizontal: "center",
+						}}
+						transformOrigin={{
+							vertical: "bottom",
+							horizontal: "center",
+						}}
+					>
+						{groupList.map((group, groupIndex) => (
+							<NestedMenuItem
+								sx={{
+									color: groupIndex === selectedGroupValueRight && "#D72E30",
+									backgroundColor: groupIndex === selectedGroupValueRight && "#F7D5D6",
+								}}
+								rightIcon={<ArrowDropDownIcon />}
+								label={group}
+								key={groupIndex}
+								parentMenuOpen={openRight}
+								MenuProps={{
+									anchorOrigin: {
+										vertical: "top",
+										horizontal: "left",
+									},
+									transformOrigin: {
+										vertical: "top",
+										horizontal: "right",
+									},
+								}}
+							>
+								{mapList.map((map, index) =>
+									map.group === group ? (
+										<MenuItem
+											sx={{
+												whiteSpace: "unset",
+												color: map.globalid_map === globalIDRight && "#D72E30",
+												backgroundColor: map.globalid_map === globalIDRight && "#F7D5D6",
+												justifyContent: "center",
+											}}
+											key={index}
+											value={index}
+											onClick={handleRightSelect}
+										>
+											{map.title}
+										</MenuItem>
+									) : null
+								)}
+							</NestedMenuItem>
+						))}
+					</Menu>
+				</>
+			)}
+		</Grid>
 	)
 }
 

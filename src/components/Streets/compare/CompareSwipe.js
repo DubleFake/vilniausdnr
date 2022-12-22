@@ -7,7 +7,6 @@ import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
-import InputAdornment from "@mui/material/InputAdornment"
 import Typography from "@mui/material/Typography"
 
 const CompareSwipe = () => {
@@ -123,34 +122,6 @@ const CompareSwipe = () => {
 		setSelectedRightPeriod(event.target.value)
 	}
 
-	// const handleSwipeSelect = (event) => {
-	// 	if (!props.compareWindow) {
-	// 		const swipeWidgetFind = view.ui.find("swipe-layers")
-	// 		if (swipeWidgetFind !== null) {
-	// 			view.ui.remove(swipeWidgetFind)
-	// 			swipeWidgetFind.destroy()
-	// 		}
-	// 		map.remove(swipeObjects[selectedSwipeObject])
-
-	// 		map.add(swipeObjects[event.target.value])
-	// 		const swipe = new Swipe({
-	// 			view: view,
-	// 			leadingLayers: [objects],
-	// 			trailingLayers: [swipeObjects[event.target.value]],
-	// 			direction: "horizontal",
-	// 			position: 50,
-	// 			id: "swipe-layers",
-	// 		})
-	// 		view.ui.add(swipe)
-	// 		// setHistoryToggle(true)
-	// 	} else {
-	// 		map2.remove(swipeObjects[selectedSwipeObject])
-	// 		map2.add(swipeObjects[event.target.value])
-	// 	}
-
-	// 	setSelectedSwipeObject(event.target.value)
-	// }
-
 	return (
 		<Grid
 			sx={{
@@ -207,6 +178,7 @@ const CompareSwipe = () => {
 										whiteSpace: "unset",
 										"&.Mui-selected": {
 											color: "#D72E30",
+											backgroundColor: "#F7D5D6",
 										},
 										justifyContent: "center",
 									}}
@@ -261,6 +233,7 @@ const CompareSwipe = () => {
 										whiteSpace: "unset",
 										"&.Mui-selected": {
 											color: "#D72E30",
+											backgroundColor: "#F7D5D6",
 										},
 										justifyContent: "center",
 									}}

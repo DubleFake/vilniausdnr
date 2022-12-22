@@ -20,12 +20,12 @@ const CompareWindow = (props) => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
 
-	const [selectedLeftMap, setSelectedLeftMap] = useState(8)
-	const [selectedRightMap, setSelectedRightMap] = useState(7)
-	const [mapList, setmapList] = useState([])
+	const [selectedLeftMap, setSelectedLeftMap] = useState(0)
+	const [selectedRightMap, setSelectedRightMap] = useState(1)
+	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
-	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState(1)
-	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState(2)
+	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState(3)
+	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState(3)
 
 	const [anchorElLeft, setAnchorElLeft] = React.useState(null)
 	const openLeft = Boolean(anchorElLeft)
@@ -121,7 +121,7 @@ const CompareWindow = (props) => {
 				tempMaps.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }))
 
 				setGroupList([...mapGroupSet])
-				setmapList(tempMaps)
+				setMapList(tempMaps)
 
 				map.removeAll()
 				map2.removeAll()
