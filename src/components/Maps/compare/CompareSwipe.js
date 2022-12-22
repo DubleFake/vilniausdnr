@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import Menu from "@mui/material/Menu"
+import Popover from "@mui/material/Popover"
 import { NestedMenuItem } from "mui-nested-menu"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 
@@ -27,6 +28,8 @@ const CompareSwipe = () => {
 	const [groupList, setGroupList] = useState([])
 	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState(3)
 	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState(3)
+	const [once, setOnce] = useState(false)
+	const [popoverOpen, setPopoverOpen] = useState(true)
 
 	const [anchorElLeft, setAnchorElLeft] = React.useState(null)
 	const openLeft = Boolean(anchorElLeft)
@@ -98,6 +101,7 @@ const CompareSwipe = () => {
 		setSelectedRightMap(event.target.value)
 	}
 
+	let intervalId
 	useEffect(() => {
 		const tempMaps = []
 
@@ -199,16 +203,46 @@ const CompareSwipe = () => {
 				})
 
 				view.ui.add(swipe)
+
+				let back = false
+				let forwardAgain = false
+				if (!once) {
+					intervalId = setInterval(() => {
+						if (swipe.position < 57.5 && !back) {
+							swipe.position += 0.1
+						} else if (swipe.position > 42.5 && !forwardAgain) {
+							back = true
+							swipe.position -= 0.1
+						} else if (swipe.position < 50) {
+							forwardAgain = true
+							swipe.position += 0.1
+						} else {
+							setPopoverOpen(false)
+							clearInterval(intervalId)
+							setOnce(true)
+						}
+					}, 10)
+
+					return () => {
+						setPopoverOpen(false)
+						clearInterval(intervalId)
+						setOnce(true)
+					}
+				}
 			})
 	}, [globalIDLeft, globalIDRight])
 
 	useEffect(() => {
 		view.when(() => {
 			const swipeWidgetFind = view.ui.find("swipe-layers")
+
 			const swipeSelectBottom = document.getElementById("swipe-select-bottom")
+			const swipePopover = document.getElementById("swipe-popover")
+
 			swipeSelectBottom.style.left = "0%"
 			swipeWidgetFind.watch("position", (newPos) => {
 				swipeSelectBottom.style.left = `${newPos - 50}%`
+				swipePopover.style.left = `calc(${newPos}% - 170px)`
 			})
 		})
 	}, [selectedLeftMap, selectedRightMap])
@@ -241,6 +275,25 @@ const CompareSwipe = () => {
 		>
 			{mapList.length && (
 				<>
+					<Popover
+						sx={{ top: "calc(50% + 50px)" }}
+						id="swipe-popover"
+						open={popoverOpen}
+						anchorReference="anchorPosition"
+						anchorPosition={{ top: 0, left: 0 }}
+						anchorOrigin={{
+							vertical: "top",
+							horizontal: "left",
+						}}
+						transformOrigin={{
+							vertical: "top",
+							horizontal: "right",
+						}}
+					>
+						<Typography sx={{ m: 1, textTransform: "none", color: "black" }} variant="body1">
+							Slinkite juostą ir lyginkite abu žemėlapius
+						</Typography>
+					</Popover>
 					<Button
 						sx={{
 							bottom: 16,
