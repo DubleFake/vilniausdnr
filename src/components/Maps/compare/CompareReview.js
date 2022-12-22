@@ -43,8 +43,8 @@ const CompareReview = (props) => {
 
 	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
-	const [selectedGroupValue, setSelectedGroupValue] = useState("")
-	const [selectedMapValue, setSelectedMapValue] = useState("")
+	const [selectedGroupValue, setSelectedGroupValue] = useState(3)
+	const [selectedMapValue, setSelectedMapValue] = useState(0)
 
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
@@ -55,14 +55,18 @@ const CompareReview = (props) => {
 
 	const handleMapChange = (event) => {
 		handleClose()
-		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+		const mapByIndex = mapList[event.target.value]
 
-    viewHandles.forEach((handle) => {
-      handle.remove()
-    })
-    viewHandles.length = 0
+		viewHandles.forEach((handle) => {
+			handle.remove()
+		})
+		viewHandles.length = 0
 
-    navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}?${searchParams.toString()}`)
+		navigate(
+			`/vilniausdnr/${i18n.language}/maps/compare/review/${
+				mapByIndex.globalid_map
+			}?${searchParams.toString()}`
+		)
 		viewHandles.push(
 			reactiveUtils.when(
 				() => !view.interacting,
@@ -73,7 +77,11 @@ const CompareReview = (props) => {
 					searchParams.set("zoom", view.zoom)
 
 					// navigate(`${location.pathname}?${searchParams.toString()}`)
-					navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}?${searchParams.toString()}`)
+					navigate(
+						`/vilniausdnr/${i18n.language}/maps/compare/review/${
+							mapByIndex.globalid_map
+						}?${searchParams.toString()}`
+					)
 				}
 			)
 		)
@@ -114,7 +122,6 @@ const CompareReview = (props) => {
 								title: response.features[feature].attributes.Pavadinimas,
 								group: response.features[feature].attributes.Grupe,
 								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-								index: feature,
 							})
 							tempMapList.push(mapLayer)
 						} else if (response.features[feature].attributes.Tipas === "Map Layer") {
@@ -133,7 +140,6 @@ const CompareReview = (props) => {
 								title: response.features[feature].attributes.Pavadinimas,
 								group: response.features[feature].attributes.Grupe,
 								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-								index: feature,
 							})
 							tempMapList.push(mapLayer)
 						}
@@ -146,17 +152,24 @@ const CompareReview = (props) => {
 					navigate(`${defaultMap.attributes.GlobalID_zemelapio}?x=${view.center.x}&y=${view.center.y}&zoom=3`)
 				}
 
+				tempMapList.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }))
+
 				setGroupList([...mapGroupSet])
 				setMapList(tempMapList)
 
-				const mapById = tempMapList.find((map) => map.globalid_map === globalID)
-				if (mapById) {
-					setSelectedGroupValue([...mapGroupSet].indexOf(mapById.group))
-					setSelectedMapValue(mapById.index)
+				tempMapList.find((mapByIndex, index) => {
+					if (mapByIndex.globalid_map === globalID) {
+						setSelectedMapValue(index)
+						groupList.find((groupByName, groupIndex) => {
+							if (groupByName === mapByIndex.group) {
+								setSelectedGroupValue(groupIndex)
+							}
+						})
 
-					map.removeAll()
-					map.add(tempMapList[mapById.index])
-				}
+						map.removeAll()
+						map.add(tempMapList[index])
+					}
+				})
 			})
 	}, [globalID])
 

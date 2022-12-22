@@ -25,8 +25,8 @@ const CompareSwipe = () => {
 	const [selectedRightMap, setSelectedRightMap] = useState(7)
 	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
-	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState("1")
-	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState("2")
+	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState(1)
+	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState(2)
 
 	const [anchorElLeft, setAnchorElLeft] = React.useState(null)
 	const openLeft = Boolean(anchorElLeft)
@@ -45,7 +45,7 @@ const CompareSwipe = () => {
 	const handleLeftSelect = (event) => {
 		handleCloseLeft()
 
-		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+		const mapByIndex = mapList[event.target.value]
 		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`)
 
 		const swipeWidgetFind = view.ui.find("swipe-layers")
@@ -73,7 +73,7 @@ const CompareSwipe = () => {
 	const handleRightSelect = (event) => {
     handleCloseRight()
 
-		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+		const mapByIndex = mapList[event.target.value]
 		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`)
 
 		const swipeWidgetFind = view.ui.find("swipe-layers")
@@ -119,7 +119,6 @@ const CompareSwipe = () => {
 								title: response.features[feature].attributes.Pavadinimas,
 								group: response.features[feature].attributes.Grupe,
 								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-								index: feature,
 							})
 							tempMaps.push(mapLayer)
 						} else if (response.features[feature].attributes.Tipas === "Map Layer") {
@@ -138,7 +137,6 @@ const CompareSwipe = () => {
 								title: response.features[feature].attributes.Pavadinimas,
 								group: response.features[feature].attributes.Grupe,
 								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-								index: feature,
 							})
 							tempMaps.push(mapLayer)
 						}
@@ -155,36 +153,48 @@ const CompareSwipe = () => {
 					)
 				}
 
+				tempMaps.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }))
+
 				setGroupList([...mapGroupSet])
 				setMapList(tempMaps)
 
-				const mapByIdLeft = tempMaps.find((map) => map.globalid_map === globalIDLeft)
-				const mapByIdRight = tempMaps.find((map) => map.globalid_map === globalIDRight)
+        map.removeAll()
+        tempMaps.find((mapByIndex, index) => {
+					if (mapByIndex.globalid_map === globalIDLeft) {
+						setSelectedLeftMap(index)
+						groupList.find((groupByName, groupIndex) => {
+							if (groupByName === mapByIndex.group) {
+								setSelectedGroupValueLeft(groupIndex)
+							}
+						})
+						map.add(tempMaps[index])
+					}
+					else if (mapByIndex.globalid_map === globalIDRight) {
+						setSelectedRightMap(index)
+						groupList.find((groupByName, groupIndex) => {
+							if (groupByName === mapByIndex.group) {
+								setSelectedGroupValueRight(groupIndex)
+							}
+						})
+						map.add(tempMaps[index])
+					}
+				})
 
 				const swipeWidgetFind = view.ui.find("swipe-layers")
 				if (swipeWidgetFind !== null) {
 					view.ui.remove(swipeWidgetFind)
 					swipeWidgetFind.destroy()
 				}
-
-				map.removeAll()
-				map.addMany([tempMaps[mapByIdLeft.index], tempMaps[mapByIdRight.index]])
-
 				const swipe = new Swipe({
 					view: view,
-					leadingLayers: [tempMaps[mapByIdLeft.index]],
-					trailingLayers: [tempMaps[mapByIdRight.index]],
+					leadingLayers: [map.layers.items[1]],
+					trailingLayers: [map.layers.items[0]],
 					direction: "horizontal",
 					position: 50,
 					id: "swipe-layers",
 				})
 
 				view.ui.add(swipe)
-
-				setSelectedGroupValueLeft([...mapGroupSet].indexOf(mapByIdLeft.group))
-				setSelectedLeftMap(mapByIdLeft.index)
-				setSelectedGroupValueRight([...mapGroupSet].indexOf(mapByIdRight.group))
-				setSelectedRightMap(mapByIdRight.index)
 			})
 	}, [globalIDLeft, globalIDRight])
 

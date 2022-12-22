@@ -65,7 +65,7 @@ const CompareType = () => {
 					renderValue={(value) => (
 						<Typography sx={{ color: "#D72E30" }}>
 							<Typography sx={{ color: "black", display: "inline" }}>Režimas: </Typography>
-							{value === 0 ? "Peržiūra" : value === 1 ? "Slenkanti juosta" : "Du langai"}
+							{value === 0 ? "Laiko juosta" : value === 1 ? "Slenkanti juosta" : "Du langai"}
 						</Typography>
 					)}
 				>
