@@ -39,8 +39,7 @@ const CompareReview = (props) => {
 		}
 		view.zoom = zoom
 	} else {
-
-  }
+	}
 
 	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
@@ -57,7 +56,27 @@ const CompareReview = (props) => {
 	const handleMapChange = (event) => {
 		handleClose()
 		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
+
+    viewHandles.forEach((handle) => {
+      handle.remove()
+    })
+    viewHandles.length = 0
+
+    navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}?${searchParams.toString()}`)
+		viewHandles.push(
+			reactiveUtils.when(
+				() => !view.interacting,
+				() => {
+					const searchParams = new URLSearchParams()
+					searchParams.set("x", view.center.x)
+					searchParams.set("y", view.center.y)
+					searchParams.set("zoom", view.zoom)
+
+					// navigate(`${location.pathname}?${searchParams.toString()}`)
+					navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}?${searchParams.toString()}`)
+				}
+			)
+		)
 	}
 
 	useEffect(() => {
@@ -124,9 +143,7 @@ const CompareReview = (props) => {
 						(map) => map.attributes.GlobalID_zemelapio === "42e1492a-d5ac-4d09-ac03-90a6efb54d6e"
 					)
 
-					navigate(
-						`${defaultMap.attributes.GlobalID_zemelapio}?x=${view.center.x}&y=${view.center.y}&zoom=3`
-					)
+					navigate(`${defaultMap.attributes.GlobalID_zemelapio}?x=${view.center.x}&y=${view.center.y}&zoom=3`)
 				}
 
 				setGroupList([...mapGroupSet])
