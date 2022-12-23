@@ -13,11 +13,12 @@ import Menu from "@mui/material/Menu"
 import Popover from "@mui/material/Popover"
 import { NestedMenuItem } from "mui-nested-menu"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
+import ClickAwayListener from "@mui/material/ClickAwayListener"
 
 import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
 
-const CompareSwipe = () => {
+const CompareSwipe = (props) => {
 	const { globalIDLeft, globalIDRight } = useParams()
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
@@ -28,8 +29,6 @@ const CompareSwipe = () => {
 	const [groupList, setGroupList] = useState([])
 	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState(3)
 	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState(3)
-	const [once, setOnce] = useState(false)
-	const [popoverOpen, setPopoverOpen] = useState(true)
 
 	const [anchorElLeft, setAnchorElLeft] = React.useState(null)
 	const openLeft = Boolean(anchorElLeft)
@@ -99,6 +98,12 @@ const CompareSwipe = () => {
 		view.ui.add(swipe)
 
 		setSelectedRightMap(event.target.value)
+	}
+
+	const handleClickAway = (event) => {
+		if (event.target.id !== "swipe-popover") {
+			props.setOnce(true)
+		}
 	}
 
 	let intervalId
@@ -206,7 +211,8 @@ const CompareSwipe = () => {
 
 				let back = false
 				let forwardAgain = false
-				if (!once) {
+				console.log(props.once)
+				if (!props.once) {
 					intervalId = setInterval(() => {
 						if (swipe.position < 57.5 && !back) {
 							swipe.position += 0.1
@@ -217,16 +223,14 @@ const CompareSwipe = () => {
 							forwardAgain = true
 							swipe.position += 0.1
 						} else {
-							setPopoverOpen(false)
 							clearInterval(intervalId)
-							setOnce(true)
+							props.setOnce(true)
 						}
 					}, 10)
 
 					return () => {
-						setPopoverOpen(false)
 						clearInterval(intervalId)
-						setOnce(true)
+						props.setOnce(true)
 					}
 				}
 			})
@@ -242,7 +246,9 @@ const CompareSwipe = () => {
 			swipeSelectBottom.style.left = "0%"
 			swipeWidgetFind.watch("position", (newPos) => {
 				swipeSelectBottom.style.left = `${newPos - 50}%`
-				swipePopover.style.left = `calc(${newPos}% - 170px)`
+				if (swipePopover) {
+					swipePopover.style.left = `calc(${newPos}% - 170px)`
+				}
 			})
 		})
 	}, [selectedLeftMap, selectedRightMap])
@@ -275,25 +281,31 @@ const CompareSwipe = () => {
 		>
 			{mapList.length && (
 				<>
-					<Popover
-						sx={{ top: "calc(50% + 50px)" }}
-						id="swipe-popover"
-						open={popoverOpen}
-						anchorReference="anchorPosition"
-						anchorPosition={{ top: 0, left: 0 }}
-						anchorOrigin={{
-							vertical: "top",
-							horizontal: "left",
-						}}
-						transformOrigin={{
-							vertical: "top",
-							horizontal: "right",
-						}}
+					<ClickAwayListener
+						mouseEvent="onPointerDown"
+						touchEvent="onTouchStart"
+						onClickAway={handleClickAway}
 					>
-						<Typography sx={{ m: 1, textTransform: "none", color: "black" }} variant="body1">
-							Slinkite juostą ir lyginkite abu žemėlapius
-						</Typography>
-					</Popover>
+						<Popover
+							sx={{ top: "calc(50% + 50px)", pointerEvents: "none" }}
+							id="swipe-popover"
+							open={!props.once}
+							anchorReference="anchorPosition"
+							anchorPosition={{ top: 0, left: 0 }}
+							anchorOrigin={{
+								vertical: "top",
+								horizontal: "left",
+							}}
+							transformOrigin={{
+								vertical: "top",
+								horizontal: "right",
+							}}
+						>
+							<Typography sx={{ m: 1, textTransform: "none", color: "black" }} variant="body1">
+								Slinkite juostą ir lyginkite abu žemėlapius
+							</Typography>
+						</Popover>
+					</ClickAwayListener>
 					<Button
 						sx={{
 							bottom: 16,

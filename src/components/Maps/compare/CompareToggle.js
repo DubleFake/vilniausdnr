@@ -25,7 +25,7 @@ const CompareLayers = (props) => {
 
 	return (
 		<>
-			<Grid
+			{/* <Grid
 				sx={{
 					display: "none", //temp
 					backgroundColor: "yellow",
@@ -65,7 +65,7 @@ const CompareLayers = (props) => {
 						<Typography variant="button">istorija</Typography>
 					</Button>
 				</ButtonGroup>
-			</Grid>
+			</Grid> */}
 
 			<Routes>
 				<Route
@@ -82,9 +82,9 @@ const CompareLayers = (props) => {
 					element={
 						<>
 							<ObjectPopup
-								// mapQuery={mapQuery}
-								// setSelectedObject={setSelectedObject}
-								// initialLoading={initialLoading}
+							// mapQuery={mapQuery}
+							// setSelectedObject={setSelectedObject}
+							// initialLoading={initialLoading}
 							/>
 							<CompareReview />
 							<CompareType />
@@ -95,7 +95,7 @@ const CompareLayers = (props) => {
 					path="compare/swipe"
 					element={
 						<>
-							<CompareSwipe />
+							<CompareSwipe once={props.once} setOnce={props.setOnce} />
 							<CompareType />
 						</>
 					}
@@ -104,7 +104,7 @@ const CompareLayers = (props) => {
 					path="compare/swipe/:globalIDLeft/:globalIDRight"
 					element={
 						<>
-							<CompareSwipe />
+							<CompareSwipe once={props.once} setOnce={props.setOnce} />
 							<CompareType />
 						</>
 					}

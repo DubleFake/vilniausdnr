@@ -22,9 +22,11 @@ const Maps = () => {
 	const [visible, setVisible] = useState(false)
 	const [toggleCompareWindow, setToggleCompareWindow] = useState(false)
 	const [historyToggle, setHistoryToggle] = useState(false)
+	const [once, setOnce] = useState(false)
 
 	let location = useLocation()
 	let navigate = useNavigate()
+  
 	useEffect(() => {
 		if (!location.pathname.includes("compare")) {
 			navigate("compare/review")
@@ -77,6 +79,8 @@ const Maps = () => {
 										setToggleCompareWindow={setToggleCompareWindow}
 										historyToggle={historyToggle}
 										setHistoryToggle={setHistoryToggle}
+										once={once}
+										setOnce={setOnce}
 									/>
 									<Outlet />
 								</Grid>
