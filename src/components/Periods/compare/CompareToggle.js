@@ -81,7 +81,7 @@ const CompareLayers = (props) => {
 					path="compare/timeline/:globalID"
 					element={
 						<>
-							{/* <ObjectPopup /> */}
+							<ObjectPopup />
 							<CompareTimeline />
 							<CompareType />
 						</>
