@@ -8,73 +8,12 @@ import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
+import ClickAwayListener from "@mui/material/ClickAwayListener"
+import Popover from "@mui/material/Popover"
 
-const CompareSwipe = () => {
+const CompareSwipe = (props) => {
 	const [selectedLeftPeriod, setSelectedLeftPeriod] = useState(0)
 	const [selectedRightPeriod, setSelectedRightPeriod] = useState(5)
-
-	useEffect(() => {
-		map.removeAll()
-
-		periods[0]
-			.when(() => {
-				return periods[0].queryExtent()
-			})
-			.then((response) => {
-				view.constraints.geometry = {
-					type: "extent",
-					spatialReference: response.extent.spatialReference,
-					xmin: response.extent.xmin,
-					ymin: response.extent.ymin,
-					xmax: response.extent.xmax,
-					ymax: response.extent.ymax,
-				}
-			})
-
-		view.when(() => {
-			view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
-		})
-
-		const swipeWidgetFind = view.ui.find("swipe-layers")
-		if (swipeWidgetFind !== null) {
-			view.ui.remove(swipeWidgetFind)
-			swipeWidgetFind.destroy()
-		}
-
-		map.addMany([periods[selectedLeftPeriod], periods[selectedRightPeriod]])
-
-		const swipe = new Swipe({
-			view: view,
-			leadingLayers: [periods[selectedLeftPeriod]],
-			trailingLayers: [periods[selectedRightPeriod]],
-			direction: "horizontal",
-			position: 50,
-			id: "swipe-layers",
-		})
-
-		view.ui.add(swipe)
-	}, [])
-
-	useEffect(() => {
-		view.when(() => {
-			const swipeWidgetFind = view.ui.find("swipe-layers")
-			const swipeSelectLeft = document.getElementById("swipe-select")
-			swipeSelectLeft.style.left = "0%"
-			swipeWidgetFind.watch("position", (newPos) => {
-				swipeSelectLeft.style.left = `${newPos - 50}%`
-			})
-		})
-	}, [selectedLeftPeriod, selectedRightPeriod])
-
-	useEffect(() => {
-		return () => {
-			const swipeWidgetFind = view.ui.find("swipe-layers")
-			if (swipeWidgetFind !== null) {
-				view.ui.remove(swipeWidgetFind)
-				swipeWidgetFind.destroy()
-			}
-		}
-	}, [])
 
 	const handleLeftSelect = (event) => {
 		const swipeWidgetFind = view.ui.find("swipe-layers")
@@ -122,6 +61,109 @@ const CompareSwipe = () => {
 		setSelectedRightPeriod(event.target.value)
 	}
 
+	const handleClickAway = (event) => {
+		if (event.target.id !== "swipe-popover") {
+			props.setOnce(true)
+		}
+	}
+
+	let intervalId
+	useEffect(() => {
+		map.removeAll()
+
+		periods[0]
+			.when(() => {
+				return periods[0].queryExtent()
+			})
+			.then((response) => {
+				view.constraints.geometry = {
+					type: "extent",
+					spatialReference: response.extent.spatialReference,
+					xmin: response.extent.xmin,
+					ymin: response.extent.ymin,
+					xmax: response.extent.xmax,
+					ymax: response.extent.ymax,
+				}
+			})
+
+		view.when(() => {
+			view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+		})
+
+		const swipeWidgetFind = view.ui.find("swipe-layers")
+		if (swipeWidgetFind !== null) {
+			view.ui.remove(swipeWidgetFind)
+			swipeWidgetFind.destroy()
+		}
+
+		map.addMany([periods[selectedLeftPeriod], periods[selectedRightPeriod]])
+
+		const swipe = new Swipe({
+			view: view,
+			leadingLayers: [periods[selectedLeftPeriod]],
+			trailingLayers: [periods[selectedRightPeriod]],
+			direction: "horizontal",
+			position: 50,
+			id: "swipe-layers",
+		})
+
+		view.ui.add(swipe)
+
+		let back = false
+		let forwardAgain = false
+		if (!props.once) {
+			intervalId = setInterval(() => {
+				if (swipe.position < 57.5 && !back) {
+					swipe.position += 0.1
+				} else if (swipe.position > 42.5 && !forwardAgain) {
+					back = true
+					swipe.position -= 0.1
+				} else if (swipe.position < 50) {
+					forwardAgain = true
+					swipe.position += 0.1
+				} else {
+					clearInterval(intervalId)
+					setTimeout(() => {
+						props.setOnce(true)
+					}, 2000)
+				}
+			}, 10)
+
+			return () => {
+				clearInterval(intervalId)
+				setTimeout(() => {
+					props.setOnce(true)
+				}, 2000)
+			}
+		}
+	}, [])
+
+	useEffect(() => {
+		view.when(() => {
+			const swipeWidgetFind = view.ui.find("swipe-layers")
+			const swipeSelectLeft = document.getElementById("swipe-select")
+			const swipePopover = document.getElementById("swipe-popover")
+
+			swipeSelectLeft.style.left = "0%"
+			swipeWidgetFind.watch("position", (newPos) => {
+				swipeSelectLeft.style.left = `${newPos - 50}%`
+				if (swipePopover) {
+					swipePopover.style.left = `calc(${newPos}% - 170px)`
+				}
+			})
+		})
+	}, [selectedLeftPeriod, selectedRightPeriod])
+
+	useEffect(() => {
+		return () => {
+			const swipeWidgetFind = view.ui.find("swipe-layers")
+			if (swipeWidgetFind !== null) {
+				view.ui.remove(swipeWidgetFind)
+				swipeWidgetFind.destroy()
+			}
+		}
+	}, [])
+
 	return (
 		<Grid
 			sx={{
@@ -136,6 +178,27 @@ const CompareSwipe = () => {
 			alignItems="flex-start"
 			id="swipe-select"
 		>
+			<ClickAwayListener mouseEvent="onPointerDown" touchEvent="onTouchStart" onClickAway={handleClickAway}>
+				<Popover
+					sx={{ top: "calc(50% + 50px)", pointerEvents: "none" }}
+					id="swipe-popover"
+					open={!props.once}
+					anchorReference="anchorPosition"
+					anchorPosition={{ top: 0, left: 0 }}
+					anchorOrigin={{
+						vertical: "top",
+						horizontal: "left",
+					}}
+					transformOrigin={{
+						vertical: "top",
+						horizontal: "right",
+					}}
+				>
+					<Typography sx={{ m: 1, textTransform: "none", color: "black" }} variant="body1">
+						Slinkite juostą ir lyginkite abu žemėlapius
+					</Typography>
+				</Popover>
+			</ClickAwayListener>
 			<FormControl
 				sx={{
 					bottom: 16,

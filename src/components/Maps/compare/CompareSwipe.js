@@ -211,7 +211,6 @@ const CompareSwipe = (props) => {
 
 				let back = false
 				let forwardAgain = false
-				console.log(props.once)
 				if (!props.once) {
 					intervalId = setInterval(() => {
 						if (swipe.position < 57.5 && !back) {
@@ -224,13 +223,17 @@ const CompareSwipe = (props) => {
 							swipe.position += 0.1
 						} else {
 							clearInterval(intervalId)
-							props.setOnce(true)
+							setTimeout(() => {
+								props.setOnce(true)
+							}, 2000)
 						}
 					}, 10)
 
 					return () => {
 						clearInterval(intervalId)
-						props.setOnce(true)
+						setTimeout(() => {
+							props.setOnce(true)
+						}, 2000)
 					}
 				}
 			})
