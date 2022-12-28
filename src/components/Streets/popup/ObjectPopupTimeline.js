@@ -76,7 +76,7 @@ const ObjectPopupTimeline = (props) => {
 	}
 
 	useEffect(() => {
-		if (props.mapQuery.length === 0 || !props.mapQuery.length ) {
+		if (props.mapQuery.length === 0 || !props.mapQuery.length) {
 			setPopupOpen(true)
 			setLoading(true)
 
@@ -221,25 +221,17 @@ const ObjectPopupTimeline = (props) => {
 			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
 			<Fade in={true} timeout={300} unmountOnExit>
 				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
-					<Card
-						sx={{
-							borderRadius: "0px",
-							maxWidth: matches ? "auto" : 995,
-							width: matches ? 600 : "100vw",
-							mt: matches ? 1.5 : 0,
-							mr: matches ? 1.5 : 0,
-						}}
-					>
-						<CardContent
-							sx={{
-								maxHeight: window.innerHeight - 170,
-								overflowY: "auto",
-								overflowX: "hidden",
-							}}
-						>
+					<Card variant="popup">
+						<CardContent sx={{ pt: 0, px: 4 }}>
 							{pageCount > 1 ? (
 								<Box component="div" display="flex" justifyContent="center" alignItems="center">
-									<Pagination count={pageCount} page={page} onChange={handlePage} />
+									<Pagination
+										sx={{ mb: 1, ".MuiPaginationItem-root": { color: "white" } }}
+										color="secondary"
+										count={pageCount}
+										page={page}
+										onChange={handlePage}
+									/>
 								</Box>
 							) : null}
 							{loading ? (
@@ -249,59 +241,68 @@ const ObjectPopupTimeline = (props) => {
 							) : (
 								<>
 									<CardHeader
-										sx={{ px: 0, pt: 0.5, pb: 1 }}
+										sx={{ p: 0, mt: 0 }}
 										action={
+											<IconButton
+												color="primary"
+												aria-label="close"
+												size="small"
+												onClick={() => {
+													navigate(`/vilniausdnr/${i18n.language}/streets/compare/timeline`)
+												}}
+												sx={{
+													mt: 0.5,
+													mr: 1,
+													backgroundColor: "#F6F6F6",
+													"&:hover": {
+														transition: "0.3s",
+														backgroundColor: "white",
+													},
+												}}
+											>
+												<CloseIcon sx={{ fontSize: 25 }} />
+											</IconButton>
+										}
+										title={
 											<>
-												<BootstrapTooltip
-													open={shareTooltip}
-													leaveDelay={1000}
-													title={t(`plaques.objectPopup.shareUrl`)}
-													arrow
-													placement="top"
-													onClose={() => {
-														setShareTooltip(false)
-													}}
+												<Typography
+													sx={{ color: "white", fontWeight: 600, fontSize: "26px", display: "inline" }}
 												>
-													<IconButton color="secondary" aria-label="share" size="large" onClick={handleShare}>
-														<ShareIcon style={{ fontSize: 30 }} />
-													</IconButton>
-												</BootstrapTooltip>
-												<IconButton
-													color="secondary"
-													aria-label="close"
-													size="large"
-													onClick={() => {
-														navigate(`/vilniausdnr/${i18n.language}/streets/compare/timeline`)
-													}}
-												>
-													<CloseIcon style={{ fontSize: 30 }} />
-												</IconButton>
+													{queryObjects[page - 1].attributes.Pavadinimas}
+													<BootstrapTooltip
+														open={shareTooltip}
+														leaveDelay={1000}
+														title={t(`plaques.objectPopup.shareUrl`)}
+														arrow
+														placement="top"
+														onClose={() => {
+															setShareTooltip(false)
+														}}
+													>
+														<IconButton
+															color="secondary"
+															aria-label="share"
+															size="medium"
+															onClick={handleShare}
+															sx={{ mt: -0.5 }}
+														>
+															<ShareIcon style={{ fontSize: 25 }} />
+														</IconButton>
+													</BootstrapTooltip>
+												</Typography>
 											</>
 										}
-										title={queryObjects[page - 1].attributes.Pavadinimas}
 									/>
 
-									<TableContainer sx={{ mb: 1 }} component={Paper}>
-										<Table size="small">
-											<TableBody>
-												<TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-													<TableCell component="th" scope="row">
-														{/* {t(`plaques.objectPopup.${objectAttr[attr].field}`)} */}
-														{/* {objectAttr[attr].field} */}
-														Metai
-													</TableCell>
-													<TableCell align="right">
-														{queryObjects[page - 1].attributes.Metai}
-														{/* {objectAttr[attr].field === "TIPAS"
-															? t(`plaques.options.objects.${objectAttr[attr].code}`)
-															: objectAttr[attr].field === "ATMINT_TIP"
-															? t(`plaques.options.memories.${objectAttr[attr].code}`)
-															: objectAttr[attr].value} */}
-													</TableCell>
-												</TableRow>
-											</TableBody>
-										</Table>
-									</TableContainer>
+									{queryObjects[page - 1].attributes.Metai && (
+										<Typography
+											sx={{ color: "white", fontWeight: 500, fontSize: "14px" }}
+											variant="body2"
+											component="div"
+										>
+											{queryObjects[page - 1].attributes.Metai}
+										</Typography>
+									)}
 
 									{relatedStreets.length ? (
 										<>
@@ -345,7 +346,11 @@ const ObjectPopupTimeline = (props) => {
 
 									{relatedMaps.length ? (
 										<>
-											<Typography variant="h6" component="div">
+											<Typography
+												sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+												variant="h6"
+												component="div"
+											>
 												Susiję žemėlapiai
 											</Typography>
 											<Typography component="div">
@@ -358,7 +363,9 @@ const ObjectPopupTimeline = (props) => {
 																"https://zemelapiai.vplanas.lt" +
 																`/vilniausdnr/${i18n.language}/maps/compare/review/${relatedMaps[
 																	map
-																].attributes.GlobalID_zemelapio.replace(/[{}]/g, "")}`
+																].attributes.GlobalID_zemelapio.replace(/[{}]/g, "")}?x=${
+																	view.center.x
+																}&y=${view.center.y}&zoom=${view.zoom}`
 															}
 															rel="noopener"
 															textAlign="left"

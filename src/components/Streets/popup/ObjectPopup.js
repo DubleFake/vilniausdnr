@@ -312,22 +312,8 @@ const ObjectPopup = (props) => {
 			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
 			<Fade in={true} timeout={300} unmountOnExit>
 				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
-					<Card
-						sx={{
-							borderRadius: "0px",
-							maxWidth: matches ? "auto" : 995,
-							width: matches ? 600 : "100vw",
-							mt: matches ? 1.5 : 0,
-							mr: matches ? 1.5 : 0,
-						}}
-					>
-						<CardContent
-							sx={{
-								maxHeight: window.innerHeight - 170,
-								overflowY: "auto",
-								overflowX: "hidden",
-							}}
-						>
+					<Card variant="popup">
+						<CardContent sx={{ pt: 0, px: 4 }}>
 							{pageCount > 1 ? (
 								<Box component="div" display="flex" justifyContent="center" alignItems="center">
 									<Pagination count={pageCount} page={page} onChange={handlePage} />
@@ -340,38 +326,59 @@ const ObjectPopup = (props) => {
 							) : (
 								<>
 									<CardHeader
-										sx={{ px: 0, pt: 0.5, pb: 1 }}
+										sx={{ p: 0, mt: 0 }}
 										action={
+											<IconButton
+												color="primary"
+												aria-label="close"
+												size="small"
+												onClick={() => {
+													navigate(`/vilniausdnr/${i18n.language}/streets`)
+												}}
+												sx={{
+													mt: 0.5,
+													mr: 1,
+													backgroundColor: "#F6F6F6",
+													"&:hover": {
+														transition: "0.3s",
+														backgroundColor: "white",
+													},
+												}}
+											>
+												<CloseIcon sx={{ fontSize: 25 }} />
+											</IconButton>
+										}
+										title={
 											<>
-												<BootstrapTooltip
-													open={shareTooltip}
-													leaveDelay={1000}
-													title={t(`plaques.objectPopup.shareUrl`)}
-													arrow
-													placement="top"
-													onClose={() => {
-														setShareTooltip(false)
-													}}
+												<Typography
+													sx={{ color: "white", fontWeight: 600, fontSize: "26px", display: "inline" }}
 												>
-													<IconButton color="secondary" aria-label="share" size="large" onClick={handleShare}>
-														<ShareIcon style={{ fontSize: 30 }} />
-													</IconButton>
-												</BootstrapTooltip>
-												<IconButton
-													color="secondary"
-													aria-label="close"
-													size="large"
-													onClick={() => {
-														navigate(`/vilniausdnr/${i18n.language}/streets`)
-													}}
-												>
-													<CloseIcon style={{ fontSize: 30 }} />
-												</IconButton>
+													{Object.keys(objectAttr).map((attr) =>
+														objectAttr[attr].field === "PAV" ? objectAttr[attr].value : null
+													)}
+													<BootstrapTooltip
+														open={shareTooltip}
+														leaveDelay={1000}
+														title={t(`plaques.objectPopup.shareUrl`)}
+														arrow
+														placement="top"
+														onClose={() => {
+															setShareTooltip(false)
+														}}
+													>
+														<IconButton
+															color="secondary"
+															aria-label="share"
+															size="medium"
+															onClick={handleShare}
+															sx={{ mt: -0.5 }}
+														>
+															<ShareIcon style={{ fontSize: 25 }} />
+														</IconButton>
+													</BootstrapTooltip>
+												</Typography>
 											</>
 										}
-										title={Object.keys(objectAttr).map((attr) =>
-											objectAttr[attr].field === "PAV" ? objectAttr[attr].value : null
-										)}
 									/>
 									<TableContainer sx={{ mb: 1 }} component={Paper}>
 										<Table size="small">
@@ -426,7 +433,11 @@ const ObjectPopup = (props) => {
 									)}
 
 									{objectPer.length ? (
-										<Typography variant="h6" component="div">
+										<Typography
+											sx={{ color: "white", fontWeight: 500, fontSize: "14px" }}
+											variant="body2"
+											component="div"
+										>
 											{objectPer.length > 1
 												? t("plaques.objectPopup.relatedMany")
 												: t("plaques.objectPopup.relatedOne")}
@@ -463,16 +474,20 @@ const ObjectPopup = (props) => {
 									) : null}
 
 									{relatedStreetsShow && (
-										<Typography variant="h6" component="div">
+										<Typography
+											sx={{ color: "white", fontWeight: 500, fontSize: "14px" }}
+											variant="body2"
+											component="div"
+										>
 											Istoriniai gatvės ar jos dalies pavadinimai (tik 1808, 1845, 1911, 1938 ir 1977 m.)
 											<Typography component="div">
 												<Timeline sx={{ m: 0, mt: 1, p: 0 }}>
 													{relatedStreets.map((street, i) => (
 														<TimelineItem key={i}>
 															<TimelineOppositeContent
-																sx={{ mt: 0.1, pl: 1, maxWidth: 50 }}
+																sx={{ mt: 0.1, pl: 1, maxWidth: 50, fontWeight: 400, fontSize: 14 }}
 																align="right"
-																color="text.secondary"
+																color="white"
 															>
 																{street.Metai}
 															</TimelineOppositeContent>
@@ -482,7 +497,7 @@ const ObjectPopup = (props) => {
 															</TimelineSeparator>
 															<TimelineContent sx={{ mt: 0 }}>
 																<Link
-																	sx={{ mt: 0.5 }}
+																	sx={{ fontWeight: 400, fontSize: 14  }}
 																	// target="_blank"
 																	// href={
 																	// 	"https://zemelapiai.vplanas.lt" +

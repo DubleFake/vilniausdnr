@@ -157,31 +157,29 @@ const ObjectPopup = (props) => {
 								</Box>
 							) : (
 								<>
-									<IconButton
-										color="primary"
-										aria-label="close"
-										size="small"
-										onClick={() => {
-											setPopupOpen(false)
-										}}
-										sx={{
-											mt: 0.3,
-											mr: 1,
-											position: "fixed",
-											zIndex: 10,
-											right: 0,
-											backgroundColor: "#F6F6F6",
-											"&:hover": {
-												transition: "0.3s",
-												backgroundColor: "white",
-											},
-										}}
-									>
-										<CloseIcon sx={{ fontSize: 25 }} />
-									</IconButton>
-
 									<CardHeader
 										sx={{ p: 0, mt: 0 }}
+										action={
+											<IconButton
+												color="primary"
+												aria-label="close"
+												size="small"
+												onClick={() => {
+													setPopupOpen(false)
+												}}
+												sx={{
+													mt: 0.5,
+													mr: 1,
+													backgroundColor: "#F6F6F6",
+													"&:hover": {
+														transition: "0.3s",
+														backgroundColor: "white",
+													},
+												}}
+											>
+												<CloseIcon sx={{ fontSize: 25 }} />
+											</IconButton>
+										}
 										title={
 											<>
 												<Typography
