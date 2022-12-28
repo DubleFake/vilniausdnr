@@ -47,11 +47,28 @@ body {
 }
 
 .MuiPopover-paper {
-  pointer-events: auto;
+	pointer-events: auto;
 }
 
 .MuiMenu-list {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+@keyframes rotate-center {
+	0% {
+		transform: rotate(0);
+	}
+	25% {
+		transform: rotate(90deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	75% {
+		transform: rotate(270deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
