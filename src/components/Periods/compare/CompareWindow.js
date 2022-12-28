@@ -6,7 +6,6 @@ import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
-import InputAdornment from "@mui/material/InputAdornment"
 import Typography from "@mui/material/Typography"
 
 const CompareWindow = (props) => {
@@ -153,6 +152,7 @@ const CompareWindow = (props) => {
 										whiteSpace: "unset",
 										"&.Mui-selected": {
 											color: "#D72E30",
+											backgroundColor: "#F7D5D6",
 										},
 										justifyContent: "center",
 									}}
@@ -207,6 +207,7 @@ const CompareWindow = (props) => {
 										whiteSpace: "unset",
 										"&.Mui-selected": {
 											color: "#D72E30",
+											backgroundColor: "#F7D5D6",
 										},
 										justifyContent: "center",
 									}}

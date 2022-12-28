@@ -6,8 +6,12 @@ import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
-import InputAdornment from "@mui/material/InputAdornment"
 import Typography from "@mui/material/Typography"
+import SvgIcon from "@mui/material/SvgIcon"
+
+import { ReactComponent as reviewIcon } from "../../../utils/icons/compareTypeIcons/perziura.svg"
+import { ReactComponent as swipeIcon } from "../../../utils/icons/compareTypeIcons/slenkanti.svg"
+import { ReactComponent as windowIcon } from "../../../utils/icons/compareTypeIcons/dulangai.svg"
 
 const CompareType = () => {
 	const navigate = useNavigate()
@@ -72,42 +76,58 @@ const CompareType = () => {
 				>
 					<MenuItem
 						sx={{
+							display: "flex",
 							whiteSpace: "unset",
 							"&.Mui-selected": {
 								color: "#D72E30",
+								backgroundColor: "#F7D5D6",
 							},
-							justifyContent: "center",
+							px: 1,
 						}}
 						key={0}
 						value={0}
 					>
-						Peržiūra
+						<SvgIcon sx={{ my: -2, fontSize: 35, mr: 1 }} component={reviewIcon} inheritViewBox />
+						<Typography sx={{ width: "100%" }} align="center">
+							Peržiūra
+						</Typography>
 					</MenuItem>
+
 					<MenuItem
 						sx={{
+							display: "flex",
 							whiteSpace: "unset",
 							"&.Mui-selected": {
 								color: "#D72E30",
+								backgroundColor: "#F7D5D6",
 							},
-							justifyContent: "center",
+							px: 1,
 						}}
 						key={1}
 						value={1}
 					>
-						Slenkanti juosta
+						<SvgIcon sx={{ my: -2, fontSize: 35, mr: 1 }} component={swipeIcon} inheritViewBox />
+						<Typography sx={{ width: "100%" }} align="center">
+							Slenkanti juosta
+						</Typography>
 					</MenuItem>
 					<MenuItem
 						sx={{
+							display: "flex",
 							whiteSpace: "unset",
 							"&.Mui-selected": {
 								color: "#D72E30",
+								backgroundColor: "#F7D5D6",
 							},
-							justifyContent: "center",
+							px: 1,
 						}}
 						key={2}
 						value={2}
 					>
-						Du langai
+						<SvgIcon sx={{ my: -2, fontSize: 35, mr: 1 }} component={windowIcon} inheritViewBox />
+						<Typography sx={{ width: "100%" }} align="center">
+							Du langai
+						</Typography>
 					</MenuItem>
 				</Select>
 			</FormControl>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
-import { map, maps } from "../../../utils/mapsArcgisItems"
+import { map, maps, view } from "../../../utils/mapsArcgisItems"
 
 import MenuItem from "@mui/material/MenuItem"
 import Grid from "@mui/material/Grid"
@@ -14,16 +14,37 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 
 import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
+import * as reactiveUtils from "@arcgis/core/core/reactiveUtils"
+
+const viewHandles = []
 
 const CompareReview = (props) => {
 	const { globalID } = useParams()
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
+	const location = useLocation()
+
+	const searchParams = new URLSearchParams(location.search)
+	const x = searchParams.get("x")
+	const y = searchParams.get("y")
+	const zoom = searchParams.get("zoom")
+
+	if (x && y && zoom) {
+		view.center = {
+			x: x,
+			y: y,
+			spatialReference: {
+				wkid: 2600,
+			},
+		}
+		view.zoom = zoom
+	} else {
+	}
 
 	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
-	const [selectedGroupValue, setSelectedGroupValue] = useState("")
-	const [selectedMapValue, setSelectedMapValue] = useState("")
+	const [selectedGroupValue, setSelectedGroupValue] = useState(3)
+	const [selectedMapValue, setSelectedMapValue] = useState(0)
 
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
@@ -34,9 +55,53 @@ const CompareReview = (props) => {
 
 	const handleMapChange = (event) => {
 		handleClose()
-		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
+		const mapByIndex = mapList[event.target.value]
+
+		viewHandles.forEach((handle) => {
+			handle.remove()
+		})
+		viewHandles.length = 0
+
+		navigate(
+			`/vilniausdnr/${i18n.language}/maps/compare/review/${
+				mapByIndex.globalid_map
+			}?${searchParams.toString()}`
+		)
+		viewHandles.push(
+			reactiveUtils.when(
+				() => !view.interacting,
+				() => {
+					const searchParams = new URLSearchParams()
+					searchParams.set("x", view.center.x)
+					searchParams.set("y", view.center.y)
+					searchParams.set("zoom", view.zoom)
+
+					// navigate(`${location.pathname}?${searchParams.toString()}`)
+					navigate(
+						`/vilniausdnr/${i18n.language}/maps/compare/review/${
+							mapByIndex.globalid_map
+						}?${searchParams.toString()}`
+					)
+				}
+			)
+		)
 	}
+
+	useEffect(() => {
+		viewHandles.push(
+			reactiveUtils.when(
+				() => !view.interacting,
+				() => {
+					const searchParams = new URLSearchParams()
+					searchParams.set("x", view.center.x)
+					searchParams.set("y", view.center.y)
+					searchParams.set("zoom", view.zoom)
+
+					navigate(`${location.pathname}?${searchParams.toString()}`)
+				}
+			)
+		)
+	}, [])
 
 	useEffect(() => {
 		maps
@@ -57,7 +122,6 @@ const CompareReview = (props) => {
 								title: response.features[feature].attributes.Pavadinimas,
 								group: response.features[feature].attributes.Grupe,
 								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-								index: feature,
 							})
 							tempMapList.push(mapLayer)
 						} else if (response.features[feature].attributes.Tipas === "Map Layer") {
@@ -76,7 +140,6 @@ const CompareReview = (props) => {
 								title: response.features[feature].attributes.Pavadinimas,
 								group: response.features[feature].attributes.Grupe,
 								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-								index: feature,
 							})
 							tempMapList.push(mapLayer)
 						}
@@ -85,22 +148,39 @@ const CompareReview = (props) => {
 					const defaultMap = response.features.find(
 						(map) => map.attributes.GlobalID_zemelapio === "42e1492a-d5ac-4d09-ac03-90a6efb54d6e"
 					)
-					navigate(defaultMap.attributes.GlobalID_zemelapio)
+
+					navigate(`${defaultMap.attributes.GlobalID_zemelapio}?x=${view.center.x}&y=${view.center.y}&zoom=3`)
 				}
+
+				tempMapList.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }))
 
 				setGroupList([...mapGroupSet])
 				setMapList(tempMapList)
 
-				const mapById = tempMapList.find((map) => map.globalid_map === globalID)
-				if (mapById) {
-					setSelectedGroupValue([...mapGroupSet].indexOf(mapById.group))
-					setSelectedMapValue(mapById.index)
+				tempMapList.find((mapByIndex, index) => {
+					if (mapByIndex.globalid_map === globalID) {
+						setSelectedMapValue(index)
+						groupList.find((groupByName, groupIndex) => {
+							if (groupByName === mapByIndex.group) {
+								setSelectedGroupValue(groupIndex)
+							}
+						})
 
-					map.removeAll()
-					map.add(tempMapList[mapById.index])
-				}
+						map.removeAll()
+						map.add(tempMapList[index])
+					}
+				})
 			})
 	}, [globalID])
+
+	useEffect(() => {
+		return () => {
+			viewHandles.forEach((handle) => {
+				handle.remove()
+			})
+			viewHandles.length = 0
+		}
+	}, [])
 
 	return (
 		<>
@@ -151,7 +231,7 @@ const CompareReview = (props) => {
 						<NestedMenuItem
 							sx={{
 								color: groupIndex === selectedGroupValue && "#D72E30",
-                backgroundColor: groupIndex === selectedGroupValue && "#F7D5D6"
+								backgroundColor: groupIndex === selectedGroupValue && "#F7D5D6",
 							}}
 							rightIcon={<ArrowDropDownIcon />}
 							label={group}

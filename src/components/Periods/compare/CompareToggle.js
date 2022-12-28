@@ -81,7 +81,7 @@ const CompareLayers = (props) => {
 					path="compare/timeline/:globalID"
 					element={
 						<>
-							{/* <ObjectPopup /> */}
+							<ObjectPopup />
 							<CompareTimeline />
 							<CompareType />
 						</>
@@ -92,7 +92,7 @@ const CompareLayers = (props) => {
 					path="compare/swipe"
 					element={
 						<>
-							<CompareSwipe />
+							<CompareSwipe once={props.once} setOnce={props.setOnce} />
 							<CompareType />
 						</>
 					}

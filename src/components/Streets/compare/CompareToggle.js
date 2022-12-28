@@ -42,6 +42,7 @@ const CompareLayers = (props) => {
 						sx={{
 							width: 95,
 							backgroundColor: props.historyToggle ? "white" : "#D72E30",
+							color: props.historyToggle ? "black" : "white",
 							"&:hover": {
 								backgroundColor: props.historyToggle ? "white" : "#D72E30",
 							},
@@ -53,13 +54,23 @@ const CompareLayers = (props) => {
 							navigate("")
 						}}
 					>
-						<Typography variant="button">dabartis</Typography>
+						<Typography
+							sx={{
+								textTransform: "none",
+								fontSize: "16px",
+								fontWeight: 500,
+							}}
+							variant="button"
+						>
+							Dabartis
+						</Typography>
 					</Button>
 					<Button
 						variant="timeline"
 						sx={{
 							width: 95,
 							backgroundColor: props.historyToggle ? "#D72E30" : "white",
+							color: props.historyToggle ? "white" : "black",
 							"&:hover": {
 								backgroundColor: props.historyToggle ? "#D72E30" : "white",
 							},
@@ -72,7 +83,16 @@ const CompareLayers = (props) => {
 							}
 						}}
 					>
-						<Typography variant="button">istorija</Typography>
+						<Typography
+							sx={{
+								textTransform: "none",
+								fontSize: "16px",
+								fontWeight: 500,
+							}}
+							variant="button"
+						>
+							Praeitis
+						</Typography>
 					</Button>
 				</ButtonGroup>
 			</Grid>
@@ -137,7 +157,7 @@ const CompareLayers = (props) => {
 					path="compare/swipe"
 					element={
 						<>
-							<CompareSwipe />
+							<CompareSwipe once={props.once} setOnce={props.setOnce}/>
 							<CompareType />
 						</>
 					}

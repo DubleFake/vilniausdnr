@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import MuiLinkify from "material-ui-linkify"
 import { useTranslation } from "react-i18next"
 
-import { periods } from "../../../utils/periodsArcgisItems"
+import { maps, view } from "../../../utils/periodsArcgisItems"
 
 import { styled } from "@mui/material/styles"
 import Card from "@mui/material/Card"
@@ -14,12 +14,7 @@ import IconButton from "@mui/material/IconButton"
 import ShareIcon from "@mui/icons-material/Share"
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip"
 import Typography from "@mui/material/Typography"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell from "@mui/material/TableCell"
-import TableContainer from "@mui/material/TableContainer"
-import TableRow from "@mui/material/TableRow"
-import Paper from "@mui/material/Paper"
+import Grid from "@mui/material/Grid"
 import Link from "@mui/material/Link"
 import Box from "@mui/material/Box"
 import Pagination from "@mui/material/Pagination"
@@ -27,13 +22,6 @@ import CircularProgress from "@mui/material/CircularProgress"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Backdrop from "@mui/material/Backdrop"
 import Fade from "@mui/material/Fade"
-import Timeline from "@mui/lab/Timeline"
-import TimelineItem from "@mui/lab/TimelineItem"
-import TimelineSeparator from "@mui/lab/TimelineSeparator"
-import TimelineConnector from "@mui/lab/TimelineConnector"
-import TimelineContent from "@mui/lab/TimelineContent"
-import TimelineDot from "@mui/lab/TimelineDot"
-import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
 
 let highlight
 const ObjectPopup = (props) => {
@@ -42,20 +30,12 @@ const ObjectPopup = (props) => {
 	const { t, i18n } = useTranslation()
 
 	const [loading, setLoading] = useState(true)
-	const [queryObjects, setQueryObjects] = useState([])
+	const [queryObjects, setQueryObjects] = useState({})
+	const [relatedMaps, setRelatedMaps] = useState([])
 	const [popupOpen, setPopupOpen] = useState(false)
 	const [page, setPage] = useState(1)
 	const [pageCount, setPageCount] = useState(1)
 	const [shareTooltip, setShareTooltip] = useState(false)
-	const [currentPeriod, setCurrentPeriod] = useState()
-
-	const handlePage = (event, value) => {
-		navigate(
-			`/vilniausdnr/${i18n.language}/streets/compare/timeline/${queryObjects[
-				value - 1
-			].attributes.GlobalID.replace(/[{}]/g, "")}`
-		)
-	}
 
 	const BootstrapTooltip = styled(({ className, ...props }) => (
 		<Tooltip {...props} arrow classes={{ popper: className }} />
@@ -75,52 +55,60 @@ const ObjectPopup = (props) => {
 	}
 
 	useEffect(() => {
-		setPopupOpen(true)
+		const clickHandles = view.on("click", () => {
+			setPopupOpen(true)
+		})
+		view.addHandles(clickHandles)
+	}, [])
+
+	useEffect(() => {
 		setLoading(true)
-    
-		const foundPeriod = periods.find((period) => String(period.metai) === globalID)
-		setCurrentPeriod(foundPeriod)
-    console.log(foundPeriod)
-    
-		setLoading(false)
-		// for (let period of periods) {
-		// 	period
-		// 		.queryFeatures({
-		// 			where: `GlobalID = '${globalID}'`,
-		// 			outFields: ["*"],
-		// 			returnGeometry: true,
-		// 		})
-		// 		.then((response) => {
-		// 			if (response.features.length > 0) {
-		// 				setQueryObjects(response.features)
-		// 				setLoading(false)
-		// 				props.setInitialPeriod(period)
 
-		// 				if (highlight) {
-		// 					highlight.remove()
-		// 				}
+		maps
+			.queryFeatures({
+				where: `Sudarytas = '${globalID}' AND Grupe = 'Istorinių topografijų rekonstrukcijos'`,
+				outFields: ["*"],
+				returnGeometry: false,
+			})
+			.then((response) => {
+				setQueryObjects(response.features[0].attributes)
+				return response.features[0].attributes.OBJECTID
+			})
+			.then((OBJECTID) => {
+				maps
+					.queryRelatedFeatures({
+						outFields: ["*"],
+						relationshipId: 24,
+						returnGeometry: false,
+						objectIds: OBJECTID,
+					})
+					.then(async (related_response) => {
+						let tempRelatedList = []
 
-		// 				map.removeAll()
-		// 				map.add(period)
-		// 				view.whenLayerView(period).then((periodView) => {
-		// 					view.goTo(response.features[0].geometry.extent)
-		// 					highlight = periodView.highlight(response.features[0])
-		// 				})
+						if (!related_response[OBJECTID]) {
+							setLoading(false)
+							return tempRelatedList
+						}
 
-		// 				period
-		// 					.queryRelatedFeatures({
-		// 						outFields: ["*"],
-		// 						relationshipId: 2,
-		// 						returnGeometry: false,
-		// 						objectIds: response.features[0].attributes.OBJECTID,
-		// 					})
-		// 					.then((response_related) => {
-		// 						setRelatedStreets(response_related[response.features[0].attributes.OBJECTID].features)
-		// 					})
-
-		// 			}
-		// 		})
-		// }
+						for (let feature of related_response[OBJECTID].features) {
+							await maps
+								.queryFeatures({
+									where: `GlobalID_zemelapio = '${feature.attributes.ZEMELAPIO_ID_SUSIJUSIO}'`,
+									outFields: ["Pavadinimas", "GlobalID_zemelapio"],
+									returnGeometry: false,
+								})
+								.then((related_map) => {
+									tempRelatedList.push(related_map)
+								})
+						}
+						return tempRelatedList
+					})
+					.then((relatedList) => {
+						setRelatedMaps(relatedList)
+						setPopupOpen(true)
+						setLoading(false)
+					})
+			})
 	}, [globalID])
 
 	useEffect(() => {
@@ -128,8 +116,10 @@ const ObjectPopup = (props) => {
 			setPage(1)
 			setPageCount(1)
 			// props.setSelectedObject("")
-			setQueryObjects([])
+			setQueryObjects({})
 			setPopupOpen(false)
+
+			view.removeHandles()
 
 			if (highlight) {
 				highlight.remove()
@@ -139,26 +129,12 @@ const ObjectPopup = (props) => {
 
 	const matches = useMediaQuery("(min-width:995px)")
 	return (
-		<>
+		<Box sx={{ visibility: popupOpen ? "visible" : "hidden" }}>
 			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
 			<Fade in={true} timeout={300} unmountOnExit>
-				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3, mt: 8.5 }}>
-					<Card
-						sx={{
-							borderRadius: "0px",
-							maxWidth: matches ? "auto" : 995,
-							width: matches ? 600 : "100vw",
-							mt: matches ? 1.5 : 0,
-							mr: matches ? 1.5 : 0,
-						}}
-					>
-						<CardContent
-							sx={{
-								maxHeight: window.innerHeight - 170,
-								overflowY: "auto",
-								overflowX: "hidden",
-							}}
-						>
+				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3, mt: 0.5 }}>
+					<Card variant="popup">
+						<CardContent sx={{ pt: 0, px: 4 }}>
 							{pageCount > 1 ? (
 								<Box component="div" display="flex" justifyContent="center" alignItems="center">
 									<Pagination count={pageCount} page={page} onChange={handlePage} />
@@ -170,80 +146,176 @@ const ObjectPopup = (props) => {
 								</Box>
 							) : (
 								<>
+									<IconButton
+										color="primary"
+										aria-label="close"
+										size="small"
+										onClick={() => {
+											setPopupOpen(false)
+										}}
+										sx={{
+											mt: 0.3,
+											mr: 1,
+											position: "fixed",
+											zIndex: 10,
+											right: 0,
+											backgroundColor: "#F6F6F6",
+											"&:hover": {
+												transition: "0.3s",
+												backgroundColor: "white",
+											},
+										}}
+									>
+										<CloseIcon sx={{ fontSize: 25 }} />
+									</IconButton>
+
 									<CardHeader
-										sx={{ px: 0, pt: 0.5, pb: 1 }}
-										action={
+										sx={{ p: 0, mt: 0 }}
+										title={
 											<>
-												<BootstrapTooltip
-													open={shareTooltip}
-													leaveDelay={1000}
-													title={t(`plaques.objectPopup.shareUrl`)}
-													arrow
-													placement="top"
-													onClose={() => {
-														setShareTooltip(false)
-													}}
+												<Typography
+													sx={{ color: "white", fontWeight: 600, fontSize: "26px", display: "inline" }}
 												>
-													<IconButton color="secondary" aria-label="share" size="large" onClick={handleShare}>
-														<ShareIcon style={{ fontSize: 30 }} />
-													</IconButton>
-												</BootstrapTooltip>
-												<IconButton
-													color="secondary"
-													aria-label="close"
-													size="large"
-													onClick={() => {
-														navigate(`/vilniausdnr/${i18n.language}/streets/compare/timeline`)
-													}}
-												>
-													<CloseIcon style={{ fontSize: 30 }} />
-												</IconButton>
+													{queryObjects.Pavadinimas}
+													<BootstrapTooltip
+														open={shareTooltip}
+														leaveDelay={1000}
+														title={t(`plaques.objectPopup.shareUrl`)}
+														arrow
+														placement="top"
+														onClose={() => {
+															setShareTooltip(false)
+														}}
+													>
+														<IconButton
+															color="secondary"
+															aria-label="share"
+															size="medium"
+															onClick={handleShare}
+															sx={{ mt: -0.5 }}
+														>
+															<ShareIcon style={{ fontSize: 25 }} />
+														</IconButton>
+													</BootstrapTooltip>
+												</Typography>
 											</>
 										}
-										title={currentPeriod.title}
 									/>
-									{/* <TableContainer sx={{ mb: 1 }} component={Paper}>
-										<Table size="small">
-											<TableBody>
-												{Object.keys(queryObjects.attributes).map((attr) =>
-													queryObjects.attributes[attr] &&
-													attr !== "Nuoroda" &&
-													attr !== "Pavadinimas" &&
-													attr !== "Saltinis" ? (
-														<TableRow key={attr} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-															<TableCell component="th" scope="row">
-																{console.log(queryObjects.attributes[attr])}
-																{attr}
-															</TableCell>
-															<TableCell align="right">{queryObjects.attributes[attr]}</TableCell>
-														</TableRow>
-													) : null
-												)}
-											</TableBody>
-										</Table>
-									</TableContainer>
 
-									{queryObjects.attributes["Saltinio_nuoroda"] || queryObjects.attributes["Saltinis"] ? (
-										<Typography variant="h6" component="div">
-											Šaltinis
-											<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
-												<Typography variant="body2" component="div">
-													{queryObjects.attributes["Saltinio_nuoroda"] &&
-														queryObjects.attributes["Saltinio_nuoroda"]}
-												</Typography>
-											</MuiLinkify>
-											<Typography variant="body2" component="div">
-												{queryObjects.attributes["Saltinis"] && queryObjects.attributes["Saltinis"]}
-											</Typography>
+									{queryObjects.Mastelis && (
+										<Typography
+											sx={{ color: "white", fontWeight: 500, fontSize: "14px" }}
+											variant="body2"
+											component="div"
+										>
+											{queryObjects.Mastelis}
 										</Typography>
-									) : null} */}
+									)}
+
+									{queryObjects.Aprasymas && (
+										<Typography
+											sx={{ color: "white", fontWeight: 400, mt: 2 }}
+											variant="body2"
+											component="div"
+										>
+											{queryObjects.Aprasymas}
+										</Typography>
+									)}
+
+									{(queryObjects.Saltinis || queryObjects.Autorius) && (
+										<hr
+											style={{
+												color: "gray",
+												backgroundColor: "gray",
+												height: 1,
+												width: "100%",
+												border: "none",
+												marginTop: 15,
+												marginBottom: 25,
+											}}
+										/>
+									)}
+
+									<Grid container spacing={2}>
+										{queryObjects.Autorius !== "-" && queryObjects.Autorius !== null && (
+											<Grid item xs={6}>
+												<Typography
+													sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+													variant="h6"
+													component="div"
+												>
+													{t(`plaques.objectPopup.AUTORIUS`)}
+													<Typography
+														sx={{ color: "white", fontWeight: 400 }}
+														variant="body2"
+														component="div"
+													>
+														{queryObjects.Autorius}
+													</Typography>
+												</Typography>
+											</Grid>
+										)}
+
+										{relatedMaps.length > 0 && (
+											<Grid item xs={8}>
+												<Typography
+													sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+													variant="h6"
+													component="div"
+												>
+													Originalūs naudoti žemėlapiai
+												</Typography>
+												{relatedMaps.map((map, index) => (
+													<Link
+														sx={{ mt: 0.5, display: "block" }}
+														target="_blank"
+														href={
+															"https://zemelapiai.vplanas.lt" +
+															`/vilniausdnr/${
+																i18n.language
+															}/maps/compare/review/${map.features[0].attributes.GlobalID_zemelapio.replace(
+																/[{}]/g,
+																""
+															)}`
+														}
+														rel="noopener"
+														textAlign="left"
+														variant="body2"
+														key={index}
+													>
+														{`${map.features[0].attributes.Pavadinimas}`}
+													</Link>
+												))}
+											</Grid>
+										)}
+
+										{queryObjects.Saltinis && (
+											<Grid item xs={4}>
+												<Typography
+													sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+													variant="h6"
+													component="div"
+												>
+													{t("plaques.objectPopup.SALTINIS")}
+												</Typography>
+												<Link
+													sx={{ mt: 0.5 }}
+													target="_blank"
+													href={`${queryObjects.Saltinio_nuoroda}`}
+													rel="noopener"
+													textAlign="left"
+													variant="body2"
+												>{`${queryObjects.Saltinis}`}</Link>
+											</Grid>
+										)}
+									</Grid>
 								</>
 							)}
 						</CardContent>
 					</Card>
 				</Box>
 			</Fade>
-		</>
+		</Box>
 	)
 }
 

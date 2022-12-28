@@ -89,11 +89,17 @@ export const objectRenderer = {
 	],
 }
 
+export const maps = new FeatureLayer({
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/91",
+	outFields: ["*"],
+	// renderer: objectRenderer,
+})
+
 export const objects = new FeatureLayer({
 	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/VIGIS_05_16/FeatureServer/7",
-	outFields: ["*"],
+	outFields: ["OBJECTID"],
 	title: "Periodas",
-	renderer: objectRenderer,
+	// renderer: objectRenderer,
 })
 
 const period_1808 = new TileLayer({

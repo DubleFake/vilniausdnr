@@ -28,6 +28,7 @@ const Plaques = () => {
 	const [visible, setVisible] = useState(false)
 	const [toggleCompareWindow, setToggleCompareWindow] = useState(false)
 	const [historyToggle, setHistoryToggle] = useState(false)
+	const [once, setOnce] = useState(false)
 
 	const theme = useTheme()
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
@@ -81,6 +82,8 @@ const Plaques = () => {
 										mapQuery={mapQuery}
 										setSelectedObject={setSelectedObject}
 										initialLoading={initialLoading}
+										once={once}
+										setOnce={setOnce}
 									/>
 								)}
 								{!historyToggle && <OptionsToggle visible={visible} setVisible={setVisible} />}

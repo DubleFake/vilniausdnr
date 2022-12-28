@@ -5,10 +5,7 @@ import { useTranslation } from "react-i18next"
 import { map, map2, maps } from "../../../utils/mapsArcgisItems"
 
 import MenuItem from "@mui/material/MenuItem"
-import FormControl from "@mui/material/FormControl"
-import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
-import InputAdornment from "@mui/material/InputAdornment"
 import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import Menu from "@mui/material/Menu"
@@ -23,14 +20,12 @@ const CompareWindow = (props) => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
 
-	const [selectedLeftMap, setSelectedLeftMap] = useState(8)
-	const [selectedRightMap, setSelectedRightMap] = useState(7)
-	const [mapList, setmapList] = useState([])
+	const [selectedLeftMap, setSelectedLeftMap] = useState(0)
+	const [selectedRightMap, setSelectedRightMap] = useState(1)
+	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
-	const [selectedGroupLeft, setSelectedGroupLeft] = useState("")
-	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState("")
-	const [selectedGroupRight, setSelectedGroupRight] = useState("")
-	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState("")
+	const [selectedGroupValueLeft, setSelectedGroupValueLeft] = useState(3)
+	const [selectedGroupValueRight, setSelectedGroupValueRight] = useState(3)
 
 	const [anchorElLeft, setAnchorElLeft] = React.useState(null)
 	const openLeft = Boolean(anchorElLeft)
@@ -48,7 +43,7 @@ const CompareWindow = (props) => {
 
 	const handleLeftSelect = (event) => {
 		handleCloseLeft()
-		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+		const mapByIndex = mapList[event.target.value]
 		navigate(`/vilniausdnr/${i18n.language}/maps/compare/window/${mapByIndex.globalid_map}/${globalIDRight}`)
 
 		map.remove(mapList[selectedLeftMap])
@@ -59,7 +54,7 @@ const CompareWindow = (props) => {
 
 	const handleRightSelect = (event) => {
 		handleCloseRight()
-		const mapByIndex = mapList.find((map) => map.index === String(event.target.value))
+		const mapByIndex = mapList[event.target.value]
 		navigate(`/vilniausdnr/${i18n.language}/maps/compare/window/${globalIDLeft}/${mapByIndex.globalid_map}`)
 
 		map2.remove(mapList[selectedRightMap])
@@ -89,7 +84,6 @@ const CompareWindow = (props) => {
 								title: response.features[feature].attributes.Pavadinimas,
 								group: response.features[feature].attributes.Grupe,
 								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-								index: feature,
 							})
 							tempMaps.push(mapLayer)
 						} else if (response.features[feature].attributes.Tipas === "Map Layer") {
@@ -108,7 +102,6 @@ const CompareWindow = (props) => {
 								title: response.features[feature].attributes.Pavadinimas,
 								group: response.features[feature].attributes.Grupe,
 								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-								index: feature,
 							})
 							tempMaps.push(mapLayer)
 						}
@@ -125,23 +118,33 @@ const CompareWindow = (props) => {
 					)
 				}
 
+				tempMaps.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }))
+
 				setGroupList([...mapGroupSet])
-				setmapList(tempMaps)
-
-				const mapByIdLeft = tempMaps.find((map) => map.globalid_map === globalIDLeft)
-				const mapByIdRight = tempMaps.find((map) => map.globalid_map === globalIDRight)
-
-				setSelectedGroupLeft(mapByIdLeft.group)
-				setSelectedGroupValueLeft([...mapGroupSet].indexOf(mapByIdLeft.group))
-				setSelectedLeftMap(mapByIdLeft.index)
-				setSelectedGroupRight(mapByIdRight.group)
-				setSelectedGroupValueRight([...mapGroupSet].indexOf(mapByIdRight.group))
-				setSelectedRightMap(mapByIdRight.index)
+				setMapList(tempMaps)
 
 				map.removeAll()
 				map2.removeAll()
-				map.add(tempMaps[mapByIdLeft.index])
-				map2.add(tempMaps[mapByIdRight.index])
+				tempMaps.find((mapByIndex, index) => {
+					if (mapByIndex.globalid_map === globalIDLeft) {
+						setSelectedLeftMap(index)
+						groupList.find((groupByName, groupIndex) => {
+							if (groupByName === mapByIndex.group) {
+								setSelectedGroupValueLeft(groupIndex)
+							}
+						})
+						map.add(tempMaps[index])
+					} else if (mapByIndex.globalid_map === globalIDRight) {
+						setSelectedRightMap(index)
+						groupList.find((groupByName, groupIndex) => {
+							if (groupByName === mapByIndex.group) {
+								setSelectedGroupValueRight(groupIndex)
+							}
+						})
+						map2.add(tempMaps[index])
+					}
+				})
+
 				props.setToggleCompareWindow(true)
 			})
 	}, [globalIDLeft, globalIDRight])

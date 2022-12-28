@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import MuiLinkify from "material-ui-linkify"
 import { useTranslation } from "react-i18next"
 
-import { maps } from "../../../utils/mapsArcgisItems"
+import { maps, view } from "../../../utils/mapsArcgisItems"
 
 import { styled } from "@mui/material/styles"
 import Card from "@mui/material/Card"
@@ -58,6 +58,13 @@ const ObjectPopup = (props) => {
 		await navigator.clipboard.writeText(window.location.href)
 		setShareTooltip(true)
 	}
+
+	useEffect(() => {
+		const clickHandles = view.on("click", () => {
+			setPopupOpen(true)
+		})
+		view.addHandles(clickHandles)
+	}, [])
 
 	useEffect(() => {
 		setPopupOpen(true)
@@ -122,6 +129,8 @@ const ObjectPopup = (props) => {
 			// props.setSelectedObject("")
 			setQueryObjects({})
 			setPopupOpen(false)
+
+			view.removeHandles()
 
 			if (highlight) {
 				highlight.remove()
@@ -257,7 +266,7 @@ const ObjectPopup = (props) => {
 												</Typography>
 											</Grid>
 										)}
-                    
+
 										{queryObjects.Saltinis && (
 											<Grid item xs={6}>
 												<Typography

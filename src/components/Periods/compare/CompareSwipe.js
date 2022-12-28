@@ -7,93 +7,13 @@ import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
-import InputAdornment from "@mui/material/InputAdornment"
 import Typography from "@mui/material/Typography"
+import ClickAwayListener from "@mui/material/ClickAwayListener"
+import Popover from "@mui/material/Popover"
 
-const CompareSwipe = () => {
+const CompareSwipe = (props) => {
 	const [selectedLeftPeriod, setSelectedLeftPeriod] = useState(0)
 	const [selectedRightPeriod, setSelectedRightPeriod] = useState(5)
-
-	useEffect(() => {
-		map.removeAll()
-
-		periods[0]
-			.when(() => {
-				return periods[0].queryExtent()
-			})
-			.then((response) => {
-				view.constraints.geometry = {
-					type: "extent",
-					spatialReference: response.extent.spatialReference,
-					xmin: response.extent.xmin,
-					ymin: response.extent.ymin,
-					xmax: response.extent.xmax,
-					ymax: response.extent.ymax,
-				}
-			})
-
-		view.when(() => {
-			view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
-		})
-
-		const swipeWidgetFind = view.ui.find("swipe-layers")
-		if (swipeWidgetFind !== null) {
-			view.ui.remove(swipeWidgetFind)
-			swipeWidgetFind.destroy()
-		}
-
-		map.addMany([periods[selectedLeftPeriod], periods[selectedRightPeriod]])
-
-		const swipe = new Swipe({
-			view: view,
-			leadingLayers: [periods[selectedLeftPeriod]],
-			trailingLayers: [periods[selectedRightPeriod]],
-			direction: "horizontal",
-			position: 50,
-			id: "swipe-layers",
-		})
-
-		view.ui.add(swipe)
-	}, [])
-
-	useEffect(() => {
-		view.when(() => {
-			const swipeWidgetFind = view.ui.find("swipe-layers")
-			const swipeSelectLeft = document.getElementById("swipe-select")
-			swipeSelectLeft.style.left = "0%"
-			swipeWidgetFind.watch("position", (newPos) => {
-				swipeSelectLeft.style.left = `${newPos - 50}%`
-			})
-		})
-	}, [selectedLeftPeriod, selectedRightPeriod])
-
-	useEffect(() => {
-		return () => {
-			const swipeWidgetFind = view.ui.find("swipe-layers")
-			if (swipeWidgetFind !== null) {
-				view.ui.remove(swipeWidgetFind)
-				swipeWidgetFind.destroy()
-			}
-
-			map.removeAll()
-			map.add(objects)
-
-			objects
-				.when(() => {
-					return objects.queryExtent()
-				})
-				.then((response) => {
-					view.constraints.geometry = {
-						type: "extent",
-						spatialReference: response.extent.spatialReference,
-						xmin: response.extent.xmin,
-						ymin: response.extent.ymin,
-						xmax: response.extent.xmax,
-						ymax: response.extent.ymax,
-					}
-				})
-		}
-	}, [])
 
 	const handleLeftSelect = (event) => {
 		const swipeWidgetFind = view.ui.find("swipe-layers")
@@ -141,33 +61,126 @@ const CompareSwipe = () => {
 		setSelectedRightPeriod(event.target.value)
 	}
 
-	// const handleSwipeSelect = (event) => {
-	// 	if (!props.compareWindow) {
-	// 		const swipeWidgetFind = view.ui.find("swipe-layers")
-	// 		if (swipeWidgetFind !== null) {
-	// 			view.ui.remove(swipeWidgetFind)
-	// 			swipeWidgetFind.destroy()
-	// 		}
-	// 		map.remove(swipeObjects[selectedSwipeObject])
+	const handleClickAway = (event) => {
+		if (event.target.id !== "swipe-popover") {
+			props.setOnce(true)
+		}
+	}
 
-	// 		map.add(swipeObjects[event.target.value])
-	// 		const swipe = new Swipe({
-	// 			view: view,
-	// 			leadingLayers: [objects],
-	// 			trailingLayers: [swipeObjects[event.target.value]],
-	// 			direction: "horizontal",
-	// 			position: 50,
-	// 			id: "swipe-layers",
-	// 		})
-	// 		view.ui.add(swipe)
-	// 		// setHistoryToggle(true)
-	// 	} else {
-	// 		map2.remove(swipeObjects[selectedSwipeObject])
-	// 		map2.add(swipeObjects[event.target.value])
-	// 	}
+	let intervalId
+	useEffect(() => {
+		map.removeAll()
 
-	// 	setSelectedSwipeObject(event.target.value)
-	// }
+		periods[0]
+			.when(() => {
+				return periods[0].queryExtent()
+			})
+			.then((response) => {
+				view.constraints.geometry = {
+					type: "extent",
+					spatialReference: response.extent.spatialReference,
+					xmin: response.extent.xmin,
+					ymin: response.extent.ymin,
+					xmax: response.extent.xmax,
+					ymax: response.extent.ymax,
+				}
+			})
+
+		view.when(() => {
+			view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+		})
+
+		const swipeWidgetFind = view.ui.find("swipe-layers")
+		if (swipeWidgetFind !== null) {
+			view.ui.remove(swipeWidgetFind)
+			swipeWidgetFind.destroy()
+		}
+
+		map.addMany([periods[selectedLeftPeriod], periods[selectedRightPeriod]])
+
+		const swipe = new Swipe({
+			view: view,
+			leadingLayers: [periods[selectedLeftPeriod]],
+			trailingLayers: [periods[selectedRightPeriod]],
+			direction: "horizontal",
+			position: 50,
+			id: "swipe-layers",
+		})
+
+		view.ui.add(swipe)
+
+		let back = false
+		let forwardAgain = false
+		if (!props.once) {
+			intervalId = setInterval(() => {
+				if (swipe.position < 57.5 && !back) {
+					swipe.position += 0.1
+				} else if (swipe.position > 42.5 && !forwardAgain) {
+					back = true
+					swipe.position -= 0.1
+				} else if (swipe.position < 50) {
+					forwardAgain = true
+					swipe.position += 0.1
+				} else {
+					clearInterval(intervalId)
+					setTimeout(() => {
+						props.setOnce(true)
+					}, 2000)
+				}
+			}, 10)
+
+			return () => {
+				clearInterval(intervalId)
+				setTimeout(() => {
+					props.setOnce(true)
+				}, 2000)
+			}
+		}
+	}, [])
+
+	useEffect(() => {
+		view.when(() => {
+			const swipeWidgetFind = view.ui.find("swipe-layers")
+			const swipeSelectLeft = document.getElementById("swipe-select")
+			const swipePopover = document.getElementById("swipe-popover")
+
+			swipeSelectLeft.style.left = "0%"
+			swipeWidgetFind.watch("position", (newPos) => {
+				swipeSelectLeft.style.left = `${newPos - 50}%`
+				if (swipePopover) {
+					swipePopover.style.left = `calc(${newPos}% - 170px)`
+				}
+			})
+		})
+	}, [selectedLeftPeriod, selectedRightPeriod])
+
+	useEffect(() => {
+		return () => {
+			const swipeWidgetFind = view.ui.find("swipe-layers")
+			if (swipeWidgetFind !== null) {
+				view.ui.remove(swipeWidgetFind)
+				swipeWidgetFind.destroy()
+			}
+
+			map.removeAll()
+			map.add(objects)
+
+			objects
+				.when(() => {
+					return objects.queryExtent()
+				})
+				.then((response) => {
+					view.constraints.geometry = {
+						type: "extent",
+						spatialReference: response.extent.spatialReference,
+						xmin: response.extent.xmin,
+						ymin: response.extent.ymin,
+						xmax: response.extent.xmax,
+						ymax: response.extent.ymax,
+					}
+				})
+		}
+	}, [])
 
 	return (
 		<Grid
@@ -183,6 +196,27 @@ const CompareSwipe = () => {
 			alignItems="flex-start"
 			id="swipe-select"
 		>
+			<ClickAwayListener mouseEvent="onPointerDown" touchEvent="onTouchStart" onClickAway={handleClickAway}>
+				<Popover
+					sx={{ top: "calc(50% + 50px)", pointerEvents: "none" }}
+					id="swipe-popover"
+					open={!props.once}
+					anchorReference="anchorPosition"
+					anchorPosition={{ top: 0, left: 0 }}
+					anchorOrigin={{
+						vertical: "top",
+						horizontal: "left",
+					}}
+					transformOrigin={{
+						vertical: "top",
+						horizontal: "right",
+					}}
+				>
+					<Typography sx={{ m: 1, textTransform: "none", color: "black" }} variant="body1">
+						Slinkite juostą ir lyginkite abu žemėlapius
+					</Typography>
+				</Popover>
+			</ClickAwayListener>
 			<FormControl
 				sx={{
 					bottom: 16,
@@ -225,6 +259,7 @@ const CompareSwipe = () => {
 										whiteSpace: "unset",
 										"&.Mui-selected": {
 											color: "#D72E30",
+											backgroundColor: "#F7D5D6",
 										},
 										justifyContent: "center",
 									}}
@@ -279,6 +314,7 @@ const CompareSwipe = () => {
 										whiteSpace: "unset",
 										"&.Mui-selected": {
 											color: "#D72E30",
+											backgroundColor: "#F7D5D6",
 										},
 										justifyContent: "center",
 									}}
