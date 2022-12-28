@@ -16,48 +16,10 @@ const CompareSwipe = (props) => {
 	const [selectedRightPeriod, setSelectedRightPeriod] = useState(5)
 
 	const handleLeftSelect = (event) => {
-		const swipeWidgetFind = view.ui.find("swipe-layers")
-		if (swipeWidgetFind !== null) {
-			view.ui.remove(swipeWidgetFind)
-			swipeWidgetFind.destroy()
-		}
-
-		map.remove(periods[selectedLeftPeriod])
-		map.add(periods[event.target.value])
-
-		const swipe = new Swipe({
-			view: view,
-			leadingLayers: [periods[event.target.value]],
-			trailingLayers: [periods[selectedRightPeriod]],
-			direction: "horizontal",
-			position: 50,
-			id: "swipe-layers",
-		})
-		view.ui.add(swipe)
-
 		setSelectedLeftPeriod(event.target.value)
 	}
 
 	const handleRightSelect = (event) => {
-		const swipeWidgetFind = view.ui.find("swipe-layers")
-		if (swipeWidgetFind !== null) {
-			view.ui.remove(swipeWidgetFind)
-			swipeWidgetFind.destroy()
-		}
-
-		map.remove(periods[selectedRightPeriod])
-		map.add(periods[event.target.value])
-
-		const swipe = new Swipe({
-			view: view,
-			leadingLayers: [periods[selectedLeftPeriod]],
-			trailingLayers: [periods[event.target.value]],
-			direction: "horizontal",
-			position: 50,
-			id: "swipe-layers",
-		})
-		view.ui.add(swipe)
-
 		setSelectedRightPeriod(event.target.value)
 	}
 
@@ -109,6 +71,20 @@ const CompareSwipe = (props) => {
 
 		view.ui.add(swipe)
 
+		view.when(() => {
+			const swipeSelectLeft = document.getElementById("swipe-select")
+			const swipePopover = document.getElementById("swipe-popover")
+
+			swipeSelectLeft.style.left = "0%"
+			const swipeHandle = swipe.watch("position", (newPos) => {
+				swipeSelectLeft.style.left = `${newPos - 50}%`
+				if (swipePopover) {
+					swipePopover.style.left = `calc(${newPos}% - 170px)`
+				}
+			})
+			swipe.addHandles(swipeHandle)
+		})
+
 		let back = false
 		let forwardAgain = false
 		if (!props.once) {
@@ -136,22 +112,6 @@ const CompareSwipe = (props) => {
 				}, 2000)
 			}
 		}
-	}, [])
-
-	useEffect(() => {
-		view.when(() => {
-			const swipeWidgetFind = view.ui.find("swipe-layers")
-			const swipeSelectLeft = document.getElementById("swipe-select")
-			const swipePopover = document.getElementById("swipe-popover")
-
-			swipeSelectLeft.style.left = "0%"
-			swipeWidgetFind.watch("position", (newPos) => {
-				swipeSelectLeft.style.left = `${newPos - 50}%`
-				if (swipePopover) {
-					swipePopover.style.left = `calc(${newPos}% - 170px)`
-				}
-			})
-		})
 	}, [selectedLeftPeriod, selectedRightPeriod])
 
 	useEffect(() => {

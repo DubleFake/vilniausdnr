@@ -49,27 +49,6 @@ const CompareSwipe = (props) => {
 
 		const mapByIndex = mapList[event.target.value]
 		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`)
-
-		const swipeWidgetFind = view.ui.find("swipe-layers")
-		if (swipeWidgetFind !== null) {
-			view.ui.remove(swipeWidgetFind)
-			swipeWidgetFind.destroy()
-		}
-
-		map.remove(mapList[selectedLeftMap])
-		map.add(mapList[event.target.value])
-
-		const swipe = new Swipe({
-			view: view,
-			leadingLayers: [mapList[event.target.value]],
-			trailingLayers: [mapList[selectedRightMap]],
-			direction: "horizontal",
-			position: 50,
-			id: "swipe-layers",
-		})
-		view.ui.add(swipe)
-
-		setSelectedLeftMap(event.target.value)
 	}
 
 	const handleRightSelect = (event) => {
@@ -77,27 +56,6 @@ const CompareSwipe = (props) => {
 
 		const mapByIndex = mapList[event.target.value]
 		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`)
-
-		const swipeWidgetFind = view.ui.find("swipe-layers")
-		if (swipeWidgetFind !== null) {
-			view.ui.remove(swipeWidgetFind)
-			swipeWidgetFind.destroy()
-		}
-
-		map.remove(mapList[selectedRightMap])
-		map.add(mapList[event.target.value])
-
-		const swipe = new Swipe({
-			view: view,
-			leadingLayers: [mapList[selectedLeftMap]],
-			trailingLayers: [mapList[event.target.value]],
-			direction: "horizontal",
-			position: 50,
-			id: "swipe-layers",
-		})
-		view.ui.add(swipe)
-
-		setSelectedRightMap(event.target.value)
 	}
 
 	const handleClickAway = (event) => {
@@ -209,6 +167,20 @@ const CompareSwipe = (props) => {
 
 				view.ui.add(swipe)
 
+				view.when(() => {
+					const swipeSelectBottom = document.getElementById("swipe-select-bottom")
+					const swipePopover = document.getElementById("swipe-popover")
+
+					swipeSelectBottom.style.left = "0%"
+					const swipeHandle = swipe.watch("position", (newPos) => {
+						swipeSelectBottom.style.left = `${newPos - 50}%`
+						if (swipePopover) {
+							swipePopover.style.left = `calc(${newPos}% - 170px)`
+						}
+					})
+					swipe.addHandles(swipeHandle)
+				})
+
 				let back = false
 				let forwardAgain = false
 				if (!props.once) {
@@ -238,23 +210,6 @@ const CompareSwipe = (props) => {
 				}
 			})
 	}, [globalIDLeft, globalIDRight])
-
-	useEffect(() => {
-		view.when(() => {
-			const swipeWidgetFind = view.ui.find("swipe-layers")
-
-			const swipeSelectBottom = document.getElementById("swipe-select-bottom")
-			const swipePopover = document.getElementById("swipe-popover")
-
-			swipeSelectBottom.style.left = "0%"
-			swipeWidgetFind.watch("position", (newPos) => {
-				swipeSelectBottom.style.left = `${newPos - 50}%`
-				if (swipePopover) {
-					swipePopover.style.left = `calc(${newPos}% - 170px)`
-				}
-			})
-		})
-	}, [selectedLeftMap, selectedRightMap])
 
 	useEffect(() => {
 		return () => {
