@@ -10,6 +10,7 @@ import TooltipPlaceholder from "../../../utils/misc/TooltipPlaceholder"
 import EmptyPlaceholder from "../../../utils/misc/EmptyPlaceholder"
 
 import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
 
 const PersonInfo = (props) => {
 	const { globalID } = useParams()
@@ -56,22 +57,43 @@ const PersonInfo = (props) => {
 					/>
 				</>
 			) : (
-				<>
-					<Grid item xs={4}>
+				<Box
+					sx={{
+						display: "grid",
+						gridTemplateColumns: "repeat(4, 1fr)",
+						gap: 0,
+						gridTemplateRows: "auto",
+						gridTemplateAreas: `
+              "left top top right"
+              "left middle middle right"
+            `,
+					}}
+				>
+					<Box sx={{ gridArea: "top" }}>
+						<PersonHeader biographyFeatures={biographyFeatures} />
+						<hr
+							style={{
+								position: "relative",
+								zIndex: 100,
+								color: "#D1D1D1",
+								backgroundColor: "#D1D1D1",
+								height: 1,
+								width: "90%",
+								border: "none",
+								marginTop: 32,
+							}}
+						/>
+					</Box>
+					<Box sx={{ gridArea: "left" }}>
 						<PersonGeneral biographyFeatures={biographyFeatures} />
-					</Grid>
-					<Grid item xs={12} sm container>
-						<Grid item xs={12}>
-							<PersonHeader biographyFeatures={biographyFeatures} />
-						</Grid>
-						<Grid item xs={6}>
-							<PersonTimeline globalID={globalID} />
-						</Grid>
-						<Grid item xs={6}>
-							<PersonRelated globalID={globalID} />
-						</Grid>
-					</Grid>
-				</>
+					</Box>
+					<Box sx={{ gridArea: "middle" }}>
+						<PersonTimeline globalID={globalID} />
+					</Box>
+					<Box sx={{ gridArea: "right" }}>
+						<PersonRelated globalID={globalID} />
+					</Box>
+				</Box>
 			)}
 		</Grid>
 	)

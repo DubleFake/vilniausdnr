@@ -12,6 +12,7 @@ import { ReactComponent as perlaidotas } from "../../../utils/icons/personIcons/
 import { ReactComponent as sukure } from "../../../utils/icons/personIcons/sukure.svg"
 import { ReactComponent as vede } from "../../../utils/icons/personIcons/vede.svg"
 import { ReactComponent as veike } from "../../../utils/icons/personIcons/veike.svg"
+import { ReactComponent as apdovanotas } from "../../../utils/icons/personIcons/apdovanotas.svg"
 import { ReactComponent as random_ikona } from "../../../utils/icons/personIcons/random_ikona.svg"
 
 import SvgIcon from "@mui/material/SvgIcon"
@@ -23,6 +24,8 @@ import TimelineSeparator from "@mui/lab/TimelineSeparator"
 import TimelineConnector from "@mui/lab/TimelineConnector"
 import TimelineContent from "@mui/lab/TimelineContent"
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
+import Chip from "@mui/material/Chip"
+import Stack from "@mui/material/Stack"
 
 const personIconList = {
 	dirbo: dirbo,
@@ -39,7 +42,7 @@ const personIconList = {
 	palaidotas: mire,
 	"kovojo mūšyje/kare, dalyvavo žygyje": kovojo,
 	"vedė / ištekėjo": vede,
-	apdovanotas: dirbo,
+	apdovanotas: apdovanotas,
 }
 
 const PersonTimeline = (props) => {
@@ -73,37 +76,82 @@ const PersonTimeline = (props) => {
 				</Typography>
 			</Grid>
 
+			{console.log(timelineFeatures)}
+
 			{timelineFeatures.map((feature, i) => (
 				<TimelineItem key={i}>
-					<TimelineOppositeContent sx={{ mt: 1, pl: 1, maxWidth: 100 }} align="right" color="text.secondary">
-						{feature.attributes.Fakto_data
+					<TimelineOppositeContent sx={{ mt: 1, pl: 1, maxWidth: 0 }} align="right" color="text.secondary">
+						{/* {feature.attributes.Fakto_data
 							? new Date(feature.attributes.Fakto_data).toLocaleDateString("lt-LT")
 							: feature.attributes.Fakto_datos_intervalo_pradžia
 							? feature.attributes.Fakto_datos_intervalo_pradžia
 							: feature.attributes.Fakto_datos_intervalo_pabaiga
 							? feature.attributes.Fakto_datos_intervalo_pabaiga
-							: feature.attributes.Fakto_data_tekstu}
+							: feature.attributes.Fakto_data_tekstu} */}
 					</TimelineOppositeContent>
 					<TimelineSeparator>
 						{feature.attributes.Fakto_tipas ? (
 							<SvgIcon
 								sx={{ my: 1, fontSize: 35 }}
-								color={feature.attributes.Fakto_vieta.includes("Vilnius") ? "secondary" : "primary"}
+								// color={feature.attributes.Fakto_vieta.includes("Vilnius") ? "secondary" : "primary"}
 								component={personIconList[feature.attributes.Fakto_tipas]}
 								inheritViewBox
 							/>
 						) : (
 							<SvgIcon
 								sx={{ my: 1, fontSize: 35 }}
-								color={feature.attributes.Fakto_vieta.includes("Vilnius") ? "secondary" : "primary"}
+								// color={feature.attributes.Fakto_vieta.includes("Vilnius") ? "secondary" : "primary"}
 								component={personIconList["dirbo"]}
 								inheritViewBox
 							/>
 						)}
 						{i !== timelineFeatures.length - 1 && <TimelineConnector />}
 					</TimelineSeparator>
-					<TimelineContent sx={{ mt: 1 }}>
-						<div>
+					<TimelineContent>
+						<Stack direction="row">
+							<Typography
+								sx={{
+									display: "inline",
+									fontWeight: "600",
+									textTransform: "capitalize",
+									fontSize: 18,
+								}}
+							>
+								{feature.attributes.Fakto_tipas}
+								<Chip
+									sx={{ ml: 1, color: "white", backgroundColor: "#CBCBCB", fontWeight: 400, fontSize: 14 }}
+									label={`${
+										feature.attributes.Fakto_data
+											? new Date(feature.attributes.Fakto_data).toLocaleDateString("lt-LT")
+											: feature.attributes.Fakto_datos_intervalo_pradžia
+											? feature.attributes.Fakto_datos_intervalo_pradžia
+											: feature.attributes.Fakto_datos_intervalo_pabaiga
+											? feature.attributes.Fakto_datos_intervalo_pabaiga
+											: feature.attributes.Fakto_data_tekstu
+									}`}
+								/>
+								{feature.attributes.Fakto_vieta && (
+									<Chip
+										sx={{
+											ml: 1,
+											color: "white",
+											backgroundColor: feature.attributes.Fakto_vieta.includes("Vilnius")
+												? "#D72E30"
+												: "#CBCBCB",
+											fontWeight: 400,
+											fontSize: 14,
+										}}
+										label={`${feature.attributes.Fakto_vieta}`}
+									/>
+								)}
+							</Typography>
+						</Stack>
+
+						<Typography sx={{ fontWeight: 400, fontSize: 14, color: "#3C4043", mt: 1 }}>
+							{feature.attributes.Fakto_aprasymas}
+						</Typography>
+
+						{/* <div>
 							<Typography
 								sx={{
 									display: "inline",
@@ -125,7 +173,7 @@ const PersonTimeline = (props) => {
 									{feature.attributes.Fakto_vieta}
 								</Typography>
 							)}
-						</div>
+						</div> */}
 					</TimelineContent>
 				</TimelineItem>
 			))}
