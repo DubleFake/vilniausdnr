@@ -9,7 +9,10 @@ import {
 	related_person_sources,
 	related_events,
 } from "../../../utils/personsArcgisItems"
-import { ReactComponent as random_ikona } from "../../../utils/icons/personIcons/random_ikona.svg"
+import { ReactComponent as ivykiai } from "../../../utils/icons/personIcons/ivykiai.svg"
+import { ReactComponent as saltiniai } from "../../../utils/icons/personIcons/saltiniai.svg"
+import { ReactComponent as asmenybes } from "../../../utils/icons/personIcons/asmenybes.svg"
+import { ReactComponent as organizacijos } from "../../../utils/icons/personIcons/organizacijos.svg"
 
 import Typography from "@mui/material/Typography"
 import Link from "@mui/material/Link"
@@ -78,6 +81,8 @@ const PersonRelated = (props) => {
 
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
+
+	const iconSize = 24
 
 	useEffect(() => {
 		setRelatedPersons([])
@@ -267,8 +272,8 @@ const PersonRelated = (props) => {
 		<Box sx={{ mt: 1, ml: 1, mr: 1 }}>
 			{relatedEventsShow && (
 				<>
-					<Grid container direction="row" justifyContent="flex-start" alignItems="center">
-						<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
+					<Grid sx={{ my: 1 }} container direction="row" justifyContent="flex-start" alignItems="center">
+						<SvgIcon sx={{ fontSize: iconSize, mr: 1 }} component={ivykiai} inheritViewBox />
 						<Typography sx={{ m: 0 }} variant="h6" gutterBottom>
 							Susiję įvykiai
 						</Typography>
@@ -276,7 +281,7 @@ const PersonRelated = (props) => {
 					{relatedEvents.length > 0 ? (
 						relatedEvents.map((event, i) => (
 							<Grid
-								sx={{ pl: 6 }}
+								sx={{ mb: 0.5 }}
 								container
 								direction="column"
 								justifyContent="flex-start"
@@ -308,8 +313,8 @@ const PersonRelated = (props) => {
 
 			{relatedPersonsShow && (
 				<>
-					<Grid container direction="row" justifyContent="flex-start" alignItems="center">
-						<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
+					<Grid sx={{ my: 1 }} container direction="row" justifyContent="flex-start" alignItems="center">
+						<SvgIcon sx={{ fontSize: iconSize, mr: 1 }} component={asmenybes} inheritViewBox />
 						<Typography sx={{ m: 0 }} variant="h6" gutterBottom>
 							Susijusios asmenybės
 						</Typography>
@@ -317,7 +322,7 @@ const PersonRelated = (props) => {
 
 					{relatedFamilyShow && (
 						<>
-							<Typography sx={{ m: 0, ml: 5, fontSize: 17 }} variant="h6" gutterBottom>
+							<Typography sx={{ my: 1, fontSize: 17 }} variant="h6" gutterBottom>
 								Šeima
 							</Typography>
 							{relatedPersons.length > 0 ? (
@@ -326,7 +331,7 @@ const PersonRelated = (props) => {
 										relatedFamily.some((family) => person.attributes.Rysio_tipas.includes(family)) &&
 										(person.attributes.Susijes_asmuo_is_saraso ? (
 											<Grid
-												sx={{ pl: 6 }}
+												sx={{ mb: 0.5 }}
 												container
 												direction="column"
 												justifyContent="flex-start"
@@ -364,7 +369,7 @@ const PersonRelated = (props) => {
 											</Grid>
 										) : (
 											<Grid
-												sx={{ pl: 6 }}
+												sx={{ mb: 0.5 }}
 												container
 												direction="column"
 												justifyContent="flex-start"
@@ -399,7 +404,7 @@ const PersonRelated = (props) => {
 
 					{relatedCreationShow && (
 						<>
-							<Typography sx={{ m: 0, ml: 5, fontSize: 17 }} variant="h6" gutterBottom>
+							<Typography sx={{ my: 1, fontSize: 17 }} variant="h6" gutterBottom>
 								Domėjosi, tyrinėjo ar vertė kūrybą
 							</Typography>
 							{relatedPersons.length > 0 ? (
@@ -408,7 +413,7 @@ const PersonRelated = (props) => {
 										relatedCreation.some((creation) => person.attributes.Rysio_tipas.includes(creation)) &&
 										(person.attributes.Susijes_asmuo_is_saraso ? (
 											<Grid
-												sx={{ pl: 6 }}
+												sx={{ mb: 0.5 }}
 												container
 												direction="column"
 												justifyContent="flex-start"
@@ -432,7 +437,7 @@ const PersonRelated = (props) => {
 											</Grid>
 										) : (
 											<Grid
-												sx={{ pl: 6 }}
+												sx={{ mb: 0.5 }}
 												container
 												direction="column"
 												justifyContent="flex-start"
@@ -455,7 +460,7 @@ const PersonRelated = (props) => {
 
 					{relatedFriendsShow && (
 						<>
-							<Typography sx={{ m: 0, ml: 5, fontSize: 17 }} variant="h6" gutterBottom>
+							<Typography sx={{ my: 1, fontSize: 17 }} variant="h6" gutterBottom>
 								Draugai, politiniai bendražygiai ir bendradarbiai
 							</Typography>
 							{relatedPersons.length > 0 ? (
@@ -464,7 +469,7 @@ const PersonRelated = (props) => {
 										relatedFriends.some((friend) => person.attributes.Rysio_tipas.includes(friend)) &&
 										(person.attributes.Susijes_asmuo_is_saraso ? (
 											<Grid
-												sx={{ pl: 6 }}
+												sx={{ mb: 0.5 }}
 												container
 												direction="column"
 												justifyContent="flex-start"
@@ -502,7 +507,7 @@ const PersonRelated = (props) => {
 											</Grid>
 										) : (
 											<Grid
-												sx={{ pl: 6 }}
+												sx={{ mb: 0.5 }}
 												container
 												direction="column"
 												justifyContent="flex-start"
@@ -537,7 +542,7 @@ const PersonRelated = (props) => {
 
 					{relatedOtherShow && (
 						<>
-							<Typography sx={{ m: 0, ml: 5, fontSize: 17 }} variant="h6" gutterBottom>
+							<Typography sx={{ my: 1, fontSize: 17 }} variant="h6" gutterBottom>
 								Kiti
 							</Typography>
 							{relatedPersons.length > 0 ? (
@@ -546,7 +551,7 @@ const PersonRelated = (props) => {
 										relatedOther.some((other) => person.attributes.Rysio_tipas.includes(other)) &&
 										(person.attributes.Susijes_asmuo_is_saraso ? (
 											<Grid
-												sx={{ pl: 6 }}
+												sx={{ mb: 0.5 }}
 												container
 												direction="column"
 												justifyContent="flex-start"
@@ -584,7 +589,7 @@ const PersonRelated = (props) => {
 											</Grid>
 										) : (
 											<Grid
-												sx={{ pl: 6 }}
+												sx={{ mb: 0.5 }}
 												container
 												direction="column"
 												justifyContent="flex-start"
@@ -621,8 +626,8 @@ const PersonRelated = (props) => {
 
 			{relatedOrganizationShow && (
 				<>
-					<Grid container direction="row" justifyContent="flex-start" alignItems="center">
-						<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
+					<Grid sx={{ my: 1 }} container direction="row" justifyContent="flex-start" alignItems="center">
+						<SvgIcon sx={{ fontSize: iconSize, mr: 1 }} component={organizacijos} inheritViewBox />
 						<Typography sx={{ m: 0 }} variant="h6" gutterBottom>
 							Susijusios organizacijos
 						</Typography>
@@ -630,7 +635,7 @@ const PersonRelated = (props) => {
 					{relatedOrg.length > 0 ? (
 						relatedOrg.map((org, i) => (
 							<Grid
-								sx={{ pl: 6 }}
+								sx={{ mb: 0.5 }}
 								container
 								direction="column"
 								justifyContent="flex-start"
@@ -659,8 +664,8 @@ const PersonRelated = (props) => {
 
 			{relatedSourcesShow && (
 				<>
-					<Grid container direction="row" justifyContent="flex-start" alignItems="center">
-						<SvgIcon sx={{ fontSize: 35 }} component={random_ikona} inheritViewBox />
+					<Grid sx={{ my: 1 }} container direction="row" justifyContent="flex-start" alignItems="center">
+						<SvgIcon sx={{ fontSize: iconSize, mr: 1 }} component={saltiniai} inheritViewBox />
 						<Typography sx={{ m: 0 }} variant="h6" gutterBottom>
 							Šaltiniai
 						</Typography>
@@ -668,7 +673,7 @@ const PersonRelated = (props) => {
 					{relatedPersonSources.length > 0 ? (
 						relatedPersonSources.map((source, i) => (
 							<Grid
-								sx={{ pl: 6 }}
+								sx={{ mb: 0.5 }}
 								container
 								direction="column"
 								justifyContent="flex-start"
