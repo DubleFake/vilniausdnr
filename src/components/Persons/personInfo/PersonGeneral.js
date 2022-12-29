@@ -11,7 +11,8 @@ import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import SvgIcon from "@mui/material/SvgIcon"
 import Link from "@mui/material/Link"
-import CircularProgress from "@mui/material/CircularProgress"
+import Skeleton from "@mui/material/Skeleton"
+import Stack from "@mui/material/Stack"
 
 const PersonGeneral = (props) => {
 	const { t, i18n } = useTranslation()
@@ -180,7 +181,9 @@ const PersonGeneral = (props) => {
 								</Grid>
 							))
 						) : (
-							<CircularProgress color="inherit" />
+							<Stack sx={{ m: 1.5, width: "80%", my: 1 }} spacing={1}>
+								<Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+							</Stack>
 						)}
 					</>
 				)}
@@ -218,7 +221,9 @@ const PersonGeneral = (props) => {
 								</Grid>
 							))
 						) : (
-							<CircularProgress color="inherit" />
+							<Stack sx={{ m: 1.5, width: "80%", my: 1 }} spacing={1}>
+								<Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+							</Stack>
 						)}
 					</>
 				)}

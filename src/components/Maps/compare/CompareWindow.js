@@ -218,7 +218,7 @@ const CompareWindow = (props) => {
 								parentMenuOpen={openLeft}
 							>
 								{mapList.map((map, index) =>
-									map.group === group ? (
+									map.group === group && map.globalid_map !== globalIDRight ? (
 										<MenuItem
 											sx={{
 												whiteSpace: "unset",
@@ -296,7 +296,7 @@ const CompareWindow = (props) => {
 								}}
 							>
 								{mapList.map((map, index) =>
-									map.group === group ? (
+									map.group === group && map.globalid_map !== globalIDLeft ? (
 										<MenuItem
 											sx={{
 												whiteSpace: "unset",

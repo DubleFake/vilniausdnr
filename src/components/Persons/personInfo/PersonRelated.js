@@ -13,10 +13,11 @@ import { ReactComponent as random_ikona } from "../../../utils/icons/personIcons
 
 import Typography from "@mui/material/Typography"
 import Link from "@mui/material/Link"
-import CircularProgress from "@mui/material/CircularProgress"
 import SvgIcon from "@mui/material/SvgIcon"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
+import Skeleton from "@mui/material/Skeleton"
+import Stack from "@mui/material/Stack"
 
 const relatedFamily = [
 	"tėvas",
@@ -298,7 +299,9 @@ const PersonRelated = (props) => {
 							</Grid>
 						))
 					) : (
-						<CircularProgress color="inherit" />
+						<Stack sx={{ m: 1.5 }} spacing={1}>
+							<Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+						</Stack>
 					)}
 				</>
 			)}
@@ -387,7 +390,9 @@ const PersonRelated = (props) => {
 										))
 								)
 							) : (
-								<CircularProgress color="inherit" />
+								<Stack sx={{ m: 1.5 }} spacing={1}>
+									<Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+								</Stack>
 							)}
 						</>
 					)}
@@ -441,7 +446,9 @@ const PersonRelated = (props) => {
 										))
 								)
 							) : (
-								<CircularProgress color="inherit" />
+								<Stack sx={{ m: 1.5 }} spacing={1}>
+									<Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+								</Stack>
 							)}
 						</>
 					)}
@@ -521,7 +528,9 @@ const PersonRelated = (props) => {
 										))
 								)
 							) : (
-								<CircularProgress color="inherit" />
+								<Stack sx={{ m: 1.5 }} spacing={1}>
+									<Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+								</Stack>
 							)}
 						</>
 					)}
@@ -601,7 +610,9 @@ const PersonRelated = (props) => {
 										))
 								)
 							) : (
-								<CircularProgress color="inherit" />
+								<Stack sx={{ m: 1.5 }} spacing={1}>
+									<Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+								</Stack>
 							)}
 						</>
 					)}
@@ -639,7 +650,9 @@ const PersonRelated = (props) => {
 							</Grid>
 						))
 					) : (
-						<CircularProgress color="inherit" />
+						<Stack sx={{ m: 1.5 }} spacing={1}>
+							<Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+						</Stack>
 					)}
 				</>
 			)}
@@ -679,7 +692,9 @@ const PersonRelated = (props) => {
 							</Grid>
 						))
 					) : (
-						<CircularProgress color="inherit" />
+						<Stack sx={{ m: 1.5 }} spacing={1}>
+							<Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+						</Stack>
 					)}
 				</>
 			)}

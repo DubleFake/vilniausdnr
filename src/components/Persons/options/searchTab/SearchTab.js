@@ -5,7 +5,8 @@ import Search from "./Search"
 import { matchSorter } from "match-sorter"
 
 import Grid from "@mui/material/Grid"
-import CircularProgress from "@mui/material/CircularProgress"
+import Skeleton from "@mui/material/Skeleton"
+import Stack from "@mui/material/Stack"
 
 const Table = (props) => {
 	const [objectsList, setObjectsList] = useState([])
@@ -13,6 +14,19 @@ const Table = (props) => {
 	const [tableObjectsList, setTableObjectsList] = useState([])
 	const [searchInputValue, setSearchInputValue] = useState("")
 	const [objectCount, setObjectCount] = useState(0)
+
+	const generateElements = () => {
+		const elements = []
+
+		for (let i = 0; i < 25; i++) {
+			const height = Math.random() < 0.8 ? 40 : 80
+			const width = height === 40 ? `${Math.random() * (100 - 70) + 70}%` : "100%"
+
+			elements.push(<Skeleton variant="rectangular" height={height} width={width} />)
+		}
+
+		return elements
+	}
 
 	useEffect(() => {
 		setObjectsList(props.initialObjectsList)
@@ -87,18 +101,9 @@ const Table = (props) => {
 					/>
 				</>
 			) : (
-				<Grid
-					container
-					spacing={0}
-					direction="column"
-					alignItems="center"
-					justifyContent="center"
-					sx={{ minHeight: "100vh" }}
-				>
-					<Grid item xs={3}>
-						<CircularProgress />
-					</Grid>
-				</Grid>
+				<Stack sx={{ m: 1.5 }} spacing={1}>
+					{generateElements()}
+				</Stack>
 			)}
 		</Grid>
 	)

@@ -18,6 +18,8 @@ import "./i18n"
 import "./css/index.css"
 
 import { createTheme, ThemeProvider, experimental_sx as sx } from "@mui/material/styles"
+import { useTheme } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 const App = () => {
 	const { t, i18n } = useTranslation()
@@ -30,6 +32,9 @@ const App = () => {
 	const lightGray = "#EBEBEB"
 	const darkGray = "#252525"
 	const red = "#D72E30"
+
+	const orgTheme = useTheme()
+	const isDownSm = useMediaQuery(orgTheme.breakpoints.down("sm"))
 
 	const theme = createTheme({
 		palette: {
@@ -393,7 +398,7 @@ const App = () => {
 						},
 						style: {
 							borderRadius: "0px",
-							width: 500,
+							width: isDownSm ? "100%" : 500,
 							backgroundColor: darkGray,
 							top: 0 + appBarHeight,
 							right: 0,

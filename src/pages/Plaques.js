@@ -7,6 +7,7 @@ import ObjectMap from "../components/Plaques/map/ObjectMap"
 import ObjectPopup from "../components/Plaques/popup/ObjectPopup"
 import TableToggle from "../components/Plaques/options/OptionsToggle"
 import Options from "../components/Plaques/options/Options"
+import DNRSpinner from "../utils/misc/DNRSpinner"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
@@ -43,10 +44,7 @@ const Plaques = () => {
 								sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
 								open={initialLoading}
 							>
-								<CircularProgress
-									sx={{ position: "fixed", top: window.innerHeight / 2 + 25 }}
-									color="inherit"
-								/>
+								<DNRSpinner />
 							</Backdrop>
 							<Collapse variant="options" orientation="horizontal" in={visible}>
 								<Options

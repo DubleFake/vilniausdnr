@@ -70,6 +70,7 @@ function Tile(props) {
 								fontSize: "16px",
 								opacity: 1,
 								transition: "opacity 0.3s",
+								padding: 4,
 							},
 							"& .hoverTitle": {
 								mb: propHeight === 480 ? 5 : 3,
