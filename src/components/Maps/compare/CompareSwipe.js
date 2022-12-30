@@ -143,7 +143,6 @@ const CompareSwipe = (props) => {
 						tempGroupList.find((groupByName, groupIndex) => {
 							if (groupByName === mapByIndex.group) {
 								setSelectedGroupValueRight(groupIndex)
-                console.log(groupIndex)
 							}
 						})
 						rightMap = tempMaps[index]
