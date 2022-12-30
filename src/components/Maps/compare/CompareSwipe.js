@@ -125,13 +125,14 @@ const CompareSwipe = (props) => {
 				setGroupList([...mapGroupSet])
 				setMapList(tempMaps)
 
+        let tempGroupList = [...mapGroupSet]
 				let leftMap
 				let rightMap
 
 				tempMaps.find((mapByIndex, index) => {
 					if (mapByIndex.globalid_map === globalIDLeft) {
 						setSelectedLeftMap(index)
-						groupList.find((groupByName, groupIndex) => {
+						tempGroupList.find((groupByName, groupIndex) => {
 							if (groupByName === mapByIndex.group) {
 								setSelectedGroupValueLeft(groupIndex)
 							}
@@ -139,9 +140,10 @@ const CompareSwipe = (props) => {
 						leftMap = tempMaps[index]
 					} else if (mapByIndex.globalid_map === globalIDRight) {
 						setSelectedRightMap(index)
-						groupList.find((groupByName, groupIndex) => {
+						tempGroupList.find((groupByName, groupIndex) => {
 							if (groupByName === mapByIndex.group) {
 								setSelectedGroupValueRight(groupIndex)
+                console.log(groupIndex)
 							}
 						})
 						rightMap = tempMaps[index]

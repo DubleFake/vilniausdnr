@@ -123,12 +123,14 @@ const CompareWindow = (props) => {
 				setGroupList([...mapGroupSet])
 				setMapList(tempMaps)
 
+        let tempGroupList = [...mapGroupSet]
+
 				map.removeAll()
 				map2.removeAll()
 				tempMaps.find((mapByIndex, index) => {
 					if (mapByIndex.globalid_map === globalIDLeft) {
 						setSelectedLeftMap(index)
-						groupList.find((groupByName, groupIndex) => {
+						tempGroupList.find((groupByName, groupIndex) => {
 							if (groupByName === mapByIndex.group) {
 								setSelectedGroupValueLeft(groupIndex)
 							}
@@ -136,7 +138,7 @@ const CompareWindow = (props) => {
 						map.add(tempMaps[index])
 					} else if (mapByIndex.globalid_map === globalIDRight) {
 						setSelectedRightMap(index)
-						groupList.find((groupByName, groupIndex) => {
+						tempGroupList.find((groupByName, groupIndex) => {
 							if (groupByName === mapByIndex.group) {
 								setSelectedGroupValueRight(groupIndex)
 							}
