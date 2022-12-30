@@ -42,7 +42,7 @@ const PersonGeneral = (props) => {
 				setRelatedObjects([])
 				persons
 					.queryRelatedFeatures({
-						outFields: ["OBJ_PAV", "GlobalID"],
+						outFields: ["OBJ_PAV", "GlobalID", "TIPAS"],
 						relationshipId: 0,
 						returnGeometry: false,
 						objectIds: response.features[0].attributes.OBJECTID,
@@ -157,39 +157,91 @@ const PersonGeneral = (props) => {
 					<>
 						<Grid container direction="row" justifyContent="flex-start" alignItems="center">
 							<Typography sx={{ mx: 2 }} color="white" variant="h6" gutterBottom>
-								Skulptūros ir atminimo lentos
+								Skulptūros ir paminklai
 							</Typography>
 						</Grid>
 						{relatedObjects.length > 0 ? (
-							relatedObjects.map((obj, i) => (
-								<Grid
-									sx={{ px: 2 }}
-									container
-									direction="column"
-									justifyContent="flex-start"
-									alignItems="stretch"
-									key={i}
-								>
-									<Box sx={{ display: "flex", mb: 1 }}>
-										<SvgIcon sx={{ fontSize: iconSize, mr: 1 }} component={s_lentos} inheritViewBox />
-										<Link
-											target="_blank"
-											href={
-												"https://zemelapiai.vplanas.lt" +
-												`/vilniausdnr/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
-													/[{}]/g,
-													""
-												)}`
-											}
-											rel="noopener"
-											textAlign="left"
-											variant="body2"
+							relatedObjects.map(
+								(obj, i) =>
+									obj.attributes.TIPAS !== 1 &&
+									obj.attributes.TIPAS !== 3 && (
+										<Grid
+											sx={{ px: 2 }}
+											container
+											direction="column"
+											justifyContent="flex-start"
+											alignItems="stretch"
+											key={i}
 										>
-											{obj.attributes.OBJ_PAV}
-										</Link>
-									</Box>
-								</Grid>
-							))
+											<Box sx={{ display: "flex", mb: 1 }}>
+												<SvgIcon sx={{ fontSize: iconSize, mr: 1 }} component={s_skulpturos} inheritViewBox />
+												<Link
+													target="_blank"
+													href={
+														"https://zemelapiai.vplanas.lt" +
+														`/vilniausdnr/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
+															/[{}]/g,
+															""
+														)}`
+													}
+													rel="noopener"
+													textAlign="left"
+													variant="body2"
+												>
+													{obj.attributes.OBJ_PAV}
+												</Link>
+											</Box>
+										</Grid>
+									)
+							)
+						) : (
+							<Stack sx={{ m: 1.5, width: "80%", my: 1 }} spacing={1}>
+								<Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+							</Stack>
+						)}
+					</>
+				)}
+
+				{relatedObjectsShow && (
+					<>
+						<Grid container direction="row" justifyContent="flex-start" alignItems="center">
+							<Typography sx={{ mx: 2 }} color="white" variant="h6" gutterBottom>
+								Atminimo lentos
+							</Typography>
+						</Grid>
+						{relatedObjects.length > 0 ? (
+							relatedObjects.map(
+								(obj, i) =>
+									(obj.attributes.TIPAS === 1 || obj.attributes.TIPAS === 3) && (
+										<Grid
+											sx={{ px: 2 }}
+											container
+											direction="column"
+											justifyContent="flex-start"
+											alignItems="stretch"
+											key={i}
+										>
+											<Box sx={{ display: "flex", mb: 1 }}>
+												<SvgIcon sx={{ fontSize: iconSize, mr: 1 }} component={s_lentos} inheritViewBox />
+												<Link
+													target="_blank"
+													href={
+														"https://zemelapiai.vplanas.lt" +
+														`/vilniausdnr/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
+															/[{}]/g,
+															""
+														)}`
+													}
+													rel="noopener"
+													textAlign="left"
+													variant="body2"
+												>
+													{obj.attributes.OBJ_PAV}
+												</Link>
+											</Box>
+										</Grid>
+									)
+							)
 						) : (
 							<Stack sx={{ m: 1.5, width: "80%", my: 1 }} spacing={1}>
 								<Skeleton variant="text" sx={{ fontSize: "1rem" }} />
