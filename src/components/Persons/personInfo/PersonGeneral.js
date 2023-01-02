@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { useParams } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
@@ -27,8 +27,26 @@ const PersonGeneral = (props) => {
 	const [relatedObjectsShow, setRelatedObjectsShow] = useState(true)
 	const [relatedStreets, setRelatedStreets] = useState([])
 	const [relatedStreetsShow, setRelatedStreetsShow] = useState(true)
+	const divRef = useRef(null)
+	const imgRef = useRef(null)
 
 	const iconSize = 22
+
+	useEffect(() => {
+		if (props.biographyFeatures && props.biographyFeatures.length > 0) {
+			imgRef.current = new window.Image()
+			imgRef.current.src = props.biographyFeatures[0].attributes.Nuotrauka
+				? props.biographyFeatures[0].attributes.Nuotrauka
+				: person_placeholder
+
+			imgRef.current.onload = () => {
+				if (divRef.current) {
+					const aspectRatio = imgRef.current.width / imgRef.current.height
+					divRef.current.style.height = `${divRef.current.offsetWidth / aspectRatio}px`
+				}
+			}
+		}
+	}, [props.biographyFeatures, imgRef.current])
 
 	useEffect(() => {
 		setRelatedObjectsShow(true)
@@ -93,20 +111,33 @@ const PersonGeneral = (props) => {
 				justifyContent="flex-start"
 				alignItems="center"
 			>
-				<Box
+				{/* <Box
 					component="img"
 					sx={{
-						mt: 3,
-						maxWidth: "85%",
-						// maxHeight: { xs: 233, md: 167 },
-						// maxWidth: { xs: 350, md: 250 },
+						maxWidth: "100%",
 					}}
 					src={
 						props.biographyFeatures[0].attributes.Nuotrauka
 							? props.biographyFeatures[0].attributes.Nuotrauka
 							: person_placeholder
 					}
-				/>
+				/> */}
+
+				<div
+					ref={divRef}
+					style={{
+						width: "100%",
+						height: "0px",
+						backgroundImage: `linear-gradient(0deg, rgba(37,37,37,1) 0%, rgba(255,255,255,0) 100%), url("${
+							props.biographyFeatures[0].attributes.Nuotrauka
+								? props.biographyFeatures[0].attributes.Nuotrauka
+								: person_placeholder
+						}")`,
+						backgroundSize: "contain",
+						backgroundRepeat: "no-repeat",
+					}}
+				></div>
+
 				<Typography
 					sx={{ mx: 4, mt: 1, fontStyle: "italic" }}
 					color="gray"
