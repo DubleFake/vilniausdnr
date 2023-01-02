@@ -9,11 +9,15 @@ import PersonHeader from "./PersonHeader"
 import TooltipPlaceholder from "../../../utils/misc/TooltipPlaceholder"
 import EmptyPlaceholder from "../../../utils/misc/EmptyPlaceholder"
 
+import { useTheme } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 
 const PersonInfo = (props) => {
 	const { globalID } = useParams()
+	const theme = useTheme()
+	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
 
 	const [biographyFeatures, setBiographyFeatures] = useState([])
 	const [displayTooltip, setDisplayTooltip] = useState(true)
@@ -56,6 +60,45 @@ const PersonInfo = (props) => {
 						text={"Pasirinkite konkrečią asmenybę iš sąrašo kairėje"}
 					/>
 				</>
+			) : isDownSm ? (
+				<Box
+					sx={{
+						display: "grid",
+						gap: 0,
+						gridTemplateRows: "repeat(4, 1fr)",
+						gridTemplateAreas: `
+            "top"
+            "left"
+            "middle"
+            "right"
+          `,
+					}}
+				>
+					<Box sx={{ gridArea: "top" }}>
+						<PersonHeader biographyFeatures={biographyFeatures} />
+						<hr
+							style={{
+								position: "relative",
+								zIndex: 100,
+								color: "#D1D1D1",
+								backgroundColor: "#D1D1D1",
+								height: 1,
+								width: "90%",
+								border: "none",
+								marginTop: 32,
+							}}
+						/>
+					</Box>
+					<Box sx={{ gridArea: "left" }}>
+						<PersonGeneral biographyFeatures={biographyFeatures} />
+					</Box>
+					<Box sx={{ gridArea: "middle" }}>
+						<PersonTimeline globalID={globalID} />
+					</Box>
+					<Box sx={{ gridArea: "right" }}>
+						<PersonRelated globalID={globalID} />
+					</Box>
+				</Box>
 			) : (
 				<Box
 					sx={{
