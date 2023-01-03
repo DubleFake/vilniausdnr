@@ -27,6 +27,16 @@ const PersonInfo = (props) => {
 
 	useEffect(() => {
 		setBiographyFeatures([])
+		if (!globalID) {
+			setDisplayEmpty(true)
+			if (isDownSm) {
+				props.setVisible(true)
+			}
+		} else {
+			if (isDownSm) {
+				props.setVisible(false)
+			}
+		}
 
 		persons
 			.queryFeatures({
