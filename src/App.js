@@ -93,6 +93,7 @@ const App = () => {
 							display: "flex",
 							flexDirection: "column",
 							overflow: "hidden",
+							overflowY: isDownSm ? "auto" : "hidden",
 						},
 					},
 					{
@@ -105,6 +106,7 @@ const App = () => {
 							display: "flex",
 							flexDirection: "column",
 							overflow: "hidden",
+							overflowY: isDownSm ? "auto" : "hidden",
 						},
 					},
 					{

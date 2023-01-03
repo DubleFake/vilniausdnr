@@ -69,11 +69,11 @@ const PersonInfo = (props) => {
 					}}
 					sx={{
 						mt: 1,
-						ml: 1,
-						mb: -4,
-						position: "relative",
-						right: "auto",
-						left: 0,
+						mr: 1.5,
+						position: "absolute",
+						zIndex: 200,
+						right: 0,
+						left: "auto",
 						backgroundColor: "#D72E30",
 						color: "white",
 					}}

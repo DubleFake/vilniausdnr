@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import Filter from "./Filter"
 import TableItems from "./SearchItems"
 import Search from "./Search"
@@ -13,6 +13,8 @@ const Table = (props) => {
 	const [tableObjectsList, setTableObjectsList] = useState([])
 	const [searchInputValue, setSearchInputValue] = useState("")
 	const [objectCount, setObjectCount] = useState(0)
+
+	const parentRef = useRef(null)
 
 	useEffect(() => {
 		setObjectsList(props.initialObjectsList)
@@ -41,7 +43,7 @@ const Table = (props) => {
 	}, [tableObjectsList])
 
 	return (
-		<Grid variant="optionsTabs">
+		<Grid variant="optionsTabs" ref={parentRef}>
 			{objectsList.length ? (
 				<>
 					<Search
@@ -71,6 +73,7 @@ const Table = (props) => {
 						tableObjectsList={tableObjectsList}
 						setSelectedObject={props.setSelectedObject}
 						selectedObject={props.selectedObject}
+						parentRef={parentRef}
 					/>
 				</>
 			) : (

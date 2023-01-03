@@ -9,9 +9,15 @@ import ListItemText from "@mui/material/ListItemText"
 import ListItemAvatar from "@mui/material/ListItemAvatar"
 import Avatar from "@mui/material/Avatar"
 import Typography from "@mui/material/Typography"
+import { useTheme } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 const TableItems = (props) => {
-		const navigate = useNavigate()
+	const navigate = useNavigate()
+
+	const theme = useTheme()
+	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
+
 	// 	const cache = new CellMeasurerCache({
 	// 		defaultHeight: 108,
 	// 		minHeight: 108,
@@ -64,7 +70,7 @@ const TableItems = (props) => {
 	// }
 
 	return (
-		<List sx={{ overflowY: "scroll" }}>
+		<List sx={{ overflowY: isDownSm ? "visible" : "scroll" }}>
 			{Object.keys(props.tableObjectsList).map((index) => (
 				<ListItem
 					variant="tableItem"

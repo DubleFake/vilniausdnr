@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import Filter from "./Filter"
 import TableItems from "./SearchItems"
 import Search from "./Search"
@@ -7,8 +7,6 @@ import { matchSorter } from "match-sorter"
 import Grid from "@mui/material/Grid"
 import Skeleton from "@mui/material/Skeleton"
 import Stack from "@mui/material/Stack"
-import { useTheme } from "@mui/material/styles"
-import useMediaQuery from "@mui/material/useMediaQuery"
 
 const Table = (props) => {
 	const [objectsList, setObjectsList] = useState([])
@@ -17,8 +15,7 @@ const Table = (props) => {
 	const [searchInputValue, setSearchInputValue] = useState("")
 	const [objectCount, setObjectCount] = useState(0)
 
-	const theme = useTheme()
-	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
+	const parentRef = useRef(null)
 
 	const generateElements = () => {
 		const elements = []
@@ -80,7 +77,7 @@ const Table = (props) => {
 	}, [tableObjectsList])
 
 	return (
-		<Grid variant="options">
+		<Grid variant="options" ref={parentRef}>
 			{objectsList.length ? (
 				<>
 					<Search
@@ -103,6 +100,7 @@ const Table = (props) => {
 						tableObjectsList={tableObjectsList}
 						setSelectedObject={props.setSelectedObject}
 						selectedObject={props.selectedObject}
+						parentRef={parentRef}
 					/>
 				</>
 			) : (

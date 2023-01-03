@@ -24,6 +24,7 @@ const Options = (props) => {
 						mt: 1,
 						mr: 1,
 						position: "absolute",
+						zIndex: 200,
 						right: 0,
 						left: "auto",
 						backgroundColor: "#EBEBEB",
