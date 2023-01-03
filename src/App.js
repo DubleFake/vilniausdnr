@@ -80,7 +80,7 @@ const App = () => {
 							height: window.innerHeight - appBarHeight,
 							overflowY: "auto",
 							overflowX: "hidden",
-							width: `calc(100vw - ${optionsWidth}px)`,
+							width: isDownSm ? "100vw" : `calc(100vw - ${optionsWidth}px)`,
 						},
 					},
 					{
@@ -88,7 +88,8 @@ const App = () => {
 							variant: "options",
 						},
 						style: {
-							width: optionsWidth,
+							width: isDownSm ? "100vw" : optionsWidth,
+							height: window.innerHeight - appBarHeight,
 							display: "flex",
 							flexDirection: "column",
 							overflow: "hidden",

@@ -7,11 +7,13 @@ import { persons } from "../utils/personsArcgisItems"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
+import Collapse from "@mui/material/Collapse"
 
 const Persons = () => {
 	const [selectedObject, setSelectedObject] = useState("")
 	const [initialLoading, setInitialLoading] = useState(true)
 	const [initialObjectsList, setInitialObjectsList] = useState([])
+	const [visible, setVisible] = useState(true)
 
 	useEffect(() => {
 		persons
@@ -51,12 +53,17 @@ const Persons = () => {
 									color="inherit"
 								/>
 							</Backdrop> */}
-							<Options
-								initialObjectsList={initialObjectsList}
-								setSelectedObject={setSelectedObject}
-								selectedObject={selectedObject}
-							/>
-              <PersonInfo />
+							<Collapse orientation="horizontal" in={visible}>
+								<Options
+									initialObjectsList={initialObjectsList}
+									setSelectedObject={setSelectedObject}
+									selectedObject={selectedObject}
+									visible={visible}
+									setVisible={setVisible}
+								/>
+							</Collapse>
+
+							<PersonInfo visible={visible} setVisible={setVisible} />
 							<Outlet />
 						</Grid>
 					</>
@@ -66,7 +73,7 @@ const Persons = () => {
 					path="/:globalID"
 					element={
 						<>
-							<PersonInfo/>
+							<PersonInfo visible={visible} setVisible={setVisible} />
 						</>
 					}
 				/>

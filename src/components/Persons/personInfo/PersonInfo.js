@@ -13,6 +13,8 @@ import { useTheme } from "@mui/material/styles"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
+import SearchIcon from "@mui/icons-material/Search"
+import IconButton from "@mui/material/IconButton"
 
 const PersonInfo = (props) => {
 	const { globalID } = useParams()
@@ -47,6 +49,27 @@ const PersonInfo = (props) => {
 
 	return (
 		<Grid container spacing={0} variant="main">
+			{isDownSm && (
+				<IconButton
+					color="primary"
+					aria-label="close"
+					size="small"
+					onClick={() => {
+						props.setVisible(true)
+					}}
+					sx={{
+						mt: 1,
+						ml: 1,
+						mb: -4,
+						position: "relative",
+						right: "auto",
+						left: 0,
+						backgroundColor: "#D72E30",
+					}}
+				>
+					<SearchIcon sx={{ fontSize: 25 }} />
+				</IconButton>
+			)}
 			{displayEmpty ? (
 				<>
 					<TooltipPlaceholder
@@ -65,7 +88,8 @@ const PersonInfo = (props) => {
 					sx={{
 						display: "grid",
 						gap: 0,
-						gridTemplateRows: "repeat(4, 1fr)",
+						gridTemplateColumns: "repeat(1, 1fr)",
+						gridTemplateRows: "auto",
 						gridTemplateAreas: `
             "top"
             "left"

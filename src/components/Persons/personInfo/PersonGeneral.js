@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
@@ -24,32 +24,17 @@ const PersonGeneral = (props) => {
 	const { globalID } = useParams()
 
 	const [relatedObjects, setRelatedObjects] = useState([])
-	const [relatedObjectsShow, setRelatedObjectsShow] = useState(true)
+	const [relatedMemorialShow, setRelatedMemorialShow] = useState(false)
+	const [relatedPlaquesShow, setRelatedPlaquesShow] = useState(false)
 	const [relatedStreets, setRelatedStreets] = useState([])
 	const [relatedStreetsShow, setRelatedStreetsShow] = useState(true)
-	const divRef = useRef(null)
-	const imgRef = useRef(null)
 
 	const iconSize = 22
 
 	useEffect(() => {
-		if (props.biographyFeatures && props.biographyFeatures.length > 0) {
-			imgRef.current = new window.Image()
-			imgRef.current.src = props.biographyFeatures[0].attributes.Nuotrauka
-				? props.biographyFeatures[0].attributes.Nuotrauka
-				: person_placeholder
-
-			imgRef.current.onload = () => {
-				if (divRef.current) {
-					const aspectRatio = imgRef.current.width / imgRef.current.height
-					divRef.current.style.height = `${divRef.current.offsetWidth / aspectRatio}px`
-				}
-			}
-		}
-	}, [props.biographyFeatures, imgRef.current])
-
-	useEffect(() => {
-		setRelatedObjectsShow(true)
+		setRelatedMemorialShow(false)
+		setRelatedPlaquesShow(false)
+    setRelatedObjects([])
 
 		persons
 			.queryFeatures({
@@ -57,7 +42,6 @@ const PersonGeneral = (props) => {
 				where: `Asmenybes_ID = '{${globalID}}'`,
 			})
 			.then((response) => {
-				setRelatedObjects([])
 				persons
 					.queryRelatedFeatures({
 						outFields: ["OBJ_PAV", "GlobalID", "TIPAS"],
@@ -66,10 +50,18 @@ const PersonGeneral = (props) => {
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
 					.then((response_related) => {
-						if (Object.keys(response_related).length !== 0) {
+						if (response_related[response.features[0].attributes.OBJECTID].features.length > 0) {
 							setRelatedObjects(response_related[response.features[0].attributes.OBJECTID].features)
-						} else {
-							setRelatedObjectsShow(false)
+
+							const hasMemorial = response_related[response.features[0].attributes.OBJECTID].features.some(
+								(obj) => obj.attributes.TIPAS !== 1 && obj.attributes.TIPAS !== 3
+							)
+							hasMemorial ? setRelatedMemorialShow(true) : setRelatedMemorialShow(false)
+
+							const hasPlaque = response_related[response.features[0].attributes.OBJECTID].features.some(
+								(obj) => obj.attributes.TIPAS === 1 || obj.attributes.TIPAS === 3
+							)
+							hasPlaque ? setRelatedPlaquesShow(true) : setRelatedPlaquesShow(false)
 						}
 					})
 			})
@@ -111,7 +103,7 @@ const PersonGeneral = (props) => {
 				justifyContent="flex-start"
 				alignItems="center"
 			>
-				{/* <Box
+				<Box
 					component="img"
 					sx={{
 						maxWidth: "100%",
@@ -121,22 +113,7 @@ const PersonGeneral = (props) => {
 							? props.biographyFeatures[0].attributes.Nuotrauka
 							: person_placeholder
 					}
-				/> */}
-
-				<div
-					ref={divRef}
-					style={{
-						width: "100%",
-						height: "0px",
-						backgroundImage: `linear-gradient(0deg, rgba(37,37,37,1) 0%, rgba(255,255,255,0) 100%), url("${
-							props.biographyFeatures[0].attributes.Nuotrauka
-								? props.biographyFeatures[0].attributes.Nuotrauka
-								: person_placeholder
-						}")`,
-						backgroundSize: "contain",
-						backgroundRepeat: "no-repeat",
-					}}
-				></div>
+				/>
 
 				<Typography
 					sx={{ mx: 4, mt: 1, fontStyle: "italic" }}
@@ -184,7 +161,7 @@ const PersonGeneral = (props) => {
 					</>
 				)}
 
-				{relatedObjectsShow && (
+				{relatedMemorialShow && (
 					<>
 						<Grid container direction="row" justifyContent="flex-start" alignItems="center">
 							<Typography sx={{ mx: 2 }} color="white" variant="h6" gutterBottom>
@@ -233,7 +210,7 @@ const PersonGeneral = (props) => {
 					</>
 				)}
 
-				{relatedObjectsShow && (
+				{relatedPlaquesShow && (
 					<>
 						<Grid container direction="row" justifyContent="flex-start" alignItems="center">
 							<Typography sx={{ mx: 2 }} color="white" variant="h6" gutterBottom>

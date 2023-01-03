@@ -7,6 +7,8 @@ import { matchSorter } from "match-sorter"
 import Grid from "@mui/material/Grid"
 import Skeleton from "@mui/material/Skeleton"
 import Stack from "@mui/material/Stack"
+import { useTheme } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 const Table = (props) => {
 	const [objectsList, setObjectsList] = useState([])
@@ -14,6 +16,9 @@ const Table = (props) => {
 	const [tableObjectsList, setTableObjectsList] = useState([])
 	const [searchInputValue, setSearchInputValue] = useState("")
 	const [objectCount, setObjectCount] = useState(0)
+
+	const theme = useTheme()
+	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
 
 	const generateElements = () => {
 		const elements = []
