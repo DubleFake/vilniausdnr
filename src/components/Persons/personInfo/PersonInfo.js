@@ -75,6 +75,7 @@ const PersonInfo = (props) => {
 						right: "auto",
 						left: 0,
 						backgroundColor: "#D72E30",
+						color: "white",
 					}}
 				>
 					<SearchIcon sx={{ fontSize: 25 }} />

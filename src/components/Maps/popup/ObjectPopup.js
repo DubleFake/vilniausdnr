@@ -77,6 +77,7 @@ const ObjectPopup = (props) => {
 				returnGeometry: false,
 			})
 			.then((response) => {
+        console.log(response)
 				setQueryObjects(response.features[0].attributes)
 
 				setLoading(false)

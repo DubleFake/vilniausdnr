@@ -41,6 +41,13 @@ const InfoModal = () => {
 					// 	transition: "0.3s",
 					// 	color: "#941818",
 					// },
+					"& .st0": {
+						fill: "#DC2829",
+						stroke: "none",
+					},
+					"& .st1": {
+						fill: "none",
+					},
 				}}
 				onClick={handleOpen}
 			/>

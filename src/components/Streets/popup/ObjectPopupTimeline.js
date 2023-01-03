@@ -107,7 +107,7 @@ const ObjectPopupTimeline = (props) => {
 							period
 								.queryRelatedFeatures({
 									outFields: ["*"],
-									relationshipId: 2,
+									relationshipId: 3,
 									returnGeometry: false,
 									objectIds: response.features[0].attributes.OBJECTID,
 								})
@@ -118,7 +118,7 @@ const ObjectPopupTimeline = (props) => {
 							period
 								.queryRelatedFeatures({
 									outFields: ["*"],
-									relationshipId: 9,
+									relationshipId: 10,
 									returnGeometry: false,
 									objectIds: response.features[0].attributes.OBJECTID,
 								})
@@ -306,7 +306,11 @@ const ObjectPopupTimeline = (props) => {
 
 									{relatedStreets.length ? (
 										<>
-											<Typography variant="h6" component="div">
+											<Typography
+												sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+												variant="h6"
+												component="div"
+											>
 												Dabartiniai gatvės ar jos dalies pavadinimai
 											</Typography>
 											<Typography component="div">
@@ -363,9 +367,9 @@ const ObjectPopupTimeline = (props) => {
 																"https://zemelapiai.vplanas.lt" +
 																`/vilniausdnr/${i18n.language}/maps/compare/review/${relatedMaps[
 																	map
-																].attributes.GlobalID_zemelapio.replace(/[{}]/g, "")}?x=${
-																	view.center.x
-																}&y=${view.center.y}&zoom=${view.zoom}`
+																].attributes.GlobalID_zemelapio.replace(/[{}]/g, "")}?x=${view.center.x}&y=${
+																	view.center.y
+																}&zoom=${view.zoom}`
 															}
 															rel="noopener"
 															textAlign="left"
