@@ -24,17 +24,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
 
-const marks = [
-	{
-		value: 1200,
-		label: "1200",
-	},
-	{
-		value: 2020,
-		label: "2020",
-	},
-]
-
 const viewHandles = []
 
 const Filter = (props) => {
@@ -42,30 +31,101 @@ const Filter = (props) => {
 
 	const [showAlert, setShowAlert] = useState(false)
 	const [extentCheck, setExtentCheck] = useState(false)
-	const [sliderValue, setSliderValue] = useState([1300, 2020])
+	const [sliderValue, setSliderValue] = useState([1800, 2020])
+	const [sliderValueCommited, setSliderValueCommited] = useState([1800, 2020])
+	const [marks, setMarks] = useState([
+		{
+			value: 1800,
+			label: 1800,
+		},
+		{
+			value: 2020,
+			label: 2020,
+		},
+	])
+	const [authors, setAuthors] = useState([])
+	const [selectedAuthor, setSelectedAuthor] = useState("")
+	const [showSlider, setShowSlider] = useState(true)
 
-	const handleObjectSelect = (event) => {
-		props.setSelectedObject("")
-		props.setSearchInputValue("")
-		props.setSelectedObjectFilter(event.target.value)
-	}
-	const handleMemorySelect = (event) => {
-		props.setSelectedObject("")
-		props.setSearchInputValue("")
-		props.setSelectedMemoryFilter(event.target.value)
-	}
-	const handlePeriodSelect = (event) => {
-		props.setSelectedObject("")
-		props.setSearchInputValue("")
-		props.setSelectedPeriodFilter(event.target.value)
+	const handleAuthorSelect = (event) => {
+		setSelectedAuthor(event.target.value)
+    
+		let min_value = 3000
+		let max_value = 1000
+		setSliderValue([1000, 3000])
+
+		let tempObjects
+
+		if (event.target.value !== "") {
+			tempObjects = props.objectsList.filter((obj) => {
+				return obj.attributes.Autorius === authors[event.target.value]
+			})
+		} else {
+			tempObjects = [...props.objectsList]
+		}
+
+		for (let obj of tempObjects) {
+			if (obj.attributes.Datos_intervalo_pradzia && obj.attributes.Datos_intervalo_pradzia <= min_value) {
+				min_value = obj.attributes.Datos_intervalo_pradzia
+			}
+
+			if (obj.attributes.Datos_intervalo_pabaiga && obj.attributes.Datos_intervalo_pabaiga >= max_value) {
+				max_value = obj.attributes.Datos_intervalo_pabaiga
+			}
+		}
+
+		if (max_value === 1000 || min_value === 3000) {
+			setShowSlider(false)
+		} else {
+			setShowSlider(true)
+
+			setSliderValue([min_value, max_value])
+			// setSliderValueCommited([min_value, max_value])
+			setMarks([
+				{
+					value: min_value,
+					label: min_value,
+				},
+				{
+					value: max_value,
+					label: max_value,
+				},
+			])
+		}
 	}
 
 	const handleClearFilters = () => {
-		props.setSelectedObject("")
-		props.setSearchInputValue("")
-		props.setSelectedObjectFilter("")
-		props.setSelectedMemoryFilter("")
-		props.setSelectedPeriodFilter("")
+		setSliderValue([marks[0].value, marks[1].value])
+		setSliderValueCommited([marks[0].value, marks[1].value])
+		setSelectedAuthor("")
+
+		let min_value = 3000
+		let max_value = 1000
+
+		for (let obj of props.objectsList) {
+			if (obj.attributes.Datos_intervalo_pradzia && obj.attributes.Datos_intervalo_pradzia <= min_value) {
+				min_value = obj.attributes.Datos_intervalo_pradzia
+			}
+
+			if (obj.attributes.Datos_intervalo_pabaiga && obj.attributes.Datos_intervalo_pabaiga >= max_value) {
+				max_value = obj.attributes.Datos_intervalo_pabaiga
+			}
+		}
+
+		setSliderValue([min_value, max_value])
+		// setSliderValueCommited([min_value, max_value])
+		setMarks([
+			{
+				value: min_value,
+				label: min_value,
+			},
+			{
+				value: max_value,
+				label: max_value,
+			},
+		])
+
+		setShowSlider(true)
 
 		setExtentCheck(false)
 		viewHandles.forEach((handle) => {
@@ -100,141 +160,126 @@ const Filter = (props) => {
 		setSliderValue(newValue)
 	}
 
+	const handleSliderChangeCommitted = (event, newValue) => {
+		setSliderValueCommited(newValue)
+	}
+
 	useEffect(() => {
-		let query = ""
+		let min_value = 3000
+		let max_value = 1000
+		const authors = new Set()
 
-		if (props.selectedObjectFilter !== "" && props.selectedMemoryFilter === "") {
-			query = `TIPAS = ${props.selectedObjectFilter}`
-		} else if (props.selectedObjectFilter === "" && props.selectedMemoryFilter !== "") {
-			query = `ATMINT_TIP = ${props.selectedMemoryFilter}`
-		} else if (props.selectedObjectFilter !== "" && props.selectedMemoryFilter !== "") {
-			query = `ATMINT_TIP = ${props.selectedMemoryFilter} AND TIPAS = ${props.selectedObjectFilter}`
+		for (let obj of props.objectsList) {
+			if (obj.attributes.Datos_intervalo_pradzia && obj.attributes.Datos_intervalo_pradzia <= min_value) {
+				min_value = obj.attributes.Datos_intervalo_pradzia
+			}
+
+			if (obj.attributes.Datos_intervalo_pabaiga && obj.attributes.Datos_intervalo_pabaiga >= max_value) {
+				max_value = obj.attributes.Datos_intervalo_pabaiga
+			}
+
+			if (obj.attributes.Autorius && obj.attributes.Autorius !== "-") authors.add(obj.attributes.Autorius)
 		}
+		const sortedAuthors = [...authors].sort((a, b) => a.localeCompare(b))
+		setAuthors(sortedAuthors)
 
-		if (
-			props.selectedPeriodFilter !== "" &&
-			props.selectedObjectFilter === "" &&
-			props.selectedMemoryFilter === ""
-		) {
-			query = `OBJ_LAIK_TIP = ${props.selectedPeriodFilter}`
-		} else if (
-			props.selectedPeriodFilter !== "" &&
-			(props.selectedObjectFilter !== "" || props.selectedMemoryFilter !== "")
-		) {
-			let add_period = query.concat(" ", `AND OBJ_LAIK_TIP = ${props.selectedPeriodFilter}`)
-			query = add_period
-		}
+		setSliderValue([min_value, max_value])
+		setSliderValueCommited([min_value, max_value])
+		setMarks([
+			{
+				value: min_value,
+				label: min_value,
+			},
+			{
+				value: max_value,
+				label: max_value,
+			},
+		])
+	}, [])
 
-		if (
-			props.selectedObjectFilter === "" &&
-			props.selectedMemoryFilter === "" &&
-			props.selectedPeriodFilter === ""
-		) {
-			query = ""
+	// useEffect(() => {
+	// 	viewHandles.forEach((handle) => {
+	// 		handle.remove()
+	// 	})
+	// 	viewHandles.length = 0
+
+	// 	view.whenLayerView(objects).then((objectsView) => {
+	// 		if (extentCheck) {
+	// 			viewHandles.push(
+	// 				objectsView.watch("updating", (updating) => {
+	// 					if (!updating) {
+	// 						objectsView
+	// 							.queryFeatures({
+	// 								outFields: ["*"],
+	// 								where: objectsView.filter.where,
+	// 								geometry: view.extent,
+	// 								returnGeometry: false,
+	// 							})
+	// 							.then((response) => {
+	// 								props.setSearchObjectsList(response.features)
+	// 							})
+	// 					}
+	// 				})
+	// 			)
+	// 		} else {
+	// 			objectsView
+	// 				.queryFeatures({
+	// 					outFields: ["*"],
+	// 					where: objectsView.filter ? objectsView.filter.where : null,
+	// 					geometry: null,
+	// 					returnGeometry: false,
+	// 				})
+	// 				.then((response) => {
+	// 					if (response.features.length) {
+	// 						props.setSearchObjectsList(response.features)
+	// 					}
+	// 				})
+	// 		}
+	// 	})
+	// }, [extentCheck])
+
+	useEffect(() => {
+		let query = `(Datos_intervalo_pradzia BETWEEN ${sliderValue[0]} AND ${sliderValue[1]} OR Datos_intervalo_pabaiga BETWEEN ${sliderValue[0]} AND ${sliderValue[1]})`
+
+		if (typeof selectedAuthor !== "undefined" && selectedAuthor !== "") {
+			query += ` AND Autorius = '${authors[selectedAuthor]}'`
 		}
 
 		view.whenLayerView(objects).then((objectsView) => {
 			watchUtils.whenNotOnce(objectsView, "updating").then(() => {
 				objectsView.filter = {
+					//galima tiesiog nustatyti view filter kad pakeisti view, ir vietoj queryFeatures padaryti array.filter()
 					//geometry: extentCheck ? view.extent : null,
 					where: query,
 				}
 
-				if (!extentCheck) {
-					objectsView
-						.queryFeatures({
-							outFields: ["*"],
-							where: objectsView.filter.where,
-							returnGeometry: false,
-						})
-						.then((response) => {
-							const objectTypes = new Set()
-							const memoryTypes = new Set()
-
-							if (response.features.length) {
-								props.setSearchObjectsList(response.features)
-								if (query !== "") {
-									for (let feature in response.features) {
-										for (let attribute in response.features[feature].attributes) {
-											if (attribute === "TIPAS") {
-												if (response.features[feature].attributes[attribute] !== null) {
-													objectTypes.add(response.features[feature].attributes[attribute])
-												}
-											} else if (attribute === "ATMINT_TIP") {
-												if (response.features[feature].attributes[attribute] !== null) {
-													memoryTypes.add(response.features[feature].attributes[attribute])
-												}
-											}
-										}
-									}
-									props.setVisibleObjectIcons([...objectTypes])
-									props.setVisibleMemoryIcons([...memoryTypes])
-								} else {
-									props.setVisibleObjectIcons([])
-									props.setVisibleMemoryIcons([])
-								}
-							} else {
-								setShowAlert(true)
-								props.setSelectedObjectFilter("")
-								props.setSelectedMemoryFilter("")
-								props.setSelectedPeriodFilter("")
-							}
-						})
-				}
-			})
-		})
-	}, [props.selectedObjectFilter, props.selectedMemoryFilter, props.selectedPeriodFilter])
-
-	useEffect(() => {
-		viewHandles.forEach((handle) => {
-			handle.remove()
-		})
-		viewHandles.length = 0
-
-		view.whenLayerView(objects).then((objectsView) => {
-			if (extentCheck) {
-				viewHandles.push(
-					objectsView.watch("updating", (updating) => {
-						if (!updating) {
-							objectsView
-								.queryFeatures({
-									outFields: ["*"],
-									where: objectsView.filter.where,
-									geometry: view.extent,
-									returnGeometry: false,
-								})
-								.then((response) => {
-									props.setSearchObjectsList(response.features)
-								})
-						}
-					})
-				)
-			} else {
 				objectsView
 					.queryFeatures({
 						outFields: ["*"],
-						where: objectsView.filter ? objectsView.filter.where : null,
-						geometry: null,
+						where: objectsView.filter.where,
 						returnGeometry: false,
 					})
 					.then((response) => {
 						if (response.features.length) {
 							props.setSearchObjectsList(response.features)
 						}
+						// else {
+						// 	setShowAlert(true)
+						// 	handleClearFilters()
+						// }
 					})
-			}
+			})
 		})
-	}, [extentCheck])
+	}, [sliderValueCommited, selectedAuthor])
 
-	// useEffect(() => {
-	// 	return () => {
-	//     console.log("first")
-	// 		viewHandles.forEach((handle) => {
-	// 			handle.remove()
-	// 		})
-	// 		viewHandles.length = 0
-	// 	}
-	// }, [])
+	useEffect(() => {
+		return () => {
+			viewHandles.forEach((handle) => {
+				handle.remove()
+			})
+			viewHandles.length = 0
+		}
+	}, [])
 
 	return (
 		<>
@@ -248,6 +293,28 @@ const Filter = (props) => {
 				</Alert>
 			</Snackbar>
 			<Container variant="filter">
+				<FormControl variant="outlined" size="small">
+					<InputLabel id="object-select-label">{"Autorius"}</InputLabel>
+					<Select
+						variant="outlined"
+						labelId="object-select-label"
+						name="object-select"
+						id="object-select"
+						value={selectedAuthor}
+						label={"Autorius"}
+						onChange={handleAuthorSelect}
+					>
+						<MenuItem value="">
+							<em>{t("plaques.options.all")}</em>
+						</MenuItem>
+						{authors.map((object, index) => (
+							<MenuItem sx={{ whiteSpace: "unset" }} key={index} value={index}>
+								{object}
+							</MenuItem>
+						))}
+					</Select>
+				</FormControl>
+
 				{/* <FormControl variant="outlined" size="small">
 					<InputLabel id="object-select-label">{t("plaques.options.objectType")}</InputLabel>
 					<Select
@@ -324,21 +391,26 @@ const Filter = (props) => {
 					</Select>
 				</FormControl> */}
 
-				{/* <Grid container direction="row" justifyContent="center" alignItems="center">
-					<Typography sx={{ mt: 3 }} variant="subtitle2">
-						Metai
-					</Typography>
-				</Grid>
-				<Slider
-					sx={{ ml: "1%", width: "98%" }}
-					value={sliderValue}
-					max={2022}
-					min={1200}
-					size="small"
-					valueLabelDisplay="auto"
-					onChange={handleSliderChange}
-					marks={marks}
-				/> */}
+				{showSlider && (
+					<>
+						<Grid container direction="row" justifyContent="center" alignItems="center">
+							<Typography sx={{ mt: 3 }} variant="subtitle2">
+								Metai
+							</Typography>
+						</Grid>
+						<Slider
+							sx={{ ml: "1%", width: "98%" }}
+							value={sliderValue}
+							min={marks[0].value}
+							max={marks[1].value}
+							size="small"
+							valueLabelDisplay="auto"
+							onChange={handleSliderChange}
+							onChangeCommitted={handleSliderChangeCommitted}
+							marks={marks}
+						/>
+					</>
+				)}
 
 				<FormGroup sx={{ mt: 1 }}>
 					<FormControlLabel
@@ -354,10 +426,9 @@ const Filter = (props) => {
 					<Count objectCount={props.objectCount}></Count>
 				</Typography>
 
-				{(props.searchInputValue ||
-					props.selectedObjectFilter ||
-					props.selectedMemoryFilter ||
-					props.selectedPeriodFilter) && (
+				{(sliderValueCommited[0] !== marks[0].value ||
+					sliderValueCommited[1] !== marks[1].value ||
+					(typeof selectedAuthor !== "undefined" && selectedAuthor !== "")) && (
 					<Button
 						color="secondary"
 						disableElevation

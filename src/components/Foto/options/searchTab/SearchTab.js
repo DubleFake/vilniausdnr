@@ -51,8 +51,9 @@ const Table = (props) => {
 						searchInputValue={searchInputValue}
 						setSearchInputValue={setSearchInputValue}
 						setTableObjectsList={setTableObjectsList}
-					/>
+            />
 					<Filter
+						searchObjectsList={searchObjectsList}
 						objectsList={objectsList}
 						setSearchInputValue={setSearchInputValue}
 						setSelectedObject={props.setSelectedObject}

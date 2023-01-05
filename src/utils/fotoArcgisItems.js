@@ -11,7 +11,7 @@ const url = window.location.href
 const origin = new URL(url).origin
 
 export const objects = new FeatureLayer({
-	url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/Atminties_objektai_nuotraukos/FeatureServer/1116",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/93",
 	outFields: ["*"],
 	title: "Foto",
 	renderer: {

@@ -36,6 +36,7 @@ const ObjectPopup = (props) => {
 
 	const [objectAttr, setObjectAttr] = useState([])
 	const [objectPer, setObjectPer] = useState([])
+	const [objectStr, setObjectStr] = useState([])
 	const [objectAtt, setObjectAtt] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [queryObjects, setQueryObjects] = useState([])
@@ -98,7 +99,7 @@ const ObjectPopup = (props) => {
 				let query = objectsView.createQuery()
 				query.where = `GlobalID = '${globalID}'`
 
-				objectsView
+				objects //objectsView neveikia??
 					.queryFeatures(query)
 					.then((response) => {
 						if (highlight) {
@@ -109,6 +110,46 @@ const ObjectPopup = (props) => {
 							navigate(`/vilniausdnr/${i18n.language}/foto`)
 							return
 						}
+
+						objects
+							.queryRelatedFeatures({
+								outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai"],
+								relationshipId: 16,
+								returnGeometry: false,
+								objectIds: response.features[0].attributes.OBJECTID,
+							})
+							.then((related_persons) => {
+								const allPersons = []
+
+								Object.keys(related_persons).forEach((objectId) => {
+									const person = related_persons[objectId].features
+
+									person.forEach((person) => {
+										allPersons.push(person)
+									})
+								})
+								setObjectPer(allPersons)
+							})
+
+						objects
+							.queryRelatedFeatures({
+								outFields: ["GAT_ID", "PAV"],
+								relationshipId: 9,
+								returnGeometry: false,
+								objectIds: response.features[0].attributes.OBJECTID,
+							})
+							.then((related_persons) => {
+								const allStreets = []
+
+								Object.keys(related_persons).forEach((objectId) => {
+									const person = related_persons[objectId].features
+
+									person.forEach((person) => {
+										allStreets.push(person)
+									})
+								})
+								setObjectStr(allStreets)
+							})
 
 						view.goTo({ target: response.features[0].geometry, zoom: 8 })
 						highlight = objectsView.highlight(response.features[0])
@@ -279,6 +320,7 @@ const ObjectPopup = (props) => {
 											</Typography>
 										</Grid>
 									)}
+
 									{objectAttr.Saltinis && (
 										<Grid item xs={6}>
 											<Typography
@@ -298,6 +340,70 @@ const ObjectPopup = (props) => {
 											>{`${objectAttr.Saltinis}`}</Link>
 										</Grid>
 									)}
+
+									{objectPer.length ? (
+										<Grid item xs={6}>
+											<Typography
+												sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+												variant="body2"
+												component="div"
+											>
+												{objectPer.length > 1
+													? t("plaques.objectPopup.relatedMany")
+													: t("plaques.objectPopup.relatedOne")}
+												<Typography component="div">
+													{Object.keys(objectPer).map((per) => (
+														<div key={per}>
+															<Link
+																sx={{ mt: 0.5 }}
+																target="_blank"
+																href={
+																	"https://zemelapiai.vplanas.lt" +
+																	`/vilniausdnr/${i18n.language}/persons/${objectPer[
+																		per
+																	].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
+																}
+																rel="noopener"
+																textAlign="left"
+																variant="body2"
+															>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
+															<br></br>
+														</div>
+													))}
+												</Typography>
+											</Typography>
+										</Grid>
+									) : null}
+
+									{objectStr.length ? (
+										<Grid item xs={6}>
+											<Typography
+												sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+												variant="body2"
+												component="div"
+											>
+												Susijusi gatvė
+												<Typography component="div">
+													{Object.keys(objectStr).map((str) => (
+														<div key={str}>
+															<Link
+																sx={{ mt: 0.5 }}
+																target="_blank"
+																href={
+																	"https://zemelapiai.vplanas.lt" +
+																	`/vilniausdnr/${i18n.language}/streets/object/${objectStr[str].attributes.GAT_ID}`
+																}
+																rel="noopener"
+																textAlign="left"
+																variant="body2"
+															>{`${objectStr[str].attributes.PAV}`}</Link>
+															<br></br>
+														</div>
+													))}
+												</Typography>
+											</Typography>
+										</Grid>
+									) : null}
 								</Grid>
 							</>
 						)}
