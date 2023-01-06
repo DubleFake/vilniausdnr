@@ -79,6 +79,9 @@ const PersonRelated = (props) => {
 	const [relatedOrganizationShow, setRelatedOrganizationShow] = useState(true)
 	const [relatedSourcesShow, setRelatedSourcesShow] = useState(true)
 
+	const [personDomain, setPersonDomain] = useState({})
+	const [orgDomain, setOrgDomain] = useState({})
+
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
 
@@ -99,6 +102,12 @@ const PersonRelated = (props) => {
 			})
 			.then((response) => {
 				if (response.features.length !== 0) {
+					const tempPersonDomain = {}
+					for (let codedValue of response.fields[3].domain.codedValues) {
+						tempPersonDomain[codedValue.code] = codedValue.name
+					}
+					setPersonDomain(tempPersonDomain)
+
 					const tempPersons = response.features
 					let personsCount = 0
 
@@ -114,7 +123,11 @@ const PersonRelated = (props) => {
 
 						if (
 							!relatedFamilyFound &&
-							relatedFamily.some((family) => tempPersons[person].attributes.Rysio_tipas.includes(family))
+							relatedFamily.some((family) =>
+								Number.isInteger(Number(tempPersons[person].attributes.Rysio_tipas))
+									? family === tempPersonDomain[tempPersons[person].attributes.Rysio_tipas]
+									: family === tempPersons[person].attributes.Rysio_tipas
+							)
 						) {
 							relatedFamilyFound = true
 						}
@@ -122,20 +135,32 @@ const PersonRelated = (props) => {
 						if (
 							!relatedCreationFound &&
 							relatedCreation.some((creation) =>
-								tempPersons[person].attributes.Rysio_tipas.includes(creation)
+								Number.isInteger(Number(tempPersons[person].attributes.Rysio_tipas))
+									? creation === tempPersonDomain[tempPersons[person].attributes.Rysio_tipas]
+									: creation === tempPersons[person].attributes.Rysio_tipas
 							)
 						) {
 							relatedCreationFound = true
 						}
+
 						if (
 							!relatedFriendsFound &&
-							relatedFriends.some((friend) => tempPersons[person].attributes.Rysio_tipas.includes(friend))
+							relatedFriends.some((friend) =>
+								Number.isInteger(Number(tempPersons[person].attributes.Rysio_tipas))
+									? friend === tempPersonDomain[tempPersons[person].attributes.Rysio_tipas]
+									: friend === tempPersons[person].attributes.Rysio_tipas
+							)
 						) {
 							relatedFriendsFound = true
 						}
+
 						if (
 							!relatedOtherFound &&
-							relatedOther.some((other) => tempPersons[person].attributes.Rysio_tipas.includes(other))
+							relatedOther.some((other) =>
+								Number.isInteger(Number(tempPersons[person].attributes.Rysio_tipas))
+									? other === tempPersonDomain[tempPersons[person].attributes.Rysio_tipas]
+									: other === tempPersons[person].attributes.Rysio_tipas
+							)
 						) {
 							relatedOtherFound = true
 						}
@@ -195,6 +220,12 @@ const PersonRelated = (props) => {
 			})
 			.then((response) => {
 				if (response.features.length !== 0) {
+          const tempOrgDomain = {}
+          for (let codedValue of response.fields[3].domain.codedValues) {
+            tempOrgDomain[codedValue.code] = codedValue.name
+          }
+          setOrgDomain(tempOrgDomain)
+          
 					setRelatedOrg(response.features)
 				} else {
 					setRelatedOrganizationShow(false)
@@ -328,7 +359,11 @@ const PersonRelated = (props) => {
 							{relatedPersons.length > 0 ? (
 								relatedPersons.map(
 									(person, i) =>
-										relatedFamily.some((family) => person.attributes.Rysio_tipas.includes(family)) &&
+										relatedFamily.some((family) =>
+											Number.isInteger(Number(person.attributes.Rysio_tipas))
+												? family === personDomain[person.attributes.Rysio_tipas]
+												: family === person.attributes.Rysio_tipas
+										) &&
 										(person.attributes.Susijes_asmuo_is_saraso ? (
 											<Grid
 												sx={{ mb: 0.5 }}
@@ -363,7 +398,9 @@ const PersonRelated = (props) => {
 															{" "}
 															|{" "}
 														</Typography>
-														{person.attributes.Rysio_tipas}
+														{Number.isInteger(Number(person.attributes.Rysio_tipas))
+															? personDomain[person.attributes.Rysio_tipas]
+															: person.attributes.Rysio_tipas}
 													</Typography>
 												</Box>
 											</Grid>
@@ -388,7 +425,9 @@ const PersonRelated = (props) => {
 															{" "}
 															|{" "}
 														</Typography>
-														{person.attributes.Rysio_tipas}
+														{Number.isInteger(Number(person.attributes.Rysio_tipas))
+															? personDomain[person.attributes.Rysio_tipas]
+															: person.attributes.Rysio_tipas}
 													</Typography>
 												</Typography>
 											</Grid>
@@ -410,7 +449,11 @@ const PersonRelated = (props) => {
 							{relatedPersons.length > 0 ? (
 								relatedPersons.map(
 									(person, i) =>
-										relatedCreation.some((creation) => person.attributes.Rysio_tipas.includes(creation)) &&
+										relatedCreation.some((creation) =>
+											Number.isInteger(Number(person.attributes.Rysio_tipas))
+												? creation === personDomain[person.attributes.Rysio_tipas]
+												: creation === person.attributes.Rysio_tipas
+										) &&
 										(person.attributes.Susijes_asmuo_is_saraso ? (
 											<Grid
 												sx={{ mb: 0.5 }}
@@ -466,7 +509,11 @@ const PersonRelated = (props) => {
 							{relatedPersons.length > 0 ? (
 								relatedPersons.map(
 									(person, i) =>
-										relatedFriends.some((friend) => person.attributes.Rysio_tipas.includes(friend)) &&
+										relatedFriends.some((friend) =>
+											Number.isInteger(Number(person.attributes.Rysio_tipas))
+												? friend === personDomain[person.attributes.Rysio_tipas]
+												: friend === person.attributes.Rysio_tipas
+										) &&
 										(person.attributes.Susijes_asmuo_is_saraso ? (
 											<Grid
 												sx={{ mb: 0.5 }}
@@ -501,7 +548,9 @@ const PersonRelated = (props) => {
 															{" "}
 															|{" "}
 														</Typography>
-														{person.attributes.Rysio_tipas}
+														{Number.isInteger(Number(person.attributes.Rysio_tipas))
+															? personDomain[person.attributes.Rysio_tipas]
+															: person.attributes.Rysio_tipas}
 													</Typography>
 												</Box>
 											</Grid>
@@ -526,7 +575,9 @@ const PersonRelated = (props) => {
 															{" "}
 															|{" "}
 														</Typography>
-														{person.attributes.Rysio_tipas}
+														{Number.isInteger(Number(person.attributes.Rysio_tipas))
+															? personDomain[person.attributes.Rysio_tipas]
+															: person.attributes.Rysio_tipas}
 													</Typography>
 												</Typography>
 											</Grid>
@@ -548,7 +599,11 @@ const PersonRelated = (props) => {
 							{relatedPersons.length > 0 ? (
 								relatedPersons.map(
 									(person, i) =>
-										relatedOther.some((other) => person.attributes.Rysio_tipas.includes(other)) &&
+										relatedOther.some((other) =>
+											Number.isInteger(Number(person.attributes.Rysio_tipas))
+												? other === personDomain[person.attributes.Rysio_tipas]
+												: other === person.attributes.Rysio_tipas
+										) &&
 										(person.attributes.Susijes_asmuo_is_saraso ? (
 											<Grid
 												sx={{ mb: 0.5 }}
@@ -583,7 +638,9 @@ const PersonRelated = (props) => {
 															{" "}
 															|{" "}
 														</Typography>
-														{person.attributes.Rysio_tipas}
+														{Number.isInteger(Number(person.attributes.Rysio_tipas))
+															? personDomain[person.attributes.Rysio_tipas]
+															: person.attributes.Rysio_tipas}
 													</Typography>
 												</Box>
 											</Grid>
@@ -608,7 +665,9 @@ const PersonRelated = (props) => {
 															{" "}
 															|{" "}
 														</Typography>
-														{person.attributes.Rysio_tipas}
+														{Number.isInteger(Number(person.attributes.Rysio_tipas))
+															? personDomain[person.attributes.Rysio_tipas]
+															: person.attributes.Rysio_tipas}
 													</Typography>
 												</Typography>
 											</Grid>
@@ -649,7 +708,9 @@ const PersonRelated = (props) => {
 											{" "}
 											|{" "}
 										</Typography>
-										{org.attributes.Rysio_tipas}
+										{Number.isInteger(Number(org.attributes.Rysio_tipas))
+											? orgDomain[org.attributes.Rysio_tipas]
+											: org.attributes.Rysio_tipas}
 									</Typography>
 								</Typography>
 							</Grid>

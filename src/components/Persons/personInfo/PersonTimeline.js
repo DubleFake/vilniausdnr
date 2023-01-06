@@ -47,6 +47,7 @@ const personIconList = {
 
 const PersonTimeline = (props) => {
 	const [timelineFeatures, setTimelineFeatures] = useState([])
+	const [domain, setDomain] = useState({})
 
 	useEffect(() => {
 		biography
@@ -55,6 +56,12 @@ const PersonTimeline = (props) => {
 				where: `Asmenybes_ID = '{${props.globalID}}'`,
 			})
 			.then((response) => {
+				const tempDomain = {}
+				for (let codedValue of response.fields[10].domain.codedValues) {
+					tempDomain[codedValue.code] = codedValue.name
+				}
+				setDomain(tempDomain)
+
 				let tempFeatures = response.features
 
 				// const asd = new Set()
@@ -76,8 +83,6 @@ const PersonTimeline = (props) => {
 				</Typography>
 			</Grid>
 
-			{console.log(timelineFeatures)}
-
 			{timelineFeatures.map((feature, i) => (
 				<TimelineItem key={i}>
 					<TimelineOppositeContent sx={{ mt: 1, pl: 1, maxWidth: 0 }} align="right" color="text.secondary">
@@ -94,7 +99,11 @@ const PersonTimeline = (props) => {
 							<SvgIcon
 								sx={{ my: 1, fontSize: 35 }}
 								// color={feature.attributes.Fakto_vieta.includes("Vilnius") ? "secondary" : "primary"}
-								component={personIconList[feature.attributes.Fakto_tipas]}
+								component={
+									isNaN(feature.attributes.Fakto_tipas)
+										? personIconList[feature.attributes.Fakto_tipas]
+										: personIconList[domain[feature.attributes.Fakto_tipas]]
+								}
 								inheritViewBox
 							/>
 						) : (
@@ -117,7 +126,9 @@ const PersonTimeline = (props) => {
 									fontSize: 18,
 								}}
 							>
-								{feature.attributes.Fakto_tipas}
+								{isNaN(feature.attributes.Fakto_tipas)
+									? feature.attributes.Fakto_tipas
+									: domain[feature.attributes.Fakto_tipas]}
 								<Chip
 									sx={{ ml: 1, color: "white", backgroundColor: "#CBCBCB", fontWeight: 400, fontSize: 14 }}
 									label={`${

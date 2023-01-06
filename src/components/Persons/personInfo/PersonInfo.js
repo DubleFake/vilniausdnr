@@ -114,7 +114,7 @@ const PersonInfo = (props) => {
 						<hr
 							style={{
 								position: "relative",
-								zIndex: 100,
+								zIndex: 1,
 								color: "#D1D1D1",
 								backgroundColor: "#D1D1D1",
 								height: 1,
@@ -152,7 +152,7 @@ const PersonInfo = (props) => {
 						<hr
 							style={{
 								position: "relative",
-								zIndex: 100,
+								zIndex: 1,
 								color: "#D1D1D1",
 								backgroundColor: "#D1D1D1",
 								height: 1,

@@ -78,7 +78,7 @@ const ObjectPopup = (props) => {
 				maps
 					.queryRelatedFeatures({
 						outFields: ["*"],
-						relationshipId: 24,
+						relationshipId: 26,
 						returnGeometry: false,
 						objectIds: OBJECTID,
 					})
