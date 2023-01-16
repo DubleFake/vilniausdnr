@@ -9,6 +9,8 @@ import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import Menu from "@mui/material/Menu"
+import Box from "@mui/material/Box"
+import Slider from "@mui/material/Slider"
 import { NestedMenuItem } from "mui-nested-menu"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 
@@ -48,6 +50,13 @@ const CompareReview = (props) => {
 
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
+
+	const [sliderValue, setSliderValue] = useState(100)
+
+	const handleSliderChange = (event, newValue) => {
+		map.layers.items[0].opacity = newValue / 100
+		setSliderValue(newValue)
+	}
 
 	const handleClick = (e) => setAnchorEl(e.currentTarget)
 
@@ -258,6 +267,45 @@ const CompareReview = (props) => {
 						</NestedMenuItem>
 					))}
 				</Menu>
+			</Grid>
+			<Grid
+				sx={{
+					backgroundColor: "yellow",
+					width: "100%",
+					height: "0%",
+					position: "relative",
+				}}
+				container
+				direction="row"
+				justifyContent="center"
+				alignItems="flex-start"
+			>
+				<Box sx={{ mt: -16, width: 250, height: 45, borderRadius: 10, backgroundColor: "white" }}>
+					<Grid container direction="row" justifyContent="center" alignItems="center">
+						<Typography sx={{ mt: 0, mb: -1 }} variant="subtitle2">
+							Permatomumas
+						</Typography>
+					</Grid>
+					<Slider
+						sx={{ ml: "10%", width: "80%", "& .MuiSlider-markLabel": { top: "-10px" } }}
+						value={sliderValue}
+						min={0}
+						max={100}
+						size="small"
+						valueLabelDisplay="auto"
+						onChange={handleSliderChange}
+						marks={[
+							{
+								value: 0,
+								label: "0%",
+							},
+							{
+								value: 100,
+								label: "100%",
+							},
+						]}
+					/>
+				</Box>
 			</Grid>
 		</>
 	)
