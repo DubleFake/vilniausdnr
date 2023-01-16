@@ -171,7 +171,7 @@ const ObjectPopupTimeline = (props) => {
 					period
 						.queryRelatedFeatures({
 							outFields: ["*"],
-							relationshipId: 2,
+							relationshipId: 3,
 							returnGeometry: false,
 							objectIds: props.mapQuery[tempPage].attributes.OBJECTID,
 						})
@@ -182,7 +182,7 @@ const ObjectPopupTimeline = (props) => {
 					period
 						.queryRelatedFeatures({
 							outFields: ["*"],
-							relationshipId: 9,
+							relationshipId: 10,
 							returnGeometry: false,
 							objectIds: props.mapQuery[tempPage].attributes.OBJECTID,
 						})
