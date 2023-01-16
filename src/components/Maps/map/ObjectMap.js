@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import * as watchUtils from "@arcgis/core/core/watchUtils"
 import Point from "@arcgis/core/geometry/Point"
 
-import { view, view2, map2, bgExpand, locateWidget } from "../../../utils/mapsArcgisItems"
+import { view, view2, map2, bgExpand, locateWidget, basemaps } from "../../../utils/mapsArcgisItems"
 
 import Grid from "@mui/material/Grid"
 
@@ -34,7 +34,6 @@ const ObjectMap = (props) => {
 
 		viewHandles.push(
 			view.watch("map.basemap.id", (newBasemap) => {
-				console.log(newBasemap)
 				switch (newBasemap) {
 					case "light":
 						map2.basemap = basemaps[0]
