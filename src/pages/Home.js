@@ -210,7 +210,8 @@ const Home = (props) => {
 
 	return (
 		<Container sx={{ overflowY: "auto", overflowX: "hidden", height: window.innerHeight - 90 }}>
-			{location.pathname === `/vilniausdnr/${i18n.language}` && (
+			{(location.pathname === `/vilniausdnr/${i18n.language}` ||
+				location.pathname === `/vilniausdnr/${i18n.language}/`) && (
 				<Box sx={{ height: 510, width: "100%", backgroundColor: bgGray }}>
 					<Grid
 						sx={{ position: "relative", zIndex: 100, top: "10vh", height: "auto" }}

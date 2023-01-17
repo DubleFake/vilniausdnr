@@ -29,7 +29,7 @@ const LanguageList = (props) => {
 
 	return (
 		<ClickAwayListener mouseEvent="onMouseDown" touchEvent="onTouchStart" onClickAway={handleClickAway}>
-			<Collapse sx={{ position: "absolute", zIndex: 100, right: 0 }} in={props.languageOpen}>
+			<Collapse sx={{ position: "absolute", zIndex: 200, right: 0 }} in={props.languageOpen}>
 				<Paper sx={{ backgroundColor: "#252525" }} square>
 					<List sx={{ p: 0 }}>
 						<ListItem
