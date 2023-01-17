@@ -219,7 +219,7 @@ const CompareReview = (props) => {
 				>
 					<Typography sx={{ color: "#D72E30" }}>
 						<Typography sx={{ color: "black", display: "inline" }}>Žemėlapis: </Typography>
-						{selectedMapValue && mapList[selectedMapValue].title}
+						{mapList.length ? mapList[selectedMapValue].title : ""}
 					</Typography>
 				</Button>
 
