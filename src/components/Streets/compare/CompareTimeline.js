@@ -82,27 +82,27 @@ const CompareTimeline = (props) => {
 			view.goTo({ target: props.initialPeriod.fullExtent.center, zoom: 4 })
 		})
 
-		props.setToggle1808(false)
-		switch (parseInt(props.initialPeriod.title.replace(/\D/g, ""))) {
-			case 1808:
-				props.setToggle1808(true)
-				break
-			case 1845:
-				props.setToggle1845(true)
-				break
-			case 1911:
-				props.setToggle1911(true)
-				break
-			case 1938:
-				props.setToggle1938(true)
-				break
-			case 1977:
-				props.setToggle1977(true)
-				break
-			case 2021:
-				props.setToggle2021(true)
-				break
-		}
+		// props.setToggle1808(false)
+		// switch (parseInt(props.initialPeriod.title.replace(/\D/g, ""))) {
+		// 	case 1808:
+		// 		props.setToggle1808(true)
+		// 		break
+		// 	case 1845:
+		// 		props.setToggle1845(true)
+		// 		break
+		// 	case 1911:
+		// 		props.setToggle1911(true)
+		// 		break
+		// 	case 1938:
+		// 		props.setToggle1938(true)
+		// 		break
+		// 	case 1977:
+		// 		props.setToggle1977(true)
+		// 		break
+		// 	case 2021:
+		// 		props.setToggle2021(true)
+		// 		break
+		// }
 	}, [props.initialPeriod])
 
 	useEffect(() => {

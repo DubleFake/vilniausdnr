@@ -91,7 +91,8 @@ const ObjectPopupTimeline = (props) => {
 						if (response.features.length > 0) {
 							setQueryObjects(response.features)
 							setLoading(false)
-							props.setInitialPeriod(period)
+              console.log(period)
+							// props.setInitialPeriod(period)
 
 							if (highlight) {
 								highlight.remove()
