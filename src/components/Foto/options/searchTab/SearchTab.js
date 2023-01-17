@@ -75,6 +75,7 @@ const Table = (props) => {
 						setSelectedObject={props.setSelectedObject}
 						selectedObject={props.selectedObject}
 						parentRef={parentRef}
+            setVisible={props.setVisible}
 					/>
 				</>
 			) : (

@@ -51,6 +51,7 @@ const Parts = () => {
 									initialObjectsList={initialObjectsList}
 									setSelectedObject={setSelectedObject}
 									selectedObject={selectedObject}
+                  setVisible={setVisible}
 								/>
 							</Collapse>
 

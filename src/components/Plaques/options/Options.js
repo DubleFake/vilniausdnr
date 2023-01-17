@@ -98,6 +98,7 @@ const Options = (props) => {
 						setSelectedPeriodFilter={setSelectedPeriodFilter}
 						setVisibleObjectIcons={setVisibleObjectIcons}
 						setVisibleMemoryIcons={setVisibleMemoryIcons}
+            setVisible={props.setVisible}
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>

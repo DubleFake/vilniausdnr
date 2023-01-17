@@ -49,6 +49,7 @@ const Foto = () => {
 									initialObjectsList={initialObjectsList}
 									setSelectedObject={setSelectedObject}
 									selectedObject={selectedObject}
+                  setVisible={setVisible}
 								/>
 							</Collapse>
 

@@ -39,6 +39,9 @@ const TableItems = (props) => {
 						<ListItemButton
 							variant="tableItemButton"
 							onClick={() => {
+								if (isDownSm) {
+									props.setVisible(false)
+								}
 								setSelectedObject(`${tableObjectsList[index].attributes.GAT_ID}`)
 								navigate(`object/${tableObjectsList[index].attributes.GAT_ID}`)
 							}}

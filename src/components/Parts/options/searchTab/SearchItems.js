@@ -43,6 +43,9 @@ const TableItems = (props) => {
 						<ListItemButton
 							variant="tableItemButton"
 							onClick={() => {
+								if (isDownSm) {
+									props.setVisible(false)
+								}
 								setSelectedObject(`${tableObjectsList[index].attributes.OBJECTID}`)
 								console.log(tableObjectsList[index])
 								view.goTo({ target: tableObjectsList[index].geometry.extent })

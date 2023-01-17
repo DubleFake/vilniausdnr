@@ -38,6 +38,9 @@ const TableItems = (props) => {
 						<ListItemButton
 							variant="tableItemButton"
 							onClick={() => {
+								if (isDownSm) {
+									props.setVisible(false)
+								}
 								setSelectedObject(`${tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "")}`)
 								navigate(`object/${tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "")}`)
 							}}

@@ -87,6 +87,9 @@ const TableItems = (props) => {
 					<ListItemButton
 						variant="tableItemButton"
 						onClick={() => {
+							if (isDownSm) {
+								props.setVisible(false)
+							}
 							props.setSelectedObject(
 								`${props.tableObjectsList[index].attributes.GlobalID.replace(/[{}]/g, "")}`
 							)

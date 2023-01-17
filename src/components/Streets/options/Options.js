@@ -90,6 +90,7 @@ const Options = (props) => {
 						selectedObjectFilter={selectedObjectFilter}
 						setSelectedObjectFilter={setSelectedObjectFilter}
 						setVisibleObjectIcons={setVisibleObjectIcons}
+            setVisible={props.setVisible}
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>

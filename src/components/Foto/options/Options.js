@@ -125,6 +125,7 @@ const Options = (props) => {
 				setSelectedPeriodFilter={setSelectedPeriodFilter}
 				setVisibleObjectIcons={setVisibleObjectIcons}
 				setVisibleMemoryIcons={setVisibleMemoryIcons}
+        setVisible={props.setVisible}
 			/>
 		</Container>
 	)

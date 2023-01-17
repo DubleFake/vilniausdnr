@@ -219,7 +219,7 @@ const CompareReview = (props) => {
 				>
 					<Typography sx={{ color: "#D72E30" }}>
 						<Typography sx={{ color: "black", display: "inline" }}>Žemėlapis: </Typography>
-						{selectedMapValue && mapList[selectedMapValue].title}
+						{mapList.length > 0 && mapList[selectedMapValue].title}
 					</Typography>
 				</Button>
 
@@ -271,9 +271,7 @@ const CompareReview = (props) => {
 			<Grid variant="compareType" container direction="row" justifyContent="left" alignItems="flex-start">
 				<Box sx={{ mt: 9, ml: 2, width: 177, height: 45, borderRadius: 10, backgroundColor: "white" }}>
 					<Grid container direction="row" justifyContent="center" alignItems="center">
-						<Typography sx={{ mt: 0.4, mb: -1.4 }}>
-							Permatomumas
-						</Typography>
+						<Typography sx={{ mt: 0.4, mb: -1.4 }}>Permatomumas</Typography>
 					</Grid>
 					<Slider
 						sx={{ ml: "10%", width: "80%", "& .MuiSlider-markLabel": { top: "-10px" } }}

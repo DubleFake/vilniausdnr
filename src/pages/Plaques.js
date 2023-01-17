@@ -51,6 +51,7 @@ const Plaques = () => {
 									initialObjectsList={initialObjectsList}
 									setSelectedObject={setSelectedObject}
 									selectedObject={selectedObject}
+                  setVisible={setVisible}
 								/>
 							</Collapse>
 
