@@ -136,6 +136,7 @@ const App = () => {
 							width: "100%",
 							height: "0%",
 							bottom: window.innerHeight - appBarHeight,
+							left: 50,
 							position: "relative",
 							zIndex: 2,
 						},

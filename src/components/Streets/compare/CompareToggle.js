@@ -36,7 +36,7 @@ const CompareLayers = (props) => {
 	return (
 		<>
 			<Grid variant="compareType" container direction="row" justifyContent="center" alignItems="flex-start">
-				<ButtonGroup sx={{ mt: 1.5 }}>
+				<ButtonGroup sx={{ mt: 1.5, ml: -12.5 }}>
 					<Button
 						variant="timeline"
 						sx={{
