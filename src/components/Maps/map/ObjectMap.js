@@ -56,7 +56,7 @@ const ObjectMap = (props) => {
 
 		view.ui.empty("bottom-left")
 
-		view.ui.add(bgExpand, "bottom-right")
+		view.ui.add(bgExpand, "bottom-left")
 		view.ui.add(locateWidget, "bottom-left")
 	}, [i18n.language])
 
