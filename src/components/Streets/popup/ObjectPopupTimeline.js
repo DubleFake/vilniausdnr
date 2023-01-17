@@ -80,6 +80,7 @@ const ObjectPopupTimeline = (props) => {
 			setPopupOpen(true)
 			setLoading(true)
 
+			let i = 0
 			for (let period of periods) {
 				period
 					.queryFeatures({
@@ -88,10 +89,11 @@ const ObjectPopupTimeline = (props) => {
 						returnGeometry: true,
 					})
 					.then((response) => {
+						console.log(response)
 						if (response.features.length > 0) {
 							setQueryObjects(response.features)
 							setLoading(false)
-              console.log(period)
+							console.log(period)
 							// props.setInitialPeriod(period)
 
 							if (highlight) {
@@ -108,7 +110,7 @@ const ObjectPopupTimeline = (props) => {
 							period
 								.queryRelatedFeatures({
 									outFields: ["*"],
-									relationshipId: 3,
+									relationshipId: 3 + i,
 									returnGeometry: false,
 									objectIds: response.features[0].attributes.OBJECTID,
 								})
@@ -119,7 +121,7 @@ const ObjectPopupTimeline = (props) => {
 							period
 								.queryRelatedFeatures({
 									outFields: ["*"],
-									relationshipId: 10,
+									relationshipId: 10 + i,
 									returnGeometry: false,
 									objectIds: response.features[0].attributes.OBJECTID,
 								})
@@ -128,6 +130,7 @@ const ObjectPopupTimeline = (props) => {
 								})
 						}
 					})
+				i++
 			}
 		}
 	}, [])

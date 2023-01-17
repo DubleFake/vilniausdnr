@@ -219,7 +219,7 @@ const CompareReview = (props) => {
 				>
 					<Typography sx={{ color: "#D72E30" }}>
 						<Typography sx={{ color: "black", display: "inline" }}>Žemėlapis: </Typography>
-						{mapList.length ? mapList[selectedMapValue].title : ""}
+						{selectedMapValue && mapList[selectedMapValue].title}
 					</Typography>
 				</Button>
 
@@ -268,19 +268,8 @@ const CompareReview = (props) => {
 					))}
 				</Menu>
 			</Grid>
-			<Grid
-				sx={{
-					backgroundColor: "yellow",
-					width: "100%",
-					height: "0%",
-					position: "relative",
-				}}
-				container
-				direction="row"
-				justifyContent="center"
-				alignItems="flex-start"
-			>
-				<Box sx={{ mt: -16, width: 250, height: 45, borderRadius: 10, backgroundColor: "white" }}>
+			<Grid variant="compareType" container direction="row" justifyContent="left" alignItems="flex-start">
+				<Box sx={{ mt: 9, ml: 2, width: 177, height: 45, borderRadius: 10, backgroundColor: "white" }}>
 					<Grid container direction="row" justifyContent="center" alignItems="center">
 						<Typography sx={{ mt: 0, mb: -1 }} variant="subtitle2">
 							Permatomumas
