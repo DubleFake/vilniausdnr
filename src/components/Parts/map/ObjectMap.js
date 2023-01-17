@@ -135,10 +135,10 @@ const ObjectMap = (props) => {
 		bgExpand.content.source.basemaps.items[1].title = t("plaques.map.basemapDark")
 		bgExpand.content.source.basemaps.items[2].title = t("plaques.map.basemapOrto")
 
-		view.ui.empty("top-left")
+		view.ui.empty("bottom-left")
 
-		view.ui.add(bgExpand, "top-left")
-		view.ui.add(locateWidget, "top-left")
+		view.ui.add(bgExpand, "bottom-left")
+		view.ui.add(locateWidget, "bottom-left")
 	}, [i18n.language])
 
 	useEffect(() => {
