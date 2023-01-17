@@ -102,7 +102,7 @@ const InfoModal = () => {
 							</li>
 						</ul>
 						Kadangi turai dar nesukurti, siūlome naudotis šiuo trumpu vaizdo įrašu, kuris laikinai padės
-						naudotis šios tęstinės svetainės pagrindiniu funkcionalumu:
+						naudotis šios testinės svetainės pagrindiniu funkcionalumu:
 					</Typography>
 					<iframe
 						width="100%"

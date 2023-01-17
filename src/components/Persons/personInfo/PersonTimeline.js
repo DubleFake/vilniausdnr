@@ -121,16 +121,23 @@ const PersonTimeline = (props) => {
 							<Typography
 								sx={{
 									display: "inline",
-									fontWeight: "600",
-									textTransform: "capitalize",
-									fontSize: 18,
 								}}
 							>
-								{isNaN(feature.attributes.Fakto_tipas)
-									? feature.attributes.Fakto_tipas
-									: domain[feature.attributes.Fakto_tipas]}
+								<Typography
+									sx={{
+										display: "inline",
+										fontWeight: "600",
+										textTransform: "capitalize",
+										fontSize: 18,
+										mr: 1,
+									}}
+								>
+									{isNaN(feature.attributes.Fakto_tipas)
+										? feature.attributes.Fakto_tipas
+										: domain[feature.attributes.Fakto_tipas]}
+								</Typography>
 								<Chip
-									sx={{ ml: 1, color: "white", backgroundColor: "#CBCBCB", fontWeight: 400, fontSize: 14 }}
+									sx={{ mr: 1, color: "white", backgroundColor: "#CBCBCB", fontWeight: 400, fontSize: 14 }}
 									label={`${
 										feature.attributes.Fakto_data
 											? new Date(feature.attributes.Fakto_data).toLocaleDateString("lt-LT")
@@ -144,7 +151,7 @@ const PersonTimeline = (props) => {
 								{feature.attributes.Fakto_vieta && (
 									<Chip
 										sx={{
-											ml: 1,
+											mr: 1,
 											color: "white",
 											backgroundColor: feature.attributes.Fakto_vieta.includes("Vilnius")
 												? "#D72E30"
