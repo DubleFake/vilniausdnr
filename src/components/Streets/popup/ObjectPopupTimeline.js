@@ -89,7 +89,6 @@ const ObjectPopupTimeline = (props) => {
 						returnGeometry: true,
 					})
 					.then((response) => {
-						console.log(response)
 						if (response.features.length > 0) {
 							setQueryObjects(response.features)
 							setLoading(false)
@@ -102,6 +101,28 @@ const ObjectPopupTimeline = (props) => {
 
 							map.removeAll()
 							map.add(period)
+
+							switch (period.metai) {
+								case 1808:
+									props.setToggle1808(true)
+									break
+								case 1845:
+									props.setToggle1845(true)
+									break
+								case 1911:
+									props.setToggle1911(true)
+									break
+								case 1938:
+									props.setToggle1938(true)
+									break
+								case 1977:
+									props.setToggle1977(true)
+									break
+								case 2021:
+									props.setToggle2021(true)
+									break
+							}
+
 							view.whenLayerView(period).then((periodView) => {
 								view.goTo(response.features[0].geometry.extent)
 								highlight = periodView.highlight(response.features[0])

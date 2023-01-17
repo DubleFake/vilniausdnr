@@ -132,6 +132,12 @@ const CompareLayers = (props) => {
 								initialLoading={props.initialLoading}
 								setInitialPeriod={setInitialPeriod}
 								setHistoryToggle={props.setHistoryToggle}
+								setToggle1808={setToggle1808}
+								setToggle1845={setToggle1845}
+								setToggle1911={setToggle1911}
+								setToggle1938={setToggle1938}
+								setToggle1977={setToggle1977}
+								setToggle2021={setToggle2021}
 							/>
 							<CompareTimeline
 								setMapQuery={props.setMapQuery}
@@ -157,7 +163,7 @@ const CompareLayers = (props) => {
 					path="compare/swipe"
 					element={
 						<>
-							<CompareSwipe once={props.once} setOnce={props.setOnce}/>
+							<CompareSwipe once={props.once} setOnce={props.setOnce} />
 							<CompareType />
 						</>
 					}
