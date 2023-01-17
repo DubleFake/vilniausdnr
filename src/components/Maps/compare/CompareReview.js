@@ -271,7 +271,7 @@ const CompareReview = (props) => {
 			<Grid variant="compareType" container direction="row" justifyContent="left" alignItems="flex-start">
 				<Box sx={{ mt: 9, ml: 2, width: 177, height: 45, borderRadius: 10, backgroundColor: "white" }}>
 					<Grid container direction="row" justifyContent="center" alignItems="center">
-						<Typography sx={{ mt: 0, mb: -1 }} variant="subtitle2">
+						<Typography sx={{ mt: 0.4, mb: -1.4 }}>
 							Permatomumas
 						</Typography>
 					</Grid>
@@ -283,16 +283,6 @@ const CompareReview = (props) => {
 						size="small"
 						valueLabelDisplay="auto"
 						onChange={handleSliderChange}
-						marks={[
-							{
-								value: 0,
-								label: "0%",
-							},
-							{
-								value: 100,
-								label: "100%",
-							},
-						]}
 					/>
 				</Box>
 			</Grid>
