@@ -286,7 +286,7 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 4}>
+					{/* <Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 4}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={isDownSm ? 370 : isDownLg ? 302 : 480}
@@ -298,6 +298,21 @@ const Home = (props) => {
 							propText={t("home.buildings")}
 							propTextMore={
 								"Skiltyje bus pateikiama informacija apie Vilniaus miesto pastatus, jų statybos metus, autorius bei fundatorius"
+							}
+						/>
+					</Grid> */}
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 4}>
+						<Tile
+							setMenuOpen={props.setMenuOpen}
+							propHeight={isDownSm ? 370 : isDownLg ? 302 : 480}
+							propBackgroundColor={bgWhite}
+							propTo={"persons"}
+							propIcon={personsIcon}
+							propIconColor={bgGray}
+							propTextColor={bgGray}
+							propText={t("home.persons")}
+							propTextMore={
+								"Skiltyje pateikiama informacija apie asmenybes, kurioms Vilniaus mieste įrengtos atminimo lentos, skulptūros, paminklai ar jų vardais pavadintos gatvės"
 							}
 						/>
 					</Grid>
@@ -330,7 +345,7 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 6}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={isDownSm ? 370 : isDownLg ? 302 : 302}
@@ -346,11 +361,11 @@ const Home = (props) => {
 						/>
 					</Grid>
 
-					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 6}>
+					<Grid item xs={isDownMd ? 12 : isDownLg ? 12 : 3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={isDownSm ? 370 : isDownLg ? 302 : 302}
-							propBackgroundColor={bgGray}
+							propBackgroundColor={bgRed}
 							propTo={"events"}
 							propIcon={eventsIcon}
 							propIconColor={"white"}
@@ -361,7 +376,7 @@ const Home = (props) => {
 							}
 						/>
 					</Grid>
-					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 3}>
+					{/* <Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 3}>
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={isDownSm ? 370 : isDownLg ? 302 : 302}
@@ -375,23 +390,7 @@ const Home = (props) => {
 								"Skiltyje bus pateikiama informacija apie Vilniaus miesto dalis - seniūnijas, seniūnaitijas, rajonus bei istorinius įvairių laikmečių vietovardžius"
 							}
 						/>
-					</Grid>
-					<Grid item xs={isDownMd ? 12 : isDownLg ? 12 : 3}>
-						<Tile
-							setMenuOpen={props.setMenuOpen}
-							propHeight={isDownSm ? 370 : isDownLg ? 302 : 302}
-							propBackgroundColor={bgWhite}
-							propTo={"persons"}
-							propIcon={personsIcon}
-							propIconColor={bgGray}
-							propTextColor={bgGray}
-							propText={t("home.persons")}
-							propTextMore={
-								"Skiltyje pateikiama informacija apie asmenybes, kurioms Vilniaus mieste įrengtos atminimo lentos, skulptūros, paminklai ar jų vardais pavadintos gatvės"
-							}
-						/>
-					</Grid>
-					<Grid item xs={3}></Grid>
+					</Grid> */}
 				</Grid>
 			</Box>
 		</Container>
