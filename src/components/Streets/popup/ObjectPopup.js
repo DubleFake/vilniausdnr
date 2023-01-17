@@ -45,12 +45,12 @@ const ObjectPopup = (props) => {
 	const [objectPer, setObjectPer] = useState([])
 	const [objectAtt, setObjectAtt] = useState([])
 	const [relatedStreets, setRelatedStreets] = useState([])
-	const [relatedStreets2, setRelatedStreets2] = useState(false)
 	const [relatedStreets3, setRelatedStreets3] = useState(false)
 	const [relatedStreets4, setRelatedStreets4] = useState(false)
 	const [relatedStreets5, setRelatedStreets5] = useState(false)
 	const [relatedStreets6, setRelatedStreets6] = useState(false)
 	const [relatedStreets7, setRelatedStreets7] = useState(false)
+	const [relatedStreets8, setRelatedStreets8] = useState(false)
 	const [relatedStreetsShow, setRelatedStreetsShow] = useState(false)
 	const [loading, setLoading] = useState(true)
 	const [queryObjects, setQueryObjects] = useState([])
@@ -210,12 +210,12 @@ const ObjectPopup = (props) => {
 
 	useEffect(() => {
 		setRelatedStreets([])
-		setRelatedStreets2(false)
 		setRelatedStreets3(false)
 		setRelatedStreets4(false)
 		setRelatedStreets5(false)
 		setRelatedStreets6(false)
 		setRelatedStreets7(false)
+		setRelatedStreets8(false)
 
 		objects
 			.queryFeatures({
@@ -224,7 +224,7 @@ const ObjectPopup = (props) => {
 			})
 			.then((response) => {
 				let tempFeatures = []
-				const relateID = [3, 4, 5, 6, 7]
+				const relateID = [3, 4, 5, 6, 7, 8]
 				for (let i of relateID) {
 					objects
 						.queryRelatedFeatures({
@@ -255,9 +255,6 @@ const ObjectPopup = (props) => {
 							}
 
 							switch (i) {
-								// case 2:
-								// 	setRelatedStreets2(true)
-								// 	break
 								case 3:
 									setRelatedStreets3(true)
 									break
@@ -273,6 +270,9 @@ const ObjectPopup = (props) => {
 								case 7:
 									setRelatedStreets7(true)
 									break
+								case 8:
+									setRelatedStreets8(true)
+									break
 							}
 						})
 				}
@@ -281,16 +281,16 @@ const ObjectPopup = (props) => {
 
 	useEffect(() => {
 		if (
-			// relatedStreets2 &&
 			relatedStreets3 &&
 			relatedStreets4 &&
 			relatedStreets5 &&
 			relatedStreets6 &&
-			relatedStreets7
+			relatedStreets7 &&
+			relatedStreets8
 		) {
 			setRelatedStreetsShow(true)
 		}
-	}, [relatedStreets2, relatedStreets3, relatedStreets4, relatedStreets5, relatedStreets6, relatedStreets7])
+	}, [relatedStreets8, relatedStreets3, relatedStreets4, relatedStreets5, relatedStreets6, relatedStreets7])
 
 	useEffect(() => {
 		return () => {
@@ -497,7 +497,7 @@ const ObjectPopup = (props) => {
 															</TimelineSeparator>
 															<TimelineContent sx={{ mt: 0 }}>
 																<Link
-																	sx={{ fontWeight: 400, fontSize: 14  }}
+																	sx={{ fontWeight: 400, fontSize: 14 }}
 																	// target="_blank"
 																	// href={
 																	// 	"https://zemelapiai.vplanas.lt" +
