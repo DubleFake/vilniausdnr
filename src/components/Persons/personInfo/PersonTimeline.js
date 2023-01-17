@@ -26,6 +26,8 @@ import TimelineContent from "@mui/lab/TimelineContent"
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
 import Chip from "@mui/material/Chip"
 import Stack from "@mui/material/Stack"
+import { useTheme } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 const personIconList = {
 	dirbo: dirbo,
@@ -48,6 +50,9 @@ const personIconList = {
 const PersonTimeline = (props) => {
 	const [timelineFeatures, setTimelineFeatures] = useState([])
 	const [domain, setDomain] = useState({})
+
+	const theme = useTheme()
+	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
 
 	useEffect(() => {
 		biography
@@ -137,7 +142,13 @@ const PersonTimeline = (props) => {
 										: domain[feature.attributes.Fakto_tipas]}
 								</Typography>
 								<Chip
-									sx={{ mr: 1, color: "white", backgroundColor: "#CBCBCB", fontWeight: 400, fontSize: 14 }}
+									sx={{
+										mr: 1,
+										color: "white",
+										backgroundColor: "#CBCBCB",
+										fontWeight: 400,
+										fontSize: isDownSm ? 12 : 14,
+									}}
 									label={`${
 										feature.attributes.Fakto_data
 											? new Date(feature.attributes.Fakto_data).toLocaleDateString("lt-LT")
@@ -157,7 +168,7 @@ const PersonTimeline = (props) => {
 												? "#D72E30"
 												: "#CBCBCB",
 											fontWeight: 400,
-											fontSize: 14,
+											fontSize: isDownSm ? 12 : 14,
 										}}
 										label={`${feature.attributes.Fakto_vieta}`}
 									/>
