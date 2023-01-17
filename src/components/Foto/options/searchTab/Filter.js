@@ -197,46 +197,46 @@ const Filter = (props) => {
 		])
 	}, [])
 
-	// useEffect(() => {
-	// 	viewHandles.forEach((handle) => {
-	// 		handle.remove()
-	// 	})
-	// 	viewHandles.length = 0
+	useEffect(() => {
+		viewHandles.forEach((handle) => {
+			handle.remove()
+		})
+		viewHandles.length = 0
 
-	// 	view.whenLayerView(objects).then((objectsView) => {
-	// 		if (extentCheck) {
-	// 			viewHandles.push(
-	// 				objectsView.watch("updating", (updating) => {
-	// 					if (!updating) {
-	// 						objectsView
-	// 							.queryFeatures({
-	// 								outFields: ["*"],
-	// 								where: objectsView.filter.where,
-	// 								geometry: view.extent,
-	// 								returnGeometry: false,
-	// 							})
-	// 							.then((response) => {
-	// 								props.setSearchObjectsList(response.features)
-	// 							})
-	// 					}
-	// 				})
-	// 			)
-	// 		} else {
-	// 			objectsView
-	// 				.queryFeatures({
-	// 					outFields: ["*"],
-	// 					where: objectsView.filter ? objectsView.filter.where : null,
-	// 					geometry: null,
-	// 					returnGeometry: false,
-	// 				})
-	// 				.then((response) => {
-	// 					if (response.features.length) {
-	// 						props.setSearchObjectsList(response.features)
-	// 					}
-	// 				})
-	// 		}
-	// 	})
-	// }, [extentCheck])
+		view.whenLayerView(objects).then((objectsView) => {
+			if (extentCheck) {
+				viewHandles.push(
+					objectsView.watch("updating", (updating) => {
+						if (!updating) {
+							objectsView
+								.queryFeatures({
+									outFields: ["*"],
+									where: objectsView.filter.where,
+									geometry: view.extent,
+									returnGeometry: false,
+								})
+								.then((response) => {
+									props.setSearchObjectsList(response.features)
+								})
+						}
+					})
+				)
+			} else {
+				objectsView
+					.queryFeatures({
+						outFields: ["*"],
+						where: objectsView.filter ? objectsView.filter.where : null,
+						geometry: null,
+						returnGeometry: false,
+					})
+					.then((response) => {
+						if (response.features.length) {
+							props.setSearchObjectsList(response.features)
+						}
+					})
+			}
+		})
+	}, [extentCheck])
 
 	useEffect(() => {
 		let query = `(Datos_intervalo_pradzia BETWEEN ${sliderValue[0]} AND ${sliderValue[1]} OR Datos_intervalo_pabaiga BETWEEN ${sliderValue[0]} AND ${sliderValue[1]})`

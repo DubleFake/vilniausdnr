@@ -68,7 +68,7 @@ const Options = (props) => {
 
 	return (
 		<Container variant="optionsDiv">
-			<AppBar sx={{ height: "auto" }} position="static">
+			{/*<AppBar sx={{ height: "auto" }} position="static">
 				<Tabs
 					value={value}
 					onChange={handleChange}
@@ -80,7 +80,7 @@ const Options = (props) => {
 					<Tab label={t("plaques.options.visualization")} {...a11yProps(1)} />
 				</Tabs>
 			</AppBar>
-			<SwipeableViews
+			 <SwipeableViews
 				axis={theme.direction === "rtl" ? "x-reverse" : "x"}
 				index={value}
 				onChangeIndex={handleChangeIndex}
@@ -112,7 +112,20 @@ const Options = (props) => {
 						/>
 					</Container>
 				</TabPanel>
-			</SwipeableViews>
+			</SwipeableViews> */}
+			<SearchTab
+				initialObjectsList={props.initialObjectsList}
+				setSelectedObject={props.setSelectedObject}
+				selectedObject={props.selectedObject}
+				selectedObjectFilter={selectedObjectFilter}
+				setSelectedObjectFilter={setSelectedObjectFilter}
+				selectedMemoryFilter={selectedMemoryFilter}
+				setSelectedMemoryFilter={setSelectedMemoryFilter}
+				selectedPeriodFilter={selectedPeriodFilter}
+				setSelectedPeriodFilter={setSelectedPeriodFilter}
+				setVisibleObjectIcons={setVisibleObjectIcons}
+				setVisibleMemoryIcons={setVisibleMemoryIcons}
+			/>
 		</Container>
 	)
 }

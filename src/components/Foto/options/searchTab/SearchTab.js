@@ -43,7 +43,7 @@ const Table = (props) => {
 	}, [tableObjectsList])
 
 	return (
-		<Grid variant="optionsTabs" ref={parentRef}>
+		<Grid variant="options" ref={parentRef}>
 			{objectsList.length ? (
 				<>
 					<Search
