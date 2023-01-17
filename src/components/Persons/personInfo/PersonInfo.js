@@ -26,6 +26,12 @@ const PersonInfo = (props) => {
 	const [displayEmpty, setDisplayEmpty] = useState(true)
 
 	useEffect(() => {
+		if (globalID) {
+			props.setVisible(false)
+		}
+	}, [])
+
+	useEffect(() => {
 		setBiographyFeatures([])
 		if (!globalID) {
 			setDisplayEmpty(true)

@@ -73,7 +73,7 @@ const Persons = () => {
 					path="/:globalID"
 					element={
 						<>
-							<PersonInfo visible={visible} setVisible={setVisible} />
+							<PersonInfo visible={visible} setVisible={setVisible} initialLoading={initialLoading} />
 						</>
 					}
 				/>
