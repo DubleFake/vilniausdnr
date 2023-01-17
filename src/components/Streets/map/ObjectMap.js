@@ -116,6 +116,22 @@ const ObjectMap = (props) => {
 		})
 		viewHandles.length = 0
 
+		viewHandles.push(
+			view.watch("map.basemap.id", (newBasemap) => {
+				switch (newBasemap) {
+					case "light":
+						map2.basemap = basemaps[0]
+						break
+					case "dark":
+						map2.basemap = basemaps[1]
+						break
+					case "orto":
+						map2.basemap = basemaps[2]
+						break
+				}
+			})
+		)
+
 		if (!props.historyToggle) {
 			objects
 				.when(() => {
@@ -135,23 +151,6 @@ const ObjectMap = (props) => {
 			view.when(() => {
 				view.goTo({ target: objects.fullExtent.center, zoom: 3 })
 			})
-
-			viewHandles.push(
-				view.watch("map.basemap.id", (newBasemap) => {
-					console.log(newBasemap)
-					switch (newBasemap) {
-						case "light":
-							map2.basemap = basemaps[0]
-							break
-						case "dark":
-							map2.basemap = basemaps[1]
-							break
-						case "orto":
-							map2.basemap = basemaps[2]
-							break
-					}
-				})
-			)
 
 			viewHandles.push(
 				view.on("click", (event) => {
