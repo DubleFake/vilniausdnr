@@ -80,7 +80,7 @@ const PersonGeneral = (props) => {
 				persons
 					.queryRelatedFeatures({
 						outFields: ["PAV", "GAT_ID"],
-						relationshipId: 2,
+						relationshipId: 3,
 						returnGeometry: false,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 160 160" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<desc>Created with Fabric.js 4.2.0</desc>
+
+
+<g transform="translate(100,100)">
+<rect x="-100" y="-100" width="200" height="200" rx="0" ry="0" fill-opacity="0" vector-effect="non-scaling-stroke"/>
+</g>
+
+
+
+<g transform="matrix(1.1898 0 0 1.1898 -1389 228.91)"><circle cx="1234.6" cy="-125.15" r="66.397" fill="#D8E3E1" vector-effect="non-scaling-stroke"/><g transform="translate(1154.9 -651.67)" fill="#212121" stroke-linecap="round" stroke-linejoin="round"><path d="m79.738 480.65-9.6992 14.075-0.13148 0.18983v37.033h19.632v-37.019l-0.14069-0.20418z" stroke="#212121" stroke-width="2.7754" style="paint-order:markers stroke fill"/><g transform="matrix(.66563 0 0 .66563 138.92 533.21)"><path d="m-62.99 14.393h-51.593l-7.7424 10.947v14.151h66.778v-14.152z" stroke="#212121" stroke-width="4.4225" style="paint-order:markers stroke fill"/><rect x="-123.35" y="32.993" width="68.825" height="20.476" stroke="#202121" stroke-width="2.3749" style="paint-order:stroke fill markers"/></g></g></g></svg>

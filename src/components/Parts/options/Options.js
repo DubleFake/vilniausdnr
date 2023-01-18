@@ -4,7 +4,7 @@ import SwipeableViews from "react-swipeable-views"
 import { useTranslation } from "react-i18next"
 
 import SearchTab from "./searchTab/SearchTab"
-import VisualizationTab from "./visualizationTab/VisualizationTab"
+// import VisualizationTab from "./visualizationTab/VisualizationTab"
 
 import { useTheme } from "@mui/material/styles"
 import AppBar from "@mui/material/AppBar"

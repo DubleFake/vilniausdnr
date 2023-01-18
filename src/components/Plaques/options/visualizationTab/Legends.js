@@ -4,13 +4,21 @@ import { useTranslation } from "react-i18next"
 import { objectRenderer, memoryRenderer } from "../../../../utils/plaquesArcgisItems"
 
 import { ReactComponent as Atmint_atminimo_lenta } from "../../../../utils/icons/legendIcons/Atmint_atminimo_lenta.svg"
+import { ReactComponent as Atmint_atminimo_lenta_gray } from "../../../../utils/icons/legendIcons/Atmint_atminimo_lenta_gray.svg"
 import { ReactComponent as Atmint_skulptura } from "../../../../utils/icons/legendIcons/Atmint_skulptura.svg"
+import { ReactComponent as Atmint_skulptura_gray } from "../../../../utils/icons/legendIcons/Atmint_skulptura_gray.svg"
 import { ReactComponent as Atmint_atminimo_lenta_bareljefas } from "../../../../utils/icons/legendIcons/Atmint_atminimo_lenta_bareljefas.svg"
+import { ReactComponent as Atmint_atminimo_lenta_bareljefas_gray } from "../../../../utils/icons/legendIcons/Atmint_atminimo_lenta_bareljefas_gray.svg"
 import { ReactComponent as Atmint_freska } from "../../../../utils/icons/legendIcons/Atmint_freska.svg"
+import { ReactComponent as Atmint_freska_gray } from "../../../../utils/icons/legendIcons/Atmint_freska_gray.svg"
 import { ReactComponent as Atmint_pavadinimo_lentele } from "../../../../utils/icons/legendIcons/Atmint_pavadinimo_lentele.svg"
+import { ReactComponent as Atmint_pavadinimo_lentele_gray } from "../../../../utils/icons/legendIcons/Atmint_pavadinimo_lentele_gray.svg"
 import { ReactComponent as Atmint_uzrasas } from "../../../../utils/icons/legendIcons/Atmint_uzrasas.svg"
+import { ReactComponent as Atmint_uzrasas_gray } from "../../../../utils/icons/legendIcons/Atmint_uzrasas_gray.svg"
 import { ReactComponent as Atmint_vietos_pazymejimas } from "../../../../utils/icons/legendIcons/Atmint_vietos_pazymejimas.svg"
+import { ReactComponent as Atmint_vietos_pazymejimas_gray } from "../../../../utils/icons/legendIcons/Atmint_vietos_pazymejimas_gray.svg"
 import { ReactComponent as Atmint_paminklas } from "../../../../utils/icons/legendIcons/Atmint_paminklas.svg"
+import { ReactComponent as Atmint_paminklas_gray } from "../../../../utils/icons/legendIcons/Atmint_paminklas_gray.svg"
 
 import { ReactComponent as Atmint_asmuo } from "../../../../utils/icons/legendIcons/Atmint_asmuo.svg"
 import { ReactComponent as Atmint_asmenu_grupe } from "../../../../utils/icons/legendIcons/Atmint_asmenu_grupe.svg"
@@ -30,13 +38,21 @@ import SvgIcon from "@mui/material/SvgIcon"
 
 const objectIconList = [
 	Atmint_atminimo_lenta,
+	Atmint_atminimo_lenta_gray,
 	Atmint_skulptura,
+	Atmint_skulptura_gray,
 	Atmint_atminimo_lenta_bareljefas,
+	Atmint_atminimo_lenta_bareljefas_gray,
 	Atmint_freska,
+	Atmint_freska_gray,
 	Atmint_pavadinimo_lentele,
+	Atmint_pavadinimo_lentele_gray,
 	Atmint_uzrasas,
+	Atmint_uzrasas_gray,
 	Atmint_vietos_pazymejimas,
+	Atmint_vietos_pazymejimas_gray,
 	Atmint_paminklas,
+	Atmint_paminklas_gray,
 ]
 const memoryIconList = [
 	Atmint_asmuo,
@@ -53,11 +69,123 @@ const Legends = (props) => {
 	const { t, i18n } = useTranslation()
 
 	return (
-		<Box sx={{ width: 350, bgcolor: "background.paper" }}>
-			<Typography sx={{ m: 1, mb: 0 }} variant="subtitle1">
+		<Box>
+			<Typography sx={{ mt: 1, mb: 0 }} variant="subtitle1">
 				{t("plaques.options.legend") + ":"}
 			</Typography>
-			<List>
+			<List sx={{ mx: 2 }}>
+				{props.visualizationType === "0"
+					? objectRenderer &&
+					  objectRenderer.uniqueValueInfos.map((value, index) =>
+							props.visibleObjectIcons.length ? (
+								props.visibleObjectIcons.includes(parseInt(value.value[0])) && (
+									<>
+										<ListItem sx={{ my: 1 }} disablePadding>
+											{console.log(props.visibleObjectIcons)}
+											<SvgIcon sx={{ fontSize: 35 }} component={objectIconList[index]} inheritViewBox />
+											<Typography sx={{ ml: 1 }} variant="body2">
+												{value.label}
+											</Typography>
+										</ListItem>
+										{index + 1 !== objectRenderer.uniqueValueInfos.length && (
+											<Divider light variant="middle" />
+										)}
+									</>
+								)
+							) : (
+								<>
+									<ListItem sx={{ my: 1 }} disablePadding>
+										{console.log(props.visibleObjectIcons)}
+										<SvgIcon sx={{ fontSize: 35 }} component={objectIconList[index]} inheritViewBox />
+										<Typography sx={{ ml: 1 }} variant="body2">
+											{value.label}
+										</Typography>
+									</ListItem>
+									{index + 1 !== objectRenderer.uniqueValueInfos.length && <Divider light variant="middle" />}
+								</>
+							)
+					  )
+					: // objectRenderer.uniqueValueInfos.map((value) => (
+					  // 		<div key={value.value}>
+					  // 			{props.visibleObjectIcons.length ? (
+					  // 				props.visibleObjectIcons.includes(+value.value) && (
+					  // 					<>
+					  // 						{console.log(objectRenderer)}
+					  // 						<ListItem sx={{ my: 0.3 }} disablePadding>
+					  // 							<SvgIcon
+					  // 								sx={{ ml: 2, mr: 2, fontSize: 35 }}
+					  // 								component={objectIconList[+value.value - 1]}
+					  // 								inheritViewBox
+					  // 							/>
+					  // 							<Typography sx={{ mr: 1 }} variant="body2">
+					  // 								{t(`plaques.options.objects.${value.value}`)}
+					  // 							</Typography>
+					  // 						</ListItem>
+					  // 						{+value.value !== props.visibleObjectIcons[props.visibleObjectIcons.length - 1] && (
+					  // 							<Divider light variant="middle" />
+					  // 						)}
+					  // 					</>
+					  // 				)
+					  // 			) : (
+					  // 				<>
+					  // 					<ListItem sx={{ my: 0.3 }} disablePadding>
+					  // 						<SvgIcon
+					  // 							sx={{ ml: 2, mr: 2, fontSize: 35 }}
+					  // 							component={objectIconList[+value.value - 1]}
+					  // 							inheritViewBox
+					  // 						/>
+					  // 						<Typography sx={{ mr: 1 }} variant="body2">
+					  // 							{t(`plaques.options.objects.${value.value}`)}
+					  // 						</Typography>
+					  // 					</ListItem>
+					  // 					{+value.value !== objectRenderer.uniqueValueInfos.length && (
+					  // 						<Divider light variant="middle" />
+					  // 					)}
+					  // 				</>
+					  // 			)}
+					  // 		</div>
+					  //   ))
+					  memoryRenderer.uniqueValueInfos.map((value) => (
+							<div key={value.value}>
+								{props.visibleMemoryIcons.length ? (
+									props.visibleMemoryIcons.includes(+value.value) && (
+										<>
+											<ListItem sx={{ my: 1 }} disablePadding>
+												<SvgIcon
+													sx={{ fontSize: 35 }}
+													component={memoryIconList[+value.value - 1]}
+													inheritViewBox
+												/>
+												<Typography sx={{ ml: 1 }} variant="body2">
+													{t(`plaques.options.memories.${value.value}`)}
+												</Typography>
+											</ListItem>
+											{+value.value !== props.visibleMemoryIcons[props.visibleMemoryIcons.length - 1] && (
+												<Divider light variant="middle" />
+											)}
+										</>
+									)
+								) : (
+									<>
+										<ListItem sx={{ my: 1 }} disablePadding>
+											<SvgIcon
+												sx={{ fontSize: 35 }}
+												component={memoryIconList[+value.value - 1]}
+												inheritViewBox
+											/>
+											<Typography sx={{ ml: 1 }} variant="body2">
+												{t(`plaques.options.memories.${value.value}`)}
+											</Typography>
+										</ListItem>
+										{+value.value !== memoryRenderer.uniqueValueInfos.length && (
+											<Divider light variant="middle" />
+										)}
+									</>
+								)}
+							</div>
+					  ))}
+			</List>
+			{/* <List>
 				{props.visualizationType === "0"
 					? objectRenderer.uniqueValueInfos.map((value) => (
 							<div key={value.value}>
@@ -137,7 +265,7 @@ const Legends = (props) => {
 								)}
 							</div>
 					  ))}
-			</List>
+			</List> */}
 		</Box>
 	)
 }

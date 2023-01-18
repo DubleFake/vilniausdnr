@@ -10,81 +10,81 @@ import Locate from "@arcgis/core/widgets/Locate"
 const url = window.location.href
 const origin = new URL(url).origin
 
-export const objectRenderer = {
-	type: "unique-value",
-	field: "TIPAS",
-	uniqueValueInfos: [
-		{
-			value: "1",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_atminimo_lenta.svg`,
-			},
-		},
-		{
-			value: "3",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_atminimo_lenta_bareljefas.svg`,
-			},
-		},
-		{
-			value: "5",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_pavadinimo_lentele.svg`,
-			},
-		},
-		{
-			value: "6",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_uzrasas.svg`,
-			},
-		},
-		{
-			value: "4",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_freska.svg`,
-			},
-		},
-		{
-			value: "7",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_vietos_pazymejimas.svg`,
-			},
-		},
-		{
-			value: "2",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_skulptura.svg`,
-			},
-		},
-		{
-			value: "8",
-			symbol: {
-				type: "picture-marker",
-				url: `${origin}/vilniausdnr/signIcons/Atmint_paminklas.svg`,
-			},
-		},
-	],
-	visualVariables: [
-		{
-			type: "size",
-			valueExpression: "$view.scale",
-			stops: [
-				{ size: 24, value: 500 },
-				{ size: 21, value: 1000 },
-				{ size: 18, value: 2000 },
-				{ size: 15, value: 5000 },
-				{ size: 12, value: 10000 },
-			],
-		},
-	],
-}
+// export const objectRenderer = {
+// 	type: "unique-value",
+// 	field: "TIPAS",
+// 	uniqueValueInfos: [
+// 		{
+// 			value: "1",
+// 			symbol: {
+// 				type: "picture-marker",
+// 				url: `${origin}/vilniausdnr/signIcons/Atmint_atminimo_lenta.svg`,
+// 			},
+// 		},
+// 		{
+// 			value: "3",
+// 			symbol: {
+// 				type: "picture-marker",
+// 				url: `${origin}/vilniausdnr/signIcons/Atmint_atminimo_lenta_bareljefas.svg`,
+// 			},
+// 		},
+// 		{
+// 			value: "5",
+// 			symbol: {
+// 				type: "picture-marker",
+// 				url: `${origin}/vilniausdnr/signIcons/Atmint_pavadinimo_lentele.svg`,
+// 			},
+// 		},
+// 		{
+// 			value: "6",
+// 			symbol: {
+// 				type: "picture-marker",
+// 				url: `${origin}/vilniausdnr/signIcons/Atmint_uzrasas.svg`,
+// 			},
+// 		},
+// 		{
+// 			value: "4",
+// 			symbol: {
+// 				type: "picture-marker",
+// 				url: `${origin}/vilniausdnr/signIcons/Atmint_freska.svg`,
+// 			},
+// 		},
+// 		{
+// 			value: "7",
+// 			symbol: {
+// 				type: "picture-marker",
+// 				url: `${origin}/vilniausdnr/signIcons/Atmint_vietos_pazymejimas.svg`,
+// 			},
+// 		},
+// 		{
+// 			value: "2",
+// 			symbol: {
+// 				type: "picture-marker",
+// 				url: `${origin}/vilniausdnr/signIcons/Atmint_skulptura.svg`,
+// 			},
+// 		},
+// 		{
+// 			value: "8",
+// 			symbol: {
+// 				type: "picture-marker",
+// 				url: `${origin}/vilniausdnr/signIcons/Atmint_paminklas.svg`,
+// 			},
+// 		},
+// 	],
+// 	visualVariables: [
+// 		{
+// 			type: "size",
+// 			valueExpression: "$view.scale",
+// 			stops: [
+// 				{ size: 24, value: 500 },
+// 				{ size: 21, value: 1000 },
+// 				{ size: 18, value: 2000 },
+// 				{ size: 15, value: 5000 },
+// 				{ size: 12, value: 10000 },
+// 			],
+// 		},
+// 	],
+// }
 
 export const memoryRenderer = {
 	type: "unique-value",
@@ -178,6 +178,22 @@ export const objects = new FeatureLayer({
 	],
 	title: "Lentelės",
 	// renderer: objectRenderer,
+})
+
+export let objectRenderer
+objects.when(() => {
+	objects.renderer.visualVariables = {
+		type: "size",
+		valueExpression: "$view.scale",
+		stops: [
+			{ size: 24, value: 500 },
+			{ size: 21, value: 1000 },
+			{ size: 18, value: 2000 },
+			{ size: 15, value: 5000 },
+			{ size: 12, value: 10000 },
+		],
+	}
+	objectRenderer = objects.renderer
 })
 
 export const persons = new FeatureLayer({

@@ -226,15 +226,14 @@ const Filter = (props) => {
 		})
 	}, [extentCheck])
 
-	// useEffect(() => {
-	// 	return () => {
-	//     console.log("first")
-	// 		viewHandles.forEach((handle) => {
-	// 			handle.remove()
-	// 		})
-	// 		viewHandles.length = 0
-	// 	}
-	// }, [])
+	useEffect(() => {
+		return () => {
+			viewHandles.forEach((handle) => {
+				handle.remove()
+			})
+			viewHandles.length = 0
+		}
+	}, [])
 
 	return (
 		<>
@@ -262,11 +261,14 @@ const Filter = (props) => {
 						<MenuItem value="">
 							<em>{t("plaques.options.all")}</em>
 						</MenuItem>
-						{objectRenderer.uniqueValueInfos.map((object) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value}>
-								{t(`plaques.options.objects.${object.value}`)}
-							</MenuItem>
-						))}
+						{objectRenderer.uniqueValueInfos.map(
+							(object) =>
+								object.value.length !== 3 && (
+									<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value[0]}>
+										{object.label}
+									</MenuItem>
+								)
+						)}
 					</Select>
 				</FormControl>
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 160 160" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<desc>Created with Fabric.js 4.2.0</desc>
+<defs>
+
+	
+
+
+<clipPath id="a"><circle cx="100" cy="100" r="80" fill="#ab71ff" vector-effect="non-scaling-stroke"/></clipPath></defs>
+
+<g transform="translate(100,100)">
+<rect x="-100" y="-100" width="200" height="200" rx="0" ry="0" fill-opacity="0" vector-effect="non-scaling-stroke"/>
+</g>
+
+
+
+<g transform="matrix(1.1898 0 0 1.1898 -1744.5 228.91)"><circle cx="1533.4" cy="-125.15" r="66.397" fill="#D8E3E1" vector-effect="non-scaling-stroke"/><g transform="matrix(.63333 0 0 .63333 1469.9 -188.48)" stroke-linecap="round" stroke-linejoin="round"><g transform="matrix(.9375 0 0 .9375 6.25 6.25)" clip-path="url(#a)" fill="#212121" stroke="#212121" stroke-width="14.402"><rect transform="rotate(225)" x="-104.39" y="51.496" width="30.598" height="50.598" style="paint-order:markers stroke fill"/><rect transform="rotate(225)" x="-104.02" y="-102.31" width="30.598" height="50.598" style="paint-order:markers stroke fill"/><rect transform="rotate(225)" x="-218.07" y="53.398" width="30.598" height="50.598" style="paint-order:markers stroke fill"/><rect transform="rotate(225)" x="-217.9" y="-100.55" width="30.598" height="50.598" style="paint-order:markers stroke fill"/></g><g transform="matrix(.9375 0 0 .9375 6.25 6.25)" fill="#212121" stroke="#212121" stroke-width="14.402"><rect transform="rotate(225)" x="-104.3" y="-25.398" width="30.598" height="50.598" style="paint-order:markers stroke fill"/><rect transform="rotate(225)" x="-161.12" y="11.157" width="30.598" height="50.598" style="paint-order:markers stroke fill"/><rect transform="rotate(225)" x="-161.01" y="-65.67" width="30.598" height="50.598" style="paint-order:markers stroke fill"/><rect transform="rotate(225)" x="-218.04" y="-23.437" width="30.598" height="50.598" style="paint-order:markers stroke fill"/></g><g transform="translate(8.9788 59.439)" fill="#D8E3E1" stroke="#D8E3E1"><rect x="55.807" y="59.819" width="26.174" height="4.1742" stroke-width="3.8258" style="paint-order:markers stroke fill"/><rect x="60.524" y="77.521" width="16.74" height="4.7397" stroke-width="3.2603" style="paint-order:markers stroke fill"/></g></g></g></svg>
