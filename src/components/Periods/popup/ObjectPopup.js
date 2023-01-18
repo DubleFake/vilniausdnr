@@ -134,7 +134,7 @@ const ObjectPopup = (props) => {
 			<Fade in={true} timeout={300} unmountOnExit>
 				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3, mt: 0.5 }}>
 					<Card variant="popup">
-						<CardContent sx={{ pt: 0, px: 4 }}>
+						<CardContent sx={{ pt: 0, px: 4, pb: "8px !important" }}>
 							{pageCount > 1 ? (
 								<Box component="div" display="flex" justifyContent="center" alignItems="center">
 									<Pagination count={pageCount} page={page} onChange={handlePage} />
@@ -307,6 +307,8 @@ const ObjectPopup = (props) => {
 											</Grid>
 										)}
 									</Grid>
+
+									{queryObjects.Legenda && <img src={queryObjects.Legenda} style={{ width: "100%" }}></img>}
 								</>
 							)}
 						</CardContent>
