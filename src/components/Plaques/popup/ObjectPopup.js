@@ -450,7 +450,7 @@ const ObjectPopup = (props) => {
 											>
 												{t("plaques.objectPopup.SALTINIS")}
 												<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
-													<Typography variant="body2" component="div">
+													<Typography sx={{ color: "white", fontWeight: 400 }} variant="body2" component="div">
 														{objectAttr.SALTINIS}
 													</Typography>
 												</MuiLinkify>
