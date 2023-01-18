@@ -26,7 +26,7 @@ const PersonInfo = (props) => {
 	const [displayEmpty, setDisplayEmpty] = useState(true)
 
 	useEffect(() => {
-		if (globalID) {
+		if (globalID && isDownSm) {
 			props.setVisible(false)
 		}
 	}, [])

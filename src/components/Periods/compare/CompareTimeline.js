@@ -175,7 +175,7 @@ const CompareTimeline = (props) => {
 						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[5].metai)}`)
 					}}
 				>
-					<Typography variant="button">2022</Typography>
+					<Typography variant="button">2023</Typography>
 				</Button>
 			</ButtonGroup>
 		</Grid>

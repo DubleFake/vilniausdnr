@@ -114,7 +114,7 @@ const ObjectPopup = (props) => {
 						objects
 							.queryRelatedFeatures({
 								outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai"],
-								relationshipId: 16,
+								relationshipId: 18,
 								returnGeometry: false,
 								objectIds: response.features[0].attributes.OBJECTID,
 							})
@@ -134,7 +134,7 @@ const ObjectPopup = (props) => {
 						objects
 							.queryRelatedFeatures({
 								outFields: ["GAT_ID", "PAV"],
-								relationshipId: 9,
+								relationshipId: 11,
 								returnGeometry: false,
 								objectIds: response.features[0].attributes.OBJECTID,
 							})

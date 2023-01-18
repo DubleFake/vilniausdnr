@@ -129,8 +129,8 @@ const period_1977 = new TileLayer({
 })
 const period_2021 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/2022_m_Vector/MapServer",
-	title: "2022",
-  metai: 2022
+	title: "2023",
+  metai: 2023
 })
 export const periods = [period_1808, period_1845, period_1911, period_1938, period_1977, period_2021]
 
@@ -167,7 +167,7 @@ export const basemaps = [basemap1, basemap2, basemap3]
 
 export const map = new Map({
 	basemap: basemap2,
-	layers: [objects],
+	// layers: [objects],
 })
 export const map2 = new Map({
 	basemap: basemap2,

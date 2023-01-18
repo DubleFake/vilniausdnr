@@ -131,7 +131,7 @@ const ObjectPopupTimeline = (props) => {
 							period
 								.queryRelatedFeatures({
 									outFields: ["*"],
-									relationshipId: 3 + i,
+									relationshipId: 5 + i,
 									returnGeometry: false,
 									objectIds: response.features[0].attributes.OBJECTID,
 								})
@@ -142,7 +142,7 @@ const ObjectPopupTimeline = (props) => {
 							period
 								.queryRelatedFeatures({
 									outFields: ["*"],
-									relationshipId: 10 + i,
+									relationshipId: 12 + i,
 									returnGeometry: false,
 									objectIds: response.features[0].attributes.OBJECTID,
 								})
@@ -182,6 +182,7 @@ const ObjectPopupTimeline = (props) => {
 				setPage(1)
 			}
 
+      let i = 0
 			for (let period of periods) {
 				if (period.title.replace(/[^0-9]/g, "") === props.mapQuery[tempPage].attributes.Metai) {
 					if (highlight) {
@@ -196,7 +197,7 @@ const ObjectPopupTimeline = (props) => {
 					period
 						.queryRelatedFeatures({
 							outFields: ["*"],
-							relationshipId: 3,
+							relationshipId: 5 + i,
 							returnGeometry: false,
 							objectIds: props.mapQuery[tempPage].attributes.OBJECTID,
 						})
@@ -207,7 +208,7 @@ const ObjectPopupTimeline = (props) => {
 					period
 						.queryRelatedFeatures({
 							outFields: ["*"],
-							relationshipId: 10,
+							relationshipId: 12 + i,
 							returnGeometry: false,
 							objectIds: props.mapQuery[tempPage].attributes.OBJECTID,
 						})
