@@ -81,7 +81,6 @@ const Legends = (props) => {
 								props.visibleObjectIcons.includes(parseInt(value.value[0])) && (
 									<>
 										<ListItem sx={{ my: 1 }} disablePadding>
-											{console.log(props.visibleObjectIcons)}
 											<SvgIcon sx={{ fontSize: 35 }} component={objectIconList[index]} inheritViewBox />
 											<Typography sx={{ ml: 1 }} variant="body2">
 												{value.label}
@@ -95,7 +94,6 @@ const Legends = (props) => {
 							) : (
 								<>
 									<ListItem sx={{ my: 1 }} disablePadding>
-										{console.log(props.visibleObjectIcons)}
 										<SvgIcon sx={{ fontSize: 35 }} component={objectIconList[index]} inheritViewBox />
 										<Typography sx={{ ml: 1 }} variant="body2">
 											{value.label}
@@ -105,47 +103,7 @@ const Legends = (props) => {
 								</>
 							)
 					  )
-					: // objectRenderer.uniqueValueInfos.map((value) => (
-					  // 		<div key={value.value}>
-					  // 			{props.visibleObjectIcons.length ? (
-					  // 				props.visibleObjectIcons.includes(+value.value) && (
-					  // 					<>
-					  // 						{console.log(objectRenderer)}
-					  // 						<ListItem sx={{ my: 0.3 }} disablePadding>
-					  // 							<SvgIcon
-					  // 								sx={{ ml: 2, mr: 2, fontSize: 35 }}
-					  // 								component={objectIconList[+value.value - 1]}
-					  // 								inheritViewBox
-					  // 							/>
-					  // 							<Typography sx={{ mr: 1 }} variant="body2">
-					  // 								{t(`plaques.options.objects.${value.value}`)}
-					  // 							</Typography>
-					  // 						</ListItem>
-					  // 						{+value.value !== props.visibleObjectIcons[props.visibleObjectIcons.length - 1] && (
-					  // 							<Divider light variant="middle" />
-					  // 						)}
-					  // 					</>
-					  // 				)
-					  // 			) : (
-					  // 				<>
-					  // 					<ListItem sx={{ my: 0.3 }} disablePadding>
-					  // 						<SvgIcon
-					  // 							sx={{ ml: 2, mr: 2, fontSize: 35 }}
-					  // 							component={objectIconList[+value.value - 1]}
-					  // 							inheritViewBox
-					  // 						/>
-					  // 						<Typography sx={{ mr: 1 }} variant="body2">
-					  // 							{t(`plaques.options.objects.${value.value}`)}
-					  // 						</Typography>
-					  // 					</ListItem>
-					  // 					{+value.value !== objectRenderer.uniqueValueInfos.length && (
-					  // 						<Divider light variant="middle" />
-					  // 					)}
-					  // 				</>
-					  // 			)}
-					  // 		</div>
-					  //   ))
-					  memoryRenderer.uniqueValueInfos.map((value) => (
+					: memoryRenderer.uniqueValueInfos.map((value) => (
 							<div key={value.value}>
 								{props.visibleMemoryIcons.length ? (
 									props.visibleMemoryIcons.includes(+value.value) && (
@@ -185,87 +143,6 @@ const Legends = (props) => {
 							</div>
 					  ))}
 			</List>
-			{/* <List>
-				{props.visualizationType === "0"
-					? objectRenderer.uniqueValueInfos.map((value) => (
-							<div key={value.value}>
-								{props.visibleObjectIcons.length ? (
-									props.visibleObjectIcons.includes(+value.value) && (
-										<>
-											<ListItem sx={{ my: 0.3 }} disablePadding>
-												<SvgIcon
-													sx={{ ml: 2, mr: 2, fontSize: 35 }}
-													component={objectIconList[+value.value - 1]}
-													inheritViewBox
-												/>
-												<Typography sx={{ mr: 1 }} variant="body2">
-													{t(`plaques.options.objects.${value.value}`)}
-												</Typography>
-											</ListItem>
-											{+value.value !== props.visibleObjectIcons[props.visibleObjectIcons.length - 1] && (
-												<Divider light variant="middle" />
-											)}
-										</>
-									)
-								) : (
-									<>
-										<ListItem sx={{ my: 0.3 }} disablePadding>
-											<SvgIcon
-												sx={{ ml: 2, mr: 2, fontSize: 35 }}
-												component={objectIconList[+value.value - 1]}
-												inheritViewBox
-											/>
-											<Typography sx={{ mr: 1 }} variant="body2">
-												{t(`plaques.options.objects.${value.value}`)}
-											</Typography>
-										</ListItem>
-										{+value.value !== objectRenderer.uniqueValueInfos.length && (
-											<Divider light variant="middle" />
-										)}
-									</>
-								)}
-							</div>
-					  ))
-					: memoryRenderer.uniqueValueInfos.map((value) => (
-							<div key={value.value}>
-								{props.visibleMemoryIcons.length ? (
-									props.visibleMemoryIcons.includes(+value.value) && (
-										<>
-											<ListItem sx={{ my: 0.3 }} disablePadding>
-												<SvgIcon
-													sx={{ ml: 2, mr: 2, fontSize: 35 }}
-													component={memoryIconList[+value.value - 1]}
-													inheritViewBox
-												/>
-												<Typography sx={{ mr: 1 }} variant="body2">
-													{t(`plaques.options.memories.${value.value}`)}
-												</Typography>
-											</ListItem>
-											{+value.value !== props.visibleMemoryIcons[props.visibleMemoryIcons.length - 1] && (
-												<Divider light variant="middle" />
-											)}
-										</>
-									)
-								) : (
-									<>
-										<ListItem sx={{ my: 0.3 }} disablePadding>
-											<SvgIcon
-												sx={{ ml: 2, mr: 2, fontSize: 35 }}
-												component={memoryIconList[+value.value - 1]}
-												inheritViewBox
-											/>
-											<Typography sx={{ mr: 1 }} variant="body2">
-												{t(`plaques.options.memories.${value.value}`)}
-											</Typography>
-										</ListItem>
-										{+value.value !== memoryRenderer.uniqueValueInfos.length && (
-											<Divider light variant="middle" />
-										)}
-									</>
-								)}
-							</div>
-					  ))}
-			</List> */}
 		</Box>
 	)
 }
