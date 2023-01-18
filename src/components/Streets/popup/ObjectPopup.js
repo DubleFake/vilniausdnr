@@ -34,6 +34,7 @@ import TimelineConnector from "@mui/lab/TimelineConnector"
 import TimelineContent from "@mui/lab/TimelineContent"
 import TimelineDot from "@mui/lab/TimelineDot"
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
+import Grid from "@mui/material/Grid"
 
 let highlight
 const ObjectPopup = (props) => {
@@ -44,6 +45,7 @@ const ObjectPopup = (props) => {
 	const [objectAttr, setObjectAttr] = useState([])
 	const [objectPer, setObjectPer] = useState([])
 	const [objectAtt, setObjectAtt] = useState([])
+	const [relatedFoto, setRelatedFoto] = useState([])
 	const [relatedStreets, setRelatedStreets] = useState([])
 	const [relatedStreets3, setRelatedStreets3] = useState(false)
 	const [relatedStreets4, setRelatedStreets4] = useState(false)
@@ -133,10 +135,7 @@ const ObjectPopup = (props) => {
 								response.features[0].attributes[attr] === "" ||
 								response.features[0].attributes[attr] === 0 ||
 								attr === "OBJECTID" ||
-								attr === "GAT_ID" ||
-								attr === "GAT_ID_1" ||
-								attr === "GAT_GYV_ID" ||
-								attr === "Shape__Length"
+								attr === "GAT_ID"
 							) {
 							} else {
 								const obj = {}
@@ -186,7 +185,7 @@ const ObjectPopup = (props) => {
 				objects
 					.queryRelatedFeatures({
 						outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
-						relationshipId: 2,
+						relationshipId: 3,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
 					.then((response_related) => {
@@ -201,6 +200,19 @@ const ObjectPopup = (props) => {
 							})
 						})
 						setObjectPer(allPersons)
+					})
+					.catch((error) => {
+						console.error(error)
+					})
+
+				objects
+					.queryRelatedFeatures({
+						outFields: ["Pavadinimas", "GlobalID"],
+						relationshipId: 11,
+						objectIds: response.features[0].attributes.OBJECTID,
+					})
+					.then((response_related) => {
+						setRelatedFoto(response_related[response.features[0].attributes.OBJECTID].features)
 					})
 					.catch((error) => {
 						console.error(error)
@@ -224,7 +236,7 @@ const ObjectPopup = (props) => {
 			})
 			.then((response) => {
 				let tempFeatures = []
-				const relateID = [3, 4, 5, 6, 7, 8]
+				const relateID = [5, 6, 7, 8, 9, 10]
 				for (let i of relateID) {
 					objects
 						.queryRelatedFeatures({
@@ -255,22 +267,22 @@ const ObjectPopup = (props) => {
 							}
 
 							switch (i) {
-								case 3:
+								case 5:
 									setRelatedStreets3(true)
 									break
-								case 4:
+								case 6:
 									setRelatedStreets4(true)
 									break
-								case 5:
+								case 7:
 									setRelatedStreets5(true)
 									break
-								case 6:
+								case 8:
 									setRelatedStreets6(true)
 									break
-								case 7:
+								case 9:
 									setRelatedStreets7(true)
 									break
-								case 8:
+								case 10:
 									setRelatedStreets8(true)
 									break
 							}
@@ -313,7 +325,7 @@ const ObjectPopup = (props) => {
 			<Fade in={true} timeout={300} unmountOnExit>
 				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
 					<Card variant="popup">
-						<CardContent sx={{ pt: 0, px: 4 }}>
+						<CardContent sx={{ pt: 0, px: 4, pb: "8px !important" }}>
 							{pageCount > 1 ? (
 								<Box component="div" display="flex" justifyContent="center" alignItems="center">
 									<Pagination count={pageCount} page={page} onChange={handlePage} />
@@ -380,35 +392,53 @@ const ObjectPopup = (props) => {
 											</>
 										}
 									/>
-									<TableContainer sx={{ mb: 1 }} component={Paper}>
-										<Table size="small">
-											<TableBody>
-												{Object.keys(objectAttr).map((attr) =>
-													objectAttr[attr].field === "OBJ_APRAS" ||
-													objectAttr[attr].field === "AUTORIUS" ||
-													objectAttr[attr].field === "OBJ_PAV" ||
-													objectAttr[attr].field === "SALTINIS" ? null : (
-														<TableRow
-															key={objectAttr[attr].field}
-															sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-														>
-															<TableCell component="th" scope="row">
-																{/* {t(`plaques.objectPopup.${objectAttr[attr].field}`)} */}
-																{objectAttr[attr].field}
-															</TableCell>
-															<TableCell align="right">
-																{objectAttr[attr].field === "TIPAS"
-																	? t(`plaques.options.objects.${objectAttr[attr].code}`)
-																	: objectAttr[attr].field === "ATMINT_TIP"
-																	? t(`plaques.options.memories.${objectAttr[attr].code}`)
-																	: objectAttr[attr].value}
-															</TableCell>
-														</TableRow>
-													)
-												)}
-											</TableBody>
-										</Table>
-									</TableContainer>
+
+									{Object.keys(objectAttr).map((attr) =>
+										objectAttr[attr].field === "Klasė" ? (
+											<Typography
+												sx={{ color: "white" }}
+												variant="h6"
+												component="div"
+												key={objectAttr[attr].field}
+											>
+												Klasė
+												<Typography sx={{ color: "white" }} variant="body2" component="div">
+													{objectAttr[attr].value}
+												</Typography>
+											</Typography>
+										) : null
+									)}
+									{Object.keys(objectAttr).map((attr) =>
+										objectAttr[attr].field === "Poklasis" ? (
+											<Typography
+												sx={{ color: "white" }}
+												variant="h6"
+												component="div"
+												key={objectAttr[attr].field}
+											>
+												Poklasis
+												<Typography sx={{ color: "white" }} variant="body2" component="div">
+													{objectAttr[attr].value}
+												</Typography>
+											</Typography>
+										) : null
+									)}
+									{Object.keys(objectAttr).map((attr) =>
+										objectAttr[attr].field === "Shape.STLength()" ? (
+											<Typography
+												sx={{ color: "white" }}
+												variant="h6"
+												component="div"
+												key={objectAttr[attr].field}
+											>
+												Gatvės ilgis (m)
+												<Typography sx={{ color: "white" }} variant="body2" component="div">
+													{Math.round(objectAttr[attr].value)}
+												</Typography>
+											</Typography>
+										) : null
+									)}
+
 									{Object.keys(objectAttr).map((attr) =>
 										objectAttr[attr].field === "OBJ_APRAS" || objectAttr[attr].field === "AUTORIUS" ? (
 											<Typography variant="h6" component="div" key={objectAttr[attr].field}>
@@ -479,7 +509,7 @@ const ObjectPopup = (props) => {
 											variant="body2"
 											component="div"
 										>
-											Istoriniai gatvės ar jos dalies pavadinimai (tik 1808, 1845, 1911, 1938 ir 1977 m.)
+											Istoriniuose žemėlapiuose pateikiami gatvės ar jos dalies pavadinimai (originalia forma)
 											<Typography component="div">
 												<Timeline sx={{ m: 0, mt: 1, p: 0 }}>
 													{relatedStreets.map((street, i) => (
@@ -542,6 +572,46 @@ const ObjectPopup = (props) => {
 												</Box>
 										  ))
 										: null}
+
+									{relatedFoto.length && (
+										<Typography
+											sx={{ color: "white", fontWeight: 500, fontSize: "14px" }}
+											variant="body2"
+											component="div"
+										>
+											Susijusios nuotraukos
+											<Typography component="div">
+												{relatedFoto.map((foto) => (
+													<div key={foto.attributes.GlobalID}>
+														<Link
+															sx={{ mt: 0.5 }}
+															target="_blank"
+															href={
+																"https://zemelapiai.vplanas.lt" +
+																`/vilniausdnr/${i18n.language}/foto/object/${foto.attributes.GlobalID.replace(
+																	/[{}]/g,
+																	""
+																)}`
+															}
+															rel="noopener"
+															textAlign="left"
+															variant="body2"
+
+															// textAlign="left"
+															// component="button"
+															// variant="body2"
+															// onClick={() => {
+															// 	navigate(
+															// 		`/vilniausdnr/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
+															// 	)
+															// }}
+														>{`${foto.attributes.Pavadinimas}`}</Link>
+														<br></br>
+													</div>
+												))}
+											</Typography>
+										</Typography>
+									)}
 								</>
 							)}
 						</CardContent>
