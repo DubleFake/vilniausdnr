@@ -80,8 +80,9 @@ const ObjectPopupTimeline = (props) => {
 			setPopupOpen(true)
 			setLoading(true)
 
-			let i = 0
+			let i = -1
 			for (let period of periods) {
+				i++
 				period
 					.queryFeatures({
 						where: `GlobalID = '${globalID}'`,
@@ -92,7 +93,6 @@ const ObjectPopupTimeline = (props) => {
 						if (response.features.length > 0) {
 							setQueryObjects(response.features)
 							setLoading(false)
-							console.log(period)
 							// props.setInitialPeriod(period)
 
 							if (highlight) {
@@ -101,6 +101,13 @@ const ObjectPopupTimeline = (props) => {
 
 							map.removeAll()
 							map.add(period)
+
+              props.setToggle1808(false)
+              props.setToggle1845(false)
+              props.setToggle1911(false)
+              props.setToggle1938(false)
+              props.setToggle1977(false)
+              props.setToggle2021(false)
 
 							switch (period.metai) {
 								case 1808:
@@ -151,7 +158,6 @@ const ObjectPopupTimeline = (props) => {
 								})
 						}
 					})
-				i++
 			}
 		}
 	}, [])
@@ -182,7 +188,7 @@ const ObjectPopupTimeline = (props) => {
 				setPage(1)
 			}
 
-      let i = 0
+			let i = 0
 			for (let period of periods) {
 				if (period.title.replace(/[^0-9]/g, "") === props.mapQuery[tempPage].attributes.Metai) {
 					if (highlight) {
@@ -216,6 +222,7 @@ const ObjectPopupTimeline = (props) => {
 							setRelatedMaps(response[props.mapQuery[tempPage].attributes.OBJECTID].features)
 						})
 				}
+				i++
 			}
 
 			setLoading(false)
