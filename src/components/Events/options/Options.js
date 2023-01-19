@@ -15,12 +15,20 @@ const Options = (props) => {
 		const tempSet = new Set()
 
 		for (let event of props.eventsList) {
-			console.log(event)
 			tempSet.add(event.attributes.Ivykio_grupe_LT)
 		}
 
 		setEventGroups([...tempSet])
 	}, [props.eventsList])
+
+	const handleShare = (index) => {
+		const tempFiltered = props.eventsList.filter(
+			(event) => event.attributes.Ivykio_grupe_LT === eventGroups[index]
+		)
+
+		setSelectedGroup(index)
+		props.setEventsFiltered(tempFiltered)
+	}
 
 	return (
 		<Container variant="optionsDiv">
@@ -46,13 +54,9 @@ const Options = (props) => {
 							component="div"
 							disablePadding
 							selected={index === selectedGroup}
+							onClick={() => handleShare(index)}
 						>
-							<ListItemButton
-								sx={{ height: "auto" }}
-								onClick={() => {
-									setSelectedGroup(index)
-								}}
-							>
+							<ListItemButton sx={{ height: "auto" }}>
 								<Box
 									sx={{
 										borderLeft: index === selectedGroup ? "4px solid #D72E30" : "2px solid lightgray",

@@ -23,9 +23,9 @@ import Typography from "@mui/material/Typography"
 const EventInfo = (props) => {
 	return (
 		<Grid sx={{ backgroundColor: "#707070" }} container spacing={0} variant="main">
-			{props.eventsList.length > 0 && (
+			{props.eventsFiltered.length > 0 && (
 				<Timeline position="alternate">
-					{props.eventsList.map((event, index) => (
+					{props.eventsFiltered.map((event, index) => (
 						<TimelineItem key={index}>
 							<TimelineSeparator>
 								<TimelineConnector sx={{ backgroundColor: "white", width: "1px" }} />

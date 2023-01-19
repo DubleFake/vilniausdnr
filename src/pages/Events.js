@@ -14,6 +14,7 @@ import Backdrop from "@mui/material/Backdrop"
 
 const Persons = () => {
 	const [eventsList, setEventsList] = useState([])
+	const [eventsFiltered, setEventsFiltered] = useState([])
 
 	useEffect(() => {
 		events
@@ -25,6 +26,7 @@ const Persons = () => {
 				console.log(response)
 				const tempFeatures = response.features
 				tempFeatures.sort((a, b) => a.attributes.Ivykio_data - b.attributes.Ivykio_data)
+				setEventsFiltered(tempFeatures)
 				setEventsList(tempFeatures)
 			})
 	}, [])
@@ -36,9 +38,9 @@ const Persons = () => {
 				element={
 					<>
 						<Grid container spacing={0}>
-							<Options eventsList={eventsList} />
+							<Options eventsList={eventsList} setEventsFiltered={setEventsFiltered} />
 
-							<EventInfo eventsList={eventsList} />
+							<EventInfo eventsFiltered={eventsFiltered} />
 							<Outlet />
 						</Grid>
 					</>
