@@ -42,18 +42,11 @@ const ObjectPopup = (props) => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
 
-	const [objectAttr, setObjectAttr] = useState([])
+	const [objectAttr, setObjectAttr] = useState({})
+	const [coded, setCoded] = useState({})
 	const [objectPer, setObjectPer] = useState([])
-	const [objectAtt, setObjectAtt] = useState([])
 	const [relatedFoto, setRelatedFoto] = useState([])
 	const [relatedStreets, setRelatedStreets] = useState([])
-	const [relatedStreets3, setRelatedStreets3] = useState(false)
-	const [relatedStreets4, setRelatedStreets4] = useState(false)
-	const [relatedStreets5, setRelatedStreets5] = useState(false)
-	const [relatedStreets6, setRelatedStreets6] = useState(false)
-	const [relatedStreets7, setRelatedStreets7] = useState(false)
-	const [relatedStreets8, setRelatedStreets8] = useState(false)
-	const [relatedStreetsShow, setRelatedStreetsShow] = useState(false)
 	const [loading, setLoading] = useState(true)
 	const [queryObjects, setQueryObjects] = useState([])
 	const [popupOpen, setPopupOpen] = useState(false)
@@ -104,11 +97,12 @@ const ObjectPopup = (props) => {
 			}
 
 			view.whenLayerView(objects).then((objectsView) => {
-				let query = objectsView.createQuery()
-				query.where = `GAT_ID = ${globalID}`
-
 				objects
-					.queryFeatures(query)
+					.queryFeatures({
+						where: `GAT_ID = ${globalID}`,
+						outFields: ["OBJECTID", "PAV", "Klasė", "Poklasis", "Shape.STLength()"],
+						returnGeometry: true,
+					})
 					.then((response) => {
 						if (highlight) {
 							highlight.remove()
@@ -123,44 +117,52 @@ const ObjectPopup = (props) => {
 						highlight = objectsView.highlight(response.features[0])
 						props.setSelectedObject(`${globalID}`)
 
-						return response
-					})
-					.then((response) => {
-						const allAttributes = []
+						// const allAttributes = []
 
-						let count = 0
-						for (let attr in response.features[0].attributes) {
-							if (
-								response.features[0].attributes[attr] === null ||
-								response.features[0].attributes[attr] === "" ||
-								response.features[0].attributes[attr] === 0 ||
-								attr === "OBJECTID" ||
-								attr === "GAT_ID"
-							) {
-							} else {
-								const obj = {}
+						// let count = 0
+						// for (let attr in response.features[0].attributes) {
+						// 	if (
+						// 		response.features[0].attributes[attr] !== null &&
+						// 		response.features[0].attributes[attr] !== "" &&
+						// 		response.features[0].attributes[attr] !== 0 &&
+						// 		(attr === "PAV" || attr === "Klasė" || attr === "Poklasis" || attr === "Shape.STLength()")
+						// 	) {
+						// 		const obj = {}
 
-								obj.alias = response.features[0].layer.fields[count].alias
-								if (response.features[0].layer.fields[count].domain === null) {
-									obj.value = response.features[0].attributes[attr]
-								} else {
-									for (let code in response.features[0].layer.fields[count].domain.codedValues) {
-										if (
-											response.features[0].layer.fields[count].domain.codedValues[code].code ===
-											response.features[0].attributes[attr]
-										) {
-											obj.value = response.features[0].layer.fields[count].domain.codedValues[code].name
-											obj.code = response.features[0].layer.fields[count].domain.codedValues[code].code
-										}
-									}
+						// 		obj.alias = response.features[0].layer.fields[count].alias
+						// 		if (response.features[0].layer.fields[count].domain === null) {
+						// 			obj.value = response.features[0].attributes[attr]
+						//       console.log(obj.value)
+						// 		} else {
+						// 			for (let code in response.features[0].layer.fields[count].domain.codedValues) {
+						// 				if (
+						// 					response.features[0].layer.fields[count].domain.codedValues[code].code ===
+						// 					response.features[0].attributes[attr]
+						// 				) {
+						// 					obj.value = response.features[0].layer.fields[count].domain.codedValues[code].name
+						// 					obj.code = response.features[0].layer.fields[count].domain.codedValues[code].code
+						// 				}
+						// 			}
+						// 		}
+
+						// 		obj.field = attr
+						// 		allAttributes.push(obj)
+						// 	}
+						// 	count++
+						// }
+
+						const tempCoded = {}
+						for (let field of response.fields) {
+							if (field.domain) {
+								tempCoded[field.alias] = {}
+								for (let coded of field.domain.codedValues) {
+									tempCoded[field.alias][coded.code] = coded.name
 								}
-
-								obj.field = attr
-								allAttributes.push(obj)
 							}
-							count++
 						}
-						setObjectAttr(allAttributes)
+
+						setCoded(tempCoded)
+						setObjectAttr(response.features[0].attributes)
 						return response.features[0].attributes.OBJECTID
 					})
 					.then(() => {
@@ -222,23 +224,18 @@ const ObjectPopup = (props) => {
 
 	useEffect(() => {
 		setRelatedStreets([])
-		setRelatedStreets3(false)
-		setRelatedStreets4(false)
-		setRelatedStreets5(false)
-		setRelatedStreets6(false)
-		setRelatedStreets7(false)
-		setRelatedStreets8(false)
 
 		objects
 			.queryFeatures({
 				where: `GAT_ID = ${globalID}`,
 				outFields: ["OBJECTID", "GAT_ID"],
 			})
-			.then((response) => {
+			.then(async (response) => {
 				let tempFeatures = []
-				const relateID = [5, 6, 7, 8, 9, 10]
+				const relateID = [4, 5, 6, 7, 8, 9, 10]
+
 				for (let i of relateID) {
-					objects
+					await objects
 						.queryRelatedFeatures({
 							outFields: ["GlobalID", "Pavadinimas", "Metai"],
 							relationshipId: i,
@@ -260,49 +257,17 @@ const ObjectPopup = (props) => {
 										response_related[response.features[0].attributes.OBJECTID].features[
 											feature
 										].attributes.Pavadinimas
+									tempObj.Linked = i === 4 ? false : true
+
 									tempFeatures.push(tempObj)
 								}
-								tempFeatures.sort((a, b) => a.Metai - b.Metai)
-								setRelatedStreets(tempFeatures)
-							}
-
-							switch (i) {
-								case 5:
-									setRelatedStreets3(true)
-									break
-								case 6:
-									setRelatedStreets4(true)
-									break
-								case 7:
-									setRelatedStreets5(true)
-									break
-								case 8:
-									setRelatedStreets6(true)
-									break
-								case 9:
-									setRelatedStreets7(true)
-									break
-								case 10:
-									setRelatedStreets8(true)
-									break
 							}
 						})
 				}
+				tempFeatures.sort((a, b) => a.Metai - b.Metai)
+				setRelatedStreets(tempFeatures)
 			})
 	}, [globalID])
-
-	useEffect(() => {
-		if (
-			relatedStreets3 &&
-			relatedStreets4 &&
-			relatedStreets5 &&
-			relatedStreets6 &&
-			relatedStreets7 &&
-			relatedStreets8
-		) {
-			setRelatedStreetsShow(true)
-		}
-	}, [relatedStreets8, relatedStreets3, relatedStreets4, relatedStreets5, relatedStreets6, relatedStreets7])
 
 	useEffect(() => {
 		return () => {
@@ -365,9 +330,7 @@ const ObjectPopup = (props) => {
 												<Typography
 													sx={{ color: "white", fontWeight: 600, fontSize: "26px", display: "inline" }}
 												>
-													{Object.keys(objectAttr).map((attr) =>
-														objectAttr[attr].field === "PAV" ? objectAttr[attr].value : null
-													)}
+													{objectAttr.PAV}
 													<BootstrapTooltip
 														open={shareTooltip}
 														leaveDelay={1000}
@@ -392,79 +355,44 @@ const ObjectPopup = (props) => {
 											</>
 										}
 									/>
-
-									{Object.keys(objectAttr).map((attr) =>
-										objectAttr[attr].field === "Klasė" ? (
-											<Typography
-												sx={{ color: "white" }}
-												variant="h6"
-												component="div"
-												key={objectAttr[attr].field}
-											>
-												Klasė
-												<Typography sx={{ color: "white" }} variant="body2" component="div">
-													{objectAttr[attr].value}
-												</Typography>
-											</Typography>
-										) : null
-									)}
-									{Object.keys(objectAttr).map((attr) =>
-										objectAttr[attr].field === "Poklasis" ? (
-											<Typography
-												sx={{ color: "white" }}
-												variant="h6"
-												component="div"
-												key={objectAttr[attr].field}
-											>
-												Poklasis
-												<Typography sx={{ color: "white" }} variant="body2" component="div">
-													{objectAttr[attr].value}
-												</Typography>
-											</Typography>
-										) : null
-									)}
-									{Object.keys(objectAttr).map((attr) =>
-										objectAttr[attr].field === "Shape.STLength()" ? (
-											<Typography
-												sx={{ color: "white" }}
-												variant="h6"
-												component="div"
-												key={objectAttr[attr].field}
-											>
-												Gatvės ilgis (m)
-												<Typography sx={{ color: "white" }} variant="body2" component="div">
-													{Math.round(objectAttr[attr].value)}
-												</Typography>
-											</Typography>
-										) : null
-									)}
-
-									{Object.keys(objectAttr).map((attr) =>
-										objectAttr[attr].field === "OBJ_APRAS" || objectAttr[attr].field === "AUTORIUS" ? (
-											<Typography variant="h6" component="div" key={objectAttr[attr].field}>
-												{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
-												<Typography variant="body2" component="div">
-													{objectAttr[attr].value}
-												</Typography>
-											</Typography>
-										) : null
-									)}
-									{Object.keys(objectAttr).map((attr) =>
-										objectAttr[attr].field === "SALTINIS" ? (
-											<Typography variant="h6" component="div" key={objectAttr[attr].field}>
-												{t(`plaques.objectPopup.${objectAttr[attr].field}`)}
-												<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
-													<Typography variant="body2" component="div">
-														{objectAttr[attr].value}
+									<Grid container spacing={2}>
+										{objectAttr.Klasė && (
+											<Grid item xs={6}>
+												<Typography sx={{ color: "white" }} variant="h6" component="div">
+													Klasė
+													<Typography sx={{ color: "white" }} variant="body2" component="div">
+														{coded["Klasė"][objectAttr.Klasė]}
 													</Typography>
-												</MuiLinkify>
-											</Typography>
-										) : null
-									)}
+												</Typography>
+											</Grid>
+										)}
+
+										{objectAttr.Poklasis && (
+											<Grid item xs={6}>
+												<Typography sx={{ color: "white" }} variant="h6" component="div">
+													Poklasis
+													<Typography sx={{ color: "white" }} variant="body2" component="div">
+														{coded["Poklasis"][objectAttr.Poklasis]}
+													</Typography>
+												</Typography>
+											</Grid>
+										)}
+
+										{objectAttr["Shape.STLength()"] && (
+											<Grid item xs={6}>
+												<Typography sx={{ color: "white" }} variant="h6" component="div">
+													Gatvės ilgis (m)
+													<Typography sx={{ color: "white" }} variant="body2" component="div">
+														{Math.round(objectAttr["Shape.STLength()"])}
+													</Typography>
+												</Typography>
+											</Grid>
+										)}
+									</Grid>
 
 									{objectPer.length ? (
 										<Typography
-											sx={{ color: "white", fontWeight: 500, fontSize: "14px" }}
+											sx={{ mt: 2, color: "white", fontWeight: 500, fontSize: "14px" }}
 											variant="body2"
 											component="div"
 										>
@@ -503,79 +431,9 @@ const ObjectPopup = (props) => {
 										</Typography>
 									) : null}
 
-									{relatedStreetsShow && (
+									{relatedFoto.length > 0 && (
 										<Typography
-											sx={{ color: "white", fontWeight: 500, fontSize: "14px" }}
-											variant="body2"
-											component="div"
-										>
-											Istoriniuose žemėlapiuose pateikiami gatvės ar jos dalies pavadinimai (originalia forma)
-											<Typography component="div">
-												<Timeline sx={{ m: 0, mt: 1, p: 0 }}>
-													{relatedStreets.map((street, i) => (
-														<TimelineItem key={i}>
-															<TimelineOppositeContent
-																sx={{ mt: 0.1, pl: 1, maxWidth: 50, fontWeight: 400, fontSize: 14 }}
-																align="right"
-																color="white"
-															>
-																{street.Metai}
-															</TimelineOppositeContent>
-															<TimelineSeparator>
-																<TimelineDot />
-																{i !== relatedStreets.length - 1 && <TimelineConnector />}
-															</TimelineSeparator>
-															<TimelineContent sx={{ mt: 0 }}>
-																<Link
-																	sx={{ fontWeight: 400, fontSize: 14 }}
-																	// target="_blank"
-																	// href={
-																	// 	"https://zemelapiai.vplanas.lt" +
-																	// 	`/vilniausdnr/${
-																	// 		i18n.language
-																	// 	}/streets/compare/timeline/${street.GlobalID.replace(/[{}]/g, "")}`
-																	// }
-																	// rel="noopener"
-																	// textAlign="left"
-																	// variant="body2"
-
-																	textAlign="left"
-																	component="button"
-																	variant="body2"
-																	onClick={() => {
-																		props.setHistoryToggle(true)
-																		props.setMapQuery(street)
-																		navigate(
-																			`/vilniausdnr/${
-																				i18n.language
-																			}/streets/compare/timeline/${street.GlobalID.replace(/[{}]/g, "")}`
-																		)
-																	}}
-																>{`${street.Pavadinimas}`}</Link>
-															</TimelineContent>
-														</TimelineItem>
-													))}
-												</Timeline>
-											</Typography>
-										</Typography>
-									)}
-
-									{objectAtt.length
-										? Object.keys(objectAtt).map((att) => (
-												<Box sx={{ mt: 1 }} key={att}>
-													<a href={`${objectAtt[att].url}`} target="_blank">
-														<img
-															style={{ maxWidth: "100%", maxHeight: "auto" }}
-															src={`${objectAtt[att].url}`}
-														/>
-													</a>
-												</Box>
-										  ))
-										: null}
-
-									{relatedFoto.length && (
-										<Typography
-											sx={{ color: "white", fontWeight: 500, fontSize: "14px" }}
+											sx={{ mt: 2, color: "white", fontWeight: 500, fontSize: "14px" }}
 											variant="body2"
 											component="div"
 										>
@@ -609,6 +467,69 @@ const ObjectPopup = (props) => {
 														<br></br>
 													</div>
 												))}
+											</Typography>
+										</Typography>
+									)}
+
+									{relatedStreets.length > 0 && (
+										<Typography
+											sx={{ mt: 2, color: "white", fontWeight: 500, fontSize: "14px" }}
+											variant="body2"
+											component="div"
+										>
+											Istoriniuose žemėlapiuose pateikiami gatvės ar jos dalies pavadinimai (originalia forma)
+											<Typography component="div">
+												<Timeline sx={{ m: 0, mt: 1, p: 0 }}>
+													{relatedStreets.map((street, i) => (
+														<TimelineItem key={i}>
+															<TimelineOppositeContent
+																sx={{ mt: 0.1, pl: 1, maxWidth: 50, fontWeight: 400, fontSize: 14 }}
+																align="right"
+																color="white"
+															>
+																{street.Metai}
+															</TimelineOppositeContent>
+															<TimelineSeparator>
+																<TimelineDot />
+																{i !== relatedStreets.length - 1 && <TimelineConnector />}
+															</TimelineSeparator>
+															<TimelineContent sx={{ mt: 0 }}>
+																{street.Linked ? (
+																	<Link
+																		sx={{ fontWeight: 400, fontSize: 14 }}
+																		// target="_blank"
+																		// href={
+																		// 	"https://zemelapiai.vplanas.lt" +
+																		// 	`/vilniausdnr/${
+																		// 		i18n.language
+																		// 	}/streets/compare/timeline/${street.GlobalID.replace(/[{}]/g, "")}`
+																		// }
+																		// rel="noopener"
+																		// textAlign="left"
+																		// variant="body2"
+
+																		textAlign="left"
+																		component="button"
+																		variant="body2"
+																		onClick={() => {
+																			props.setHistoryToggle(true)
+																			props.setMapQuery(street)
+																			navigate(
+																				`/vilniausdnr/${
+																					i18n.language
+																				}/streets/compare/timeline/${street.GlobalID.replace(/[{}]/g, "")}`
+																			)
+																		}}
+																	>{`${street.Pavadinimas}`}</Link>
+																) : (
+																	<Typography sx={{ fontWeight: 400, fontSize: 14 }}>
+																		{street.Pavadinimas}
+																	</Typography>
+																)}
+															</TimelineContent>
+														</TimelineItem>
+													))}
+												</Timeline>
 											</Typography>
 										</Typography>
 									)}
