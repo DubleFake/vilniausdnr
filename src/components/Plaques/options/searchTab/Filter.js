@@ -247,52 +247,58 @@ const Filter = (props) => {
 				</Alert>
 			</Snackbar>
 			<Container variant="filter">
-				<FormControl variant="outlined" size="small">
-					<InputLabel id="object-select-label">{t("plaques.options.objectType")}</InputLabel>
-					<Select
-						variant="outlined"
-						labelId="object-select-label"
-						name="object-select"
-						id="object-select"
-						value={props.selectedObjectFilter}
-						label={t("plaques.options.objectType")}
-						onChange={handleObjectSelect}
-					>
-						<MenuItem value="">
-							<em>{t("plaques.options.all")}</em>
-						</MenuItem>
-						{objectRenderer.uniqueValueInfos.map(
-							(object) =>
-								object.value.length !== 3 && (
-									<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value[0]}>
-										{object.label}
-									</MenuItem>
-								)
-						)}
-					</Select>
-				</FormControl>
+				<Grid container spacing={2}>
+					<Grid item xs={6}>
+						<FormControl variant="outlined" size="small">
+							<InputLabel id="object-select-label">{t("plaques.options.objectType")}</InputLabel>
+							<Select
+								variant="outlined"
+								labelId="object-select-label"
+								name="object-select"
+								id="object-select"
+								value={props.selectedObjectFilter}
+								label={t("plaques.options.objectType")}
+								onChange={handleObjectSelect}
+							>
+								<MenuItem value="">
+									<em>{t("plaques.options.all")}</em>
+								</MenuItem>
+								{objectRenderer.uniqueValueInfos.map(
+									(object) =>
+										object.value.length !== 3 && (
+											<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value[0]}>
+												{object.label}
+											</MenuItem>
+										)
+								)}
+							</Select>
+						</FormControl>
+					</Grid>
 
-				<FormControl variant="outlined" size="small">
-					<InputLabel id="memory-select-label">{t("plaques.options.memoryType")}</InputLabel>
-					<Select
-						variant="outlined"
-						labelId="memory-select-label"
-						name="memory-select"
-						id="memory-select"
-						value={props.selectedMemoryFilter}
-						label={t("plaques.options.memoryType")}
-						onChange={handleMemorySelect}
-					>
-						<MenuItem value="">
-							<em>{t("plaques.options.all")}</em>
-						</MenuItem>
-						{memoryRenderer.uniqueValueInfos.map((object) => (
-							<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value}>
-								{t(`plaques.options.memories.${object.value}`)}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
+					<Grid item xs={6}>
+						<FormControl variant="outlined" size="small">
+							<InputLabel id="memory-select-label">{t("plaques.options.memoryType")}</InputLabel>
+							<Select
+								variant="outlined"
+								labelId="memory-select-label"
+								name="memory-select"
+								id="memory-select"
+								value={props.selectedMemoryFilter}
+								label={t("plaques.options.memoryType")}
+								onChange={handleMemorySelect}
+							>
+								<MenuItem value="">
+									<em>{t("plaques.options.all")}</em>
+								</MenuItem>
+								{memoryRenderer.uniqueValueInfos.map((object) => (
+									<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value}>
+										{t(`plaques.options.memories.${object.value}`)}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+					</Grid>
+				</Grid>
 
 				<FormControl variant="outlined" size="small">
 					<InputLabel id="period-label">{t("plaques.options.period")}</InputLabel>
