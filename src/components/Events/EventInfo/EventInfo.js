@@ -26,7 +26,7 @@ const EventInfo = (props) => {
 			{props.eventsFiltered.length > 0 && (
 				<Timeline position="alternate">
 					{props.eventsFiltered.map((event, index) => (
-						<TimelineItem key={index}>
+						<TimelineItem sx={{ mt: index === 0 ? 0 : "-12%" }} key={index}>
 							<TimelineSeparator>
 								<TimelineConnector sx={{ backgroundColor: "white", width: "1px" }} />
 								<TimelineDot sx={{ backgroundColor: "white", m: 0, borderWidth: "1px" }} />
