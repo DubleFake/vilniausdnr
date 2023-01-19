@@ -9,7 +9,7 @@ import Box from "@mui/material/Box"
 
 const Options = (props) => {
 	const [eventGroups, setEventGroups] = useState([])
-	const [selectedGroup, setSelectedGroup] = useState()
+	const [selectedGroup, setSelectedGroup] = useState(-1)
 
 	useEffect(() => {
 		const tempSet = new Set()
@@ -22,12 +22,17 @@ const Options = (props) => {
 	}, [props.eventsList])
 
 	const handleShare = (index) => {
-		const tempFiltered = props.eventsList.filter(
-			(event) => event.attributes.Ivykio_grupe_LT === eventGroups[index]
-		)
-
 		setSelectedGroup(index)
-		props.setEventsFiltered(tempFiltered)
+
+		if (index === -1) {
+			props.setEventsFiltered(props.eventsList)
+		} else {
+			const tempFiltered = props.eventsList.filter(
+				(event) => event.attributes.Ivykio_grupe_LT === eventGroups[index]
+			)
+
+			props.setEventsFiltered(tempFiltered)
+		}
 	}
 
 	return (
@@ -36,6 +41,43 @@ const Options = (props) => {
 				Istorinių įvykių juosta
 			</Typography>
 			<List>
+				<ListItem
+					sx={{
+						color: "gray",
+						"&:hover": {
+							transition: "0.3s",
+						},
+						"&.Mui-selected": {
+							backgroundColor: "white",
+							transition: "0.3s",
+							color: "#D72E30",
+						},
+					}}
+					component="div"
+					disablePadding
+					selected={-1 === selectedGroup}
+					onClick={() => handleShare(-1)}
+				>
+					<ListItemButton sx={{ height: "auto" }}>
+						<Box
+							sx={{
+								borderLeft: -1 === selectedGroup ? "4px solid #D72E30" : "2px solid lightgray",
+								position: "absolute",
+								left: 0,
+								height: "100%",
+								width: "3px",
+								ml: -1 === selectedGroup ? 3.9 : 4,
+							}}
+							component="div"
+						/>
+						<Typography
+							sx={{ ml: 4, fontWeight: -1 === selectedGroup ? 500 : 400, fontSize: "20px" }}
+							variant="body2"
+						>
+							Visos grupės
+						</Typography>
+					</ListItemButton>
+				</ListItem>
 				{eventGroups.length > 0 &&
 					eventGroups.map((group, index) => (
 						<ListItem
