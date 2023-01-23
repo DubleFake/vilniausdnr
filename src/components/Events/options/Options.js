@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
+import { useNavigate } from "react-router-dom"
 
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
@@ -10,9 +11,11 @@ import Box from "@mui/material/Box"
 import Accordion from "@mui/material/Accordion"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import AccordionSummary from "@mui/material/AccordionSummary"
+import { Navigate } from "react-router-dom"
 
 function CustomAccordion(props) {
 	const { group, expanded, selectedGroup, handleChange, eventsList, selectedEvent, setSelectedEvent } = props
+	const navigate = useNavigate()
 
 	const tempEventsList = eventsList.filter((event) => event.attributes.Ivykio_grupe_LT === group)
 
@@ -68,7 +71,10 @@ function CustomAccordion(props) {
 							component="div"
 							disablePadding
 							selected={event.attributes.Ivykio_ID === selectedEvent}
-							onClick={() => setSelectedEvent(event.attributes.Ivykio_ID)}
+							onClick={() => {
+								setSelectedEvent(event.attributes.Ivykio_ID)
+								navigate(`#${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`)
+							}}
 						>
 							<ListItemButton sx={{ height: "auto", pl: 0, ml: 2 }}>
 								<Box

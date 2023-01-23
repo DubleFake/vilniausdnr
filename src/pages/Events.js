@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Routes, Route, Outlet } from "react-router-dom"
 
 import Options from "../components/Events/options/Options"
-import EventInfo from "../components/Events/EventInfo/EventInfo"
+import EventTimeline from "../components/Events/EventInfo/EventTimeline"
 import { events } from "../utils/eventsArcgisItems"
 import TooltipPlaceholder from "../utils/misc/TooltipPlaceholder"
 import "../css/signs.css"
@@ -45,14 +45,12 @@ const Persons = () => {
 								setSelectedEvent={setSelectedEvent}
 							/>
 
-							<EventInfo eventsFiltered={eventsFiltered} />
+							<EventTimeline eventsFiltered={eventsFiltered} setEventsFiltered={setEventsFiltered} />
 							<Outlet />
 						</Grid>
 					</>
 				}
-			>
-				<Route path="/:globalID" element={<>{/* <TooltipPlaceholder display={displayTooltip} /> */}</>} />
-			</Route>
+			></Route>
 		</Routes>
 	)
 }
