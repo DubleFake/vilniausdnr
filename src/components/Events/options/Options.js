@@ -44,7 +44,7 @@ function CustomAccordion(props) {
 					sx={{
 						ml: 4,
 						fontWeight: group === selectedGroup ? 500 : 400,
-						fontSize: "20px",
+						fontSize: "18px",
 						color: group === selectedGroup ? "#D72E30" : "black",
 					}}
 					variant="body2"
@@ -92,7 +92,7 @@ function CustomAccordion(props) {
 									}}
 									component="div"
 								/>
-								<Typography sx={{ ml: 2, fontSize: "20px" }} variant="body2">
+								<Typography sx={{ ml: 2, fontSize: "14px" }} variant="body2">
 									{event.attributes.Istorinis_ivykis}
 								</Typography>
 							</ListItemButton>

@@ -11,9 +11,3 @@ export const persons = new FeatureLayer({
 	outFields: ["*"],
 	title: "Asmenys",
 })
-
-export const related_sources = new FeatureLayer({
-	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/11",
-	outFields: ["*"],
-	title: "Susije saltiniai",
-})

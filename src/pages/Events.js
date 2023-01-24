@@ -45,7 +45,11 @@ const Persons = () => {
 								setSelectedEvent={setSelectedEvent}
 							/>
 
-							<EventTimeline eventsFiltered={eventsFiltered} setEventsFiltered={setEventsFiltered} />
+							<EventTimeline
+								eventsFiltered={eventsFiltered}
+								setEventsFiltered={setEventsFiltered}
+								setSelectedEvent={setSelectedEvent}
+							/>
 							<Outlet />
 						</Grid>
 					</>
