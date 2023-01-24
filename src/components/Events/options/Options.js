@@ -11,7 +11,6 @@ import Box from "@mui/material/Box"
 import Accordion from "@mui/material/Accordion"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import AccordionSummary from "@mui/material/AccordionSummary"
-import { Navigate } from "react-router-dom"
 
 function CustomAccordion(props) {
 	const { group, expanded, selectedGroup, handleChange, eventsList, selectedEvent, setSelectedEvent } = props
@@ -113,22 +112,28 @@ CustomAccordion.propTypes = {
 }
 
 const Options = (props) => {
+  const navigate = useNavigate()
+  
 	const [eventGroups, setEventGroups] = useState([])
-	const [selectedGroup, setSelectedGroup] = useState("")
 	const [expanded, setExpanded] = useState(false)
 
 	const handleChange = (panel) => (event, isExpanded) => {
-		setSelectedGroup(panel)
+		props.setSelectedGroup(panel)
 
 		if (!isExpanded) {
 			props.setEventsFiltered(props.eventsList)
-			setSelectedGroup("")
+			props.setSelectedGroup("")
 		} else {
 			const tempFiltered = props.eventsList.filter((event) => event.attributes.Ivykio_grupe_LT === panel)
 
 			props.setEventsFiltered(tempFiltered)
 		}
 		setExpanded(isExpanded ? panel : false)
+
+		navigate("")
+		props.setSelectedEvent("")
+		const timelineNode = document.getElementById("eventsTimeline")
+		timelineNode.scrollIntoView({ behavior: "smooth", block: "start" })
 	}
 
 	useEffect(() => {
@@ -141,6 +146,10 @@ const Options = (props) => {
 		setEventGroups([...tempSet])
 	}, [props.eventsList])
 
+	useEffect(() => {
+		setExpanded(props.selectedGroup)
+	}, [props.selectedGroup])
+
 	return (
 		<Grid sx={{ overflowY: "auto" }} variant="options">
 			<Typography sx={{ ml: 4, mt: 2 }} variant="h5">
@@ -151,7 +160,7 @@ const Options = (props) => {
 					<CustomAccordion
 						group={eventGroups[0]}
 						expanded={expanded}
-						selectedGroup={selectedGroup}
+						selectedGroup={props.selectedGroup}
 						handleChange={handleChange}
 						eventsList={props.eventsList}
 						selectedEvent={props.selectedEvent}
@@ -161,7 +170,7 @@ const Options = (props) => {
 					<CustomAccordion
 						group={eventGroups[1]}
 						expanded={expanded}
-						selectedGroup={selectedGroup}
+						selectedGroup={props.selectedGroup}
 						handleChange={handleChange}
 						eventsList={props.eventsList}
 						selectedEvent={props.selectedEvent}
@@ -171,7 +180,7 @@ const Options = (props) => {
 					<CustomAccordion
 						group={eventGroups[2]}
 						expanded={expanded}
-						selectedGroup={selectedGroup}
+						selectedGroup={props.selectedGroup}
 						handleChange={handleChange}
 						eventsList={props.eventsList}
 						selectedEvent={props.selectedEvent}
@@ -181,7 +190,7 @@ const Options = (props) => {
 					<CustomAccordion
 						group={eventGroups[3]}
 						expanded={expanded}
-						selectedGroup={selectedGroup}
+						selectedGroup={props.selectedGroup}
 						handleChange={handleChange}
 						eventsList={props.eventsList}
 						selectedEvent={props.selectedEvent}
@@ -191,7 +200,7 @@ const Options = (props) => {
 					<CustomAccordion
 						group={eventGroups[4]}
 						expanded={expanded}
-						selectedGroup={selectedGroup}
+						selectedGroup={props.selectedGroup}
 						handleChange={handleChange}
 						eventsList={props.eventsList}
 						selectedEvent={props.selectedEvent}
@@ -201,7 +210,7 @@ const Options = (props) => {
 					<CustomAccordion
 						group={eventGroups[5]}
 						expanded={expanded}
-						selectedGroup={selectedGroup}
+						selectedGroup={props.selectedGroup}
 						handleChange={handleChange}
 						eventsList={props.eventsList}
 						selectedEvent={props.selectedEvent}
@@ -211,7 +220,7 @@ const Options = (props) => {
 					<CustomAccordion
 						group={eventGroups[6]}
 						expanded={expanded}
-						selectedGroup={selectedGroup}
+						selectedGroup={props.selectedGroup}
 						handleChange={handleChange}
 						eventsList={props.eventsList}
 						selectedEvent={props.selectedEvent}
@@ -238,23 +247,23 @@ const Options = (props) => {
 							key={index}
 							component="div"
 							disablePadding
-							selected={index === selectedGroup}
+							selected={index === props.selectedGroup}
 							onClick={() => handleShare(index)}
 						>
 							<ListItemButton sx={{ height: "auto" }}>
 								<Box
 									sx={{
-										borderLeft: index === selectedGroup ? "4px solid #D72E30" : "2px solid lightgray",
+										borderLeft: index === props.selectedGroup ? "4px solid #D72E30" : "2px solid lightgray",
 										position: "absolute",
 										left: 0,
 										height: "100%",
 										width: "3px",
-										ml: index === selectedGroup ? 3.9 : 4,
+										ml: index === props.selectedGroup ? 3.9 : 4,
 									}}
 									component="div"
 								/>
 								<Typography
-									sx={{ ml: 4, fontWeight: index === selectedGroup ? 500 : 400, fontSize: "20px" }}
+									sx={{ ml: 4, fontWeight: index === props.selectedGroup ? 500 : 400, fontSize: "20px" }}
 									variant="body2"
 								>
 									{group}

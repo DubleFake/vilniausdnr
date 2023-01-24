@@ -16,6 +16,7 @@ const Persons = () => {
 	const [eventsList, setEventsList] = useState([])
 	const [eventsFiltered, setEventsFiltered] = useState([])
 	const [selectedEvent, setSelectedEvent] = useState()
+	const [selectedGroup, setSelectedGroup] = useState("")
 
 	useEffect(() => {
 		events
@@ -43,13 +44,20 @@ const Persons = () => {
 								setEventsFiltered={setEventsFiltered}
 								selectedEvent={selectedEvent}
 								setSelectedEvent={setSelectedEvent}
+								selectedGroup={selectedGroup}
+								setSelectedGroup={setSelectedGroup}
 							/>
-
-							<EventTimeline
-								eventsFiltered={eventsFiltered}
-								setEventsFiltered={setEventsFiltered}
-								setSelectedEvent={setSelectedEvent}
-							/>
+							{eventsFiltered.length > 0 && (
+								<EventTimeline
+									eventsFiltered={eventsFiltered}
+									setEventsFiltered={setEventsFiltered}
+									setSelectedEvent={setSelectedEvent}
+									selectedGroup={selectedGroup}
+									setSelectedGroup={setSelectedGroup}
+									eventsList={eventsList}
+                  selectedEvent={selectedEvent}
+								/>
+							)}
 							<Outlet />
 						</Grid>
 					</>

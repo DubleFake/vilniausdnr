@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { useParams, useNavigate, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { HashScroll } from "react-hash-scroll"
@@ -20,6 +20,10 @@ import CardContent from "@mui/material/CardContent"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Link from "@mui/material/Link"
+import IconButton from "@mui/material/IconButton"
+import ShareIcon from "@mui/icons-material/Share"
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip"
+import { styled } from "@mui/material/styles"
 
 const EventTimeline = (props) => {
 	const navigate = useNavigate()
@@ -28,14 +32,58 @@ const EventTimeline = (props) => {
 
 	const [expandedList, setExpandedList] = useState([])
 	const [relations, setRelations] = useState({})
+	const [shareTooltip, setShareTooltip] = useState(false)
+
+	const BootstrapTooltip = styled(({ className, ...props }) => (
+		<Tooltip {...props} arrow classes={{ popper: className }} />
+	))(({ theme }) => ({
+		[`& .${tooltipClasses.arrow}`]: {
+			color: theme.palette.secondary.main,
+		},
+		[`& .${tooltipClasses.tooltip}`]: {
+			backgroundColor: theme.palette.secondary.main,
+			fontSize: 15,
+		},
+	}))
+
+	const handleShare = async () => {
+		await navigator.clipboard.writeText(window.location.href)
+		setShareTooltip(true)
+	}
+
+	useEffect(() => {
+		if (!props.selectedGroup) {
+			const eventByID = props.eventsFiltered.find(
+				(obj) => obj.attributes.Ivykio_ID.replace(/[{}]/g, "") === window.location.hash.slice(1)
+			)
+
+			if (eventByID) {
+				props.setSelectedGroup(eventByID.attributes.Ivykio_grupe_LT)
+				props.setSelectedEvent(eventByID.attributes.Ivykio_ID)
+
+				const tempFiltered = props.eventsFiltered.filter(
+					(event) => event.attributes.Ivykio_grupe_LT === eventByID.attributes.Ivykio_grupe_LT
+				)
+				props.setEventsFiltered(tempFiltered)
+
+				setTimeout(() => {
+					const eventNode = document.getElementById(eventByID.attributes.Ivykio_ID.replace(/[{}]/g, ""))
+					eventNode.scrollIntoView({ behavior: "smooth", block: "center" })
+				}, 1000)
+			}
+		}
+	}, [])
 
 	useEffect(() => {
 		const tempArray = []
-
+		let index
 		for (let obj in props.eventsFiltered) {
+			if (props.eventsFiltered[obj].attributes.Ivykio_ID === props.selectedEvent) {
+				index = obj
+			}
 			tempArray.push(false)
 		}
-
+		tempArray[parseInt(index)] = true
 		setExpandedList(tempArray)
 	}, [props.eventsFiltered])
 
@@ -191,10 +239,14 @@ const EventTimeline = (props) => {
 	return (
 		<Grid sx={{ backgroundColor: "#707070" }} container spacing={0} variant="main">
 			{props.eventsFiltered.length > 0 && (
-				<Timeline position="alternate">
+				<Timeline position="alternate" id="eventsTimeline">
 					{props.eventsFiltered.map((event, index) => (
-						<TimelineItem sx={{ mt: index === 0 ? 0 : "-12%" }} key={index}>
-							<TimelineSeparator>
+						<TimelineItem
+							sx={{ mt: index === 0 ? 0 : "-12%", mx: "5%" }}
+							key={index}
+							id={event.attributes.Ivykio_ID.replace(/[{}]/g, "")}
+						>
+							<TimelineSeparator sx={{ mx: "3%" }}>
 								<TimelineConnector sx={{ backgroundColor: "white", width: "1px" }} />
 								<TimelineDot sx={{ backgroundColor: "white", m: 0, borderWidth: "1px" }} />
 								<TimelineConnector sx={{ backgroundColor: "white", width: "1px" }} />
@@ -211,7 +263,9 @@ const EventTimeline = (props) => {
 											textAlign: "left",
 										}}
 										component="div"
+										id={event.attributes.Ivykio_ID.replace(/[{}]/g, "")}
 										onClick={(evt) => {
+											navigate(`#${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`)
 											eventClickHandler(evt, index)
 										}}
 									>
@@ -248,6 +302,31 @@ const EventTimeline = (props) => {
 											variant="h6"
 										>
 											{event.attributes.Istorinis_ivykis}
+											{expandedList[index] && (
+												<BootstrapTooltip
+													open={shareTooltip}
+													leaveDelay={1000}
+													title={t(`plaques.objectPopup.shareUrl`)}
+													arrow
+													placement="top"
+													onClose={() => {
+														setShareTooltip(false)
+													}}
+												>
+													<IconButton
+														color="secondary"
+														aria-label="share"
+														size="medium"
+														onClick={(evt) => {
+															evt.stopPropagation()
+															handleShare()
+														}}
+														sx={{ mt: -0.5 }}
+													>
+														<ShareIcon style={{ fontSize: 25 }} />
+													</IconButton>
+												</BootstrapTooltip>
+											)}
 										</Typography>
 
 										<Typography

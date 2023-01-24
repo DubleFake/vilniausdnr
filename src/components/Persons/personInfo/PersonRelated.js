@@ -323,7 +323,7 @@ const PersonRelated = (props) => {
 									target="_blank"
 									href={
 										"https://zemelapiai.vplanas.lt" +
-										`/vilniausdnr/${i18n.language}/events/${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`
+										`/vilniausdnr/${i18n.language}/events#${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`
 									}
 									rel="noopener"
 									// component="button"
