@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react"
 import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import Typography from "@mui/material/Typography"
-import Modal from "@mui/material/Modal"
-import IconButton from "@mui/material/IconButton"
 import Grid from "@mui/material/Grid"
+import Modal from "@mui/material/Modal"
+import Typography from "@mui/material/Typography"
 import { useTheme } from "@mui/material/styles"
 import useMediaQuery from "@mui/material/useMediaQuery"
+import Accordion from "@mui/material/Accordion"
+import AccordionDetails from "@mui/material/AccordionDetails"
+import AccordionSummary from "@mui/material/AccordionSummary"
 
 import { ReactComponent as infoIcon } from "../../utils/icons/homeIcons/info.svg"
 
@@ -21,6 +22,12 @@ const InfoModal = () => {
 	const matchesMD = useMediaQuery(theme.breakpoints.down("md"))
 	const matchesLG = useMediaQuery(theme.breakpoints.down("lg"))
 
+	const [expanded, setExpanded] = React.useState(false)
+
+	const handleChange = (panel) => (event, isExpanded) => {
+		setExpanded(isExpanded ? panel : false)
+	}
+
 	useEffect(() => {
 		if (window.location.pathname === "/vilniausdnr/lt") {
 			setOpen(true)
@@ -29,7 +36,7 @@ const InfoModal = () => {
 
 	return (
 		<div>
-			<SvgIcon
+			{/* <SvgIcon
 				component={infoIcon}
 				inheritViewBox
 				sx={{
@@ -50,12 +57,12 @@ const InfoModal = () => {
 					},
 				}}
 				onClick={handleOpen}
-			/>
+			/> */}
 
 			<Modal
 				sx={{ zIndex: 1000 }}
 				disableEnforceFocus
-				open={open}
+				open={false}
 				onClose={handleClose}
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
@@ -66,71 +73,51 @@ const InfoModal = () => {
 						top: "50%",
 						left: "50%",
 						transform: "translate(-50%, -50%)",
-						width: matchesMD ? "100%" : "60%",
-						height: "90%",
+						width: "60%",
+						height: "65%",
 						bgcolor: "rgb(18, 18, 18)",
 						border: "2px solid #000",
 						boxShadow: 24,
-						p: 4,
-						overflowY: "auto",
-						minWidth: matchesMD ? null : 800,
+						overflow: "hidden",
 					}}
 				>
-					<Typography
-						sx={{ color: "white", fontSize: matchesLG ? "1rem" : "1.25rem" }}
-						id="modal-modal-title"
-						variant="h6"
-						component="h2"
-					>
-						Esate testinėje „Vilniaus DNR“ svetainės versijoje.
-					</Typography>
-					<Typography
-						sx={{ color: "white", mt: 2, mb: 2, fontSize: matchesLG ? "0.75rem" : "1rem" }}
-						id="modal-modal-description"
-					>
-						Svetainė <b>šiuo metu yra kuriama</b>, todėl:
-						<ul>
-							<li sx={{ mt: 1 }}>ne visos jos skiltys ir funkcionalumas veikia;</li>
-							<li>
-								gali pasitaikyti netikslumų laukų pavadinimuose, gali būti rodomi sisteminiai laukai ar laukai
-								kitomis kalbomis, kurie dar bus panaudoti svetainę verčiant į kitas kalbas;
-							</li>
-							<li>svetainės dizainas dar bus keičiamas;</li>
-							<li>
-								bus kuriami ir svetainės skilčių interaktyvūs turai naudotojui (Guided Tour), kiekvienoje
-								skiltyje paaiškinantys, kaip naudotis funkcionalumu.
-							</li>
-						</ul>
-						Kadangi turai dar nesukurti, siūlome naudotis šiuo trumpu vaizdo įrašu, kuris laikinai padės
-						naudotis šios testinės svetainės pagrindiniu funkcionalumu:
-					</Typography>
-					<iframe
-						width="100%"
-						height={window.innerHeight - (window.innerHeight / 10) * 5}
-						src="https://www.youtube.com/embed/Sb59WddVs4I"
-						frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowFullScreen="allowFullScreen"
-					></iframe>
-					<Typography
-						sx={{ color: "white", mt: 2, fontSize: matchesLG ? "0.75rem" : "1rem" }}
-						id="modal-modal-description"
-					>
-						Kilus klausimams, pastebėjus klaidų ar turint pasiūlymų rašykite el. paštu{" "}
-						<b>donatas.gudelis@vplanas.lt</b>
-					</Typography>
-					<Grid container direction="row" justifyContent="center" alignItems="center">
-						<Button
-							sx={{
-								mt: 2,
-								width: 200,
-							}}
-							color="secondary"
-							variant="contained"
-							onClick={handleClose}
-						>
-							Supratau, naršyti
-						</Button>
+					<Grid container direction="row" justifyContent="flex-start" alignItems="flex-start">
+						<Grid item xs={4}>
+							<Accordion
+								disableGutters
+								elevation={0}
+								square
+								expanded={expanded === "panel1"}
+								onChange={handleChange("panel1")}
+							>
+								<AccordionSummary>
+									<Typography sx={{ width: "100%" }}>Apie projektą</Typography>
+								</AccordionSummary>
+							</Accordion>
+							<Accordion
+								disableGutters
+								elevation={0}
+								square
+								expanded={expanded === "panel1"}
+								onChange={handleChange("panel1")}
+							>
+								<AccordionSummary>
+									<Typography sx={{ width: "100%" }}>Portalas</Typography>
+								</AccordionSummary>
+							</Accordion>
+							<Accordion
+								disableGutters
+								elevation={0}
+								square
+								expanded={expanded === "panel1"}
+								onChange={handleChange("panel1")}
+							>
+								<AccordionSummary>
+									<Typography sx={{ width: "100%" }}>Kontaktai</Typography>
+								</AccordionSummary>
+							</Accordion>
+						</Grid>
+						<Grid item xs={8}></Grid>
 					</Grid>
 				</Box>
 			</Modal>

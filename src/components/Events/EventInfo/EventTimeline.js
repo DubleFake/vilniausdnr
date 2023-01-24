@@ -70,6 +70,12 @@ const EventTimeline = (props) => {
 					const eventNode = document.getElementById(eventByID.attributes.Ivykio_ID.replace(/[{}]/g, ""))
 					eventNode.scrollIntoView({ behavior: "smooth", block: "center" })
 				}, 1000)
+
+				const eventByIndex = tempFiltered.findIndex(
+					(event) => event.attributes.Ivykio_ID === eventByID.attributes.Ivykio_ID
+				)
+
+				eventClickHandler({}, eventByIndex, tempFiltered)
 			}
 		}
 	}, [])
@@ -99,141 +105,280 @@ const EventTimeline = (props) => {
 		setExpandedList(tempExpandedList)
 	}, [hash])
 
-	const eventClickHandler = async (event, eventIndex) => {
-		const tempExpandedList = [...expandedList]
-		tempExpandedList.fill(false)
-		tempExpandedList[eventIndex] = expandedList[eventIndex]
-		tempExpandedList[eventIndex] = !tempExpandedList[eventIndex]
-
-		if (tempExpandedList[eventIndex]) {
-			props.setSelectedEvent(props.eventsFiltered[eventIndex].attributes.Ivykio_ID)
-		} else {
-			props.setSelectedEvent("")
-		}
-
-		setExpandedList(tempExpandedList)
-
+	const eventClickHandler = async (event, eventIndex, fromInitial = []) => {
 		const tempRelations = { ...relations }
 
-		if (!tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]) {
-			tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")] = {}
+		if (!fromInitial.length > 0) {
+			const tempExpandedList = [...expandedList]
+			tempExpandedList.fill(false)
+			tempExpandedList[eventIndex] = expandedList[eventIndex]
+			tempExpandedList[eventIndex] = !tempExpandedList[eventIndex]
 
-			if (
-				!tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]
-					.related_persons
-			) {
-				await events
-					.queryRelatedFeatures({
-						outFields: ["Susijes_asmuo_is_saraso"],
-						relationshipId: 27,
-						returnGeometry: false,
-						objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
-					})
-					.then((response) => {
-						let personQueryWhere = ""
-						let i = 1
-						for (let person of response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features) {
-							if (i === 1) {
-								personQueryWhere += `Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
-									/[{}]/g,
-									""
-								)}'`
-							} else {
-								personQueryWhere += ` OR Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
-									/[{}]/g,
-									""
-								)}'`
+			if (tempExpandedList[eventIndex]) {
+				props.setSelectedEvent(props.eventsFiltered[eventIndex].attributes.Ivykio_ID)
+			} else {
+				props.setSelectedEvent("")
+			}
+
+			setExpandedList(tempExpandedList)
+
+			if (!tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]) {
+				tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")] = {}
+
+				if (
+					!tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]
+						.related_persons
+				) {
+					await events
+						.queryRelatedFeatures({
+							outFields: ["Susijes_asmuo_is_saraso"],
+							relationshipId: 27,
+							returnGeometry: false,
+							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
+						})
+						.then((response) => {
+              console.log(response)
+							let personQueryWhere = ""
+							let i = 1
+							for (let person of response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features) {
+								if (i === 1) {
+									personQueryWhere += `Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
+										/[{}]/g,
+										""
+									)}'`
+								} else {
+									personQueryWhere += ` OR Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
+										/[{}]/g,
+										""
+									)}'`
+								}
+								i++
 							}
-							i++
-						}
 
-						persons
-							.queryFeatures({
-								outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
-								where: personQueryWhere,
-							})
-							.then((response_persons) => {
-								tempRelations[
-									props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
-								].related_persons = response_persons.features
-							})
-					})
+							persons
+								.queryFeatures({
+									outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
+									where: personQueryWhere,
+								})
+								.then((response_persons) => {
+									tempRelations[
+										props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
+									].related_persons = response_persons.features
+								})
+						})
+						.catch(() => {
+							return
+						})
+				}
+
+				if (
+					!tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]
+						.related_sources
+				) {
+					await events
+						.queryRelatedFeatures({
+							outFields: ["Saltinio_pavadinimas", "Saltinio_URL"],
+							relationshipId: 28,
+							returnGeometry: false,
+							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
+						})
+						.then((response) => {
+							tempRelations[
+								props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
+							].related_sources = response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features
+						})
+						.catch(() => {
+							return
+						})
+				}
+
+				if (
+					!tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]
+						.related_maps
+				) {
+					await events
+						.queryRelatedFeatures({
+							outFields: ["Pavadinimas", "GlobalID_zemelapio"],
+							relationshipId: 29,
+							returnGeometry: false,
+							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
+						})
+						.then((response) => {
+							tempRelations[
+								props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
+							].related_maps = response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features
+						})
+						.catch(() => {
+							return
+						})
+				}
+
+				if (
+					!tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]
+						.related_plaques
+				) {
+					await events
+						.queryRelatedFeatures({
+							outFields: ["OBJ_PAV", "GlobalID"],
+							relationshipId: 2,
+							returnGeometry: false,
+							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
+						})
+						.then((response) => {
+							tempRelations[
+								props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
+							].related_plaques = response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features
+						})
+						.catch(() => {
+							return
+						})
+				}
+
+				if (
+					!tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]
+						.related_foto
+				) {
+					await events
+						.queryRelatedFeatures({
+							outFields: ["Pavadinimas", "GlobalID"],
+							relationshipId: 19,
+							returnGeometry: false,
+							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
+						})
+						.then((response) => {
+							tempRelations[
+								props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
+							].related_foto = response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features
+						})
+						.catch(() => {
+							return
+						})
+				}
 			}
+		} else {
+			if (!tempRelations[fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]) {
+				tempRelations[fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")] = {}
 
-			if (
-				!tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]
-					.related_sources
-			) {
-				await events
-					.queryRelatedFeatures({
-						outFields: ["Saltinio_pavadinimas", "Saltinio_URL"],
-						relationshipId: 28,
-						returnGeometry: false,
-						objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
-					})
-					.then((response) => {
-						tempRelations[
-							props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
-						].related_sources = response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features
-					})
+				if (
+					!tempRelations[fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")].related_persons
+				) {
+					await events
+						.queryRelatedFeatures({
+							outFields: ["Susijes_asmuo_is_saraso"],
+							relationshipId: 27,
+							returnGeometry: false,
+							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
+						})
+						.then((response) => {
+							let personQueryWhere = ""
+							let i = 1
+							for (let person of response[fromInitial[eventIndex].attributes.OBJECTID].features) {
+								if (i === 1) {
+									personQueryWhere += `Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
+										/[{}]/g,
+										""
+									)}'`
+								} else {
+									personQueryWhere += ` OR Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
+										/[{}]/g,
+										""
+									)}'`
+								}
+								i++
+							}
+
+							persons
+								.queryFeatures({
+									outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
+									where: personQueryWhere,
+								})
+								.then((response_persons) => {
+									tempRelations[
+										fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
+									].related_persons = response_persons.features
+								})
+						})
+						.catch(() => {
+							return
+						})
+				}
+
+				if (
+					!tempRelations[fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")].related_sources
+				) {
+					await events
+						.queryRelatedFeatures({
+							outFields: ["Saltinio_pavadinimas", "Saltinio_URL"],
+							relationshipId: 28,
+							returnGeometry: false,
+							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
+						})
+						.then((response) => {
+							tempRelations[
+								fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
+							].related_sources = response[fromInitial[eventIndex].attributes.OBJECTID].features
+						})
+						.catch(() => {
+							return
+						})
+				}
+
+				if (!tempRelations[fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")].related_maps) {
+					await events
+						.queryRelatedFeatures({
+							outFields: ["Pavadinimas", "GlobalID_zemelapio"],
+							relationshipId: 29,
+							returnGeometry: false,
+							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
+						})
+						.then((response) => {
+							tempRelations[fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")].related_maps =
+								response[fromInitial[eventIndex].attributes.OBJECTID].features
+						})
+						.catch(() => {
+							return
+						})
+				}
+
+				if (
+					!tempRelations[fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")].related_plaques
+				) {
+					await events
+						.queryRelatedFeatures({
+							outFields: ["OBJ_PAV", "GlobalID"],
+							relationshipId: 2,
+							returnGeometry: false,
+							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
+						})
+						.then((response) => {
+							tempRelations[
+								fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
+							].related_plaques = response[fromInitial[eventIndex].attributes.OBJECTID].features
+						})
+						.catch(() => {
+							return
+						})
+				}
+
+				if (!tempRelations[fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")].related_foto) {
+					await events
+						.queryRelatedFeatures({
+							outFields: ["Pavadinimas", "GlobalID"],
+							relationshipId: 19,
+							returnGeometry: false,
+							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
+						})
+						.then((response) => {
+							tempRelations[fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")].related_foto =
+								response[fromInitial[eventIndex].attributes.OBJECTID].features
+						})
+						.catch(() => {
+							return
+						})
+				}
 			}
-
-			if (
-				!tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]
-					.related_maps
-			) {
-				await events
-					.queryRelatedFeatures({
-						outFields: ["Pavadinimas", "GlobalID_zemelapio"],
-						relationshipId: 29,
-						returnGeometry: false,
-						objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
-					})
-					.then((response) => {
-						tempRelations[
-							props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
-						].related_maps = response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features
-					})
-			}
-
-			if (
-				!tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]
-					.related_plaques
-			) {
-				await events
-					.queryRelatedFeatures({
-						outFields: ["OBJ_PAV", "GlobalID"],
-						relationshipId: 2,
-						returnGeometry: false,
-						objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
-					})
-					.then((response) => {
-						tempRelations[
-							props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
-						].related_plaques = response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features
-					})
-			}
-
-			if (
-				!tempRelations[props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")]
-					.related_foto
-			) {
-				await events
-					.queryRelatedFeatures({
-						outFields: ["Pavadinimas", "GlobalID"],
-						relationshipId: 19,
-						returnGeometry: false,
-						objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
-					})
-					.then((response) => {
-						tempRelations[
-							props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
-						].related_foto = response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features
-					})
-			}
-
-			setRelations(tempRelations)
 		}
+    setRelations(tempRelations)
 	}
 
 	return (
