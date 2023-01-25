@@ -5,6 +5,7 @@ import Options from "../components/Events/options/Options"
 import EventTimeline from "../components/Events/EventInfo/EventTimeline"
 import { events } from "../utils/eventsArcgisItems"
 import TooltipPlaceholder from "../utils/misc/TooltipPlaceholder"
+import DNRSpinner from "../utils/misc/DNRSpinner"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
@@ -39,6 +40,12 @@ const Persons = () => {
 				element={
 					<>
 						<Grid container spacing={0}>
+							<Backdrop
+								sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+								open={!eventsFiltered.length > 0}
+							>
+								<DNRSpinner />
+							</Backdrop>
 							<Options
 								eventsList={eventsList}
 								setEventsFiltered={setEventsFiltered}
@@ -55,7 +62,7 @@ const Persons = () => {
 									selectedGroup={selectedGroup}
 									setSelectedGroup={setSelectedGroup}
 									eventsList={eventsList}
-                  selectedEvent={selectedEvent}
+									selectedEvent={selectedEvent}
 								/>
 							)}
 							<Outlet />
