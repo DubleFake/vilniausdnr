@@ -8,6 +8,8 @@ import Typography from "@mui/material/Typography"
 import { useTheme } from "@mui/material/styles"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Collapse from "@mui/material/Collapse"
+import CloseIcon from "@mui/icons-material/Close"
+import IconButton from "@mui/material/IconButton"
 
 import { ReactComponent as infoIcon } from "../../utils/icons/homeIcons/info.svg"
 import { textDict, secondLevelTitles } from "./InfoModalText"
@@ -18,7 +20,10 @@ function CustomAccordion(props) {
 	const { handleLevel, index, text, level, elText, fontSize } = props
 
 	return (
-		<Box sx={{ width: "100", cursor: "pointer", p: 1 }} onClick={() => handleLevel(index, text)}>
+		<Box
+			sx={{ width: "100", cursor: "pointer", p: 1, mt: index === 0 ? 1 : 0 }}
+			onClick={() => handleLevel(index, text)}
+		>
 			<Typography
 				sx={{
 					width: "100%",
@@ -42,14 +47,11 @@ CustomAccordion.propTypes = {
 }
 
 const InfoModal = () => {
-	const [open, setOpen] = useState(false)
-	const handleOpen = () => setOpen(true)
-	const handleClose = () => setOpen(false)
-
 	const theme = useTheme()
 	const matchesMD = useMediaQuery(theme.breakpoints.down("md"))
 	const matchesLG = useMediaQuery(theme.breakpoints.down("lg"))
 
+	const [open, setOpen] = useState(false)
 	const [firstLevel, setFirstLevel] = useState([true, false, false])
 	const [secondLevelSecond, setSecondLevelSecond] = useState([
 		false,
@@ -63,15 +65,54 @@ const InfoModal = () => {
 	const [secondLevelThird, setSecondLevelThird] = useState([false, false])
 	const [selectedText, setSelectedText] = useState("about")
 
-	const handleFirstLevel = (index, text) => {
-		setSelectedText("none")
+	const handleOpen = () => {
+		switch (window.location.pathname.split("/")[3]) {
+			case undefined:
+				handleFirstLevel(0, "about", true)
+				break
+			case "maps":
+				handleFirstLevel(1, "first", true)
+				handleSecondLevelSecond(0, "second")
+				break
+			case "streets":
+				handleFirstLevel(1, "first", true)
+				handleSecondLevelSecond(1, "second")
+				break
+			case "persons":
+				handleFirstLevel(1, "first", true)
+				handleSecondLevelSecond(2, "second")
+				break
+			case "foto":
+				handleFirstLevel(1, "first", true)
+				handleSecondLevelSecond(3, "second")
+				break
+			case "plaques":
+				handleFirstLevel(1, "first", true)
+				handleSecondLevelSecond(4, "second")
+				break
+			case "periods":
+				handleFirstLevel(1, "first", true)
+				handleSecondLevelSecond(5, "second")
+				break
+			case "events":
+				handleFirstLevel(1, "first", true)
+				handleSecondLevelSecond(6, "second")
+				break
+		}
+		setOpen(true)
+	}
+	const handleClose = () => setOpen(false)
 
+	const handleFirstLevel = (index, text, once = false) => {
+		setSelectedText(text)
 		const tempFirstLevel = [...firstLevel]
+
 		if (tempFirstLevel[index] === false) {
 			tempFirstLevel.fill(false)
 			setSelectedText(text)
 		}
-		tempFirstLevel[index] = !tempFirstLevel[index]
+
+		tempFirstLevel[index] = once ? true : !tempFirstLevel[index]
 		setFirstLevel(tempFirstLevel)
 
 		const tempSecondLevelSecond = [...secondLevelSecond]
@@ -116,7 +157,7 @@ const InfoModal = () => {
 
 	return (
 		<div>
-			{/* <SvgIcon
+			<SvgIcon
 				component={infoIcon}
 				inheritViewBox
 				sx={{
@@ -137,12 +178,12 @@ const InfoModal = () => {
 					},
 				}}
 				onClick={handleOpen}
-			/> */}
+			/>
 
 			<Modal
 				sx={{ zIndex: 1000 }}
 				disableEnforceFocus
-				open={true}
+				open={open}
 				onClose={handleClose}
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
@@ -162,7 +203,25 @@ const InfoModal = () => {
 						display: "flex",
 					}}
 				>
-					<Box sx={{ minWidth: "25%", my: 1, ml: 1, overflowY: "auto" }}>
+					<IconButton
+						sx={{
+							backgroundColor: "#DC2829",
+							position: "absolute",
+							right: 0,
+							mr: 1,
+							mt: 1,
+							"&:hover": {
+								transition: "0.3s",
+								backgroundColor: "#941818",
+							},
+						}}
+						aria-label="close"
+						onClick={handleClose}
+					>
+						<CloseIcon sx={{ color: "white" }} />
+					</IconButton>
+
+					<Box sx={{ minWidth: "25%", ml: 1, overflowY: "auto" }}>
 						<CustomAccordion
 							handleLevel={handleFirstLevel}
 							index={0}
@@ -223,9 +282,35 @@ const InfoModal = () => {
 						/>
 					</Box>
 
-					<Box sx={{ borderRight: "1px solid #D72E30", height: "92%", mx: 1, mt: "3%" }} component="div" />
+					<Box sx={{ borderRight: "1px solid #D72E30", height: "100%", mr: 1 }} component="div" />
 
-					<Box sx={{ height: "100%", width: "100%", mt: 2, mx: 1 }}>{textDict[selectedText]}</Box>
+					<Box sx={{ height: "100%", width: "100%", ml: 1, overflowY: "auto" }}>
+						{(selectedText.includes("info") ||
+							selectedText.includes("how") ||
+							selectedText.includes("about") ||
+							selectedText.includes("contacts")) && (
+							<Typography
+								sx={{
+									width: "100%",
+									color: "white",
+									fontSize: "18px",
+									fontWeight: 400,
+									mt: 2,
+								}}
+							>
+								{selectedText.includes("info")
+									? "Pateikiama informacija"
+									: selectedText.includes("how")
+									? "Kaip naudotis?"
+									: selectedText.includes("about")
+									? "Apie projektą"
+									: selectedText.includes("contacts")
+									? "Kontaktai"
+									: ""}
+							</Typography>
+						)}
+						{textDict[selectedText]}
+					</Box>
 				</Box>
 			</Modal>
 		</div>

@@ -6,7 +6,6 @@ import PersonTimeline from "./PersonTimeline"
 import PersonRelated from "./PersonRelated"
 import PersonGeneral from "./PersonGeneral"
 import PersonHeader from "./PersonHeader"
-import TooltipPlaceholder from "../../../utils/misc/TooltipPlaceholder"
 import EmptyPlaceholder from "../../../utils/misc/EmptyPlaceholder"
 
 import { useTheme } from "@mui/material/styles"
@@ -22,7 +21,6 @@ const PersonInfo = (props) => {
 	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
 
 	const [biographyFeatures, setBiographyFeatures] = useState([])
-	const [displayTooltip, setDisplayTooltip] = useState(true)
 	const [displayEmpty, setDisplayEmpty] = useState(true)
 
 	useEffect(() => {
@@ -52,7 +50,6 @@ const PersonInfo = (props) => {
 			.then((response) => {
 				setBiographyFeatures(response.features)
 				setDisplayEmpty(false)
-				setDisplayTooltip(false)
 			})
 	}, [globalID])
 
@@ -89,12 +86,6 @@ const PersonInfo = (props) => {
 			)}
 			{displayEmpty ? (
 				<>
-					<TooltipPlaceholder
-						display={displayTooltip}
-						text={`"Įamžintos asmenybės" titulinis puslapis dar kuriamas, prašome pasirinkti konkrečią asmenybę iš
-							sąrašo kairėje.`}
-						setDisplayTooltip={setDisplayTooltip}
-					/>
 					<EmptyPlaceholder
 						display={displayEmpty}
 						text={"Pasirinkite konkrečią asmenybę iš sąrašo kairėje"}

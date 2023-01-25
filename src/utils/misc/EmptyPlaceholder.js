@@ -1,9 +1,12 @@
 import React from "react"
+
+import { ReactComponent as paieska } from "../icons/personIcons/paeiska.svg"
+
 import Container from "@mui/material/Container"
-import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import IconButton from "@mui/material/IconButton"
 import Typography from "@mui/material/Typography"
 import Grid from "@mui/material/Grid"
+import SvgIcon from "@mui/material/SvgIcon"
 
 const EmptyPlaceholder = (props) => {
 	return (
@@ -20,8 +23,8 @@ const EmptyPlaceholder = (props) => {
 					<Grid item xs={3}>
 						<IconButton disabled>
 							<Grid container direction="column" justifyContent="center" alignItems="center">
-								<ManageSearchIcon sx={{ fontSize: 150 }} />
-								<Typography>{props.text}</Typography>
+								<SvgIcon sx={{ fontSize: 130, mb: 1 }} component={paieska} inheritViewBox />
+								<Typography sx={{ color: "black", mt: 1 }}>{props.text}</Typography>
 							</Grid>
 						</IconButton>
 					</Grid>
