@@ -103,6 +103,10 @@ const EventTimeline = (props) => {
 
 		tempExpandedList[indexById] = true
 		setExpandedList(tempExpandedList)
+
+		if (!relations[hash.slice(1)]) {
+			eventClickHandler({}, indexById, props.eventsFiltered)
+		}
 	}, [hash])
 
 	const eventClickHandler = async (event, eventIndex, fromInitial = []) => {
@@ -137,7 +141,6 @@ const EventTimeline = (props) => {
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
 						.then((response) => {
-              console.log(response)
 							let personQueryWhere = ""
 							let i = 1
 							for (let person of response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features) {
@@ -378,7 +381,7 @@ const EventTimeline = (props) => {
 				}
 			}
 		}
-    setRelations(tempRelations)
+		setRelations(tempRelations)
 	}
 
 	return (

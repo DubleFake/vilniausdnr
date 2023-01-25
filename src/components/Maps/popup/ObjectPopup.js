@@ -232,6 +232,19 @@ const ObjectPopup = (props) => {
 										</Typography>
 									)}
 
+									{queryObjects.Legenda && (
+										<>
+											<Typography
+												sx={{ color: "white", fontWeight: 500, fontSize: "18px", mt: 1 }}
+												variant="h6"
+												component="div"
+											>
+												Sutartiniai ženklai
+											</Typography>
+											<img src={queryObjects.Legenda} style={{ width: "100%" }}></img>
+										</>
+									)}
+
 									{(queryObjects.Saltinis || queryObjects.Autorius) && (
 										<hr
 											style={{
@@ -240,8 +253,8 @@ const ObjectPopup = (props) => {
 												height: 1,
 												width: "100%",
 												border: "none",
-												marginTop: 15,
-												marginBottom: 25,
+												marginTop: 10,
+												marginBottom: 15,
 											}}
 										/>
 									)}
@@ -286,8 +299,6 @@ const ObjectPopup = (props) => {
 											</Grid>
 										)}
 									</Grid>
-
-									{queryObjects.Legenda && <img src={queryObjects.Legenda} style={{ width: "100%" }}></img>}
 								</>
 							)}
 						</CardContent>
