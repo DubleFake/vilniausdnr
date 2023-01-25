@@ -1,13 +1,8 @@
-import React, { useRef, useEffect, useState } from "react"
+import React, { useRef, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import * as watchUtils from "@arcgis/core/core/watchUtils"
 import Point from "@arcgis/core/geometry/Point"
 
 import { view, view2, map2, bgExpand, locateWidget, basemaps } from "../../../utils/mapsArcgisItems"
-import DNRSpinner from "../../../utils/misc/DNRSpinner"
-
-import Grid from "@mui/material/Grid"
-import Backdrop from "@mui/material/Backdrop"
 
 const viewHandles = []
 
@@ -15,7 +10,6 @@ const ObjectMap = (props) => {
 	const { t, i18n } = useTranslation()
 	const mapDiv = useRef(null)
 	const mapDiv2 = useRef(null)
-	const [viewUpdating, setViewUpdating] = useState(false)
 
 	useEffect(() => {
 		view.container = mapDiv.current
@@ -50,8 +44,6 @@ const ObjectMap = (props) => {
 				}
 			})
 		)
-
-		viewHandles.push(view.watch("updating", (value) => setViewUpdating(value)))
 	}, [])
 
 	useEffect(() => {
@@ -122,9 +114,6 @@ const ObjectMap = (props) => {
 
 	return (
 		<>
-			<Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={viewUpdating}>
-				<DNRSpinner />
-			</Backdrop>
 			<div
 				className="map"
 				id="view1Div"

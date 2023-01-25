@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
 import { map, maps, view } from "../../../utils/mapsArcgisItems"
+import DNRSpinner from "../../../utils/misc/DNRSpinner"
 
 import MenuItem from "@mui/material/MenuItem"
 import Grid from "@mui/material/Grid"
@@ -13,6 +14,7 @@ import Box from "@mui/material/Box"
 import Slider from "@mui/material/Slider"
 import { NestedMenuItem } from "mui-nested-menu"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
+import Backdrop from "@mui/material/Backdrop"
 
 import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
@@ -52,6 +54,7 @@ const CompareReview = (props) => {
 	const open = Boolean(anchorEl)
 
 	const [sliderValue, setSliderValue] = useState(100)
+	const [viewUpdating, setViewUpdating] = useState(false)
 
 	const handleSliderChange = (event, newValue) => {
 		map.layers.items[0].opacity = newValue / 100
@@ -113,6 +116,8 @@ const CompareReview = (props) => {
 	}, [])
 
 	useEffect(() => {
+		setViewUpdating(true)
+
 		maps
 			.queryFeatures({
 				where: "1=1",
@@ -174,9 +179,14 @@ const CompareReview = (props) => {
 								setSelectedGroupValue(groupIndex)
 							}
 						})
-
 						map.removeAll()
 						map.add(tempMapList[index])
+
+						reactiveUtils
+							.whenOnce(() => view.updating === false)
+							.then(() => {
+								setViewUpdating(false)
+							})
 					}
 				})
 			})
@@ -193,6 +203,9 @@ const CompareReview = (props) => {
 
 	return (
 		<>
+			<Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={viewUpdating}>
+				<DNRSpinner />
+			</Backdrop>
 			<Grid
 				sx={{
 					backgroundColor: "yellow",
