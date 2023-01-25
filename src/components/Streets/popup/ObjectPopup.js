@@ -209,7 +209,7 @@ const ObjectPopup = (props) => {
 
 				objects
 					.queryRelatedFeatures({
-						outFields: ["Pavadinimas", "GlobalID"],
+						outFields: ["Pavadinimas", "GlobalID", "Data_tekstu"],
 						relationshipId: 11,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
@@ -388,95 +388,63 @@ const ObjectPopup = (props) => {
 												</Typography>
 											</Grid>
 										)}
+
+										{objectPer.length ? (
+											<Grid item xs={6}>
+												<Typography sx={{ color: "white" }} variant="h6" component="div">
+													{objectPer.length > 1
+														? t("plaques.objectPopup.relatedMany")
+														: t("plaques.objectPopup.relatedOne")}
+													<Typography component="div">
+														{Object.keys(objectPer).map((per) => (
+															<div key={per}>
+																<Link
+																	sx={{ mt: 0.5 }}
+																	target="_blank"
+																	href={
+																		"https://zemelapiai.vplanas.lt" +
+																		`/vilniausdnr/${i18n.language}/persons/${objectPer[
+																			per
+																		].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
+																	}
+																	rel="noopener"
+																	textAlign="left"
+																	variant="body2"
+
+																	// textAlign="left"
+																	// component="button"
+																	// variant="body2"
+																	// onClick={() => {
+																	// 	navigate(
+																	// 		`/vilniausdnr/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
+																	// 	)
+																	// }}
+																>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
+																<br></br>
+															</div>
+														))}
+													</Typography>
+												</Typography>
+											</Grid>
+										) : null}
 									</Grid>
 
-									{objectPer.length ? (
-										<Typography
-											sx={{ mt: 2, color: "white", fontWeight: 500, fontSize: "14px" }}
-											variant="body2"
-											component="div"
-										>
-											{objectPer.length > 1
-												? t("plaques.objectPopup.relatedMany")
-												: t("plaques.objectPopup.relatedOne")}
-											<Typography component="div">
-												{Object.keys(objectPer).map((per) => (
-													<div key={per}>
-														<Link
-															sx={{ mt: 0.5 }}
-															target="_blank"
-															href={
-																"https://zemelapiai.vplanas.lt" +
-																`/vilniausdnr/${i18n.language}/persons/${objectPer[
-																	per
-																].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
-															}
-															rel="noopener"
-															textAlign="left"
-															variant="body2"
-
-															// textAlign="left"
-															// component="button"
-															// variant="body2"
-															// onClick={() => {
-															// 	navigate(
-															// 		`/vilniausdnr/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
-															// 	)
-															// }}
-														>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
-														<br></br>
-													</div>
-												))}
-											</Typography>
-										</Typography>
-									) : null}
-
-									{relatedFoto.length > 0 && (
-										<Typography
-											sx={{ mt: 2, color: "white", fontWeight: 500, fontSize: "14px" }}
-											variant="body2"
-											component="div"
-										>
-											Susijusios nuotraukos
-											<Typography component="div">
-												{relatedFoto.map((foto) => (
-													<div key={foto.attributes.GlobalID}>
-														<Link
-															sx={{ mt: 0.5 }}
-															target="_blank"
-															href={
-																"https://zemelapiai.vplanas.lt" +
-																`/vilniausdnr/${i18n.language}/foto/object/${foto.attributes.GlobalID.replace(
-																	/[{}]/g,
-																	""
-																)}`
-															}
-															rel="noopener"
-															textAlign="left"
-															variant="body2"
-
-															// textAlign="left"
-															// component="button"
-															// variant="body2"
-															// onClick={() => {
-															// 	navigate(
-															// 		`/vilniausdnr/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
-															// 	)
-															// }}
-														>{`${foto.attributes.Pavadinimas}`}</Link>
-														<br></br>
-													</div>
-												))}
-											</Typography>
-										</Typography>
+									{(relatedStreets.length > 0 || relatedFoto.length > 0) && (
+										<hr
+											style={{
+												color: "gray",
+												backgroundColor: "gray",
+												height: 1,
+												width: "100%",
+												border: "none",
+												marginTop: 10,
+												marginBottom: 15,
+											}}
+										/>
 									)}
 
 									{relatedStreets.length > 0 && (
-										<Typography
-											sx={{ mt: 2, color: "white", fontWeight: 500, fontSize: "14px" }}
-											variant="body2"
-											component="div"
-										>
+										<Typography sx={{ mt: 2, color: "white" }} variant="h6" component="div">
 											Istoriniuose žemėlapiuose pateikiami gatvės ar jos dalies pavadinimai (originalia forma)
 											<Typography component="div">
 												<Timeline sx={{ m: 0, mt: 1, p: 0 }}>
@@ -530,6 +498,42 @@ const ObjectPopup = (props) => {
 														</TimelineItem>
 													))}
 												</Timeline>
+											</Typography>
+										</Typography>
+									)}
+
+									{relatedFoto.length > 0 && (
+										<Typography sx={{ color: "white" }} variant="h6" component="div">
+											Susijusios nuotraukos
+											<Typography component="div">
+												{relatedFoto.map((foto) => (
+													<div key={foto.attributes.GlobalID}>
+														<Link
+															sx={{ mt: 0.5 }}
+															target="_blank"
+															href={
+																"https://zemelapiai.vplanas.lt" +
+																`/vilniausdnr/${i18n.language}/foto/object/${foto.attributes.GlobalID.replace(
+																	/[{}]/g,
+																	""
+																)}`
+															}
+															rel="noopener"
+															textAlign="left"
+															variant="body2"
+
+															// textAlign="left"
+															// component="button"
+															// variant="body2"
+															// onClick={() => {
+															// 	navigate(
+															// 		`/vilniausdnr/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
+															// 	)
+															// }}
+														>{`${foto.attributes.Pavadinimas} ${foto.attributes.Data_tekstu}`}</Link>
+														<br></br>
+													</div>
+												))}
 											</Typography>
 										</Typography>
 									)}

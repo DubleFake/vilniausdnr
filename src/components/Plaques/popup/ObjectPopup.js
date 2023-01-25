@@ -412,6 +412,12 @@ const ObjectPopup = (props) => {
 									</Typography>
 								)}
 
+								{objectAttr.OBJEKT_TXT && (
+									<Typography sx={{ color: "white", fontWeight: 400, mt: 2 }} variant="body2" component="div">
+										{objectAttr.OBJ_APRAS}
+									</Typography>
+								)}
+
 								{(objectAttr.AUTORIUS || objectAttr.SALTINIS || objectPer.length > 0) && (
 									<hr
 										style={{

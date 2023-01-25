@@ -100,7 +100,7 @@ const CompareTimeline = (props) => {
 		// 		props.setToggle1977(true)
 		// 		break
 		// 	case 2021:
-		// 		props.setToggle2021(true)
+		// 		props.setToggle2023(true)
 		// 		break
 		// }
 	}, [props.initialPeriod])
@@ -137,7 +137,7 @@ const CompareTimeline = (props) => {
 			map.remove(periods[4])
 		}
 
-		if (props.toggle2021) {
+		if (props.toggle2023) {
 			map.add(periods[5])
 		} else {
 			map.remove(periods[5])
@@ -148,7 +148,7 @@ const CompareTimeline = (props) => {
 		props.toggle1911,
 		props.toggle1938,
 		props.toggle1977,
-		props.toggle2021,
+		props.toggle2023,
 	])
 
 	useEffect(() => {
@@ -241,17 +241,17 @@ const CompareTimeline = (props) => {
 				</Button>
 				<Button
 					sx={{
-						background: props.toggle2021 ? "#FFAF28" : "white",
-						color: props.toggle2021 ? "white" : "black",
+						background: props.toggle2023 ? "#FFAF28" : "white",
+						color: props.toggle2023 ? "white" : "black",
 						"&:hover": { backgroundColor: "#FFAF28", color: "white" },
 					}}
 					size="large"
 					variant="timeline"
 					onClick={() => {
-						props.setToggle2021(!props.toggle2021)
+						props.setToggle2023(!props.toggle2023)
 					}}
 				>
-					<Typography variant="button">2021</Typography>
+					<Typography variant="button">2023</Typography>
 				</Button>
 			</ButtonGroup>
 		</Grid>

@@ -125,12 +125,12 @@ const gatves_1977 = new FeatureLayer({
 	title: "1977",
 	metai: 1977,
 })
-const gatves_2021 = new FeatureLayer({
+const gatves_2023 = new FeatureLayer({
 	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/94",
 	outFields: ["*"],
-	title: "2021",
+	title: "2023",
 })
-export const periods = [gatves_1808, gatves_1845, gatves_1911, gatves_1938, gatves_1977, gatves_2021]
+export const periods = [gatves_1808, gatves_1845, gatves_1911, gatves_1938, gatves_1977, gatves_2023]
 
 const basemap1 = new Basemap({
 	baseLayers: [

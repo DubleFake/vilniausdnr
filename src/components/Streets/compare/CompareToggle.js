@@ -21,7 +21,7 @@ const CompareLayers = (props) => {
 	const [toggle1911, setToggle1911] = useState(false)
 	const [toggle1938, setToggle1938] = useState(false)
 	const [toggle1977, setToggle1977] = useState(false)
-	const [toggle2021, setToggle2021] = useState(false)
+	const [toggle2023, setToggle2023] = useState(false)
 
 	useEffect(() => {
 		if (window.location.href.includes("compare")) {
@@ -115,8 +115,8 @@ const CompareLayers = (props) => {
 								setToggle1938={setToggle1938}
 								toggle1977={toggle1977}
 								setToggle1977={setToggle1977}
-								toggle2021={toggle2021}
-								setToggle2021={setToggle2021}
+								toggle2023={toggle2023}
+								setToggle2023={setToggle2023}
 							/>
 							<CompareType />
 						</>
@@ -137,7 +137,7 @@ const CompareLayers = (props) => {
 								setToggle1911={setToggle1911}
 								setToggle1938={setToggle1938}
 								setToggle1977={setToggle1977}
-								setToggle2021={setToggle2021}
+								setToggle2023={setToggle2023}
 							/>
 							<CompareTimeline
 								setMapQuery={props.setMapQuery}
@@ -152,8 +152,8 @@ const CompareLayers = (props) => {
 								setToggle1938={setToggle1938}
 								toggle1977={toggle1977}
 								setToggle1977={setToggle1977}
-								toggle2021={toggle2021}
-								setToggle2021={setToggle2021}
+								toggle2023={toggle2023}
+								setToggle2023={setToggle2023}
 							/>
 							<CompareType />
 						</>

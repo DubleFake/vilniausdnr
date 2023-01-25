@@ -78,7 +78,7 @@ const CompareSwipe = (props) => {
 				where: "1=1",
 				outFields: ["*"],
 			})
-			.then(async (response) => {
+			.then((response) => {
 				const mapGroupSet = new Set()
 
 				if (globalIDLeft && globalIDRight) {
@@ -173,7 +173,7 @@ const CompareSwipe = (props) => {
 
 				view.ui.add(swipe)
 
-				await view.when(() => {
+				view.when(() => {
 					reactiveUtils
 						.whenOnce(() => view.updating === false)
 						.then(() => {
@@ -189,37 +189,36 @@ const CompareSwipe = (props) => {
 								}
 							})
 							swipe.addHandles(swipeHandle)
-							return
+
+							let back = false
+							let forwardAgain = false
+							if (!props.once) {
+								intervalId = setInterval(() => {
+									if (swipe.position < 57.5 && !back) {
+										swipe.position += 0.1
+									} else if (swipe.position > 42.5 && !forwardAgain) {
+										back = true
+										swipe.position -= 0.1
+									} else if (swipe.position < 50) {
+										forwardAgain = true
+										swipe.position += 0.1
+									} else {
+										clearInterval(intervalId)
+										setTimeout(() => {
+											props.setOnce(true)
+										}, 2000)
+									}
+								}, 10)
+
+								return () => {
+									clearInterval(intervalId)
+									setTimeout(() => {
+										props.setOnce(true)
+									}, 2000)
+								}
+							}
 						})
 				})
-
-				let back = false
-				let forwardAgain = false
-				if (!props.once) {
-					intervalId = setInterval(() => {
-						if (swipe.position < 57.5 && !back) {
-							swipe.position += 0.1
-						} else if (swipe.position > 42.5 && !forwardAgain) {
-							back = true
-							swipe.position -= 0.1
-						} else if (swipe.position < 50) {
-							forwardAgain = true
-							swipe.position += 0.1
-						} else {
-							clearInterval(intervalId)
-							setTimeout(() => {
-								props.setOnce(true)
-							}, 2000)
-						}
-					}, 10)
-
-					return () => {
-						clearInterval(intervalId)
-						setTimeout(() => {
-							props.setOnce(true)
-						}, 2000)
-					}
-				}
 			})
 	}, [globalIDLeft, globalIDRight])
 
