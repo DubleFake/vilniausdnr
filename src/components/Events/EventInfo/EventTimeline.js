@@ -17,7 +17,7 @@ import Box from "@mui/material/Box"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
 import CardContent from "@mui/material/CardContent"
-import Button from "@mui/material/Button"
+import Skeleton from "@mui/material/Skeleton"
 import Typography from "@mui/material/Typography"
 import Link from "@mui/material/Link"
 import IconButton from "@mui/material/IconButton"
@@ -68,8 +68,8 @@ const EventTimeline = (props) => {
 
 				setTimeout(() => {
 					const eventNode = document.getElementById(eventByID.attributes.Ivykio_ID.replace(/[{}]/g, ""))
-					eventNode.scrollIntoView({ behavior: "smooth", block: "center" })
-				}, 1000)
+					eventNode.scrollIntoView({ behavior: "smooth", block: "start" })
+				}, 2000)
 
 				const eventByIndex = tempFiltered.findIndex(
 					(event) => event.attributes.Ivykio_ID === eventByID.attributes.Ivykio_ID
@@ -411,7 +411,7 @@ const EventTimeline = (props) => {
 											textAlign: "left",
 										}}
 										component="div"
-										id={event.attributes.Ivykio_ID.replace(/[{}]/g, "")}
+										// id={event.attributes.Ivykio_ID.replace(/[{}]/g, "")}
 										onClick={(evt) => {
 											navigate(`#${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`)
 											eventClickHandler(evt, index)
@@ -485,10 +485,9 @@ const EventTimeline = (props) => {
 											{new Date(event.attributes.Ivykio_data).toLocaleDateString("lt-LT")}
 										</Typography>
 
-										<Grid container spacing={0}>
-											{expandedList[index] &&
-												relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")] &&
-												relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")].related_persons && (
+										{relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")] ? (
+											<Grid container spacing={0}>
+												{relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")].related_persons && (
 													<Grid item xs={6}>
 														<Typography
 															sx={{
@@ -532,9 +531,7 @@ const EventTimeline = (props) => {
 													</Grid>
 												)}
 
-											{expandedList[index] &&
-												relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")] &&
-												relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")].related_maps && (
+												{relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")].related_maps && (
 													<Grid item xs={6}>
 														<Typography
 															sx={{
@@ -581,9 +578,7 @@ const EventTimeline = (props) => {
 													</Grid>
 												)}
 
-											{expandedList[index] &&
-												relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")] &&
-												relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")].related_plaques && (
+												{relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")].related_plaques && (
 													<Grid item xs={6}>
 														<Typography
 															sx={{
@@ -627,9 +622,7 @@ const EventTimeline = (props) => {
 													</Grid>
 												)}
 
-											{expandedList[index] &&
-												relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")] &&
-												relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")].related_foto && (
+												{relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")].related_foto && (
 													<Grid item xs={6}>
 														<Typography
 															sx={{
@@ -673,9 +666,7 @@ const EventTimeline = (props) => {
 													</Grid>
 												)}
 
-											{expandedList[index] &&
-												relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")] &&
-												relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")].related_sources && (
+												{relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")].related_sources && (
 													<Grid item xs={6}>
 														<Typography
 															sx={{
@@ -713,7 +704,55 @@ const EventTimeline = (props) => {
 														)}
 													</Grid>
 												)}
-										</Grid>
+											</Grid>
+										) : (
+											<Grid container spacing={2}>
+												{expandedList[index] && (
+													<>
+														<Grid item xs={6}>
+															<Skeleton
+																variant="text"
+																sx={{ fontSize: "1rem", bgcolor: "grey.700", ml: 2 }}
+															/>
+															<Skeleton
+																variant="text"
+																sx={{ fontSize: "1rem", bgcolor: "grey.700", ml: 2 }}
+															/>
+														</Grid>
+														<Grid item xs={6}>
+															<Skeleton
+																variant="text"
+																sx={{ fontSize: "1rem", bgcolor: "grey.700", mr: 2 }}
+															/>
+															<Skeleton
+																variant="text"
+																sx={{ fontSize: "1rem", bgcolor: "grey.700", mr: 2 }}
+															/>
+														</Grid>
+														<Grid item xs={6}>
+															<Skeleton
+																variant="text"
+																sx={{ fontSize: "1rem", bgcolor: "grey.700", ml: 2 }}
+															/>
+															<Skeleton
+																variant="text"
+																sx={{ fontSize: "1rem", bgcolor: "grey.700", ml: 2 }}
+															/>
+														</Grid>
+														<Grid item xs={6}>
+															<Skeleton
+																variant="text"
+																sx={{ fontSize: "1rem", bgcolor: "grey.700", mr: 2 }}
+															/>
+															<Skeleton
+																variant="text"
+																sx={{ fontSize: "1rem", bgcolor: "grey.700", mr: 2 }}
+															/>
+														</Grid>
+													</>
+												)}
+											</Grid>
+										)}
 
 										<Typography
 											sx={{ mx: 2, pb: 1, mt: 1, color: "#D72E30", fontWeight: 400, fontSize: "14px" }}

@@ -149,11 +149,11 @@ const InfoModal = () => {
 		setSecondLevelThird(tempSecondLevelThird)
 	}
 
-	useEffect(() => {
-		if (window.location.pathname === "/vilniausdnr/lt") {
-			setOpen(true)
-		}
-	}, [])
+	// useEffect(() => {
+	// 	if (window.location.pathname === "/vilniausdnr/lt") {
+	// 		setOpen(true)
+	// 	}
+	// }, [])
 
 	return (
 		<div>

@@ -33,8 +33,12 @@ const ObjectMap = (props) => {
 				wkid: 2600,
 			},
 		})
-		view.center = pt
-		view2.center = pt
+		// view.center = pt
+		// view2.center = pt
+
+		view.when(() => {
+			view.goTo({ target: pt, zoom: 4 })
+		})
 
 		viewHandles.forEach((handle) => {
 			handle.remove()

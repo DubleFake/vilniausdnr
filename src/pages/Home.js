@@ -105,33 +105,6 @@ function Tile(props) {
 							},
 					  }
 			}
-			// sx={{
-			// 	borderRadius: 0,
-			// 	boxShadow: "none",
-			// 	textTransform: "none",
-			// 	height: propHeight,
-			// 	backgroundColor: propBackgroundColor,
-			// 	"&:hover": {
-			// 		backgroundColor: propBackgroundColor,
-			// 		transition: "0.3s",
-			// 		opacity: 0.8,
-			// 		"& .hoverIcon": {
-			// 			mt: propHeight === 480 ? 10 : 4,
-			// 			color: propIconColor,
-			// 			fontSize: propHeight === 480 ? 80 : 32,
-			// 			transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
-			// 		},
-			// 		"& .hoverMore": {
-			// 			fontSize: "16px",
-			// 			opacity: 1,
-			// 			transition: "opacity 0.3s",
-			// 		},
-			// 		"& .hoverTitle": {
-			// 			mb: propHeight === 480 ? 5 : 3,
-			// 			transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
-			// 		},
-			// 	},
-			// }}
 		>
 			<Grid
 				sx={{ height: "100%", position: "absolute", zIndex: 20 }}
@@ -177,7 +150,7 @@ function Tile(props) {
 				<Grid item xs={3}>
 					<Typography
 						className="hoverMore"
-						sx={{ color: propTextColor, fontSize: "0px", opacity: 0, transition: "opacity 0.3s", px: 10 }}
+						sx={{ color: propTextColor, fontSize: "0px", opacity: 0, transition: "opacity 0.3s", px: propHeight === 480 ? 10 : 5 }}
 						align="center"
 						variant="body1"
 					>
@@ -214,13 +187,13 @@ const Home = (props) => {
 				location.pathname === `/vilniausdnr/${i18n.language}/`) && (
 				<Box sx={{ height: 510, width: "100%", backgroundColor: bgGray }}>
 					<Grid
-						sx={{ position: "relative", zIndex: 100, top: "10vh", height: "auto" }}
+						sx={{ position: "relative", zIndex: 100, top: "7vh", height: "auto" }}
 						container
 						direction="column"
 						justifyContent="center"
 						alignItems="center"
 					>
-						<img src={VilniausLogo} width={isDownMd ? 300 : 500} />
+						<img src={VilniausLogo} width={isDownMd ? 250 : 400} />
 						<hr
 							style={{
 								position: "relative",
@@ -237,7 +210,7 @@ const Home = (props) => {
 							src={VilniausSkyline}
 							style={{
 								position: "absolute",
-								bottom: isDownMd ? -198 : -198,
+								bottom: isDownMd ? -75 : -75,
 								width: isDownMd ? 1000 : "100%",
 								zIndex: -1,
 								pointerEvents: "none",
@@ -327,7 +300,7 @@ const Home = (props) => {
 							propIconColor={"white"}
 							propTextColor={"white"}
 							propText={t("home.foto")}
-							propTextMore={"Skiltyje bus pateikiamos Vilniaus miesto fotografijos ir atvirutės"}
+							propTextMore={"Skiltyje pateikiamos istorinės Vilniaus miesto fotografijos ir atvirutės"}
 						/>
 					</Grid>
 					<Grid item xs={isDownMd ? 12 : isDownLg ? 6 : 3}>
@@ -341,7 +314,7 @@ const Home = (props) => {
 							propTextColor={bgGray}
 							propText={t("home.plaques")}
 							propTextMore={
-								"Skiltyje pateikiama informacija apie visas (tiek Vilniaus miesto, tiek privačiomis iniciatyvomis įrengtas) mieste esančias atminimo lentas, paminklus, skulptūras ir kitus meninius objektus ar mažosios architektūros objektus"
+								"Skiltyje pateikiama informacija apie mieste esančias atminimo lentas, skulptūras ir kitus meninius ar mažosios architektūros objektus"
 							}
 						/>
 					</Grid>
@@ -356,7 +329,7 @@ const Home = (props) => {
 							propTextColor={"white"}
 							propText={t("home.periods")}
 							propTextMore={
-								"Skiltyje pateikiamos 5 rekonstruotos istorinės topografijos, kurias galima lyginti tarpusavyje ar su šių laikų informacija. Topografijos apima tik centrinę Vilniaus miesto dalį"
+								"Skiltyje pateikiamos 5 rekonstruotos istorinės topografijos, reprezentuojančios Vilnių skirtingais istorijos periodais"
 							}
 						/>
 					</Grid>

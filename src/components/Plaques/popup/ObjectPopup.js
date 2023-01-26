@@ -37,6 +37,7 @@ const ObjectPopup = (props) => {
 	const [objectAttr, setObjectAttr] = useState({})
 	const [objectPer, setObjectPer] = useState([])
 	const [objectAtt, setObjectAtt] = useState([])
+	const [relatedEvents, setRelatedEvents] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [queryObjects, setQueryObjects] = useState([])
 	const [popupOpen, setPopupOpen] = useState(false)
@@ -146,6 +147,20 @@ const ObjectPopup = (props) => {
 										})
 									})
 									setObjectPer(allPersons)
+								})
+								.catch((error) => {
+									console.error(error)
+								})
+
+							objects
+								.queryRelatedFeatures({
+									outFields: ["Istorinis_ivykis", "Ivykio_ID"],
+									relationshipId: 2,
+									objectIds: OBJECTID,
+								})
+								.then((response) => {
+                  console.log(response)
+									setRelatedEvents(response[OBJECTID].features)
 								})
 								.catch((error) => {
 									console.error(error)
@@ -456,7 +471,11 @@ const ObjectPopup = (props) => {
 											>
 												{t("plaques.objectPopup.SALTINIS")}
 												<MuiLinkify LinkProps={{ target: "_blank", rel: "noopener", rel: "noreferrer" }}>
-													<Typography sx={{ color: "white", fontWeight: 400 }} variant="body2" component="div">
+													<Typography
+														sx={{ color: "white", fontWeight: 400 }}
+														variant="body2"
+														component="div"
+													>
 														{objectAttr.SALTINIS}
 													</Typography>
 												</MuiLinkify>
@@ -496,6 +515,39 @@ const ObjectPopup = (props) => {
 											</Typography>
 										</Grid>
 									) : null}
+
+									{relatedEvents.length > 0 && (
+										<Grid item xs={6}>
+											<Typography
+												sx={{ color: "white", fontWeight: 500, fontSize: "18px" }}
+												variant="h6"
+												component="div"
+											>
+												Susijęs įvykis
+												<Typography component="div">
+													{relatedEvents.map((event, index) => (
+														<div key={index}>
+															<Link
+																sx={{ mt: 0.5 }}
+																target="_blank"
+																href={
+																	"https://zemelapiai.vplanas.lt" +
+																	`/vilniausdnr/${i18n.language}/events/#${event.attributes.Ivykio_ID.replace(
+																		/[{}]/g,
+																		""
+																	)}`
+																}
+																rel="noopener"
+																textAlign="left"
+																variant="body2"
+															>{`${event.attributes.Istorinis_ivykis}`}</Link>
+															<br></br>
+														</div>
+													))}
+												</Typography>
+											</Typography>
+										</Grid>
+									)}
 								</Grid>
 							</>
 						)}

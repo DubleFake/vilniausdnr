@@ -8,11 +8,20 @@ import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Grid from "@mui/material/Grid"
+import Slider from "@mui/material/Slider"
+import Box from "@mui/material/Box"
 
 const CompareTimeline = (props) => {
 	const { globalID } = useParams()
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
+
+	const [sliderValue, setSliderValue] = useState(100)
+
+	const handleSliderChange = (event, newValue) => {
+		map.layers.items[0].opacity = newValue / 100
+		setSliderValue(newValue)
+	}
 
 	useEffect(() => {
 		if (globalID) {
@@ -23,6 +32,9 @@ const CompareTimeline = (props) => {
 			map.add(foundPeriod)
 			foundPeriod
 				.when(() => {
+					const oldOpacity = sliderValue
+					setSliderValue(100)
+					handleSliderChange({}, oldOpacity)
 					return foundPeriod.queryExtent()
 				})
 				.then((response) => {
@@ -36,9 +48,9 @@ const CompareTimeline = (props) => {
 					}
 				})
 
-			view.when(() => {
-				view.goTo({ target: foundPeriod.fullExtent.center, zoom: 4 })
-			})
+			// view.when(() => {
+			// 	view.goTo({ target: foundPeriod.fullExtent.center, zoom: 4 })
+			// })
 		} else {
 			navigate(String(periods[0].metai))
 		}
@@ -46,6 +58,10 @@ const CompareTimeline = (props) => {
 
 	useEffect(() => {
 		return () => {
+			setSliderValue(100)
+			const foundPeriod = periods.find((period) => String(period.metai) === globalID)
+			foundPeriod.opacity = 1
+
 			map.removeAll()
 			map.add(objects)
 
@@ -67,118 +83,136 @@ const CompareTimeline = (props) => {
 	}, [])
 
 	return (
-		<Grid
-			variant="compareTimelineButtons"
-			container
-			direction="row"
-			justifyContent="center"
-			alignItems="flex-start"
-		>
-			<ButtonGroup>
-				<Button
-					sx={{
-						background: globalID === String(periods[0].metai) ? "#55AFB0" : "white",
-						color: globalID === String(periods[0].metai) ? "white" : "black",
-						"&:hover": {
-							backgroundColor: "#55AFB0",
-							color: "white",
-						},
-					}}
-					size="large"
-					variant="timeline"
-					onClick={() => {
-						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[0].metai)}`)
-					}}
-				>
-					<Typography variant="button">1808</Typography>
-				</Button>
-				<Button
-					sx={{
-						background: globalID === String(periods[1].metai) ? "#407D5C" : "white",
-						color: globalID === String(periods[1].metai) ? "white" : "black",
-						"&:hover": {
-							backgroundColor: "#407D5C",
-							color: "white",
-						},
-					}}
-					size="large"
-					variant="timeline"
-					onClick={() => {
-						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[1].metai)}`)
-					}}
-				>
-					<Typography variant="button">1845</Typography>
-				</Button>
-				<Button
-					sx={{
-						background: globalID === String(periods[2].metai) ? "#007FCC" : "white",
-						color: globalID === String(periods[2].metai) ? "white" : "black",
-						"&:hover": {
-							backgroundColor: "#007FCC",
-							color: "white",
-						},
-					}}
-					size="large"
-					variant="timeline"
-					onClick={() => {
-						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[2].metai)}`)
-					}}
-				>
-					<Typography variant="button">1911</Typography>
-				</Button>
-				<Button
-					sx={{
-						background: globalID === String(periods[3].metai) ? "#823F86" : "white",
-						color: globalID === String(periods[3].metai) ? "white" : "black",
-						"&:hover": {
-							backgroundColor: "#823F86",
-							color: "white",
-						},
-					}}
-					size="large"
-					variant="timeline"
-					onClick={() => {
-						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[3].metai)}`)
-					}}
-				>
-					<Typography variant="button">1938</Typography>
-				</Button>
-				<Button
-					sx={{
-						background: globalID === String(periods[4].metai) ? "#EE5066" : "white",
-						color: globalID === String(periods[4].metai) ? "white" : "black",
-						"&:hover": {
-							backgroundColor: "#EE5066",
-							color: "white",
-						},
-					}}
-					size="large"
-					variant="timeline"
-					onClick={() => {
-						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[4].metai)}`)
-					}}
-				>
-					<Typography variant="button">1977</Typography>
-				</Button>
-				<Button
-					sx={{
-						background: globalID === String(periods[5].metai) ? "#FFAF28" : "white",
-						color: globalID === String(periods[5].metai) ? "white" : "black",
-						"&:hover": {
-							backgroundColor: "#FFAF28",
-							color: "white",
-						},
-					}}
-					size="large"
-					variant="timeline"
-					onClick={() => {
-						navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[5].metai)}`)
-					}}
-				>
-					<Typography variant="button">2023</Typography>
-				</Button>
-			</ButtonGroup>
-		</Grid>
+		<>
+			<Grid
+				variant="compareTimelineButtons"
+				container
+				direction="row"
+				justifyContent="center"
+				alignItems="flex-start"
+			>
+				<ButtonGroup>
+					<Button
+						sx={{
+							background: globalID === String(periods[0].metai) ? "#55AFB0" : "white",
+							color: globalID === String(periods[0].metai) ? "white" : "black",
+							"&:hover": {
+								backgroundColor: "#55AFB0",
+								color: "white",
+							},
+						}}
+						size="large"
+						variant="timeline"
+						onClick={() => {
+							navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[0].metai)}`)
+						}}
+					>
+						<Typography variant="button">1808</Typography>
+					</Button>
+					<Button
+						sx={{
+							background: globalID === String(periods[1].metai) ? "#407D5C" : "white",
+							color: globalID === String(periods[1].metai) ? "white" : "black",
+							"&:hover": {
+								backgroundColor: "#407D5C",
+								color: "white",
+							},
+						}}
+						size="large"
+						variant="timeline"
+						onClick={() => {
+							navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[1].metai)}`)
+						}}
+					>
+						<Typography variant="button">1845</Typography>
+					</Button>
+					<Button
+						sx={{
+							background: globalID === String(periods[2].metai) ? "#007FCC" : "white",
+							color: globalID === String(periods[2].metai) ? "white" : "black",
+							"&:hover": {
+								backgroundColor: "#007FCC",
+								color: "white",
+							},
+						}}
+						size="large"
+						variant="timeline"
+						onClick={() => {
+							navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[2].metai)}`)
+						}}
+					>
+						<Typography variant="button">1911</Typography>
+					</Button>
+					<Button
+						sx={{
+							background: globalID === String(periods[3].metai) ? "#823F86" : "white",
+							color: globalID === String(periods[3].metai) ? "white" : "black",
+							"&:hover": {
+								backgroundColor: "#823F86",
+								color: "white",
+							},
+						}}
+						size="large"
+						variant="timeline"
+						onClick={() => {
+							navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[3].metai)}`)
+						}}
+					>
+						<Typography variant="button">1938</Typography>
+					</Button>
+					<Button
+						sx={{
+							background: globalID === String(periods[4].metai) ? "#EE5066" : "white",
+							color: globalID === String(periods[4].metai) ? "white" : "black",
+							"&:hover": {
+								backgroundColor: "#EE5066",
+								color: "white",
+							},
+						}}
+						size="large"
+						variant="timeline"
+						onClick={() => {
+							navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[4].metai)}`)
+						}}
+					>
+						<Typography variant="button">1977</Typography>
+					</Button>
+					<Button
+						sx={{
+							background: globalID === String(periods[5].metai) ? "#FFAF28" : "white",
+							color: globalID === String(periods[5].metai) ? "white" : "black",
+							"&:hover": {
+								backgroundColor: "#FFAF28",
+								color: "white",
+							},
+						}}
+						size="large"
+						variant="timeline"
+						onClick={() => {
+							navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[5].metai)}`)
+						}}
+					>
+						<Typography variant="button">2023</Typography>
+					</Button>
+				</ButtonGroup>
+			</Grid>
+			<Grid variant="compareType" container direction="row" justifyContent="left" alignItems="flex-start">
+				<Box sx={{ mt: 9, ml: 2, width: 206, height: 45, borderRadius: 10, backgroundColor: "white" }}>
+					<Grid container direction="row" justifyContent="center" alignItems="center">
+						<Typography sx={{ mt: 0.4, mb: -1.4 }}>Permatomumas</Typography>
+					</Grid>
+					<Slider
+						sx={{ ml: "10%", width: "80%", "& .MuiSlider-markLabel": { top: "-10px" } }}
+						value={sliderValue}
+						min={0}
+						max={100}
+						size="small"
+						valueLabelDisplay="auto"
+						onChange={handleSliderChange}
+					/>
+				</Box>
+			</Grid>
+		</>
 	)
 }
 

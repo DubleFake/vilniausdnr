@@ -34,7 +34,7 @@ const PersonGeneral = (props) => {
 	useEffect(() => {
 		setRelatedMemorialShow(false)
 		setRelatedPlaquesShow(false)
-    setRelatedObjects([])
+		setRelatedObjects([])
 
 		persons
 			.queryFeatures({
@@ -314,18 +314,27 @@ const PersonGeneral = (props) => {
 							justifyContent="flex-start"
 							alignItems="stretch"
 						>
-							<Box sx={{ display: "flex", mb: 1 }}>
-								<SvgIcon sx={{ fontSize: iconSize, mr: 1 }} component={s_palaidojimas} inheritViewBox />
-								<Link
-									target="_blank"
-									href={props.biographyFeatures[0].attributes.Palaidojimas}
-									rel="noopener"
-									textAlign="left"
-									variant="body2"
-								>
-									{props.biographyFeatures[0].attributes.Palaidojimo_aprasymas}
-								</Link>
-							</Box>
+							{props.biographyFeatures[0].attributes.Palaidojimas ? (
+								<Box sx={{ display: "flex", mb: 1 }}>
+									<SvgIcon sx={{ fontSize: iconSize, mr: 1 }} component={s_palaidojimas} inheritViewBox />
+									<Link
+										target="_blank"
+										href={props.biographyFeatures[0].attributes.Palaidojimas}
+										rel="noopener"
+										textAlign="left"
+										variant="body2"
+									>
+										{props.biographyFeatures[0].attributes.Palaidojimo_aprasymas}
+									</Link>
+								</Box>
+							) : (
+								<Box sx={{ display: "flex", mb: 1 }}>
+									<SvgIcon sx={{ fontSize: iconSize, mr: 1 }} component={s_palaidojimas} inheritViewBox />
+									<Typography color="white" variant="body2" gutterBottom component="div" align="left">
+										{props.biographyFeatures[0].attributes.Palaidojimo_aprasymas}
+									</Typography>
+								</Box>
+							)}
 						</Grid>
 					</>
 				)}
