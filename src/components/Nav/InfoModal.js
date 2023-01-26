@@ -120,7 +120,7 @@ const InfoModal = () => {
 		if (tempFirstLevel.every((el) => el === false)) {
 			tempRenderBlock = (
 				<>
-					<Typography
+					{/* <Typography
 						sx={{
 							color: "white",
 							fontSize: "18px",
@@ -129,7 +129,7 @@ const InfoModal = () => {
 						}}
 					>
 						Apie projektą
-					</Typography>
+					</Typography> */}
 					<Box sx={{ ml: 3 }}>{textDict["about"]}</Box>
 
 					{secondLevelTitles.map((title) => (
@@ -190,7 +190,7 @@ const InfoModal = () => {
 				<>
 					{text === "about" && (
 						<>
-							<Typography
+							{/* <Typography
 								sx={{
 									color: "white",
 									fontSize: "18px",
@@ -199,7 +199,7 @@ const InfoModal = () => {
 								}}
 							>
 								Apie projektą
-							</Typography>
+							</Typography> */}
 							<Box sx={{ ml: 3 }}>{textDict[text]}</Box>
 						</>
 					)}
@@ -501,8 +501,8 @@ const InfoModal = () => {
 						top: "50%",
 						left: "50%",
 						transform: "translate(-50%, -50%)",
-						width: "60%",
-						height: "65%",
+						width: "85%",
+						height: "80%",
 						bgcolor: "rgb(18, 18, 18)",
 						border: "2px solid #000",
 						boxShadow: 24,
@@ -528,7 +528,7 @@ const InfoModal = () => {
 						<CloseIcon sx={{ color: "white" }} />
 					</IconButton>
 
-					<Box sx={{ minWidth: "25%", maxWidth: "25%", ml: 1, overflowY: "auto" }}>
+					<Box sx={{ minWidth: "17%", maxWidth: "17%", ml: 1, overflowY: "auto" }}>
 						<CustomAccordion
 							handleLevel={handleFirstLevel}
 							index={0}
