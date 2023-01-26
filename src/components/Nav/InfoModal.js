@@ -64,6 +64,7 @@ const InfoModal = () => {
 	])
 	const [secondLevelThird, setSecondLevelThird] = useState([false, false])
 	const [selectedText, setSelectedText] = useState("about")
+	const [renderBlock, setRenderBlock] = useState()
 
 	const handleOpen = () => {
 		switch (window.location.pathname.split("/")[3]) {
@@ -115,6 +116,158 @@ const InfoModal = () => {
 		tempFirstLevel[index] = once ? true : !tempFirstLevel[index]
 		setFirstLevel(tempFirstLevel)
 
+		let tempRenderBlock
+		if (tempFirstLevel.every((el) => el === false)) {
+			tempRenderBlock = (
+				<>
+					<Typography
+						sx={{
+							color: "white",
+							fontSize: "18px",
+							fontWeight: 400,
+							mt: 2,
+						}}
+					>
+						Apie projektą
+					</Typography>
+					<Box sx={{ ml: 3 }}>{textDict["about"]}</Box>
+
+					{secondLevelTitles.map((title) => (
+						<>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "18px",
+									fontWeight: 400,
+									mt: 2,
+									ml: 1,
+								}}
+							>
+								{title[0]}
+							</Typography>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "16px",
+									fontWeight: 400,
+									mt: 2,
+									ml: 2,
+								}}
+							>
+								Pateikiama informacija
+							</Typography>
+							<Box sx={{ ml: 3 }}>{textDict[title[1]]}</Box>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "16px",
+									fontWeight: 400,
+									mt: 2,
+									ml: 2,
+								}}
+							>
+								Kaip naudotis?
+							</Typography>
+							<Box sx={{ ml: 3 }}>{textDict[title[2]]}</Box>
+						</>
+					))}
+
+					<Typography
+						sx={{
+							color: "white",
+							fontSize: "18px",
+							fontWeight: 400,
+							mt: 2,
+						}}
+					>
+						Kontaktai
+					</Typography>
+					<Box sx={{ ml: 2 }}>{textDict["contacts"]}</Box>
+				</>
+			)
+		} else if (text === "about" || text === "contacts") {
+			tempRenderBlock = (
+				<>
+					{text === "about" && (
+						<>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "18px",
+									fontWeight: 400,
+									mt: 2,
+								}}
+							>
+								Apie projektą
+							</Typography>
+							<Box sx={{ ml: 3 }}>{textDict[text]}</Box>
+						</>
+					)}
+
+					{text === "contacts" && (
+						<>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "18px",
+									fontWeight: 400,
+									mt: 2,
+								}}
+							>
+								Kontaktai
+							</Typography>
+							<Box sx={{ ml: 3 }}>{textDict[text]}</Box>
+						</>
+					)}
+				</>
+			)
+		} else {
+			tempRenderBlock = (
+				<>
+					{secondLevelTitles.map((title) => (
+						<>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "18px",
+									fontWeight: 400,
+									mt: 2,
+									ml: 1,
+								}}
+							>
+								{title[0]}
+							</Typography>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "16px",
+									fontWeight: 400,
+									mt: 2,
+									ml: 2,
+								}}
+							>
+								Pateikiama informacija
+							</Typography>
+							<Box sx={{ ml: 3 }}>{textDict[title[1]]}</Box>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "16px",
+									fontWeight: 400,
+									mt: 2,
+									ml: 2,
+								}}
+							>
+								Kaip naudotis?
+							</Typography>
+							<Box sx={{ ml: 3 }}>{textDict[title[2]]}</Box>
+						</>
+					))}
+				</>
+			)
+		}
+		setRenderBlock(tempRenderBlock)
+
 		const tempSecondLevelSecond = [...secondLevelSecond]
 		tempSecondLevelSecond.fill(false)
 		setSecondLevelSecond(tempSecondLevelSecond)
@@ -124,14 +277,94 @@ const InfoModal = () => {
 	}
 
 	const handleSecondLevelSecond = (index, text) => {
-		setSelectedText(text)
-
 		const tempSecondLevelSecond = [...secondLevelSecond]
 		if (tempSecondLevelSecond[index] === false) {
 			tempSecondLevelSecond.fill(false)
 		}
 		tempSecondLevelSecond[index] = !tempSecondLevelSecond[index]
 		setSecondLevelSecond(tempSecondLevelSecond)
+
+		let tempRenderBlock
+		if (tempSecondLevelSecond.every((el) => el === false)) {
+			tempRenderBlock = (
+				<>
+					{secondLevelTitles.map((title) => (
+						<>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "18px",
+									fontWeight: 400,
+									mt: 2,
+									ml: 1,
+								}}
+							>
+								{title[0]}
+							</Typography>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "16px",
+									fontWeight: 400,
+									mt: 2,
+									ml: 2,
+								}}
+							>
+								Pateikiama informacija
+							</Typography>
+							<Box sx={{ ml: 3 }}>{textDict[title[1]]}</Box>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "16px",
+									fontWeight: 400,
+									mt: 2,
+									ml: 2,
+								}}
+							>
+								Kaip naudotis?
+							</Typography>
+							<Box sx={{ ml: 3 }}>{textDict[title[2]]}</Box>
+						</>
+					))}
+				</>
+			)
+		} else {
+			tempRenderBlock = (
+				<>
+					<Typography
+						sx={{
+							width: "100%",
+							color: "white",
+							fontSize: "18px",
+							fontWeight: 400,
+							mt: 2,
+							ml: 2,
+						}}
+					>
+						Pateikiama informacija
+					</Typography>
+					<Box sx={{ ml: 3 }}>{textDict[secondLevelTitles[index][1]]}</Box>
+
+					<Typography
+						sx={{
+							width: "100%",
+							color: "white",
+							fontSize: "18px",
+							fontWeight: 400,
+							mt: 2,
+							ml: 2,
+						}}
+					>
+						Kaip naudotis?
+					</Typography>
+					<Box sx={{ ml: 3 }}>{textDict[secondLevelTitles[index][2]]}</Box>
+				</>
+			)
+		}
+
+		setRenderBlock(tempRenderBlock)
+		setSelectedText(text)
 
 		const tempSecondLevelThird = [...secondLevelThird]
 		tempSecondLevelThird.fill(false)
@@ -145,6 +378,80 @@ const InfoModal = () => {
 		if (tempSecondLevelThird[index] === false) {
 			tempSecondLevelThird.fill(false)
 		}
+
+		let tempRenderBlock
+		if (tempSecondLevelThird.every((el) => el === false)) {
+			tempRenderBlock = (
+				<>
+					{text.includes("info") && (
+						<>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "16px",
+									fontWeight: 400,
+									mt: 2,
+									ml: 2,
+								}}
+							>
+								Pateikiama informacija
+							</Typography>
+							<Box sx={{ ml: 3 }}>{textDict[text]}</Box>
+						</>
+					)}
+					{text.includes("how") && (
+						<>
+							<Typography
+								sx={{
+									color: "white",
+									fontSize: "16px",
+									fontWeight: 400,
+									mt: 2,
+									ml: 2,
+								}}
+							>
+								Kaip naudotis?
+							</Typography>
+							<Box sx={{ ml: 3 }}>{textDict[text]}</Box>
+						</>
+					)}
+				</>
+			)
+		} else {
+			const secondLevelIndex = secondLevelSecond.findIndex((el) => el === true)
+			tempRenderBlock = (
+				<>
+					<Typography
+						sx={{
+							color: "white",
+							fontSize: "16px",
+							fontWeight: 400,
+							mt: 2,
+							ml: 2,
+						}}
+					>
+						Pateikiama informacija
+					</Typography>
+					<Box sx={{ ml: 3 }}>{textDict[secondLevelTitles[secondLevelIndex][1]]}</Box>
+
+					<Typography
+						sx={{
+							color: "white",
+							fontSize: "16px",
+							fontWeight: 400,
+							mt: 2,
+							ml: 2,
+						}}
+					>
+						Kaip naudotis?
+					</Typography>
+					<Box sx={{ ml: 3 }}>{textDict[secondLevelTitles[secondLevelIndex][2]]}</Box>
+				</>
+			)
+		}
+
+		setRenderBlock(tempRenderBlock)
+
 		tempSecondLevelThird[index] = !tempSecondLevelThird[index]
 		setSecondLevelThird(tempSecondLevelThird)
 	}
@@ -221,7 +528,7 @@ const InfoModal = () => {
 						<CloseIcon sx={{ color: "white" }} />
 					</IconButton>
 
-					<Box sx={{ minWidth: "25%", ml: 1, overflowY: "auto" }}>
+					<Box sx={{ minWidth: "25%", maxWidth: "25%", ml: 1, overflowY: "auto" }}>
 						<CustomAccordion
 							handleLevel={handleFirstLevel}
 							index={0}
@@ -284,32 +591,8 @@ const InfoModal = () => {
 
 					<Box sx={{ borderRight: "1px solid #D72E30", height: "100%", mr: 1 }} component="div" />
 
-					<Box sx={{ height: "100%", width: "100%", ml: 1, overflowY: "auto" }}>
-						{(selectedText.includes("info") ||
-							selectedText.includes("how") ||
-							selectedText.includes("about") ||
-							selectedText.includes("contacts")) && (
-							<Typography
-								sx={{
-									width: "100%",
-									color: "white",
-									fontSize: "18px",
-									fontWeight: 400,
-									mt: 2,
-								}}
-							>
-								{selectedText.includes("info")
-									? "Pateikiama informacija"
-									: selectedText.includes("how")
-									? "Kaip naudotis?"
-									: selectedText.includes("about")
-									? "Apie projektą"
-									: selectedText.includes("contacts")
-									? "Kontaktai"
-									: ""}
-							</Typography>
-						)}
-						{textDict[selectedText]}
+					<Box sx={{ height: "100%", overflowY: "auto", ml: 1 }}>
+						<Box sx={{ mr: 1 }}>{renderBlock}</Box>
 					</Box>
 				</Box>
 			</Modal>

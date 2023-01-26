@@ -14,7 +14,7 @@ const HomeIcon = () => {
 		<SvgIcon
 			component={vlnIcon}
 			inheritViewBox
-			sx={{ mt: 0.75, ml: 2, color: "white", fontSize: 78, cursor: "pointer" }}
+			sx={{ ml: 2, color: "white", fontSize: 130, cursor: "pointer" }}
 			onClick={() => navigate(`/vilniausdnr/${i18n.language}`)}
 		/>
 	)

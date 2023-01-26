@@ -187,13 +187,13 @@ const Home = (props) => {
 				location.pathname === `/vilniausdnr/${i18n.language}/`) && (
 				<Box sx={{ height: 510, width: "100%", backgroundColor: bgGray }}>
 					<Grid
-						sx={{ position: "relative", zIndex: 100, top: "7vh", height: "auto" }}
+						sx={{ position: "relative", zIndex: 100, top: "10vh", height: "auto" }}
 						container
 						direction="column"
 						justifyContent="center"
 						alignItems="center"
 					>
-						<img src={VilniausLogo} width={isDownMd ? 250 : 400} />
+						<img src={VilniausLogo} width={isDownMd ? 300 : 500} />
 						<hr
 							style={{
 								position: "relative",
@@ -210,7 +210,7 @@ const Home = (props) => {
 							src={VilniausSkyline}
 							style={{
 								position: "absolute",
-								bottom: isDownMd ? -75 : -75,
+								bottom: isDownMd ? -198 : -198,
 								width: isDownMd ? 1000 : "100%",
 								zIndex: -1,
 								pointerEvents: "none",

@@ -1,9 +1,10 @@
 import Typography from "@mui/material/Typography"
 import Link from "@mui/material/Link"
+import Box from "@mui/material/Box"
 
 export const textDict = {
 	about: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				„Vilniaus DNR“ portalas – tai virtualūs interneto vartai į Vilniaus istoriją. Čia rasite istorinius
 				miesto žemėlapius, kuriuose užkoduota Vilniaus praeitis bei įrankius, kurie padės šį painų kodą
@@ -22,11 +23,11 @@ export const textDict = {
 				Tikime, kad tai bus dovana Vilniaus miestui, vilniečiams, miesto svečiams bei visiems smalsuoliams,
 				kurie domisi Vilniumi bei marga jo istorija.
 			</Typography>
-		</>
+		</Box>
 	),
 
 	maps_info: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Ar kada ieškojote senų Vilniaus miesto žemėlapių? Yra daug informacijos šaltinių, kuriuose galima
 				rasti senų Vilniaus žemėlapių, tačiau dažniausiai tie žemėlapiai tėra skenuoti paveikslėliai, kurie
@@ -60,18 +61,18 @@ export const textDict = {
 					</li>
 				</ul>
 			</Typography>
-		</>
+		</Box>
 	),
 	maps_how: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Informacija rengiama
 			</Typography>
-		</>
+		</Box>
 	),
 
 	streets_info: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Turbūt daugelis vilniečių yra atkreipę dėmesį, kad Žvėryne yra daug gatvių, kurios pavadintos žvėrių
 				pavadinimais. Bet ar žinote, kad tokių vienodos kilmės pavadinimų gatvių santalkų Vilniaus mieste yra
@@ -93,18 +94,18 @@ export const textDict = {
 				pateikiamos nuorodos į originalius žemėlapius, kuriuos naudojant istoriniai gatvių pavadinimai ir
 				ašinės linijos buvo
 			</Typography>
-		</>
+		</Box>
 	),
 	streets_how: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Informacija rengiama
 			</Typography>
-		</>
+		</Box>
 	),
 
 	persons_info: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Skiltyje pateikiama informacija apie asmenybes, kurioms Vilniaus mieste įrengtos atminimo lentos,
 				skulptūros, paminklai ar jų vardais pavadintos gatvės. Informacija apima:
@@ -133,18 +134,18 @@ export const textDict = {
 				moksliniai redaktoriai. „Visuotinė lietuvių enciklopedija“ pasiekiamame interneto adresu
 				<Link href="www.vle.lt"> www.vle.lt</Link>, ją administruoja Mokslo ir enciklopedijų leidybos centras.
 			</Typography>
-		</>
+		</Box>
 	),
 	persons_how: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Informacija rengiama
 			</Typography>
-		</>
+		</Box>
 	),
 
 	foto_info: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Skiltyje pateikiamos senosios Vilniaus miesto fotografijos ir atvirutės – jų darymo vieta pažymėta
 				žemėlapyje, fotografijų galima ieškoti pagal jų darymo datą, autorių ar žemėlapio aprėptį. Šiuo metu
@@ -152,18 +153,18 @@ export const textDict = {
 				vykdyto projekto „Užmirštasis Vilnius“. Didžioji integruotų fotografijų dalis padaryta dviejų garsių
 				Vilniaus fotografų – Jano Bulhako ir Stanislovo Filiberto Flerio.
 			</Typography>
-		</>
+		</Box>
 	),
 	foto_how: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Informacija rengiama
 			</Typography>
-		</>
+		</Box>
 	),
 
 	plaques_info: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Skiltyje pateikiama informacija apie visas (tiek Vilniaus miesto, tiek privačiomis iniciatyvomis
 				įrengtas) mieste esančias atminimo lentas, paminklus, skulptūras ir kitus meninius ar mažosios
@@ -172,18 +173,18 @@ export const textDict = {
 				pagal įrengimo laikotarpį (kai jis žinomas), pagal objekto tipą, ar atminties tipą (kam atminti
 				objektas buvo įrengtas).
 			</Typography>
-		</>
+		</Box>
 	),
 	plaques_how: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Informacija rengiama
 			</Typography>
-		</>
+		</Box>
 	),
 
 	periods_info: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Ar kada norėjote panagrinėti, kaip skirtingais laikotarpiais kito Vilnius? Jei taip, turbūt bandėte tą
 				daryti nagrinėdami senus istorinius žemėlapius, tačiau juos vartant pastebėti mieste vykusius pokyčius
@@ -254,43 +255,43 @@ export const textDict = {
 				Kadangi rekonstrukcija yra gana sudėtingas ir lėtas darbas, kol kas rekonstruota tik centrinė,
 				pasirinktiems žemėlapiams bendra, Vilniaus miesto dalis.
 			</Typography>
-		</>
+		</Box>
 	),
 	periods_how: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Informacija rengiama
 			</Typography>
-		</>
+		</Box>
 	),
 
 	events_info: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Skiltyje pateikiama informacija apie svarbiausius Vilniaus miestui istorinius įvykius, kurie kaip
 				„Vilniaus miesto kalendorius“ istorikų buvo įtraukti į Vilniaus atminties kultūros programą. Įvykiai
 				sugrupuoti pagal Vilniaus istorijos periodus, susieti su susijusiomis asmenybėmis, nuotraukomis,
 				atminimo ženklais ir žemėlapiais.
 			</Typography>
-		</>
+		</Box>
 	),
 	events_how: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Informacija rengiama
 			</Typography>
-		</>
+		</Box>
 	),
 
 	contacts: (
-		<>
+		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Turite klausimų ar pasiūlymų? Rašykite info@vplanas.lt
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				“Vilniaus DNR” atviras pasiūlymams bendradarbiauti ir kaupti Vilniaus istoriją kartu!
 			</Typography>
-		</>
+		</Box>
 	),
 }
 
