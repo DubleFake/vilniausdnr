@@ -135,7 +135,7 @@ const EventTimeline = (props) => {
 				) {
 					await events
 						.queryRelatedFeatures({
-							outFields: ["Susijes_asmuo_is_saraso"],
+							outFields: ["Susijes_asmuo_is_saraso", "Susijes_asmuo_irasant_tekstu"],
 							relationshipId: 27,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
@@ -143,31 +143,53 @@ const EventTimeline = (props) => {
 						.then((response) => {
 							let personQueryWhere = ""
 							let i = 1
+							const tempPersons = []
 							for (let person of response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features) {
-								if (i === 1) {
-									personQueryWhere += `Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
-										/[{}]/g,
-										""
-									)}'`
+								if (person.attributes.Susijes_asmuo_is_saraso !== null) {
+									if (i === 1) {
+										personQueryWhere += `Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
+											/[{}]/g,
+											""
+										)}'`
+									} else {
+										personQueryWhere += ` OR Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
+											/[{}]/g,
+											""
+										)}'`
+									}
+									i++
 								} else {
-									personQueryWhere += ` OR Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
-										/[{}]/g,
-										""
-									)}'`
+									tempPersons.push({
+										name: person.attributes.Susijes_asmuo_irasant_tekstu,
+										id: null,
+									})
 								}
-								i++
 							}
 
-							persons
-								.queryFeatures({
-									outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
-									where: personQueryWhere,
-								})
-								.then((response_persons) => {
-									tempRelations[
-										props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
-									].related_persons = response_persons.features
-								})
+							if (personQueryWhere !== "") {
+								persons
+									.queryFeatures({
+										outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
+										where: personQueryWhere,
+									})
+									.then((response_persons) => {
+										for (let person of response_persons.features) {
+											tempPersons.push({
+												name: `${person.attributes.Vardas_lietuviskai} ${person.attributes.Pavarde_lietuviskai}`,
+												id: person.attributes.Asmenybes_ID,
+											})
+										}
+										tempPersons.sort((a, b) => a.name.localeCompare(b.name))
+										tempRelations[
+											props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
+										].related_persons = tempPersons
+									})
+							} else {
+								tempPersons.sort((a, b) => a.name.localeCompare(b.name))
+								tempRelations[
+									props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
+								].related_persons = tempPersons
+							}
 						})
 						.catch(() => {
 							return
@@ -267,7 +289,7 @@ const EventTimeline = (props) => {
 				) {
 					await events
 						.queryRelatedFeatures({
-							outFields: ["Susijes_asmuo_is_saraso"],
+							outFields: ["Susijes_asmuo_is_saraso", "Susijes_asmuo_irasant_tekstu"],
 							relationshipId: 27,
 							returnGeometry: false,
 							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
@@ -275,31 +297,54 @@ const EventTimeline = (props) => {
 						.then((response) => {
 							let personQueryWhere = ""
 							let i = 1
-							for (let person of response[fromInitial[eventIndex].attributes.OBJECTID].features) {
-								if (i === 1) {
-									personQueryWhere += `Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
-										/[{}]/g,
-										""
-									)}'`
+							const tempPersons = []
+							for (let person of response[props.eventsFiltered[eventIndex].attributes.OBJECTID].features) {
+								if (person.attributes.Susijes_asmuo_is_saraso !== null) {
+									if (i === 1) {
+										personQueryWhere += `Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
+											/[{}]/g,
+											""
+										)}'`
+									} else {
+										personQueryWhere += ` OR Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
+											/[{}]/g,
+											""
+										)}'`
+									}
+									i++
 								} else {
-									personQueryWhere += ` OR Asmenybes_ID = '${person.attributes.Susijes_asmuo_is_saraso.replace(
-										/[{}]/g,
-										""
-									)}'`
+									tempPersons.push({
+										name: person.attributes.Susijes_asmuo_irasant_tekstu,
+										id: null,
+									})
 								}
-								i++
 							}
 
-							persons
-								.queryFeatures({
-									outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
-									where: personQueryWhere,
-								})
-								.then((response_persons) => {
-									tempRelations[
-										fromInitial[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
-									].related_persons = response_persons.features
-								})
+							if (personQueryWhere !== "") {
+								persons
+									.queryFeatures({
+										outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
+										where: personQueryWhere,
+									})
+									.then((response_persons) => {
+										for (let person of response_persons.features) {
+											tempPersons.push({
+												name: `${person.attributes.Vardas_lietuviskai} ${person.attributes.Pavarde_lietuviskai}`,
+												id: person.attributes.Asmenybes_ID,
+											})
+										}
+
+										tempPersons.sort((a, b) => a.name.localeCompare(b.name))
+										tempRelations[
+											props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
+										].related_persons = tempPersons
+									})
+							} else {
+								tempPersons.sort((a, b) => a.name.localeCompare(b.name))
+								tempRelations[
+									props.eventsFiltered[eventIndex].attributes.Ivykio_ID.replace(/[{}]/g, "")
+								].related_persons = tempPersons
+							}
 						})
 						.catch(() => {
 							return
@@ -485,7 +530,7 @@ const EventTimeline = (props) => {
 											{new Date(event.attributes.Ivykio_data).toLocaleDateString("lt-LT")}
 										</Typography>
 
-										{relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")] ? (
+										{expandedList[index] && relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")] ? (
 											<Grid container spacing={0}>
 												{relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")].related_persons && (
 													<Grid item xs={6}>
@@ -503,28 +548,45 @@ const EventTimeline = (props) => {
 														{relations[event.attributes.Ivykio_ID.replace(/[{}]/g, "")].related_persons.map(
 															(person, index) => (
 																<Box sx={{ width: "100%", display: "flex" }} key={index}>
-																	<Link
-																		sx={{
-																			p: 0.5,
-																			ml: 1.5,
-																			width: "100%",
-																			position: "relative",
-																			fontSize: "14px",
-																		}}
-																		target="_blank"
-																		href={
-																			"https://zemelapiai.vplanas.lt" +
-																			`/vilniausdnr/${
-																				i18n.language
-																			}/persons/${person.attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
-																		}
-																		rel="noopener"
-																		textAlign="left"
-																		variant="body2"
-																		onClick={(evt) => evt.stopPropagation()}
-																	>
-																		{`${person.attributes.Vardas_lietuviskai} ${person.attributes.Pavarde_lietuviskai}`}
-																	</Link>
+																	{person.id !== null ? (
+																		<Link
+																			sx={{
+																				p: 0.5,
+																				ml: 1.5,
+																				width: "100%",
+																				position: "relative",
+																				fontSize: "14px",
+																			}}
+																			target="_blank"
+																			href={
+																				"https://zemelapiai.vplanas.lt" +
+																				`/vilniausdnr/${i18n.language}/persons/${person.id.replace(
+																					/[{}]/g,
+																					""
+																				)}`
+																			}
+																			rel="noopener"
+																			textAlign="left"
+																			variant="body2"
+																			onClick={(evt) => evt.stopPropagation()}
+																		>
+																			{person.name}
+																		</Link>
+																	) : (
+																		<Typography
+																			sx={{
+																				fontSize: "14px",
+																				color: "white",
+																				ml: 1.5,
+																				p: 0.5,
+																				fontWeight: 400,
+																			}}
+																			variant="body2"
+																			component="div"
+																		>
+																			{person.name}
+																		</Typography>
+																	)}
 																</Box>
 															)
 														)}
