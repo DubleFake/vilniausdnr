@@ -35,6 +35,7 @@ const App = () => {
 
 	const orgTheme = useTheme()
 	const isDownSm = useMediaQuery(orgTheme.breakpoints.down("sm"))
+	const isDownLg = useMediaQuery(orgTheme.breakpoints.down("lg"))
 
 	const theme = createTheme({
 		palette: {
@@ -106,7 +107,7 @@ const App = () => {
 							display: "flex",
 							flexDirection: "column",
 							overflow: "hidden",
-							overflowY: isDownSm ? "auto" : "hidden",
+							overflowY: isDownLg ? "auto" : "hidden",
 						},
 					},
 					{

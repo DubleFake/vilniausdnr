@@ -13,6 +13,7 @@ const TableItems = (props) => {
 
 	const theme = useTheme()
 	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
+	const isDownLg = useMediaQuery(theme.breakpoints.down("lg"))
 
 	const cache = new CellMeasurerCache({
 		defaultHeight: 38,
@@ -55,7 +56,7 @@ const TableItems = (props) => {
 
 	return (
 		<div style={{ flex: 1 }}>
-			{isDownSm ? (
+			{isDownLg ? (
 				<WindowScroller scrollElement={props.parentRef.current}>
 					{({ height, scrollTop }) => (
 						<AutoSizer disableHeight>
