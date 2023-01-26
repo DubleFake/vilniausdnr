@@ -107,7 +107,7 @@ const ObjectPopupTimeline = (props) => {
               props.setToggle1911(false)
               props.setToggle1938(false)
               props.setToggle1977(false)
-              props.setToggle2021(false)
+              props.setToggle2023(false)
 
 							switch (period.metai) {
 								case 1808:
@@ -126,7 +126,7 @@ const ObjectPopupTimeline = (props) => {
 									props.setToggle1977(true)
 									break
 								case 2021:
-									props.setToggle2021(true)
+									props.setToggle2023(true)
 									break
 							}
 
