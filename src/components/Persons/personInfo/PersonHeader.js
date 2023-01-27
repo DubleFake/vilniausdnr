@@ -8,20 +8,43 @@ const PersonHeader = (props) => {
 		props.biographyFeatures.length > 0 && (
 			<Box sx={{ ml: 2, mt: 4, mb: 1 }}>
 				<Typography
-					sx={{ fontWeight: "bold" }}
-					variant="h3"
+					sx={{ fontWeight: "bold", color: "black" }}
+					variant="h4"
 					gutterBottom={false}
 					component="div"
 					align="left"
-					color="#323B4C"
 				>
 					{props.biographyFeatures[0].attributes.Vardas_lietuviskai +
 						" " +
 						props.biographyFeatures[0].attributes.Pavarde_lietuviskai}
 				</Typography>
+
+				{props.biographyFeatures[0].attributes.Vardas_pavarde_EN ? (
+					<Typography sx={{ color: "black", fontSize: "1.875rem" }} variant="h4" component="div" align="left">
+						{props.biographyFeatures[0].attributes.Vardas_pavarde_EN}
+					</Typography>
+				) : null}
+
+				{props.biographyFeatures[0].attributes.Vardas_pavarde_KITA ? (
+					<Typography sx={{ color: "black", fontSize: "1.875rem" }} variant="h4" component="div" align="left">
+						{props.biographyFeatures[0].attributes.Vardas_pavarde_KITA}
+					</Typography>
+				) : null}
+
+				{props.biographyFeatures[0].attributes.Vardas_pavarde_PL ? (
+					<Typography sx={{ color: "black", fontSize: "1.875rem" }} variant="h4" component="div" align="left">
+						{props.biographyFeatures[0].attributes.Vardas_pavarde_PL}
+					</Typography>
+				) : null}
+
+				{props.biographyFeatures[0].attributes.Vardas_pavarde_RU ? (
+					<Typography sx={{ color: "black", fontSize: "1.875rem" }} variant="h4" component="div" align="left">
+						{props.biographyFeatures[0].attributes.Vardas_pavarde_RU}
+					</Typography>
+				) : null}
+
 				<Typography
-					sx={{ fontWeight: "bold" }}
-					variant="h3"
+					variant="h5"
 					gutterBottom={
 						props.biographyFeatures[0].attributes.Vardas_pavarde_EN ||
 						props.biographyFeatures[0].attributes.Vardas_pavarde_KITA ||
@@ -32,62 +55,10 @@ const PersonHeader = (props) => {
 					}
 					component="div"
 					align="left"
-					color="#323B4C"
+					color="text.secondary"
 				>
-					{props.biographyFeatures[0].attributes.Pseudonimas_ir_slapyvardziai}
+					Slapyvardis - {props.biographyFeatures[0].attributes.Pseudonimas_ir_slapyvardziai}
 				</Typography>
-
-				{props.biographyFeatures[0].attributes.Vardas_pavarde_EN ? (
-					<Typography
-						sx={{ fontStyle: "italic" }}
-						color="text.secondary"
-						variant="h5"
-						gutterBottom
-						component="div"
-						align="left"
-					>
-						{props.biographyFeatures[0].attributes.Vardas_pavarde_EN}
-					</Typography>
-				) : null}
-
-				{props.biographyFeatures[0].attributes.Vardas_pavarde_KITA ? (
-					<Typography
-						sx={{ fontStyle: "italic" }}
-						color="text.secondary"
-						variant="h5"
-						gutterBottom
-						component="div"
-						align="left"
-					>
-						{props.biographyFeatures[0].attributes.Vardas_pavarde_KITA}
-					</Typography>
-				) : null}
-
-				{props.biographyFeatures[0].attributes.Vardas_pavarde_PL ? (
-					<Typography
-						sx={{ fontStyle: "italic" }}
-						color="text.secondary"
-						variant="h5"
-						gutterBottom
-						component="div"
-						align="left"
-					>
-						{props.biographyFeatures[0].attributes.Vardas_pavarde_PL}
-					</Typography>
-				) : null}
-
-				{props.biographyFeatures[0].attributes.Vardas_pavarde_RU ? (
-					<Typography
-						sx={{ fontStyle: "italic" }}
-						color="text.secondary"
-						variant="h5"
-						gutterBottom
-						component="div"
-						align="left"
-					>
-						{props.biographyFeatures[0].attributes.Vardas_pavarde_RU}
-					</Typography>
-				) : null}
 
 				<Typography color="text.secondary" variant="body2" gutterBottom component="div" align="left">
 					{props.biographyFeatures[0].attributes.Veikla_kuryba_trumpai}

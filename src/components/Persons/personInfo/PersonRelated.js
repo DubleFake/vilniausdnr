@@ -220,12 +220,12 @@ const PersonRelated = (props) => {
 			})
 			.then((response) => {
 				if (response.features.length !== 0) {
-          const tempOrgDomain = {}
-          for (let codedValue of response.fields[3].domain.codedValues) {
-            tempOrgDomain[codedValue.code] = codedValue.name
-          }
-          setOrgDomain(tempOrgDomain)
-          
+					const tempOrgDomain = {}
+					for (let codedValue of response.fields[3].domain.codedValues) {
+						tempOrgDomain[codedValue.code] = codedValue.name
+					}
+					setOrgDomain(tempOrgDomain)
+
 					setRelatedOrg(response.features)
 				} else {
 					setRelatedOrganizationShow(false)
@@ -354,7 +354,7 @@ const PersonRelated = (props) => {
 					{relatedFamilyShow && (
 						<>
 							<Typography sx={{ my: 1, fontSize: 17 }} variant="h6" gutterBottom>
-								Šeima
+								Asmenybės ryšys su šeimos nariais
 							</Typography>
 							{relatedPersons.length > 0 ? (
 								relatedPersons.map(

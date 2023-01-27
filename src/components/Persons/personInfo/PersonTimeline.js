@@ -37,7 +37,7 @@ const personIconList = {
 	kovojo: kovojo,
 	mirė: mire,
 	mokėsi: mokesi,
-	perlaidotas: perlaidotas,
+	perlaidotas: mire,
 	sukūrė: sukure,
 	vedė: vede,
 	veikė: veike,
@@ -82,8 +82,8 @@ const PersonTimeline = (props) => {
 	return (
 		<Timeline sx={{ m: 0, mt: 1, p: 0 }}>
 			<Grid container direction="row" justifyContent="flex-start" alignItems="center">
-				<SvgIcon sx={{ ml: 1, fontSize: 35 }} component={random_ikona} inheritViewBox />
-				<Typography sx={{ m: 0 }} variant="h6" gutterBottom>
+				{/* <SvgIcon sx={{ ml: 1, fontSize: 35 }} component={random_ikona} inheritViewBox /> */}
+				<Typography sx={{ m: 0, ml: 3 }} variant="h6" gutterBottom>
 					Biografija
 				</Typography>
 			</Grid>

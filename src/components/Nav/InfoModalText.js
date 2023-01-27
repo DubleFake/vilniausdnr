@@ -25,7 +25,13 @@ export const textDict = {
 	about: (
 		<Box sx={{ mr: 4 }}>
 			<Box sx={{ mx: "2%" }}>
-				<Grid container direction="row" justifyContent="space-between" alignItems="flex-start">
+				<Grid
+					sx={{ display: "flex", alignItems: "stretch" }}
+					container
+					direction="row"
+					justifyContent="space-between"
+					alignItems="flex-start"
+				>
 					<Box sx={{ backgroundColor: "#D72E31", width: "40%", minHeight: "60vh", mt: "6%", p: 4 }}>
 						<Typography
 							sx={{ color: "white", fontSize: "24px", fontWeight: 600, mt: 2, textAlign: "center" }}
@@ -114,7 +120,7 @@ export const textDict = {
 							/>
 							<Box
 								sx={{
-									width: "40%",
+									width: "50%",
 									mt: 3,
 									cursor: "pointer",
 								}}
