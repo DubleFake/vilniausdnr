@@ -72,3 +72,7 @@ body {
 		transform: rotate(360deg);
 	}
 }
+
+.esri-ui {
+  z-index: 5;
+}

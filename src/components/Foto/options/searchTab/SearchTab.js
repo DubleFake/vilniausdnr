@@ -5,7 +5,10 @@ import Search from "./Search"
 import { matchSorter } from "match-sorter"
 
 import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
 import CircularProgress from "@mui/material/CircularProgress"
+import { useTheme } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 const Table = (props) => {
 	const [objectsList, setObjectsList] = useState([])
@@ -15,6 +18,9 @@ const Table = (props) => {
 	const [objectCount, setObjectCount] = useState(0)
 
 	const parentRef = useRef(null)
+
+	const theme = useTheme()
+	const isDownXl = useMediaQuery(theme.breakpoints.down("xl"))
 
 	useEffect(() => {
 		setObjectsList(props.initialObjectsList)
@@ -45,13 +51,13 @@ const Table = (props) => {
 	return (
 		<Grid variant="options" ref={parentRef}>
 			{objectsList.length ? (
-				<>
+				<Box sx={{ overflowY: isDownXl ? "scroll !important" : "hidden !important" }}>
 					<Search
 						searchObjectsList={searchObjectsList}
 						searchInputValue={searchInputValue}
 						setSearchInputValue={setSearchInputValue}
 						setTableObjectsList={setTableObjectsList}
-            />
+					/>
 					<Filter
 						searchObjectsList={searchObjectsList}
 						objectsList={objectsList}
@@ -75,9 +81,9 @@ const Table = (props) => {
 						setSelectedObject={props.setSelectedObject}
 						selectedObject={props.selectedObject}
 						parentRef={parentRef}
-            setVisible={props.setVisible}
+						setVisible={props.setVisible}
 					/>
-				</>
+				</Box>
 			) : (
 				<Grid
 					container

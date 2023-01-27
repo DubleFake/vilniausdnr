@@ -35,7 +35,7 @@ const App = () => {
 
 	const orgTheme = useTheme()
 	const isDownSm = useMediaQuery(orgTheme.breakpoints.down("sm"))
-	const isDownLg = useMediaQuery(orgTheme.breakpoints.down("lg"))
+	const isDownXl = useMediaQuery(orgTheme.breakpoints.down("xl"))
 
 	const theme = createTheme({
 		palette: {
@@ -89,7 +89,7 @@ const App = () => {
 							variant: "options",
 						},
 						style: {
-							width: isDownSm ? "100vw" : optionsWidth,
+							width: isDownSm ? "100%" : optionsWidth,
 							height: window.innerHeight - appBarHeight,
 							display: "flex",
 							flexDirection: "column",
@@ -102,12 +102,12 @@ const App = () => {
 							variant: "optionsTabs",
 						},
 						style: {
-							width: optionsWidth,
+							width: isDownSm ? "100%" : optionsWidth,
 							height: window.innerHeight - appBarHeight - tabsHeight,
 							display: "flex",
 							flexDirection: "column",
 							overflow: "hidden",
-							overflowY: isDownLg ? "auto" : "hidden",
+							overflowY: isDownXl ? "auto" : "hidden",
 						},
 					},
 					{

@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography"
 const PersonHeader = (props) => {
 	return (
 		props.biographyFeatures.length > 0 && (
-			<Box sx={{ ml: 2, mt: 4, mb: 1 }}>
+			<Box sx={{ ml: 2, mt: 1, mb: 1 }}>
 				<Typography
 					sx={{ fontWeight: "bold", color: "black" }}
 					variant="h4"
@@ -43,23 +43,24 @@ const PersonHeader = (props) => {
 					</Typography>
 				) : null}
 
-				<Typography
-					variant="h5"
-					gutterBottom={
-						props.biographyFeatures[0].attributes.Vardas_pavarde_EN ||
-						props.biographyFeatures[0].attributes.Vardas_pavarde_KITA ||
-						props.biographyFeatures[0].attributes.Vardas_pavarde_PL ||
-						props.biographyFeatures[0].attributes.Vardas_pavarde_RU
-							? false
-							: true
-					}
-					component="div"
-					align="left"
-					color="text.secondary"
-				>
-					Slapyvardis - {props.biographyFeatures[0].attributes.Pseudonimas_ir_slapyvardziai}
-				</Typography>
-
+				{props.biographyFeatures[0].attributes.Pseudonimas_ir_slapyvardziai && (
+					<Typography
+						variant="h5"
+						gutterBottom={
+							props.biographyFeatures[0].attributes.Vardas_pavarde_EN ||
+							props.biographyFeatures[0].attributes.Vardas_pavarde_KITA ||
+							props.biographyFeatures[0].attributes.Vardas_pavarde_PL ||
+							props.biographyFeatures[0].attributes.Vardas_pavarde_RU
+								? false
+								: true
+						}
+						component="div"
+						align="left"
+						color="text.secondary"
+					>
+						Slapyvardis - {props.biographyFeatures[0].attributes.Pseudonimas_ir_slapyvardziai}
+					</Typography>
+				)}
 				<Typography color="text.secondary" variant="body2" gutterBottom component="div" align="left">
 					{props.biographyFeatures[0].attributes.Veikla_kuryba_trumpai}
 				</Typography>

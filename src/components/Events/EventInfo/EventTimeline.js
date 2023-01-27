@@ -536,10 +536,11 @@ const EventTimeline = (props) => {
 													<Grid item xs={6}>
 														<Typography
 															sx={{
-																fontWeight: 400,
+																fontWeight: 500,
 																fontSize: "16px",
 																color: "white",
 																ml: 2,
+																mb: 0.5,
 															}}
 															variant="h6"
 														>
@@ -597,10 +598,11 @@ const EventTimeline = (props) => {
 													<Grid item xs={6}>
 														<Typography
 															sx={{
-																fontWeight: 400,
+																fontWeight: 500,
 																fontSize: "16px",
 																color: "white",
 																ml: 2,
+																mb: 0.5,
 															}}
 															variant="h6"
 														>
@@ -644,10 +646,11 @@ const EventTimeline = (props) => {
 													<Grid item xs={6}>
 														<Typography
 															sx={{
-																fontWeight: 400,
+																fontWeight: 500,
 																fontSize: "16px",
 																color: "white",
 																ml: 2,
+																mb: 0.5,
 															}}
 															variant="h6"
 														>
@@ -688,10 +691,11 @@ const EventTimeline = (props) => {
 													<Grid item xs={6}>
 														<Typography
 															sx={{
-																fontWeight: 400,
+																fontWeight: 500,
 																fontSize: "16px",
 																color: "white",
 																ml: 2,
+																mb: 0.5,
 															}}
 															variant="h6"
 														>
@@ -732,10 +736,11 @@ const EventTimeline = (props) => {
 													<Grid item xs={6}>
 														<Typography
 															sx={{
-																fontWeight: 400,
+																fontWeight: 500,
 																fontSize: "16px",
 																color: "white",
 																ml: 2,
+																mb: 0.5,
 															}}
 															variant="h6"
 														>

@@ -17,6 +17,7 @@ const TableItems = (props) => {
 
 	const theme = useTheme()
 	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
+	const isDownXl = useMediaQuery(theme.breakpoints.down("xl"))
 
 	// 	const cache = new CellMeasurerCache({
 	// 		defaultHeight: 108,
@@ -70,7 +71,7 @@ const TableItems = (props) => {
 	// }
 
 	return (
-		<List sx={{ overflowY: isDownSm ? "visible" : "scroll" }}>
+		<List sx={{ overflowY: isDownXl ? "hidden" : "scroll" }}>
 			{Object.keys(props.tableObjectsList).map((index) => (
 				<ListItem
 					variant="tableItem"
