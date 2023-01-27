@@ -591,7 +591,7 @@ const InfoModal = () => {
 
 					<Box sx={{ borderRight: "1px solid #D72E30", height: "100%", mr: 1 }} component="div" />
 
-					<Box sx={{ height: "100%", overflowY: "auto", ml: 1 }}>
+					<Box sx={{ height: "100%", overflowY: "auto", overflowX: "hidden", ml: 1 }}>
 						<Box sx={{ mr: 1 }}>{renderBlock}</Box>
 					</Box>
 				</Box>

@@ -150,7 +150,13 @@ function Tile(props) {
 				<Grid item xs={3}>
 					<Typography
 						className="hoverMore"
-						sx={{ color: propTextColor, fontSize: "0px", opacity: 0, transition: "opacity 0.3s", px: propHeight === 480 ? 10 : 5 }}
+						sx={{
+							color: propTextColor,
+							fontSize: "0px",
+							opacity: 0,
+							transition: "opacity 0.3s",
+							px: propHeight === 480 ? 10 : 5,
+						}}
 						align="center"
 						variant="body1"
 					>
@@ -217,11 +223,11 @@ const Home = (props) => {
 								marginRight: "5px",
 							}}
 						/>
-						<Typography sx={{ fontSize: "22px", color: "white", mt: "50px" }} align="center">
-							Sveikiname apsilankius „Vilniaus DNR“ svetainėje.
+						<Typography sx={{ fontSize: "22px", color: "white", mt: "50px", mx: 20 }} align="center">
+							Atverkite virtualius Vilniaus istorijos vartus ir pažinkite sostinę tyrinėdami istorinius
+							žemėlapius, senąsias fotografijas bei svarbiausius miesto įvykius.
 							<br />
-							Čia rasite istorinius miesto žemėlapius bei įrankius juos nagrinėti įvairiais pjūviais.
-							Kviečiame tyrinėti Vilnių!
+							Kviečiame nagrinėti ir pažinti Vilniaus miesto DNR!
 						</Typography>
 					</Grid>
 				</Box>

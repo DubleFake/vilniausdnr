@@ -53,8 +53,8 @@ export const textDict = {
 							sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1, textAlign: "center" }}
 						>
 							Simboliška, kad „Vilniaus DNR“ portalas visuomenei atveriamas Vilniui švenčiant 700-ajį
-							gimtadienį. Tikime, kad tai bus dovana Vilniaus miestui, vilniečiams, miesto svečiams bei
-							visiems smalsuoliams, kurie domisi Vilniumi bei marga jo istorija.
+							gimtadienį. Tai dovana Vilniaus miestui, vilniečiams, miesto svečiams bei visiems smalsuoliams,
+							kurie domisi Vilniumi bei marga jo istorija.
 						</Typography>
 
 						<Grid container direction="row" justifyContent="flex-end" alignItems="flex-end">
@@ -78,7 +78,7 @@ export const textDict = {
 						<Typography
 							sx={{ color: "black", fontSize: "14px", fontWeight: 400, mt: 1, textAlign: "center" }}
 						>
-							Projektą kuria Vilniaus miesto savivaldybė ir UAB „Vilniaus planas“.
+							Projektą kuria Vilniaus miesto savivaldybė ir UAB „Vilniaus planas“.{" "}
 						</Typography>
 						<Grid container direction="row" justifyContent="center" alignItems="flex-end">
 							<Box
@@ -140,13 +140,11 @@ export const textDict = {
 	maps_info: (
 		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Ar kada ieškojote senų Vilniaus miesto žemėlapių? Yra daug informacijos šaltinių, kuriuose galima
-				rasti senų Vilniaus žemėlapių, tačiau dažniausiai tie žemėlapiai tėra skenuoti paveikslėliai, kurie
-				nėra įskaitmeninti ir orientuoti šių laikų koordinačių sistemoje, todėl nėra galimybės jų lyginti su
-				šių laikų žemėlapiais. Reti koordinuoti žemėlapiai publikuoti atskiruose skaitmeninių žemėlapių
-				portaluose, tačiau jie nėra integruoti tarpusavyje. „Vilniaus DNR“ portalo skiltis „Istoriniai planai
-				ir žemėlapiai“ būtent ir turėtų būti ta viena vieta, kurioje planuojame integruoti įvairius istorinius
-				Vilniaus miesto planus ir žemėlapius. Šiuo metu esami žemėlapiai suskirstyti į keturias grupes:
+				Ar kada ieškojote senų Vilniaus miesto žemėlapių? Daugiau neieškokite, nes „Vilniaus DNR“ portalo
+				skiltyje „Istoriniai planai ir žemėlapiai“ rasite iš įvairių šaltinių integruotus istorinius Vilniaus
+				miesto planus ir žemėlapius. Visi jie yra įskaitmeninti ir orientuoti šių laikų koordinačių sistemoje
+				– istorinius žemėlapius galima lyginti su šių laikų. Šiuo metu esami žemėlapiai suskirstyti į keturias
+				grupes:
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }} component={"div"}>
 				<ul>
@@ -161,8 +159,8 @@ export const textDict = {
 						skiltyje.
 					</li>
 					<li>
-						Ortofotografiniai žemėlapiai – tai žemėlapiai, sudaryti iš specialia fotokamera iš orlaivių
-						padarytų žemės paviršiaus (aerofotografinių) nuotraukų.
+						Ortofotografiniai žemėlapiai – tai žemėlapiai, kuriuos sudaro iš orlaivių padarytų žemės
+						paviršiaus (aerofotografinių) nuotraukų.
 					</li>
 					<li>
 						LMA Vrublevskių bibliotekos žemėlapiai – tai 2015-2016 m. Lietuvos mokslų akademijos Vrublevskių
@@ -184,7 +182,7 @@ export const textDict = {
 					</li>
 					<Grid container direction="row" justifyContent="center" alignItems="center">
 						<Box
-							sx={{ my: 2, mr: 2, width: "80%", height: "100%", resizeMode: "contain" }}
+							sx={{ my: 2, mr: 2, width: "60%", height: "100%", resizeMode: "contain" }}
 							component="img"
 							src="https://i.ibb.co/hFtkgz3/25-01-2023-19-43-51-REC-Adobe-Express.gif"
 						/>
@@ -200,18 +198,18 @@ export const textDict = {
 					<ul style={{ listStyleType: "disc" }}>
 						<li>Peržiūros režimas: vaizduojamas vienas pasirinktas žemėlapis.</li>
 						<li>
-							Slenkančios juostos režimas: ekranas sudalinamas į dvi dalis, vaizduojami du skirtingi
+							Slenkančios juostos režimas: ekranas padalinamas į dvi dalis, vaizduojami du skirtingi
 							pasirinkti žemėlapiai. Jie lyginami slankiojant juostą.
 						</li>
 						<li>
-							Dviejų langų režimas: ekranas sudalinamas į dvi dalis, vaizduojami du skirtingi pasirinkti
-							žemėlapiai, suvienodinamas jų priartinimas ir aprėptis. Žemėlapiai lyginami valdant vieną iš jų.{" "}
+							Dviejų langų režimas: ekranas padalinamas į dvi dalis, vaizduojami du skirtingi pasirinkti
+							žemėlapiai, suvienodinamas jų priartinimas ir aprėptis. Žemėlapiai lyginami valdant vieną iš jų.
 						</li>
 					</ul>
 				</ol>
 				<Grid container direction="row" justifyContent="center" alignItems="center">
 					<Box
-						sx={{ my: 2 }}
+						sx={{ my: 2, mr: 2 }}
 						component="img"
 						src="https://i.ibb.co/7rpDBBz/25-01-2023-19-53-24-REC-Adobe-Express.gif"
 					/>
@@ -225,23 +223,23 @@ export const textDict = {
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Turbūt daugelis vilniečių yra atkreipę dėmesį, kad Žvėryne yra daug gatvių, kurios pavadintos žvėrių
 				pavadinimais. Bet ar žinote, kad tokių vienodos kilmės pavadinimų gatvių santalkų Vilniaus mieste yra
-				ir daugiau? Pavyzdžiui Balsiuose yra gatvių santalka pavadinta baltų dievybių, o Pavilnyje – tautų
-				vardais.
+				ir daugiau? Pavyzdžiui, Balsiuose yra gatvių santalka pavadinta baltų dievybių, o Pavilnyje – tautų
+				vardais. Kviečiame susipažinti su Vilniaus gatvėmis ir jų kilme.
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Portalo miesto gatvių skiltį sudaro dvi dalys – dabartis ir praeitis.{" "}
+				Portalo miesto gatvių skiltį sudaro dvi dalys – dabartis ir praeitis.
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				<b>Dabarties skiltyje</b> pateikiama informacija apie visas miesto gatves. Jos suklasifikuotos pagal
 				pavadinimų reikšmes, pagal kurias galite filtruoti gatves. Pavyzdžiui, galite sužinoti, kiek Vilniaus
 				mieste gatvių pavadintų rašytojų vardais. Taip pat pateikiama informacija apie kiekvienos gatvės ar
-				jos dalies pavadinimus, kurie pateikiami istoriniuose žemėlapiuose (originalia forma).
+				jos dalies pavadinimus, kurie randami istoriniuose žemėlapiuose (originalia forma).
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				<b>Praeities skiltyje</b> pateikiama informacija apie centrinės Vilniaus miesto dalies gatvių istoriją
 				- 5 istorinių periodų pavadinimus ir ašines linijas, kurias galima lyginti tarpusavyje. Taip pat
 				pateikiamos nuorodos į originalius žemėlapius, kuriuos naudojant istoriniai gatvių pavadinimai ir
-				ašinės linijos buvo
+				ašinės linijos buvo įskaitmenintos.
 			</Typography>
 		</Box>
 	),
@@ -266,7 +264,7 @@ export const textDict = {
 					</ul>
 					<Grid container direction="row" justifyContent="center" alignItems="center">
 						<Box
-							sx={{ my: 2 }}
+							sx={{ my: 2, mr: 2 }}
 							component="img"
 							src="https://i.ibb.co/hX0Cr4y/25-01-2023-20-01-22-REC-Adobe-Express.gif"
 						/>
@@ -280,7 +278,7 @@ export const textDict = {
 					</li>
 					<Grid container direction="row" justifyContent="center" alignItems="center">
 						<Box
-							sx={{ my: 2 }}
+							sx={{ my: 2, mr: 2, width: "60%", height: "100%", resizeMode: "contain" }}
 							component="img"
 							src="https://i.ibb.co/tYYZQ1X/25-01-2023-21-06-44-REC-Adobe-Express.gif"
 						/>
@@ -303,33 +301,60 @@ export const textDict = {
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }} component={"div"}>
 				<ol>
 					<li style={{ paddingLeft: 4 }}>
-						Išskirtus pagrindinius asmenybės biografijos faktus. Faktai susiję su Vilniumi išskirti ir
-						pateikiami raudonai;
+						Išskirtus pagrindinius asmenybės biografijos faktus. Faktai susiję su Vilniumi išskirti raudona
+						spalva.
 					</li>
 					<li style={{ paddingLeft: 4 }}>Ryšio su Vilniumi aprašymą;</li>
 					<li style={{ paddingLeft: 4 }}>Asmenybei Vilniuje įrengtų skulptūrų ir paminklų nuorodas;</li>
-					<li style={{ paddingLeft: 4 }}>Asmenybei Vilniuje įrengtų atminimo lentų nuorodas.</li>
+					<li style={{ paddingLeft: 4 }}>Asmenybei Vilniuje įrengtų atminimo lentų nuorodas;</li>
 					<li style={{ paddingLeft: 4 }}>Asmenybės vardu pavadintų gatvių nuorodas;</li>
 					<li style={{ paddingLeft: 4 }}>
 						Asmenybės palaidojimo vietos nuorodą, jei asmenybė palaidota Vilniaus mieste ir palaidojimo vieta
-						žinoma;
+						yra žinoma;
 					</li>
-					<li style={{ paddingLeft: 4 }}>Su asmenybe susiję Vilniaus miestu svarbūs istoriniai įvykiai;</li>
-					<li style={{ paddingLeft: 4 }}>Su asmenybe susijusios kitos asmenybės.</li>
+					<li style={{ paddingLeft: 4 }}>
+						Su asmenybe susijusius Vilniaus miestui svarbius istorinius įvykius;
+					</li>
+					<li style={{ paddingLeft: 4 }}>Su asmenybe susijusias kitas asmenybes.</li>
 				</ol>
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Daugumos asmenybių aprašymai parengti pagrindiniu šaltiniu naudojant „Visuotinę lietuvių
-				enciklopediją“, kurios straipsnius rengia Lietuvos mokslininkai, įvairių sričių specialistai bei
-				moksliniai redaktoriai. „Visuotinė lietuvių enciklopedija“ pasiekiamame interneto adresu
-				<Link href="www.vle.lt"> www.vle.lt</Link>, ją administruoja Mokslo ir enciklopedijų leidybos centras.
+				Daugumos asmenybių aprašymai parengti remiantis pagrindiniu moksliniu šaltiniu „Visuotinė lietuvių
+				enciklopedija“, kurios straipsnius rengia Lietuvos mokslininkai, įvairių sričių specialistai bei
+				moksliniai redaktoriai. „Visuotinė lietuvių enciklopedija“ pasiekiama interneto adresu{" "}
+				<Link href="https://www.vle.lt" target="_blank">
+					www.vle.lt
+				</Link>
+				, ją administruoja Mokslo ir enciklopedijų leidybos centras.
 			</Typography>
 		</Box>
 	),
 	persons_how: (
 		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Informacija rengiama
+				<ol>
+					<li style={{ paddingLeft: 4 }}>
+						Mieste įamžintos asmenybės informacija pateikiama pasirinkus asmenybę iš sąrašo kairėje ekrano
+						pusėje, paieškos skiltyje.
+						<ul style={{ listStyleType: "disc" }}>
+							<li>Paieška atliekama įrašant asmenybės vardą/pavardę į paieškos eilutę.</li>
+							<li>
+								Asmenybių sąrašas filtruojamas pasirenkant asmens profesiją ir veiklą. Norint pašalinti
+								filtrus, spausti mygtuką išvalyti filtrus.
+							</li>
+						</ul>
+					</li>
+					<Grid container direction="row" justifyContent="center" alignItems="center">
+						<Box
+							sx={{ my: 2, mr: 2 }}
+							component="img"
+							src="https://i.ibb.co/qpTyx9g/25-01-2023-20-08-56-REC-Adobe-Express.gif"
+						/>
+					</Grid>
+					<li style={{ paddingLeft: 4 }}>
+						Asmenybės aprašymo skiltyje susijusi istorinė medžiaga pasiekiama spaudžiant interaktyvų tekstą.
+					</li>
+				</ol>
 			</Typography>
 		</Box>
 	),
@@ -348,7 +373,36 @@ export const textDict = {
 	foto_how: (
 		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Informacija rengiama
+				<ol>
+					<li style={{ paddingLeft: 4 }}>
+						Fotografija ir jos informacija pateikiama paspaudus ant simbolio žemėlapyje arba pasirenkant
+						fotografiją iš sąrašo kairėje ekrano pusėje, paieškos skiltyje. Atsivėrusiame informacijos lange,
+						susijusi istorinė medžiaga pasiekiama spaudžiant interaktyvų tekstą.
+					</li>
+					<li style={{ paddingLeft: 4 }}>
+						Fotografijų ir atviručių paieškos bei filtravimo funkcijos pateikiamos paieškos skiltyje, kairėje
+						ekrano pusėje:
+					</li>
+					<ul style={{ listStyleType: "disc" }}>
+						<li>Paieška atliekama įrašant fotografijos pavadinimą į paieškos eilutę.</li>
+						<li>
+							Fotografijų sąrašas filtruojamas pasirenkant fotografijos autorių arba įamžinimo metus. Metai
+							nustatomi slenkant metų juostą, pasirenkama laikotarpio pradžios ir pabaigos data . Norint
+							pašalinti filtrus, spausti mygtuką išvalyti filtrus.
+						</li>
+						<li>
+							Fotografijų sąrašas filtruojamas pagal žemėlapio aprėptyje matomus objektus paspaudus mygtuką
+							Sąraše rodyti tik žemėlapio aprėptyje matomus objektus.
+						</li>
+					</ul>
+					<Grid container direction="row" justifyContent="center" alignItems="center">
+						<Box
+							sx={{ my: 2, mr: 2 }}
+							component="img"
+							src="https://i.ibb.co/1MJLF3t/25-01-2023-20-22-41-REC-Adobe-Express.gif"
+						/>
+					</Grid>
+				</ol>
 			</Typography>
 		</Box>
 	),
@@ -368,7 +422,39 @@ export const textDict = {
 	plaques_how: (
 		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Informacija rengiama
+				<ol>
+					<li style={{ paddingLeft: 4 }}>
+						Skulptūros ar atminimo lentos informacija pateikiama paspaudus simboliį žemėlapyje arba
+						pasirenkant objektą iš sąrašo kairėje ekrano pusėje, paieškos skiltyje. Atsivėrusiame informacijos
+						lange, susijusi istorinė medžiaga pasiekiama spaudžiant interaktyvų tekstą.
+					</li>
+					<li style={{ paddingLeft: 4 }}>
+						Skulptūrų ir atminimo lentų paieškos ir filtravimo funkcijos pateikiamos paieškos skiltyje,
+						kairėje ekrano pusėje:
+					</li>
+					<ul style={{ listStyleType: "disc" }}>
+						<li>Paieška atliekama įrašant skulptūros ar atminimo lentos pavadinimą į paieškos eilutę.</li>
+						<li>
+							Skulptūrų ir atminimo lentų sąrašas filtruojamas pasirenkant objekto tipą, atminimo tipą arba
+							įrengimo laikotarpį. Norint pašalinti filtrus, reikia spausti mygtuką išvalyti filtrus.
+						</li>
+						<li>
+							Skulptūrų ir atminimo lentų sąrašas filtruojamas pagal žemėlapio aprėptyje matomus objektus
+							paspaudus mygtuką “Sąraše rodyti tik žemėlapio aprėptyje matomus objektus”.
+						</li>
+					</ul>
+					<li>
+						Skulptūrų ir atminimo lentų vaizdavimo sutartiniai ženklai keičiami vaizdavimo skiltyje, kairėje
+						ekrano pusėje. Pasirenkamas vaizdavimas pagal objekto arba atminimo tipą.
+					</li>
+					<Grid container direction="row" justifyContent="center" alignItems="center">
+						<Box
+							sx={{ my: 2, mr: 2 }}
+							component="img"
+							src="https://i.ibb.co/8cskrkx/25-01-2023-20-34-42-REC-Adobe-Express.gif"
+						/>
+					</Grid>
+				</ol>
 			</Typography>
 		</Box>
 	),
@@ -379,25 +465,24 @@ export const textDict = {
 				Ar kada norėjote panagrinėti, kaip skirtingais laikotarpiais kito Vilnius? Jei taip, turbūt bandėte tą
 				daryti nagrinėdami senus istorinius žemėlapius, tačiau juos vartant pastebėti mieste vykusius pokyčius
 				dažnai nėra taip paprasta. Skirtingi istoriniai žemėlapiai sudaryti skirtingais masteliais, juose
-				vaizduojami objektai būna skirtingai generalizuoti (tie patys objektai pateikiami skirtingu detalumu).
-				Negana to, kuo žemėlapis senesnis, tuo, dažniausiai, ir jo tikslumas prastesnis. Kitaip tariant, net
-				ir perklojus vieną žemėlapį su kitu neretai sudėtinga nustatyti, ar dominantis ir abiejuose
-				žemėlapiuose vaizduojamas tas pats objektas yra toks pats, ar jau pakitęs. Praktiškai visuomet seni
-				žemėlapiai net ir vizualizuojami skirtingu dizainu!
+				vaizduojami objektai būna skirtingai apibendrinti(tie patys objektai pateikiami skirtingu detalumu).
+				Negana to, kuo žemėlapis senesnis, tuo jo tikslumas būna prastesnis. Kitaip tariant, net ir perklojus
+				vieną žemėlapį su kitu neretai sudėtinga nustatyti, ar dominantis ir abiejuose žemėlapiuose
+				vaizduojamas tas pats objektas yra toks pats, ar jau pakitęs. Praktiškai visuomet seni žemėlapiai net
+				ir vizualizuojami skirtingu dizainu!
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Tai koks galėtų būti sprendimas, kuris įgalintų net ir kartografijoje neįgudusius žmones paprastai
-				nagrinėti pokyčius, kurie vyko Vilniuje? Manome, kad istorinių topografinių žemėlapių (arba tiesiog -
-				topografijų) rekonstrukcijos, kurios ir yra pateikiamos “Miestas atskirais istoriniais periodais”
-				skiltyje.
+				nagrinėti pokyčius, kurie vyko Vilniuje? Tai atlikti leidžia istorinių topografinių žemėlapių (arba
+				tiesiog - topografijų) rekonstrukcijos, kurios ir yra pateikiamos “Miestas atskirais istoriniais
+				periodais” skiltyje.
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				Kaip tai atlikta? Išskirtume kelis etapus:
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Pirmiausia – žemėlapiai atrinkti. Kodėl pasirinkti būtent šie žemėlapiai? Juos atrinko UAB „Vilniaus
-				planas“ ekspertai, kaip detaliausius ir geriausius, kurie apie Vilnių yra sudaryti, o kartu jie
-				reprezentuoja atskirus istorinius laikotarpius:
+				UAB "Vilniaus planas" ekspertai istorinius žemėlapius atrinko vadovaudamiesi keliais svarbiais
+				kriterijais: detalumas ir skirting Vilniaus istorinių laikotarpių reprezentacija:
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }} component={"div"}>
 				<ol>
@@ -411,46 +496,75 @@ export const textDict = {
 				</ol>
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Visus atrinktus žemėlapius galima laikyti stambaus mastelio – juose vaizduojami objektai iki pastatų
-				lygmens!
+				Visi išvardinti topografiniai žemėlapiai buvo įskaitmeninti – nuskenuoti, orientuoti šių laikų
+				koordinačių sistemose, apkirpti ( tokie detalūs žemėlapiai būna sudaryti iš daug lapų, jųparaštės
+				dengia viena kitą ir uždengia svarbius objektus), išvalyti, sutvarkytos spalvos ir ryškumas.
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Toliau atrinkti topografiniai žemėlapiai buvo įskaitmeninti – nuskenuoti, orientuoti šių laikų
-				koordinačių sistemose, apkirpti (nes visais atvejais tokie detalūs žemėlapiai sudaryti iš daug lapų,
-				kurių paraštės dengia viena kitą ir uždengia svarbius objektus), išvalyti, sutvarkytos spalvos ir
-				ryškumas.
+				Paskutiniame žemėlapių tvarkymo etape topografijos buvo rekonstruotos. Kiekvieną sename topografiniame
+				žemėlapyje vaizduojamą objektą kartografijos ekspertas lygino su tiksliais skaitmeniniais šių laikų
+				duomenimis ir vertino – istoriniame žemėlapyje vaizduojamas toks pats objektas kaip yra dabar, ar
+				pakitęs. Jei toks pats kaip dabar – į rekonstrukciją objekto (pavyzdžiui statinio) kontūras buvo
+				perkeliamas iš šių laikų skaitmeninių duomenų. Jei įvertinta, kad istoriniame žemėlapyje vaizduojamas
+				kitoks objektas – jo kontūras iš žemėlapio tiksliai atkartotas, įtraukiant jį rekonstrukciją. Taip
+				buvo rekonstruoti visi pasirinkti žemėlapiai, atkuriant juos nuo naujausių iki seniausių, vis
+				vertinant atskirus geografinius objektus ir juos perkeliant iš prieš tai buvusio laikotarpio arba
+				įbraižant naujai iš istorinio žemėlapio.
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Galiausiai topografijos rekonstruotos. Kiekvieną topografiniame žemėlapyje vaizduojamą objektą
-				kartografijos ekspertas lygino su tiksliais skaitmeniniais šių laikų duomenimis ir vertino – tai toks
-				pats objektas, ar kitoks. Jei tas pats kaip dabar, objekto (pavyzdžiui statinio) kontūras buvo
-				perkeliamas iš šių laikų skaitmeninių duomenų. Jei įvertinta, kad žemėlapyje vaizduojamas kitoks
-				objektas – jo kontūras tiksliai atkartotas, įvedant jį į šių laikų duomenų bazę. Taip buvo
-				rekonstruoti visi pasirinkti žemėlapiai, atkuriant juos nuo naujausių iki seniausių, vis vertinant
-				atskirus geografinius objektus ir juos perkeliant iš prieš tai buvusio periodo arba įbraižant naujai.
-				Dėl aprašytų priežasčių rekonstrukcijas lyginant su originaliais topografiniais žemėlapiais
-				pastebėsite prasilenkimų – rekonstrukcijų objektai turi tiksliai atitikti tikslius šių laikų
-				skaitmeninius duomenis, o tai leidžia laikotarpius lyginti tarpusavyje. Ir žinoma, lyginimą dar
-				supaprastina tai, kad visos rekonstrukcijos vizualizuotos vienu dizainu.
+				<b>Duomenų tikslumas ir kokybė.</b> Šios rekonstrukcijos – pagalba naudotojui lengviau lyginti
+				skirtinguose istoriniuose žemėlapiuose pateikiamus duomenis, tačiau juose gali pasitaikyti netikslumų
+				dėl anksčiau aprašyto rekonstrukcijos proceso. Į pateikiamus duomenis siūlome žiūrėti kritiškai, nes
+				netikslumų pasitaiko net ir originaliuose naudotuose istoriniuose topografiniuose žemėlapiuose – jei
+				autorius pavaizdavo žemėlapyje objektą, tai dar nereiškia, kad jis tikrai buvo toks (tai ypač aktualu
+				XIX a. žemėlapiams).
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				<b>Duomenų tikslumas ir kokybė.</b> Kadangi, kaip aprašyta anksčiau, istorinių topografijų
-				rekonstrukcija visuomet kažkiek yra kartografijos eksperto interpretacija, į pateikiamus duomenis
-				siūlome žiūrėti kritiškai. Šios rekonstrukcijos - pagalba naudotojui lengviau lyginti skirtinguose
-				istoriniuose žemėlapiuose pateikiamus duomenis, tačiau juose gali pasitaikyti klaidų ar neatitikimų.
-				Net ir originaliuose naudotuose istoriniuose topografiniuose žemėlapiuose jų galėjo pasitaikyti – jei
-				autorius pavaizdavo žemėlapyje objektą, tai dar nereiškia, kad jis tikrai buvo toks ar buvo iš vis.
-			</Typography>
-			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Kadangi rekonstrukcija yra gana sudėtingas ir lėtas darbas, kol kas rekonstruota tik centrinė,
-				pasirinktiems žemėlapiams bendra, Vilniaus miesto dalis.
+				Kol kas rekonstruota tik centrinė, atrinktiems žemėlapiams bendra, Vilniaus miesto dalis.
 			</Typography>
 		</Box>
 	),
 	periods_how: (
 		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Informacija rengiama
+				<ol>
+					<li style={{ paddingLeft: 4 }}>
+						Istorinis periodas pasirenkamas spaudžiant mygtukus laiko juostoje, ekrano apačioje
+					</li>
+					<Grid container direction="row" justifyContent="center" alignItems="center">
+						<Box
+							sx={{ my: 2, mr: 2, width: "60%", height: "100%", resizeMode: "contain" }}
+							component="img"
+							src="https://i.ibb.co/pWh75Hk/25-01-2023-20-41-12-REC-Adobe-Express.gif"
+						/>
+					</Grid>
+					<li style={{ paddingLeft: 4 }}>
+						Žemėlapio informacija pateikiama viršuje, dešinėje ekrano pusėje. Susijusi istorinė medžiaga
+						pasiekiama spaudžiant interaktyvų tekstą.
+					</li>
+					<li style={{ paddingLeft: 4 }}>
+						Žemėlapių peržiūros režimas keičiamas spaudžiant mygtuką ekrano viršuje, kairėje pusėje. Galimi
+						trys režimai:
+					</li>
+					<ul style={{ listStyleType: "disc" }}>
+						<li>Laiko juostos režimas: vaizduojamas vienas, laiko juostoje pasirinktas žemėlapis.</li>
+						<li>
+							Slenkančios juostos režimas: ekranas sudalinamas į dvi dalis, vaizduojami du skirtingi
+							pasirinkti žemėlapiai. Jie lyginami slankiojant juostą.
+						</li>
+						<li>
+							Dviejų langų režimas: ekranas sudalinamas į dvi dalis, vaizduojami du skirtingi pasirinkti
+							žemėlapiai, suvienodinamas jų priartinimas ir aprėptis. Žemėlapiai lyginami valdant vieną iš jų.
+						</li>
+					</ul>
+					<Grid container direction="row" justifyContent="center" alignItems="center">
+						<Box
+							sx={{ my: 2, mr: 2 }}
+							component="img"
+							src="https://i.ibb.co/rftYtYd/25-01-2023-20-46-55-REC-Adobe-Express.gif"
+						/>
+					</Grid>
+				</ol>
 			</Typography>
 		</Box>
 	),
@@ -458,8 +572,8 @@ export const textDict = {
 	events_info: (
 		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Skiltyje pateikiama informacija apie svarbiausius Vilniaus miestui istorinius įvykius, kurie kaip
-				„Vilniaus miesto kalendorius“ istorikų buvo įtraukti į Vilniaus atminties kultūros programą. Įvykiai
+				Skiltyje pateikiama informacija apie svarbiausius Vilniaus miestui istorinius įvykius, kuriuos į
+				Vilniaus atminties kultūros programoje sukurtą „Vilniaus miesto kalendorių“ įtraukė istorikai. Įvykiai
 				sugrupuoti pagal Vilniaus istorijos periodus, susieti su susijusiomis asmenybėmis, nuotraukomis,
 				atminimo ženklais ir žemėlapiais.
 			</Typography>
@@ -468,7 +582,33 @@ export const textDict = {
 	events_how: (
 		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Informacija rengiama
+				<ol>
+					<li style={{ paddingLeft: 4 }}>
+						Istorinių įvykių juosta valdoma slenkant naršyklės langą aukštyn arba žemyn.
+					</li>
+					<li style={{ paddingLeft: 4 }}>
+						Istorinio įvykio papildoma informacija matoma spaudžiant tekstą Plačiau..., žemiau įvykio
+						nuotraukos bei pavadinimo. Susijusi istorinė medžiaga pasiekiama spaudžiant interaktyvų tekstą.
+					</li>
+					<Grid container direction="row" justifyContent="center" alignItems="center">
+						<Box
+							sx={{ my: 2, mr: 2, width: "30%", height: "100%", resizeMode: "contain" }}
+							component="img"
+							src="https://i.ibb.co/jZfR5Kv/25-01-2023-20-59-25-REC-Adobe-Express.gif"
+						/>
+					</Grid>
+					<li style={{ paddingLeft: 4 }}>
+						Istoriniai įvykiai gali būti filtruojami ir pasirenkami pagal istorinius laikotarpius, spaudžiant
+						istorinių įvykių juostą kairėje ekrano pusėje.
+					</li>
+					<Grid container direction="row" justifyContent="center" alignItems="center">
+						<Box
+							sx={{ my: 2, mr: 2, width: "30%", height: "100%", resizeMode: "contain" }}
+							component="img"
+							src="https://i.ibb.co/zH7nTpc/25-01-2023-20-54-44-REC-Adobe-Express.gif"
+						/>
+					</Grid>
+				</ol>
 			</Typography>
 		</Box>
 	),
@@ -476,7 +616,7 @@ export const textDict = {
 	contacts: (
 		<Box>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Turite klausimų ar pasiūlymų? Rašykite info@vplanas.lt
+				Turite klausimų ar pasiūlymų? Susisiekime! <Link href="mailto:info@vplanas.lt">info@vplanas.lt</Link>
 			</Typography>
 			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
 				“Vilniaus DNR” atviras pasiūlymams bendradarbiauti ir kaupti Vilniaus istoriją kartu!
