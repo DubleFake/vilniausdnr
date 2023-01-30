@@ -73,7 +73,7 @@ export const textDict = {
 						<Typography
 							sx={{ color: "black", fontSize: "24px", fontWeight: 600, mt: 2, textAlign: "center" }}
 						>
-							Kurėjai
+							Kūrėjai
 						</Typography>
 						<Typography
 							sx={{ color: "black", fontSize: "14px", fontWeight: 400, mt: 1, textAlign: "center" }}
