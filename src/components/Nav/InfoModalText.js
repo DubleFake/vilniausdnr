@@ -663,7 +663,7 @@ export const textDict = {
 					variant="contained"
 					onClick={() => window.open("mailto:info@vplanas.lt?subject=Vilniaus DNR paklausimas", "_self")}
 				>
-					Susisiekime
+					Susisiekti
 				</Button>
 			</Grid>
 		</Box>
