@@ -118,7 +118,7 @@ const CompareLayers = (props) => {
 								toggle2023={toggle2023}
 								setToggle2023={setToggle2023}
 							/>
-							<CompareType />
+							<CompareType setHistoryToggle={props.setHistoryToggle} />
 						</>
 					}
 				/>
@@ -155,7 +155,7 @@ const CompareLayers = (props) => {
 								toggle2023={toggle2023}
 								setToggle2023={setToggle2023}
 							/>
-							<CompareType />
+							<CompareType setHistoryToggle={props.setHistoryToggle} />
 						</>
 					}
 				/>
@@ -164,7 +164,7 @@ const CompareLayers = (props) => {
 					element={
 						<>
 							<CompareSwipe once={props.once} setOnce={props.setOnce} />
-							<CompareType />
+							<CompareType setHistoryToggle={props.setHistoryToggle} />
 						</>
 					}
 				/>
@@ -173,7 +173,7 @@ const CompareLayers = (props) => {
 					element={
 						<>
 							<CompareWindow setToggleCompareWindow={props.setToggleCompareWindow} />
-							<CompareType />
+							<CompareType setHistoryToggle={props.setHistoryToggle} />
 						</>
 					}
 				/>

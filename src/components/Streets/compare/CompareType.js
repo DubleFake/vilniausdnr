@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
+import { ReactComponent as timelineIcon } from "../../../utils/icons/compareTypeIcons/laikojuosta.svg"
+import { ReactComponent as swipeIcon } from "../../../utils/icons/compareTypeIcons/slenkanti.svg"
+import { ReactComponent as windowIcon } from "../../../utils/icons/compareTypeIcons/dulangai.svg"
+import { objects, map } from "../../../utils/streetsArcgisItems"
+
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
@@ -9,11 +14,7 @@ import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import SvgIcon from "@mui/material/SvgIcon"
 
-import { ReactComponent as timelineIcon } from "../../../utils/icons/compareTypeIcons/laikojuosta.svg"
-import { ReactComponent as swipeIcon } from "../../../utils/icons/compareTypeIcons/slenkanti.svg"
-import { ReactComponent as windowIcon } from "../../../utils/icons/compareTypeIcons/dulangai.svg"
-
-const CompareType = () => {
+const CompareType = (props) => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
 	const [selectedCompare, setSelectedCompare] = useState(0)
@@ -36,6 +37,7 @@ const CompareType = () => {
 	}
 
 	useEffect(() => {
+    props.setHistoryToggle(true)
 		switch (true) {
 			case window.location.href.includes("review"):
 				setSelectedCompare(0)
@@ -46,6 +48,14 @@ const CompareType = () => {
 			case window.location.href.includes("window"):
 				setSelectedCompare(2)
 				break
+		}
+	}, [])
+
+	useEffect(() => {
+		return () => {
+			map.removeAll()
+			map.add(objects)
+			props.setHistoryToggle(false)
 		}
 	}, [])
 
