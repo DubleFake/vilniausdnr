@@ -63,7 +63,7 @@ const Persons = () => {
 								/>
 							</Collapse>
 
-							<PersonInfo visible={visible} setVisible={setVisible} />
+							<PersonInfo visible={visible} setVisible={setVisible} setSelectedObject={setSelectedObject} />
 							<Outlet />
 						</Grid>
 					</>
@@ -73,7 +73,12 @@ const Persons = () => {
 					path="/:globalID"
 					element={
 						<>
-							<PersonInfo visible={visible} setVisible={setVisible} initialLoading={initialLoading} />
+							<PersonInfo
+								visible={visible}
+								setVisible={setVisible}
+								initialLoading={initialLoading}
+								setSelectedObject={setSelectedObject}
+							/>
 						</>
 					}
 				/>

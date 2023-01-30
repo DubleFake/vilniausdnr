@@ -27,10 +27,13 @@ const PersonInfo = (props) => {
 		if (globalID && isDownSm) {
 			props.setVisible(false)
 		}
-	}, [])
 
-	useEffect(() => {
+		if (globalID) {
+			props.setSelectedObject(globalID)
+		}
+
 		setBiographyFeatures([])
+
 		if (!globalID) {
 			setDisplayEmpty(true)
 			if (isDownSm) {
@@ -140,7 +143,6 @@ const PersonInfo = (props) => {
 						gridTemplateRows: "auto",
 						gridTemplateAreas: `
               "left top top right"
-              "left middle middle right"
             `,
 					}}
 				>
@@ -158,12 +160,10 @@ const PersonInfo = (props) => {
 								marginTop: 32,
 							}}
 						/>
+						<PersonTimeline globalID={globalID} />
 					</Box>
 					<Box sx={{ gridArea: "left" }}>
 						<PersonGeneral biographyFeatures={biographyFeatures} />
-					</Box>
-					<Box sx={{ gridArea: "middle" }}>
-						<PersonTimeline globalID={globalID} />
 					</Box>
 					<Box sx={{ gridArea: "right" }}>
 						<PersonRelated globalID={globalID} />

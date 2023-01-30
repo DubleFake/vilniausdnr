@@ -33,12 +33,14 @@ const TableItems = (props) => {
 						disablePadding
 						divider
 						dense
-						selected={`${tableObjectsList[index].attributes.OBJECTID}` === selectedObject}
+						selected={
+							`${tableObjectsList[index].attributes.Asmenybes_ID.replace(/[{}]/g, "")}` === selectedObject
+						}
 					>
 						<ListItemButton
 							variant="tableItemButton"
 							onClick={() => {
-								setSelectedObject(`${tableObjectsList[index].attributes.OBJECTID}`)
+								setSelectedObject(`${tableObjectsList[index].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`)
 								navigate(`${tableObjectsList[index].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`)
 							}}
 						>

@@ -46,7 +46,7 @@ const Filter = (props) => {
 
 	const handleProfessionSelect = (event) => {
 		if (event.target.value) {
-			props.setSelectedObject("")
+			// props.setSelectedObject("")
 			props.setSearchInputValue("")
 			setSelectedProfessionDetail("")
 			setSelectedProfession(event.target.value)
@@ -85,7 +85,7 @@ const Filter = (props) => {
 			props.setSearchObjectsList(filteredObjectsProfession)
 			setFilteredByProfession(filteredObjectsProfession)
 		} else {
-			props.setSelectedObject("")
+			// props.setSelectedObject("")
 			props.setSearchInputValue("")
 			setSelectedProfession("")
 			props.setSearchObjectsList(props.objectsList)
@@ -94,7 +94,7 @@ const Filter = (props) => {
 
 	const handleProfessionDetailSelect = (event) => {
 		if (event.target.value) {
-			props.setSelectedObject("")
+			// props.setSelectedObject("")
 			props.setSearchInputValue("")
 			setSelectedProfessionDetail(event.target.value)
 
@@ -108,7 +108,7 @@ const Filter = (props) => {
 			)
 			props.setSearchObjectsList(filteredObjectsProfessionDetail)
 		} else {
-			props.setSelectedObject("")
+			// props.setSelectedObject("")
 			props.setSearchInputValue("")
 			setSelectedProfessionDetail("")
 			props.setSearchObjectsList(filteredByProfession)
@@ -117,7 +117,7 @@ const Filter = (props) => {
 
 	const handleClearFilters = () => {
 		props.setSearchInputValue("")
-		props.setSelectedObject("")
+		// props.setSelectedObject("")
 		setSelectedProfession("")
 		setSelectedProfessionDetail("")
 
