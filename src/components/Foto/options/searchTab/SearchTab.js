@@ -51,7 +51,13 @@ const Table = (props) => {
 	return (
 		<Grid variant="options" ref={parentRef}>
 			{objectsList.length ? (
-				<Box sx={{ overflowY: isDownXl ? "scroll !important" : "hidden !important" }}>
+				<Box
+					sx={{
+						overflowY: isDownXl ? "scroll !important" : "hidden !important",
+						display: isDownXl ? "inline" : "flex",
+						flexDirection: "column",
+					}}
+				>
 					<Search
 						searchObjectsList={searchObjectsList}
 						searchInputValue={searchInputValue}
