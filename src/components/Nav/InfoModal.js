@@ -30,6 +30,10 @@ function CustomAccordion(props) {
 					color: level[index] ? "#D72E30" : "white",
 					fontSize: fontSize,
 					fontWeight: 400,
+					"&:hover": {
+						transition: "0.3s",
+						color: "#941818",
+					},
 				}}
 			>
 				{elText}
@@ -179,9 +183,7 @@ const InfoModal = () => {
 							fontWeight: 400,
 							mt: 2,
 						}}
-					>
-						Kontaktai
-					</Typography>
+					></Typography>
 					<Box sx={{ ml: 2 }}>{textDict["contacts"]}</Box>
 				</>
 			)
@@ -213,9 +215,7 @@ const InfoModal = () => {
 									fontWeight: 400,
 									mt: 2,
 								}}
-							>
-								Kontaktai
-							</Typography>
+							></Typography>
 							<Box sx={{ ml: 3 }}>{textDict[text]}</Box>
 						</>
 					)}
@@ -476,12 +476,15 @@ const InfoModal = () => {
 					// 	transition: "0.3s",
 					// 	color: "#941818",
 					// },
-					"& .st0": {
+					"& .st0_info": {
 						fill: "#DC2829",
 						stroke: "none",
 					},
-					"& .st1": {
+					"& .st1_info": {
 						fill: "none",
+					},
+					"&:hover": {
+						"& .st0_info": { transition: "0.3s", fill: "#941818" },
 					},
 				}}
 				onClick={handleOpen}
@@ -543,7 +546,7 @@ const InfoModal = () => {
 							index={1}
 							text={"first"}
 							level={firstLevel}
-							elText={"Portalas"}
+							elText={"Pagalba"}
 							fontSize={"18px"}
 						/>
 						<Collapse sx={{ ml: 1 }} in={firstLevel[1] === true}>
@@ -591,7 +594,7 @@ const InfoModal = () => {
 
 					<Box sx={{ borderRight: "1px solid #D72E30", height: "100%", mr: 1 }} component="div" />
 
-					<Box sx={{ height: "100%", overflowY: "auto", overflowX: "hidden", ml: 1 }}>
+					<Box sx={{ height: "100%", overflowY: "auto", overflowX: "hidden", ml: 1, width: "100%" }}>
 						<Box sx={{ mr: 1 }}>{renderBlock}</Box>
 					</Box>
 				</Box>

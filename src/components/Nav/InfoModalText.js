@@ -2,12 +2,15 @@ import Typography from "@mui/material/Typography"
 import Link from "@mui/material/Link"
 import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
-import SvgIcon from "@mui/material/SvgIcon"
+import Button from "@mui/material/Button"
 
 import Y700 from "../../utils/icons/aboutIcons/700.svg"
 import LMAVB from "../../utils/icons/aboutIcons/LMAVB.png"
 import MELC_DNR from "../../utils/icons/aboutIcons/MELC_DNR.png"
 import Vilnius_vp from "../../utils/icons/aboutIcons/vilnius_vp.svg"
+import box from "../../utils/icons/aboutIcons/box.svg"
+import map from "../../utils/icons/aboutIcons/map.svg"
+import pin from "../../utils/icons/aboutIcons/pin.svg"
 
 // <img
 // 	src={VilniausSkyline}
@@ -614,13 +617,55 @@ export const textDict = {
 	),
 
 	contacts: (
-		<Box>
-			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				Turite klausimų ar pasiūlymų? Susisiekime! <Link href="mailto:info@vplanas.lt">info@vplanas.lt</Link>
-			</Typography>
-			<Typography sx={{ color: "white", fontSize: "14px", fontWeight: 400, mt: 1 }}>
-				“Vilniaus DNR” atviras pasiūlymams bendradarbiauti ir kaupti Vilniaus istoriją kartu!
-			</Typography>
+		<Box sx={{ mt: "7%" }}>
+			<Grid container direction="column" justifyContent="center" alignItems="center">
+				<Box
+					sx={{
+						width: 280,
+					}}
+					component="img"
+					src={box}
+				/>
+				<Typography sx={{ width: 280, px: 2, position: "absolute", mt: -33, textAlign: "center" }}>
+					Turite klausimų ar pasiūlymų? Susisiekime!
+				</Typography>
+				<Box
+					sx={{
+						width: 300,
+						mt: -10,
+					}}
+					component="img"
+					src={map}
+				/>
+				<Box
+					sx={{
+						width: 30,
+						mt: -24,
+					}}
+					component="img"
+					src={pin}
+				/>
+				<Button
+					sx={{
+						borderRadius: 10,
+						backgroundColor: "#D72E30",
+						color: "white",
+						textTransform: "none",
+						mt: 20,
+						fontWeight: 400,
+						width: 150,
+						fontSize: "14px",
+						"&:hover": {
+							transition: "0.3s",
+							backgroundColor: "#941818",
+						},
+					}}
+					variant="contained"
+					onClick={() => window.open("mailto:info@vplanas.lt/?subject=Vilniaus DNR paklausimas", "_self")}
+				>
+					Susisiekime
+				</Button>
+			</Grid>
 		</Box>
 	),
 }
