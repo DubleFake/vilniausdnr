@@ -128,16 +128,8 @@ const Filter = (props) => {
 		// 		threshold: matchSorter.rankings.MATCHES,
 		// 	})
 		// )
-		const tempSorted = matchSorter(props.objectsList, "", {
-			keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
-			threshold: matchSorter.rankings.MATCHES,
-		})
-		tempSorted.sort(
-			(a, b) =>
-				!a.attributes.Vardas_lietuviskai - !b.attributes.Vardas_lietuviskai ||
-				a.attributes.Vardas_lietuviskai.localeCompare(b.attributes.Vardas_lietuviskai)
-		)
-		props.setTableObjectsList(tempSorted)
+
+		props.setSearchObjectsList(props.objectsList)
 	}
 
 	const handleSliderChange = (event, newValue) => {
@@ -186,7 +178,7 @@ const Filter = (props) => {
 			.then((response) => {
 				let min = response.features[0].attributes.Fakto_data_rikiavimas
 				let max = response.features[0].attributes.Fakto_data_rikiavimas
-        
+
 				for (let feature of response.features) {
 					if (feature.attributes.Fakto_tipas === "gimė") {
 						tempYearById[`${feature.attributes.Asmenybes_ID}`] = new Date(

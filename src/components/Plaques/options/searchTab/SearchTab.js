@@ -26,6 +26,15 @@ const Table = (props) => {
 				matchSorter(searchObjectsList, searchInputValue, {
 					keys: [(item) => item.attributes.OBJ_PAV],
 					threshold: matchSorter.rankings.MATCHES,
+					sorter: (matchedItems) =>
+						matchedItems.sort((a, b) => {
+							const rankA = a.rank || 0
+							const rankB = b.rank || 0
+							if (rankA !== rankB) {
+								return rankB - rankA
+							}
+							return a.rankedValue.localeCompare(b.rankedValue)
+						}),
 				})
 			)
 		} else {
@@ -33,6 +42,10 @@ const Table = (props) => {
 				matchSorter(searchObjectsList, "", {
 					keys: [(item) => item.attributes.OBJ_PAV],
 					threshold: matchSorter.rankings.MATCHES,
+					sorter: (matchedItems) =>
+						matchedItems.sort((a, b) => {
+							return a.rankedValue.localeCompare(b.rankedValue)
+						}),
 				})
 			)
 		}
@@ -74,7 +87,7 @@ const Table = (props) => {
 						setSelectedObject={props.setSelectedObject}
 						selectedObject={props.selectedObject}
 						parentRef={parentRef}
-            setVisible={props.setVisible}
+						setVisible={props.setVisible}
 					/>
 				</>
 			) : (

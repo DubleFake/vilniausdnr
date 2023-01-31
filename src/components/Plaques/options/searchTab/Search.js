@@ -17,6 +17,16 @@ const Search = (props) => {
 			matchSorter(props.searchObjectsList, event.target.value, {
 				keys: [(item) => item.attributes.OBJ_PAV],
 				threshold: matchSorter.rankings.MATCHES,
+				sorter: (matchedItems) =>
+					matchedItems.sort((a, b) => {
+						// console.log(a.rankedValue, a.rank)
+						const rankA = a.rank || 0
+						const rankB = b.rank || 0
+						if (rankA !== rankB) {
+							return rankB - rankA
+						}
+						return a.rankedValue.localeCompare(b.rankedValue)
+					}),
 			})
 		)
 	}
