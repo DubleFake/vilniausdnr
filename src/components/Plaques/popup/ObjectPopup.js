@@ -421,11 +421,11 @@ const ObjectPopup = (props) => {
 									</Typography>
 								)}
 
-								{objectAttr.OBJ_APRAS && (
+								{/* {objectAttr.OBJ_APRAS && (
 									<Typography sx={{ color: "white", fontWeight: 400, mt: 2 }} variant="body2" component="div">
 										{objectAttr.OBJ_APRAS}
 									</Typography>
-								)}
+								)} */}
 
 								{objectAttr.OBJEKT_TXT && (
 									<Typography sx={{ color: "white", fontWeight: 400, mt: 2 }} variant="body2" component="div">
