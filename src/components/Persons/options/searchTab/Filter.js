@@ -228,7 +228,7 @@ const Filter = (props) => {
 					{t("plaques.options.notFound")}
 				</Alert>
 			</Snackbar>
-			<Container variant="filter">
+			<Container  variant="filter">
 				<FormControl size="small" variant="outlined">
 					<InputLabel id="object-select-label">{t("persons.options.profession")}</InputLabel>
 					<Select

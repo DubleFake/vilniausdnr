@@ -223,7 +223,7 @@ const Home = (props) => {
 								marginRight: "5px",
 							}}
 						/>
-						<Typography sx={{ fontSize: "22px", color: "white", mt: "50px", mx: 20 }} align="center">
+						<Typography sx={{ fontSize: "22px", color: "white", mt: "50px", mx: isDownSm ? 5 : 20 }} align="center">
 							Atverkite virtualius Vilniaus istorijos vartus ir pažinkite sostinę tyrinėdami istorinius
 							žemėlapius, senąsias fotografijas bei svarbiausius miesto įvykius.
 							<br />

@@ -24,27 +24,11 @@ const PersonInfo = (props) => {
 	const [displayEmpty, setDisplayEmpty] = useState(true)
 
 	useEffect(() => {
-		if (globalID && isDownSm) {
-			props.setVisible(false)
-		}
-
 		if (globalID) {
 			props.setSelectedObject(globalID)
 		}
 
 		setBiographyFeatures([])
-
-		if (!globalID) {
-			setDisplayEmpty(true)
-			if (isDownSm) {
-				props.setVisible(true)
-			}
-		} else {
-			if (isDownSm) {
-				props.setVisible(false)
-			}
-		}
-
 		persons
 			.queryFeatures({
 				outFields: ["*"],

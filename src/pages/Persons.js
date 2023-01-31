@@ -8,12 +8,16 @@ import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
 import Collapse from "@mui/material/Collapse"
+import { useTheme } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 const Persons = () => {
 	const [selectedObject, setSelectedObject] = useState("")
 	const [initialLoading, setInitialLoading] = useState(true)
 	const [initialObjectsList, setInitialObjectsList] = useState([])
 	const [visible, setVisible] = useState(true)
+	const theme = useTheme()
+	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
 
 	useEffect(() => {
 		persons
@@ -36,6 +40,11 @@ const Persons = () => {
 				}
 			})
 	}, [])
+	useEffect(() => {
+		if (selectedObject !== "" && isDownSm) {
+			setVisible(false)
+		}
+	}, [selectedObject])
 
 	return (
 		<Routes>
