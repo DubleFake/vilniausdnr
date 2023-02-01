@@ -13,51 +13,52 @@ import { ReactComponent as reviewIcon } from "../../../utils/icons/compareTypeIc
 import { ReactComponent as swipeIcon } from "../../../utils/icons/compareTypeIcons/slenkanti.svg"
 import { ReactComponent as windowIcon } from "../../../utils/icons/compareTypeIcons/dulangai.svg"
 
-const CompareType = () => {
+const CompareType = (props) => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
-	const [selectedCompare, setSelectedCompare] = useState(0)
 
 	const handleCompareChange = (event) => {
-		setSelectedCompare(event.target.value)
+		props.setSelectedCompare(event.target.value)
+
+		let leftMap
+		let rightMap
+
+		if (window.location.search === "") {
+			leftMap = window.location.pathname.split("/").splice(-2)[0]
+			rightMap = window.location.pathname.split("/").splice(-2)[1]
+		} else {
+			leftMap = window.location.pathname.split("?")[0].split("/").splice(-1)[0]
+			rightMap = props.selectedMaps[1]
+		}
+
+		props.setSelectedMaps([leftMap, rightMap])
+
 		switch (event.target.value) {
 			case 0:
 				navigate(
-					`/vilniausdnr/${i18n.language}/maps/compare/review/${"42e1492a-d5ac-4d09-ac03-90a6efb54d6e"}`
+					`/vilniausdnr/${i18n.language}/maps/compare/review/${
+						props.selectedMaps[0] === leftMap ? props.selectedMaps[0] : leftMap
+					}`
 				)
 				break
 
 			case 1:
 				navigate(
-					`/vilniausdnr/${
-						i18n.language
-					}/maps/compare/swipe/${"42e1492a-d5ac-4d09-ac03-90a6efb54d6e"}/${"c0b7610e-3e12-4e03-a915-9673d1906502"}`
+					`/vilniausdnr/${i18n.language}/maps/compare/swipe/${
+						props.selectedMaps[0] === leftMap ? props.selectedMaps[0] : leftMap
+					}/${props.selectedMaps[1] === rightMap ? props.selectedMaps[1] : rightMap}`
 				)
 				break
 
 			case 2:
 				navigate(
-					`/vilniausdnr/${
-						i18n.language
-					}/maps/compare/window/${"42e1492a-d5ac-4d09-ac03-90a6efb54d6e"}/${"c0b7610e-3e12-4e03-a915-9673d1906502"}`
+					`/vilniausdnr/${i18n.language}/maps/compare/window/${
+						props.selectedMaps[0] === leftMap ? props.selectedMaps[0] : leftMap
+					}/${props.selectedMaps[1] === rightMap ? props.selectedMaps[1] : rightMap}`
 				)
 				break
 		}
 	}
-
-	useEffect(() => {
-		switch (true) {
-			case window.location.href.includes("review"):
-				setSelectedCompare(0)
-				break
-			case window.location.href.includes("swipe"):
-				setSelectedCompare(1)
-				break
-			case window.location.href.includes("window"):
-				setSelectedCompare(2)
-				break
-		}
-	}, [])
 
 	return (
 		<Grid variant="compareType" container direction="row" justifyContent="left" alignItems="flex-start">
@@ -75,7 +76,7 @@ const CompareType = () => {
 			>
 				<Select
 					variant="outlined"
-					value={selectedCompare}
+					value={props.selectedCompare}
 					onChange={handleCompareChange}
 					renderValue={(value) => (
 						<Typography sx={{ color: "#D72E30" }}>
