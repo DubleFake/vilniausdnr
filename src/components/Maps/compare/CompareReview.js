@@ -19,6 +19,7 @@ import Backdrop from "@mui/material/Backdrop"
 import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
 import * as reactiveUtils from "@arcgis/core/core/reactiveUtils"
+import Point from "@arcgis/core/geometry/Point"
 
 const viewHandles = []
 
@@ -28,22 +29,22 @@ const CompareReview = (props) => {
 	const { t, i18n } = useTranslation()
 	const location = useLocation()
 
-	const searchParams = new URLSearchParams(location.search)
-	const x = searchParams.get("x")
-	const y = searchParams.get("y")
-	const zoom = searchParams.get("zoom")
+	// const searchParams = new URLSearchParams(location.search)
+	// const x = searchParams.get("x")
+	// const y = searchParams.get("y")
+	// const zoom = searchParams.get("zoom")
 
-	if (x && y && zoom) {
-		view.center = {
-			x: x,
-			y: y,
-			spatialReference: {
-				wkid: 2600,
-			},
-		}
-		view.zoom = zoom
-	} else {
-	}
+	// if (x && y && zoom) {
+	// 	view.center = {
+	// 		x: x,
+	// 		y: y,
+	// 		spatialReference: {
+	// 			wkid: 2600,
+	// 		},
+	// 	}
+	// 	view.zoom = zoom
+	// } else {
+	// }
 
 	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
@@ -68,55 +69,33 @@ const CompareReview = (props) => {
 	const handleMapChange = (event) => {
 		handleClose()
 		const mapByIndex = mapList[event.target.value]
-
-		viewHandles.forEach((handle) => {
-			handle.remove()
-		})
-		viewHandles.length = 0
-
-		navigate(
-			`/vilniausdnr/${i18n.language}/maps/compare/review/${
-				mapByIndex.globalid_map
-			}?${searchParams.toString()}`
-		)
-		viewHandles.push(
-			reactiveUtils.when(
-				() => !view.interacting,
-				() => {
-					const searchParams = new URLSearchParams()
-					searchParams.set("x", view.center.x)
-					searchParams.set("y", view.center.y)
-					searchParams.set("zoom", view.zoom)
-
-					// navigate(`${location.pathname}?${searchParams.toString()}`)
-					navigate(
-						`/vilniausdnr/${i18n.language}/maps/compare/review/${
-							mapByIndex.globalid_map
-						}?${searchParams.toString()}`
-					)
-				}
-			)
-		)
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
 	}
 
 	useEffect(() => {
-		viewHandles.push(
-			reactiveUtils.when(
-				() => !view.interacting,
-				() => {
-					const searchParams = new URLSearchParams()
-					searchParams.set("x", view.center.x)
-					searchParams.set("y", view.center.y)
-					searchParams.set("zoom", view.zoom)
-
-					navigate(`${location.pathname}?${searchParams.toString()}`)
-				}
-			)
-		)
-	}, [])
-
-	useEffect(() => {
 		setViewUpdating(true)
+
+		view.when(() => {
+			viewHandles.forEach((handle) => {
+				handle.remove()
+			})
+			viewHandles.length = 0
+
+			viewHandles.push(
+				reactiveUtils.when(
+					() => !view.interacting,
+					() => {
+						console.log("first")
+						const searchParams = new URLSearchParams()
+						searchParams.set("x", view.center.x)
+						searchParams.set("y", view.center.y)
+						searchParams.set("zoom", view.zoom)
+
+						navigate(`${location.pathname}?${searchParams.toString()}`)
+					}
+				)
+			)
+		})
 
 		maps
 			.queryFeatures({
@@ -127,43 +106,35 @@ const CompareReview = (props) => {
 				const tempMapList = []
 				const mapGroupSet = new Set()
 
-				if (globalID) {
-					for (let feature in response.features) {
-						mapGroupSet.add(response.features[feature].attributes.Grupe)
-						if (response.features[feature].attributes.Tipas === "Tile Layer") {
-							const mapLayer = new TileLayer({
-								url: response.features[feature].attributes.Nuoroda,
-								title: response.features[feature].attributes.Pavadinimas,
-								group: response.features[feature].attributes.Grupe,
-								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-							})
-							tempMapList.push(mapLayer)
-						} else if (response.features[feature].attributes.Tipas === "Map Layer") {
-							let subLayer
-							let urlNew
+				for (let feature in response.features) {
+					mapGroupSet.add(response.features[feature].attributes.Grupe)
+					if (response.features[feature].attributes.Tipas === "Tile Layer") {
+						const mapLayer = new TileLayer({
+							url: response.features[feature].attributes.Nuoroda,
+							title: response.features[feature].attributes.Pavadinimas,
+							group: response.features[feature].attributes.Grupe,
+							globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
+						})
+						tempMapList.push(mapLayer)
+					} else if (response.features[feature].attributes.Tipas === "Map Layer") {
+						let subLayer
+						let urlNew
 
-							if (response.features[feature].attributes.Nuoroda) {
-								const urlSplit = response.features[feature].attributes.Nuoroda.split("/")
-								subLayer = parseInt(urlSplit.slice(-1))
-								urlNew = urlSplit.slice(0, -1).join("/")
-							}
-
-							const mapLayer = new MapImageLayer({
-								url: isNaN(subLayer) ? response.features[feature].attributes.Nuoroda : urlNew,
-								sublayers: isNaN(subLayer) ? [{}] : [{ id: subLayer }],
-								title: response.features[feature].attributes.Pavadinimas,
-								group: response.features[feature].attributes.Grupe,
-								globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
-							})
-							tempMapList.push(mapLayer)
+						if (response.features[feature].attributes.Nuoroda) {
+							const urlSplit = response.features[feature].attributes.Nuoroda.split("/")
+							subLayer = parseInt(urlSplit.slice(-1))
+							urlNew = urlSplit.slice(0, -1).join("/")
 						}
-					}
-				} else {
-					const defaultMap = response.features.find(
-						(map) => map.attributes.GlobalID_zemelapio === "42e1492a-d5ac-4d09-ac03-90a6efb54d6e"
-					)
 
-					navigate(`${defaultMap.attributes.GlobalID_zemelapio}?x=${view.center.x}&y=${view.center.y}&zoom=3`)
+						const mapLayer = new MapImageLayer({
+							url: isNaN(subLayer) ? response.features[feature].attributes.Nuoroda : urlNew,
+							sublayers: isNaN(subLayer) ? [{}] : [{ id: subLayer }],
+							title: response.features[feature].attributes.Pavadinimas,
+							group: response.features[feature].attributes.Grupe,
+							globalid_map: response.features[feature].attributes.GlobalID_zemelapio,
+						})
+						tempMapList.push(mapLayer)
+					}
 				}
 
 				tempMapList.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }))
@@ -186,6 +157,32 @@ const CompareReview = (props) => {
 						reactiveUtils
 							.whenOnce(() => view.updating === false)
 							.then(() => {
+								if (window.location.search) {
+									const search = window.location.search.substring(1)
+									const x = search.split("&")[0].split("=")[1]
+									const y = search.split("&")[1].split("=")[1]
+									const zoom = search.split("&")[2].split("=")[1]
+
+									const pt = new Point({
+										x: x,
+										y: y,
+										spatialReference: {
+											wkid: 2600,
+										},
+									})
+
+									view.goTo({
+										target: pt,
+										zoom: zoom,
+									})
+								} else {
+									const searchParams = new URLSearchParams()
+									searchParams.set("x", view.center.x)
+									searchParams.set("y", view.center.y)
+									searchParams.set("zoom", view.zoom)
+
+									navigate(`?${searchParams.toString()}`)
+								}
 								setViewUpdating(false)
 							})
 					}

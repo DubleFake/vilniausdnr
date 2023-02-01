@@ -240,7 +240,7 @@ const Home = (props) => {
 							setMenuOpen={props.setMenuOpen}
 							propHeight={isDownSm ? 370 : isDownLg ? 302 : 480}
 							propBackgroundColor={bgGray}
-							propTo={"maps"}
+							propTo={"maps/compare/review/42e1492a-d5ac-4d09-ac03-90a6efb54d6e"}
 							propIcon={mapsIcon}
 							propIconColor={"white"}
 							propTextColor={"white"}
@@ -329,7 +329,7 @@ const Home = (props) => {
 							setMenuOpen={props.setMenuOpen}
 							propHeight={isDownSm ? 370 : isDownLg ? 302 : 302}
 							propBackgroundColor={bgGray}
-							propTo={"periods"}
+							propTo={"periods/compare/timeline/1808"}
 							propIcon={periodsIcon}
 							propIconColor={"white"}
 							propTextColor={"white"}

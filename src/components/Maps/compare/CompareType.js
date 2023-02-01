@@ -22,15 +22,25 @@ const CompareType = () => {
 		setSelectedCompare(event.target.value)
 		switch (event.target.value) {
 			case 0:
-				navigate(`/vilniausdnr/${i18n.language}/maps/compare/review`)
+				navigate(
+					`/vilniausdnr/${i18n.language}/maps/compare/review/${"42e1492a-d5ac-4d09-ac03-90a6efb54d6e"}`
+				)
 				break
 
 			case 1:
-				navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe`)
+				navigate(
+					`/vilniausdnr/${
+						i18n.language
+					}/maps/compare/swipe/${"42e1492a-d5ac-4d09-ac03-90a6efb54d6e"}/${"c0b7610e-3e12-4e03-a915-9673d1906502"}`
+				)
 				break
 
 			case 2:
-				navigate(`/vilniausdnr/${i18n.language}/maps/compare/window`)
+				navigate(
+					`/vilniausdnr/${
+						i18n.language
+					}/maps/compare/window/${"42e1492a-d5ac-4d09-ac03-90a6efb54d6e"}/${"c0b7610e-3e12-4e03-a915-9673d1906502"}`
+				)
 				break
 		}
 	}

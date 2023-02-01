@@ -15,14 +15,16 @@ const ObjectMap = (props) => {
 		view.container = mapDiv.current
 
 		let pt = new Point({
-			x: 582527.5805600522,
-			y: 6061855.557955307,
+			x: 583417.5449750205,
+			y: 6061705.226068436,
 			spatialReference: {
 				wkid: 2600,
 			},
 		})
 		view.center = pt
+		view.zoom = 3
 		view2.center = pt
+		view2.zoom = 3
 
 		viewHandles.forEach((handle) => {
 			handle.remove()

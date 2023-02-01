@@ -69,15 +69,6 @@ const CompareLayers = (props) => {
 
 			<Routes>
 				<Route
-					path="compare/review"
-					element={
-						<>
-							<CompareReview />
-							<CompareType />
-						</>
-					}
-				/>
-				<Route
 					path="compare/review/:globalID"
 					element={
 						<>
@@ -92,28 +83,10 @@ const CompareLayers = (props) => {
 					}
 				/>
 				<Route
-					path="compare/swipe"
-					element={
-						<>
-							<CompareSwipe once={props.once} setOnce={props.setOnce} />
-							<CompareType />
-						</>
-					}
-				/>
-				<Route
 					path="compare/swipe/:globalIDLeft/:globalIDRight"
 					element={
 						<>
 							<CompareSwipe once={props.once} setOnce={props.setOnce} />
-							<CompareType />
-						</>
-					}
-				/>
-				<Route
-					path="compare/window"
-					element={
-						<>
-							<CompareWindow setToggleCompareWindow={props.setToggleCompareWindow} />
 							<CompareType />
 						</>
 					}
