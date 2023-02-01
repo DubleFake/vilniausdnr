@@ -85,7 +85,6 @@ const CompareReview = (props) => {
 				reactiveUtils.when(
 					() => !view.interacting,
 					() => {
-						console.log("first")
 						const searchParams = new URLSearchParams()
 						searchParams.set("x", view.center.x)
 						searchParams.set("y", view.center.y)
@@ -181,7 +180,7 @@ const CompareReview = (props) => {
 									searchParams.set("y", view.center.y)
 									searchParams.set("zoom", view.zoom)
 
-									navigate(`?${searchParams.toString()}`)
+									navigate(`${location.pathname}?${searchParams.toString()}`)
 								}
 								setViewUpdating(false)
 							})
