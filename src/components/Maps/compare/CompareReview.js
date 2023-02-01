@@ -171,17 +171,18 @@ const CompareReview = (props) => {
 				setGroupList([...mapGroupSet])
 				setMapList(tempMapList)
 
+				map.removeAll()
+				const tempGroupList = [...mapGroupSet]
 				tempMapList.find((mapByIndex, index) => {
 					if (mapByIndex.globalid_map === globalID) {
 						setSelectedMapValue(index)
-						groupList.find((groupByName, groupIndex) => {
+						tempGroupList.find((groupByName, groupIndex) => {
 							if (groupByName === mapByIndex.group) {
 								setSelectedGroupValue(groupIndex)
 							}
 						})
-						map.removeAll()
-						map.add(tempMapList[index])
 
+						map.add(tempMapList[index])
 						reactiveUtils
 							.whenOnce(() => view.updating === false)
 							.then(() => {
