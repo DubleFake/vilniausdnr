@@ -35,6 +35,7 @@ const Table = (props) => {
 	}, [props.initialObjectsList])
 
 	useEffect(() => {
+    console.log("first")
 		const match = matchSorter(searchObjectsList, "", {
 			keys: [
 				(item) => item.attributes.Vardas_lietuviskai,

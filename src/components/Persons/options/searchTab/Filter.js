@@ -121,13 +121,27 @@ const Filter = (props) => {
 		setSelectedProfession("")
 		setSelectedProfessionDetail("")
 
-		// console.log()
-		// props.setTableObjectsList(
-		// 	matchSorter(props.objectsList, "", {
-		// 		keys: [(item) => item.attributes.Vardas_lietuviskai, (item) => item.attributes.Pavarde_lietuviskai],
-		// 		threshold: matchSorter.rankings.MATCHES,
-		// 	})
-		// )
+		props.setTableObjectsList(
+			matchSorter(props.objectsList, "", {
+				keys: [
+					(item) => item.attributes.Vardas_lietuviskai,
+					(item) => item.attributes.Pavarde_lietuviskai,
+					{ maxRanking: matchSorter.rankings.MATCHES, key: (item) => item.attributes.Vardas_lietuviskai },
+				],
+				threshold: matchSorter.rankings.MATCHES,
+				sorter: (rankedItems) =>
+					rankedItems.sort((a, b) => {
+						const nameA = a.item.attributes.Vardas_lietuviskai || a.item.attributes.Pavarde_lietuviskai || ""
+						const nameB = b.item.attributes.Vardas_lietuviskai || b.item.attributes.Pavarde_lietuviskai || ""
+						const surnameA = a.item.attributes.Pavarde_lietuviskai || ""
+						const surnameB = b.item.attributes.Pavarde_lietuviskai || ""
+						if (nameA.localeCompare(nameB) === 0) {
+							return surnameA.localeCompare(surnameB)
+						}
+						return nameA.localeCompare(nameB)
+					}),
+			})
+		)
 
 		props.setSearchObjectsList(props.objectsList)
 	}
@@ -228,7 +242,7 @@ const Filter = (props) => {
 					{t("plaques.options.notFound")}
 				</Alert>
 			</Snackbar>
-			<Container  variant="filter">
+			<Container variant="filter">
 				<FormControl size="small" variant="outlined">
 					<InputLabel id="object-select-label">{t("persons.options.profession")}</InputLabel>
 					<Select

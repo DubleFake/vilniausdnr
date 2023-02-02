@@ -35,7 +35,10 @@ export const textDict = {
 					justifyContent="space-between"
 					alignItems="flex-start"
 				>
-					<Box sx={{ backgroundColor: "#D72E31", width: "40%", minHeight: "60vh", mt: "6%", p: 4 }}>
+					<Box
+						sx={{ backgroundColor: "#D72E31", width: "40%", minHeight: "60vh", mt: "6%", p: 4 }}
+						className="aboutBox"
+					>
 						<Typography
 							sx={{ color: "white", fontSize: "24px", fontWeight: 600, mt: 2, textAlign: "center" }}
 						>
@@ -72,7 +75,10 @@ export const textDict = {
 						</Grid>
 					</Box>
 
-					<Box sx={{ backgroundColor: "#EBEBEB", width: "40%", minHeight: "60vh", mt: "6%", p: 4 }}>
+					<Box
+						sx={{ backgroundColor: "#EBEBEB", width: "40%", minHeight: "60vh", mt: "6%", p: 4 }}
+						className="aboutBox"
+					>
 						<Typography
 							sx={{ color: "black", fontSize: "24px", fontWeight: 600, mt: 2, textAlign: "center" }}
 						>
@@ -188,6 +194,7 @@ export const textDict = {
 							sx={{ my: 2, mr: 2, width: "60%", height: "100%", resizeMode: "contain" }}
 							component="img"
 							src="https://i.ibb.co/hFtkgz3/25-01-2023-19-43-51-REC-Adobe-Express.gif"
+              className="helpGif"
 						/>
 					</Grid>
 					<li style={{ paddingLeft: 4 }}>
@@ -284,6 +291,7 @@ export const textDict = {
 							sx={{ my: 2, mr: 2, width: "60%", height: "100%", resizeMode: "contain" }}
 							component="img"
 							src="https://i.ibb.co/tYYZQ1X/25-01-2023-21-06-44-REC-Adobe-Express.gif"
+              className="helpGif"
 						/>
 					</Grid>
 					<li style={{ paddingLeft: 4 }}>
@@ -539,6 +547,7 @@ export const textDict = {
 							sx={{ my: 2, mr: 2, width: "60%", height: "100%", resizeMode: "contain" }}
 							component="img"
 							src="https://i.ibb.co/pWh75Hk/25-01-2023-20-41-12-REC-Adobe-Express.gif"
+              className="helpGif"
 						/>
 					</Grid>
 					<li style={{ paddingLeft: 4 }}>
@@ -598,6 +607,7 @@ export const textDict = {
 							sx={{ my: 2, mr: 2, width: "30%", height: "100%", resizeMode: "contain" }}
 							component="img"
 							src="https://i.ibb.co/jZfR5Kv/25-01-2023-20-59-25-REC-Adobe-Express.gif"
+              className="helpGifTall"
 						/>
 					</Grid>
 					<li style={{ paddingLeft: 4 }}>
@@ -609,6 +619,7 @@ export const textDict = {
 							sx={{ my: 2, mr: 2, width: "30%", height: "100%", resizeMode: "contain" }}
 							component="img"
 							src="https://i.ibb.co/zH7nTpc/25-01-2023-20-54-44-REC-Adobe-Express.gif"
+              className="helpGifTall"
 						/>
 					</Grid>
 				</ol>
@@ -617,7 +628,7 @@ export const textDict = {
 	),
 
 	contacts: (
-		<Box sx={{ mt: "7%" }}>
+		<Box sx={{ mt: 8, position: "relative" }}>
 			<Grid container direction="column" justifyContent="center" alignItems="center">
 				<Box
 					sx={{
@@ -626,13 +637,13 @@ export const textDict = {
 					component="img"
 					src={box}
 				/>
-				<Typography sx={{ width: 280, px: 2, position: "absolute", mt: -33, textAlign: "center" }}>
+				<Typography sx={{ maxWidth: 280, px: 2, position: "relative", mt: -13, textAlign: "center" }}>
 					Turite klausimų ar pasiūlymų? Susisiekime!
 				</Typography>
 				<Box
 					sx={{
 						width: 300,
-						mt: -10,
+						mt: -2,
 					}}
 					component="img"
 					src={map}

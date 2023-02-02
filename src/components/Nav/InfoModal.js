@@ -10,6 +10,9 @@ import useMediaQuery from "@mui/material/useMediaQuery"
 import Collapse from "@mui/material/Collapse"
 import CloseIcon from "@mui/icons-material/Close"
 import IconButton from "@mui/material/IconButton"
+import ToggleButton from "@mui/material/ToggleButton"
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
 
 import { ReactComponent as infoIcon } from "../../utils/icons/homeIcons/info.svg"
 import { textDict, secondLevelTitles } from "./InfoModalText"
@@ -52,8 +55,7 @@ CustomAccordion.propTypes = {
 
 const InfoModal = () => {
 	const theme = useTheme()
-	const matchesMD = useMediaQuery(theme.breakpoints.down("md"))
-	const matchesLG = useMediaQuery(theme.breakpoints.down("lg"))
+	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
 
 	const [open, setOpen] = useState(false)
 	const [firstLevel, setFirstLevel] = useState([true, false, false])
@@ -69,6 +71,7 @@ const InfoModal = () => {
 	const [secondLevelThird, setSecondLevelThird] = useState([false, false])
 	const [selectedText, setSelectedText] = useState("about")
 	const [renderBlock, setRenderBlock] = useState()
+	const [toggleSidebar, setToggleSidebar] = useState(false)
 
 	const handleOpen = () => {
 		switch (window.location.pathname.split("/")[3]) {
@@ -274,6 +277,10 @@ const InfoModal = () => {
 		const tempSecondLevelThird = [...secondLevelThird]
 		tempSecondLevelThird.fill(false)
 		setSecondLevelThird(tempSecondLevelThird)
+
+		if (text === "about" || text === "contacts") {
+			setToggleSidebar(false)
+		}
 	}
 
 	const handleSecondLevelSecond = (index, text) => {
@@ -369,6 +376,8 @@ const InfoModal = () => {
 		const tempSecondLevelThird = [...secondLevelThird]
 		tempSecondLevelThird.fill(false)
 		setSecondLevelThird(tempSecondLevelThird)
+
+		setToggleSidebar(false)
 	}
 
 	const handleSecondLevelThird = (index, text) => {
@@ -454,6 +463,8 @@ const InfoModal = () => {
 
 		tempSecondLevelThird[index] = !tempSecondLevelThird[index]
 		setSecondLevelThird(tempSecondLevelThird)
+
+		setToggleSidebar(false)
 	}
 
 	// useEffect(() => {
@@ -504,7 +515,7 @@ const InfoModal = () => {
 						top: "50%",
 						left: "50%",
 						transform: "translate(-50%, -50%)",
-						width: "85%",
+						width: isDownSm ? "99%" : "85%",
 						height: "80%",
 						bgcolor: "rgb(18, 18, 18)",
 						border: "2px solid #000",
@@ -531,72 +542,185 @@ const InfoModal = () => {
 						<CloseIcon sx={{ color: "white" }} />
 					</IconButton>
 
-					<Box sx={{ minWidth: "17%", maxWidth: "17%", ml: 1, overflowY: "auto" }}>
-						<CustomAccordion
-							handleLevel={handleFirstLevel}
-							index={0}
-							text={"about"}
-							level={firstLevel}
-							elText={"Apie projektą"}
-							fontSize={"18px"}
-						/>
-
-						<CustomAccordion
-							handleLevel={handleFirstLevel}
-							index={1}
-							text={"first"}
-							level={firstLevel}
-							elText={"Pagalba"}
-							fontSize={"18px"}
-						/>
-						<Collapse sx={{ ml: 1 }} in={firstLevel[1] === true}>
-							{secondLevelTitles.map((title, index) => (
-								<div key={index}>
+					{isDownSm ? (
+						<>
+							<Collapse in={toggleSidebar} orientation="horizontal">
+								<Box
+									sx={{
+										maxWidth: "90%",
+										ml: 1,
+										overflowY: "auto",
+									}}
+								>
 									<CustomAccordion
-										handleLevel={handleSecondLevelSecond}
-										index={index}
-										text={"second"}
-										level={secondLevelSecond}
-										elText={title[0]}
-										fontSize={"16px"}
+										handleLevel={handleFirstLevel}
+										index={0}
+										text={"about"}
+										level={firstLevel}
+										elText={"Apie projektą"}
+										fontSize={"18px"}
 									/>
-									<Collapse sx={{ ml: 1 }} in={secondLevelSecond[index] === true}>
-										<CustomAccordion
-											handleLevel={handleSecondLevelThird}
-											index={0}
-											text={title[1]}
-											level={secondLevelThird}
-											elText={"Pateikiama informacija"}
-											fontSize={"14px"}
-										/>
-										<CustomAccordion
-											handleLevel={handleSecondLevelThird}
-											index={1}
-											text={title[2]}
-											level={secondLevelThird}
-											elText={"Kaip naudotis?"}
-											fontSize={"14px"}
-										/>
+
+									<CustomAccordion
+										handleLevel={handleFirstLevel}
+										index={1}
+										text={"first"}
+										level={firstLevel}
+										elText={"Pagalba"}
+										fontSize={"18px"}
+									/>
+									<Collapse sx={{ ml: 1 }} in={firstLevel[1] === true}>
+										{secondLevelTitles.map((title, index) => (
+											<div key={index}>
+												<CustomAccordion
+													handleLevel={handleSecondLevelSecond}
+													index={index}
+													text={"second"}
+													level={secondLevelSecond}
+													elText={title[0]}
+													fontSize={"16px"}
+												/>
+												<Collapse sx={{ ml: 1 }} in={secondLevelSecond[index] === true}>
+													<CustomAccordion
+														handleLevel={handleSecondLevelThird}
+														index={0}
+														text={title[1]}
+														level={secondLevelThird}
+														elText={"Pateikiama informacija"}
+														fontSize={"14px"}
+													/>
+													<CustomAccordion
+														handleLevel={handleSecondLevelThird}
+														index={1}
+														text={title[2]}
+														level={secondLevelThird}
+														elText={"Kaip naudotis?"}
+														fontSize={"14px"}
+													/>
+												</Collapse>
+											</div>
+										))}
 									</Collapse>
-								</div>
-							))}
-						</Collapse>
 
-						<CustomAccordion
-							handleLevel={handleFirstLevel}
-							index={2}
-							text={"contacts"}
-							level={firstLevel}
-							elText={"Kontaktai"}
-							fontSize={"18px"}
-						/>
-					</Box>
+									<CustomAccordion
+										handleLevel={handleFirstLevel}
+										index={2}
+										text={"contacts"}
+										level={firstLevel}
+										elText={"Kontaktai"}
+										fontSize={"18px"}
+									/>
+								</Box>
+							</Collapse>
 
-					<Box sx={{ borderRight: "1px solid #D72E30", height: "100%", mr: 1 }} component="div" />
+							<Box
+								sx={{ borderRight: "1px solid #D72E30", height: "100%", mr: toggleSidebar ? -3 : 0 }}
+								component="div"
+							/>
+							<ToggleButton
+								sx={{}}
+								variant="sidebarToggle"
+								value="check"
+								selected={false}
+								onChange={() => {
+									setToggleSidebar(!toggleSidebar)
+								}}
+							>
+								{toggleSidebar ? (
+									<ArrowBackIosNewIcon sx={{ color: "#FFFFFF" }} />
+								) : (
+									<ArrowForwardIosIcon sx={{ color: "#FFFFFF" }} />
+								)}
+							</ToggleButton>
 
-					<Box sx={{ height: "100%", overflowY: "auto", overflowX: "hidden", ml: 1, width: "100%" }}>
-						<Box sx={{ mr: 1 }}>{renderBlock}</Box>
-					</Box>
+							<Box
+								sx={{
+									height: "100%",
+									overflowY: "auto",
+									overflowX: "hidden",
+									width: toggleSidebar ? "30%" : "100%",
+									"& .aboutBox": {
+										width: "100%",
+									},
+									"& .helpGif": {
+										width: "100%",
+									},
+									"& .helpGifTall": {
+										width: "70%",
+									},
+								}}
+							>
+								<Box sx={{ mr: 1 }}>{renderBlock}</Box>
+							</Box>
+						</>
+					) : (
+						<>
+							<Box sx={{ minWidth: "17%", maxWidth: "17%", ml: 1, overflowY: "auto" }}>
+								<CustomAccordion
+									handleLevel={handleFirstLevel}
+									index={0}
+									text={"about"}
+									level={firstLevel}
+									elText={"Apie projektą"}
+									fontSize={"18px"}
+								/>
+
+								<CustomAccordion
+									handleLevel={handleFirstLevel}
+									index={1}
+									text={"first"}
+									level={firstLevel}
+									elText={"Pagalba"}
+									fontSize={"18px"}
+								/>
+								<Collapse sx={{ ml: 1 }} in={firstLevel[1] === true}>
+									{secondLevelTitles.map((title, index) => (
+										<div key={index}>
+											<CustomAccordion
+												handleLevel={handleSecondLevelSecond}
+												index={index}
+												text={"second"}
+												level={secondLevelSecond}
+												elText={title[0]}
+												fontSize={"16px"}
+											/>
+											<Collapse sx={{ ml: 1 }} in={secondLevelSecond[index] === true}>
+												<CustomAccordion
+													handleLevel={handleSecondLevelThird}
+													index={0}
+													text={title[1]}
+													level={secondLevelThird}
+													elText={"Pateikiama informacija"}
+													fontSize={"14px"}
+												/>
+												<CustomAccordion
+													handleLevel={handleSecondLevelThird}
+													index={1}
+													text={title[2]}
+													level={secondLevelThird}
+													elText={"Kaip naudotis?"}
+													fontSize={"14px"}
+												/>
+											</Collapse>
+										</div>
+									))}
+								</Collapse>
+
+								<CustomAccordion
+									handleLevel={handleFirstLevel}
+									index={2}
+									text={"contacts"}
+									level={firstLevel}
+									elText={"Kontaktai"}
+									fontSize={"18px"}
+								/>
+							</Box>
+							<Box sx={{ borderRight: "1px solid #D72E30", height: "100%", mr: 1 }} component="div" />
+							<Box sx={{ height: "100%", overflowY: "auto", overflowX: "hidden", ml: 1, width: "100%" }}>
+								<Box sx={{ mr: 1 }}>{renderBlock}</Box>
+							</Box>
+						</>
+					)}
 				</Box>
 			</Modal>
 		</div>

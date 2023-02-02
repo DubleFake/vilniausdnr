@@ -391,6 +391,22 @@ const App = () => {
 								backgroundColor: red,
 							},
 						},
+						props: {
+							variant: "sidebarToggle",
+						},
+						style: {
+							position: "relative",
+							zIndex: 2,
+							height: "20vh",
+							top: "30vh",
+							width: "25px",
+							backgroundColor: red,
+							borderRadius: 0,
+							transition: "0.3s",
+							"&:hover": {
+								backgroundColor: red,
+							},
+						},
 					},
 				],
 			},
