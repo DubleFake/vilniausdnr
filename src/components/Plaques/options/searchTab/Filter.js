@@ -153,11 +153,12 @@ const Filter = (props) => {
 			}
 		})
 
-		console.log(combinedObject, combinedMemory, combinedPeriod)
-
 		setInitialObjectDomain(combinedObject)
 		setInitialMemoryDomain(combinedMemory)
 		setInitialPeriodDomain(combinedPeriod)
+
+		props.setVisibleObjectIcons(combinedObject)
+		props.setVisibleMemoryIcons(combinedMemory)
 	}, [props.tableObjectsList])
 
 	useEffect(() => {
@@ -213,26 +214,27 @@ const Filter = (props) => {
 
 							if (response.features.length) {
 								props.setSearchObjectsList(response.features)
-								if (query !== "") {
-									for (let feature in response.features) {
-										for (let attribute in response.features[feature].attributes) {
-											if (attribute === "TIPAS") {
-												if (response.features[feature].attributes[attribute] !== null) {
-													objectTypes.add(response.features[feature].attributes[attribute])
-												}
-											} else if (attribute === "ATMINT_TIP") {
-												if (response.features[feature].attributes[attribute] !== null) {
-													memoryTypes.add(response.features[feature].attributes[attribute])
-												}
-											}
-										}
-									}
-									props.setVisibleObjectIcons([...objectTypes])
-									props.setVisibleMemoryIcons([...memoryTypes])
-								} else {
-									props.setVisibleObjectIcons([])
-									props.setVisibleMemoryIcons([])
-								}
+								// if (query !== "") {
+								// 	for (let feature in response.features) {
+								// 		for (let attribute in response.features[feature].attributes) {
+								// 			if (attribute === "TIPAS") {
+								// 				if (response.features[feature].attributes[attribute] !== null) {
+								// 					objectTypes.add(response.features[feature].attributes[attribute])
+								// 				}
+								// 			} else if (attribute === "ATMINT_TIP") {
+								// 				if (response.features[feature].attributes[attribute] !== null) {
+								// 					memoryTypes.add(response.features[feature].attributes[attribute])
+								// 				}
+								// 			}
+								// 		}
+								// 	}
+								//   console.log([...objectTypes])
+								// 	props.setVisibleObjectIcons([...objectTypes])
+								// 	props.setVisibleMemoryIcons([...memoryTypes])
+								// } else {
+								// 	props.setVisibleObjectIcons([])
+								// 	props.setVisibleMemoryIcons([])
+								// }
 							} else {
 								setShowAlert(true)
 								props.setSelectedObjectFilter("")

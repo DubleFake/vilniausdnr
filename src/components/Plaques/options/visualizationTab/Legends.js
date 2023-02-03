@@ -38,20 +38,22 @@ import SvgIcon from "@mui/material/SvgIcon"
 
 const objectIconList = [
 	Atmint_atminimo_lenta,
-	Atmint_atminimo_lenta_gray,
 	Atmint_skulptura,
-	Atmint_skulptura_gray,
 	Atmint_atminimo_lenta_bareljefas,
-	Atmint_atminimo_lenta_bareljefas_gray,
 	Atmint_freska,
-	Atmint_freska_gray,
 	Atmint_pavadinimo_lentele,
-	Atmint_pavadinimo_lentele_gray,
 	Atmint_uzrasas,
-	Atmint_uzrasas_gray,
 	Atmint_vietos_pazymejimas,
-	Atmint_vietos_pazymejimas_gray,
 	Atmint_paminklas,
+]
+const objectGrayIconList = [
+	Atmint_atminimo_lenta_gray,
+	Atmint_skulptura_gray,
+	Atmint_atminimo_lenta_bareljefas_gray,
+	Atmint_freska_gray,
+	Atmint_pavadinimo_lentele_gray,
+	Atmint_uzrasas_gray,
+	Atmint_vietos_pazymejimas_gray,
 	Atmint_paminklas_gray,
 ]
 const memoryIconList = [
@@ -75,72 +77,40 @@ const Legends = (props) => {
 			</Typography>
 			<List sx={{ mx: 2 }}>
 				{props.visualizationType === "0"
-					? objectRenderer &&
-					  objectRenderer.uniqueValueInfos.map((value, index) =>
-							props.visibleObjectIcons.length ? (
-								props.visibleObjectIcons.includes(parseInt(value.value[0])) && (
-									<>
-										<ListItem sx={{ my: 1 }} disablePadding>
-											<SvgIcon sx={{ fontSize: 35 }} component={objectIconList[index]} inheritViewBox />
-											<Typography sx={{ ml: 1 }} variant="body2">
-												{value.label}
-											</Typography>
-										</ListItem>
-										{index + 1 !== objectRenderer.uniqueValueInfos.length && (
-											<Divider light variant="middle" />
-										)}
-									</>
-								)
-							) : (
-								<>
-									<ListItem sx={{ my: 1 }} disablePadding>
-										<SvgIcon sx={{ fontSize: 35 }} component={objectIconList[index]} inheritViewBox />
-										<Typography sx={{ ml: 1 }} variant="body2">
-											{value.label}
-										</Typography>
-									</ListItem>
-									{index + 1 !== objectRenderer.uniqueValueInfos.length && <Divider light variant="middle" />}
-								</>
-							)
-					  )
-					: memoryRenderer.uniqueValueInfos.map((value) => (
-							<div key={value.value}>
-								{props.visibleMemoryIcons.length ? (
-									props.visibleMemoryIcons.includes(+value.value) && (
-										<>
-											<ListItem sx={{ my: 1 }} disablePadding>
-												<SvgIcon
-													sx={{ fontSize: 35 }}
-													component={memoryIconList[+value.value - 1]}
-													inheritViewBox
-												/>
-												<Typography sx={{ ml: 1 }} variant="body2">
-													{t(`plaques.options.memories.${value.value}`)}
-												</Typography>
-											</ListItem>
-											{+value.value !== props.visibleMemoryIcons[props.visibleMemoryIcons.length - 1] && (
-												<Divider light variant="middle" />
-											)}
-										</>
-									)
-								) : (
-									<>
-										<ListItem sx={{ my: 1 }} disablePadding>
-											<SvgIcon
-												sx={{ fontSize: 35 }}
-												component={memoryIconList[+value.value - 1]}
-												inheritViewBox
-											/>
-											<Typography sx={{ ml: 1 }} variant="body2">
-												{t(`plaques.options.memories.${value.value}`)}
-											</Typography>
-										</ListItem>
-										{+value.value !== memoryRenderer.uniqueValueInfos.length && (
-											<Divider light variant="middle" />
-										)}
-									</>
-								)}
-							</div>
+					? props.visibleObjectIcons.length > 0 &&
+					  props.visibleObjectIcons.map((obj, index) => (
+							<Box key={index}>
+								<ListItem sx={{ my: 1 }} disablePadding>
+									<SvgIcon sx={{ fontSize: 35 }} component={objectIconList[obj.code - 1]} inheritViewBox />
+									<Typography sx={{ ml: 1 }} variant="body2">
+										{obj.name}
+									</Typography>
+								</ListItem>
+								{index + 1 !== props.visibleObjectIcons.length && <Divider light variant="middle" />}
+								<ListItem sx={{ my: 1 }} disablePadding>
+									<SvgIcon
+										sx={{ fontSize: 35 }}
+										component={objectGrayIconList[obj.code - 1]}
+										inheritViewBox
+									/>
+									<Typography sx={{ ml: 1 }} variant="body2">
+										{obj.name} (pašalintas objektas)
+									</Typography>
+								</ListItem>
+								{index + 1 !== props.visibleObjectIcons.length && <Divider light variant="middle" />}
+							</Box>
+					  ))
+					: props.visibleMemoryIcons.length > 0 &&
+					  props.visibleMemoryIcons.map((obj, index) => (
+							<Box key={index}>
+								<ListItem sx={{ my: 1 }} disablePadding>
+									<SvgIcon sx={{ fontSize: 35 }} component={memoryIconList[obj.code - 1]} inheritViewBox />
+									<Typography sx={{ ml: 1 }} variant="body2">
+										{obj.name}
+									</Typography>
+								</ListItem>
+								{index + 1 !== props.visibleMemoryIcons.length && <Divider light variant="middle" />}
+							</Box>
 					  ))}
 			</List>
 		</Box>
