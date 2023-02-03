@@ -81,6 +81,7 @@ const Table = (props) => {
 						setVisibleMemoryIcons={props.setVisibleMemoryIcons}
 						objectCount={objectCount}
 						searchInputValue={searchInputValue}
+            tableObjectsList={tableObjectsList}
 					/>
 					<TableItems
 						tableObjectsList={tableObjectsList}

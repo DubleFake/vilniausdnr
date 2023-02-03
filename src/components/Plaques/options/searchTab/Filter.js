@@ -109,7 +109,7 @@ const Filter = (props) => {
 		const tempMemorySet = new Set()
 		const tempPeriodSet = new Set()
 
-		for (let obj of props.objectsList) {
+		for (let obj of props.tableObjectsList) {
 			tempObjectSet.add(obj.attributes.TIPAS)
 			tempMemorySet.add(obj.attributes.ATMINT_TIP)
 			tempPeriodSet.add(obj.attributes.OBJ_LAIK_TIP)
@@ -158,7 +158,7 @@ const Filter = (props) => {
 		setInitialObjectDomain(combinedObject)
 		setInitialMemoryDomain(combinedMemory)
 		setInitialPeriodDomain(combinedPeriod)
-	}, [])
+	}, [props.tableObjectsList])
 
 	useEffect(() => {
 		let query = ""
@@ -203,7 +203,7 @@ const Filter = (props) => {
 				if (!extentCheck) {
 					objectsView
 						.queryFeatures({
-							outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
+							outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID", "OBJ_LAIK_TIP"],
 							where: objectsView.filter.where,
 							returnGeometry: false,
 						})
