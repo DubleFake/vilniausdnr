@@ -108,11 +108,16 @@ const Filter = (props) => {
 		const tempObjectSet = new Set()
 		const tempMemorySet = new Set()
 		const tempPeriodSet = new Set()
+		const tempDeleted = new Set()
 
 		for (let obj of props.tableObjectsList) {
 			tempObjectSet.add(obj.attributes.TIPAS)
 			tempMemorySet.add(obj.attributes.ATMINT_TIP)
 			tempPeriodSet.add(obj.attributes.OBJ_LAIK_TIP)
+
+			if (obj.attributes.OBJ_PASAL === "1") {
+				tempDeleted.add(obj.attributes.TIPAS)
+			}
 		}
 
 		const tempObjectArr = [...tempObjectSet].filter((value) => value !== null && value !== undefined).sort()
@@ -159,6 +164,7 @@ const Filter = (props) => {
 
 		props.setVisibleObjectIcons(combinedObject)
 		props.setVisibleMemoryIcons(combinedMemory)
+    props.setVisibleDeletedIcons([...tempDeleted].sort())
 	}, [props.tableObjectsList])
 
 	useEffect(() => {
@@ -204,7 +210,7 @@ const Filter = (props) => {
 				if (!extentCheck) {
 					objectsView
 						.queryFeatures({
-							outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID", "OBJ_LAIK_TIP"],
+							outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID", "OBJ_LAIK_TIP", "OBJ_PASAL"],
 							where: objectsView.filter.where,
 							returnGeometry: false,
 						})

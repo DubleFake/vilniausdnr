@@ -79,6 +79,7 @@ const Table = (props) => {
 						setSelectedPeriodFilter={props.setSelectedPeriodFilter}
 						setVisibleObjectIcons={props.setVisibleObjectIcons}
 						setVisibleMemoryIcons={props.setVisibleMemoryIcons}
+            setVisibleDeletedIcons={props.setVisibleDeletedIcons}
 						objectCount={objectCount}
 						searchInputValue={searchInputValue}
             tableObjectsList={tableObjectsList}

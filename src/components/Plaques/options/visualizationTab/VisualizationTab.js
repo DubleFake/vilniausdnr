@@ -17,6 +17,7 @@ const VisualizationTab = (props) => {
 				selectedMemoryFilter={props.selectedMemoryFilter}
 				visualizationType={props.visualizationType}
 				visibleObjectIcons={props.visibleObjectIcons}
+				visibleDeletedIcons={props.visibleDeletedIcons}
 				visibleMemoryIcons={props.visibleMemoryIcons}
 			/>
 		</Grid>

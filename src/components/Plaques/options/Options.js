@@ -57,6 +57,7 @@ const Options = (props) => {
 	const [visualizationType, setVisualizationType] = useState("0")
 	const [visibleObjectIcons, setVisibleObjectIcons] = useState([])
 	const [visibleMemoryIcons, setVisibleMemoryIcons] = useState([])
+	const [visibleDeletedIcons, setVisibleDeletedIcons] = useState([])
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue)
@@ -98,7 +99,8 @@ const Options = (props) => {
 						setSelectedPeriodFilter={setSelectedPeriodFilter}
 						setVisibleObjectIcons={setVisibleObjectIcons}
 						setVisibleMemoryIcons={setVisibleMemoryIcons}
-            setVisible={props.setVisible}
+						setVisibleDeletedIcons={setVisibleDeletedIcons}
+						setVisible={props.setVisible}
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
@@ -109,6 +111,7 @@ const Options = (props) => {
 							visualizationType={visualizationType}
 							setVisualizationType={setVisualizationType}
 							visibleObjectIcons={visibleObjectIcons}
+							visibleDeletedIcons={visibleDeletedIcons}
 							visibleMemoryIcons={visibleMemoryIcons}
 						/>
 					</Container>

@@ -46,7 +46,7 @@ const objectIconList = [
 	Atmint_vietos_pazymejimas,
 	Atmint_paminklas,
 ]
-const objectGrayIconList = [
+const deletedObjectIconList = [
 	Atmint_atminimo_lenta_gray,
 	Atmint_skulptura_gray,
 	Atmint_atminimo_lenta_bareljefas_gray,
@@ -80,24 +80,29 @@ const Legends = (props) => {
 					? props.visibleObjectIcons.length > 0 &&
 					  props.visibleObjectIcons.map((obj, index) => (
 							<Box key={index}>
+								{index !== 0 && <Divider light variant="middle" />}
 								<ListItem sx={{ my: 1 }} disablePadding>
 									<SvgIcon sx={{ fontSize: 35 }} component={objectIconList[obj.code - 1]} inheritViewBox />
 									<Typography sx={{ ml: 1 }} variant="body2">
 										{obj.name}
 									</Typography>
 								</ListItem>
-								{index + 1 !== props.visibleObjectIcons.length && <Divider light variant="middle" />}
-								<ListItem sx={{ my: 1 }} disablePadding>
-									<SvgIcon
-										sx={{ fontSize: 35 }}
-										component={objectGrayIconList[obj.code - 1]}
-										inheritViewBox
-									/>
-									<Typography sx={{ ml: 1 }} variant="body2">
-										{obj.name} (pašalintas objektas)
-									</Typography>
-								</ListItem>
-								{index + 1 !== props.visibleObjectIcons.length && <Divider light variant="middle" />}
+
+								{props.visibleDeletedIcons.some((icon) => icon === obj.code) && (
+									<>
+										<Divider light variant="middle" />
+										<ListItem sx={{ my: 1 }} disablePadding>
+											<SvgIcon
+												sx={{ fontSize: 35 }}
+												component={deletedObjectIconList[obj.code - 1]}
+												inheritViewBox
+											/>
+											<Typography sx={{ ml: 1 }} variant="body2">
+												{obj.name}
+											</Typography>
+										</ListItem>
+									</>
+								)}
 							</Box>
 					  ))
 					: props.visibleMemoryIcons.length > 0 &&
