@@ -38,7 +38,7 @@ const ObjectMap = (props) => {
 			watchUtils.whenFalseOnce(objectsView, "updating").then(() => {
 				objectsView
 					.queryFeatures({
-						outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID"],
+						outFields: ["OBJ_PAV", "TIPAS", "ATMINT_TIP", "GlobalID", "OBJ_LAIK_TIP"],
 						where: "",
 						returnGeometry: false,
 					})

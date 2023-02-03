@@ -44,6 +44,10 @@ const Filter = (props) => {
 	const [extentCheck, setExtentCheck] = useState(false)
 	const [sliderValue, setSliderValue] = useState([1300, 2020])
 
+	const [initialObjectDomain, setInitialObjectDomain] = useState([])
+	const [initialMemoryDomain, setInitialMemoryDomain] = useState([])
+	const [initialPeriodDomain, setInitialPeriodDomain] = useState([])
+
 	const handleObjectSelect = (event) => {
 		props.setSelectedObject("")
 		props.setSearchInputValue("")
@@ -99,6 +103,62 @@ const Filter = (props) => {
 	const handleSliderChange = (event, newValue) => {
 		setSliderValue(newValue)
 	}
+
+	useEffect(() => {
+		const tempObjectSet = new Set()
+		const tempMemorySet = new Set()
+		const tempPeriodSet = new Set()
+
+		for (let obj of props.objectsList) {
+			tempObjectSet.add(obj.attributes.TIPAS)
+			tempMemorySet.add(obj.attributes.ATMINT_TIP)
+			tempPeriodSet.add(obj.attributes.OBJ_LAIK_TIP)
+		}
+
+		const tempObjectArr = [...tempObjectSet].filter((value) => value !== null && value !== undefined).sort()
+		const tempMemoryArr = [...tempMemorySet].filter((value) => value !== null && value !== undefined).sort()
+		const tempPeriodArr = [...tempPeriodSet].filter((value) => value !== null && value !== undefined).sort()
+
+		const objectCoded = objects.getFieldDomain("TIPAS").codedValues
+		const memoryCoded = objects.getFieldDomain("ATMINT_TIP").codedValues
+		const periodCoded = objects.getFieldDomain("OBJ_LAIK_TIP").codedValues
+
+		const combinedObject = tempObjectArr.map((code) => {
+			const matched = objectCoded.find((obj) => {
+				return obj.code === code
+			})
+			return {
+				code: code,
+				name: matched.name,
+			}
+		})
+
+		const combinedMemory = tempMemoryArr.map((code) => {
+			const matched = memoryCoded.find((obj) => {
+				return obj.code === code
+			})
+			return {
+				code: code,
+				name: matched.name,
+			}
+		})
+
+		const combinedPeriod = tempPeriodArr.map((code) => {
+			const matched = periodCoded.find((obj) => {
+				return obj.code === code
+			})
+			return {
+				code: code,
+				name: matched.name,
+			}
+		})
+
+		console.log(combinedObject, combinedMemory, combinedPeriod)
+
+		setInitialObjectDomain(combinedObject)
+		setInitialMemoryDomain(combinedMemory)
+		setInitialPeriodDomain(combinedPeriod)
+	}, [])
 
 	useEffect(() => {
 		let query = ""
@@ -263,14 +323,12 @@ const Filter = (props) => {
 								<MenuItem value="">
 									<em>{t("plaques.options.all")}</em>
 								</MenuItem>
-								{objectRenderer.uniqueValueInfos.map(
-									(object) =>
-										object.value.length !== 3 && (
-											<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value[0]}>
-												{object.label}
-											</MenuItem>
-										)
-								)}
+								{initialObjectDomain.length > 0 &&
+									initialObjectDomain.map((obj) => (
+										<MenuItem sx={{ whiteSpace: "unset" }} key={obj.code} value={obj.code}>
+											{obj.name}
+										</MenuItem>
+									))}
 							</Select>
 						</FormControl>
 					</Grid>
@@ -290,11 +348,12 @@ const Filter = (props) => {
 								<MenuItem value="">
 									<em>{t("plaques.options.all")}</em>
 								</MenuItem>
-								{memoryRenderer.uniqueValueInfos.map((object) => (
-									<MenuItem sx={{ whiteSpace: "unset" }} key={object.value} value={object.value}>
-										{t(`plaques.options.memories.${object.value}`)}
-									</MenuItem>
-								))}
+								{initialMemoryDomain.length > 0 &&
+									initialMemoryDomain.map((obj) => (
+										<MenuItem sx={{ whiteSpace: "unset" }} key={obj.code} value={obj.code}>
+											{obj.name}
+										</MenuItem>
+									))}
 							</Select>
 						</FormControl>
 					</Grid>
@@ -314,21 +373,12 @@ const Filter = (props) => {
 						<MenuItem value="">
 							<em>{t("plaques.options.all")}</em>
 						</MenuItem>
-						<MenuItem sx={{ whiteSpace: "unset" }} key={1} value={1}>
-							{t(`plaques.options.periods.${1}`)}
-						</MenuItem>
-						<MenuItem sx={{ whiteSpace: "unset" }} key={2} value={2}>
-							{t(`plaques.options.periods.${2}`)}
-						</MenuItem>
-						<MenuItem sx={{ whiteSpace: "unset" }} key={3} value={3}>
-							{t(`plaques.options.periods.${3}`)}
-						</MenuItem>
-						<MenuItem sx={{ whiteSpace: "unset" }} key={4} value={4}>
-							{t(`plaques.options.periods.${4}`)}
-						</MenuItem>
-						<MenuItem sx={{ whiteSpace: "unset" }} key={5} value={5}>
-							{t(`plaques.options.periods.${5}`)}
-						</MenuItem>
+						{initialPeriodDomain.length > 0 &&
+							initialPeriodDomain.map((obj) => (
+								<MenuItem sx={{ whiteSpace: "unset" }} key={obj.code} value={obj.code}>
+									{obj.name}
+								</MenuItem>
+							))}
 					</Select>
 				</FormControl>
 
