@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react"
 import Filter from "./Filter"
 import TableItems from "./SearchItems"
 import Search from "./Search"
-import { matchSorter } from "match-sorter"
 
 import Grid from "@mui/material/Grid"
 import CircularProgress from "@mui/material/CircularProgress"
@@ -21,21 +20,23 @@ const Table = (props) => {
 	}, [props.initialObjectsList])
 
 	useEffect(() => {
-		if (searchInputValue) {
-			setTableObjectsList(
-				matchSorter(searchObjectsList, searchInputValue, {
-					keys: [(item) => item.attributes.Pavad],
-					threshold: matchSorter.rankings.MATCHES,
-				})
-			)
-		} else {
-			setTableObjectsList(
-				matchSorter(searchObjectsList, "", {
-					keys: [(item) => item.attributes.Pavad],
-					threshold: matchSorter.rankings.MATCHES,
-				})
-			)
-		}
+    setTableObjectsList(searchObjectsList)
+
+		// if (searchInputValue) {
+		// 	setTableObjectsList(
+		// 		matchSorter(searchObjectsList, searchInputValue, {
+		// 			keys: [(item) => item.attributes.Pavad],
+		// 			threshold: matchSorter.rankings.MATCHES,
+		// 		})
+		// 	)
+		// } else {
+		// 	setTableObjectsList(
+		// 		matchSorter(searchObjectsList, "", {
+		// 			keys: [(item) => item.attributes.Pavad],
+		// 			threshold: matchSorter.rankings.MATCHES,
+		// 		})
+		// 	)
+		// }
 	}, [searchObjectsList])
 
 	useEffect(() => {

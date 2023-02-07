@@ -1,5 +1,4 @@
 import React, { useEffect } from "react"
-import { matchSorter } from "match-sorter"
 import { useTranslation } from "react-i18next"
 
 import TextField from "@mui/material/TextField"
@@ -10,12 +9,12 @@ const Search = (props) => {
 
 	const handleSearch = (event) => {
 		props.setSearchInputValue(event.target.value)
-		props.setTableObjectsList(
-			matchSorter(props.searchObjectsList, event.target.value, {
-				keys: [(item) => item.attributes.PAV],
-				threshold: matchSorter.rankings.MATCHES,
-			})
-		)
+		// props.setTableObjectsList(
+		// 	matchSorter(props.searchObjectsList, event.target.value, {
+		// 		keys: [(item) => item.attributes.PAV],
+		// 		threshold: matchSorter.rankings.MATCHES,
+		// 	})
+		// )
 	}
 
 	return (

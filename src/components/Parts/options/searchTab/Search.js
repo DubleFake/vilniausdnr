@@ -1,5 +1,4 @@
 import React, { useEffect } from "react"
-import { matchSorter } from "match-sorter"
 import { useTranslation } from "react-i18next"
 
 import OutlinedInput from "@mui/material/OutlinedInput"
@@ -13,12 +12,12 @@ const Search = (props) => {
 
 	const handleSearch = (event) => {
 		props.setSearchInputValue(event.target.value)
-		props.setTableObjectsList(
-			matchSorter(props.searchObjectsList, event.target.value, {
-				keys: [(item) => item.attributes.Pavad],
-				threshold: matchSorter.rankings.MATCHES,
-			})
-		)
+		// props.setTableObjectsList(
+		// 	matchSorter(props.searchObjectsList, event.target.value, {
+		// 		keys: [(item) => item.attributes.Pavad],
+		// 		threshold: matchSorter.rankings.MATCHES,
+		// 	})
+		// )
 	}
 
 	return (

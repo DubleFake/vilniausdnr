@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import Filter from "./Filter"
 import TableItems from "./SearchItems"
 import Search from "./Search"
-import { matchSorter } from "match-sorter"
 
 import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
@@ -19,21 +18,23 @@ const Table = (props) => {
 	}, [props.initialObjectsList])
 
 	useEffect(() => {
-		if (searchInputValue) {
-			setTableObjectsList(
-				matchSorter(searchObjectsList, searchInputValue, {
-					keys: [(item) => item.attributes.PAV],
-					threshold: matchSorter.rankings.MATCHES,
-				})
-			)
-		} else {
-			setTableObjectsList(
-				matchSorter(searchObjectsList, "", {
-					keys: [(item) => item.attributes.PAV],
-					threshold: matchSorter.rankings.MATCHES,
-				})
-			)
-		}
+    setTableObjectsList(searchObjectsList)
+
+		// if (searchInputValue) {
+		// 	setTableObjectsList(
+		// 		matchSorter(searchObjectsList, searchInputValue, {
+		// 			keys: [(item) => item.attributes.PAV],
+		// 			threshold: matchSorter.rankings.MATCHES,
+		// 		})
+		// 	)
+		// } else {
+		// 	setTableObjectsList(
+		// 		matchSorter(searchObjectsList, "", {
+		// 			keys: [(item) => item.attributes.PAV],
+		// 			threshold: matchSorter.rankings.MATCHES,
+		// 		})
+		// 	)
+		// }
 	}, [searchObjectsList])
 
 	return (

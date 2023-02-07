@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { matchSorter } from "match-sorter"
 
 import { classifications, biography } from "../../../../utils/personsArcgisItems"
 import Count from "../searchTab/Count"
@@ -121,28 +120,7 @@ const Filter = (props) => {
 		setSelectedProfession("")
 		setSelectedProfessionDetail("")
 
-		props.setTableObjectsList(
-			matchSorter(props.objectsList, "", {
-				keys: [
-					(item) => item.attributes.Vardas_lietuviskai,
-					(item) => item.attributes.Pavarde_lietuviskai,
-					{ maxRanking: matchSorter.rankings.MATCHES, key: (item) => item.attributes.Vardas_lietuviskai },
-				],
-				threshold: matchSorter.rankings.MATCHES,
-				sorter: (rankedItems) =>
-					rankedItems.sort((a, b) => {
-						const nameA = a.item.attributes.Vardas_lietuviskai || a.item.attributes.Pavarde_lietuviskai || ""
-						const nameB = b.item.attributes.Vardas_lietuviskai || b.item.attributes.Pavarde_lietuviskai || ""
-						const surnameA = a.item.attributes.Pavarde_lietuviskai || ""
-						const surnameB = b.item.attributes.Pavarde_lietuviskai || ""
-						if (nameA.localeCompare(nameB) === 0) {
-							return surnameA.localeCompare(surnameB)
-						}
-						return nameA.localeCompare(nameB)
-					}),
-			})
-		)
-
+		// props.setTableObjectsList(props.objectsList)
 		props.setSearchObjectsList(props.objectsList)
 	}
 
