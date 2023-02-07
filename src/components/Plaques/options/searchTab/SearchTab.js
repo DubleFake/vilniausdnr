@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react"
 import Filter from "./Filter"
 import TableItems from "./SearchItems"
 import Search from "./Search"
-import { matchSorter } from "match-sorter"
 
 import Grid from "@mui/material/Grid"
 import CircularProgress from "@mui/material/CircularProgress"
@@ -21,34 +20,35 @@ const Table = (props) => {
 	}, [props.initialObjectsList])
 
 	useEffect(() => {
-		if (searchInputValue) {
-			setTableObjectsList(
-				matchSorter(searchObjectsList, searchInputValue, {
-					keys: [(item) => item.attributes.OBJ_PAV],
-					threshold: matchSorter.rankings.MATCHES,
-					sorter: (matchedItems) =>
-						matchedItems.sort((a, b) => {
-							const rankA = a.rank || 0
-							const rankB = b.rank || 0
-							if (rankA !== rankB) {
-								return rankB - rankA
-							}
-							return a.rankedValue.localeCompare(b.rankedValue)
-						}),
-				})
-			)
-		} else {
-			setTableObjectsList(
-				matchSorter(searchObjectsList, "", {
-					keys: [(item) => item.attributes.OBJ_PAV],
-					threshold: matchSorter.rankings.MATCHES,
-					sorter: (matchedItems) =>
-						matchedItems.sort((a, b) => {
-							return a.rankedValue.localeCompare(b.rankedValue)
-						}),
-				})
-			)
-		}
+    setTableObjectsList(searchObjectsList)
+		// if (searchInputValue) {
+		// 	setTableObjectsList(
+		// 		matchSorter(searchObjectsList, searchInputValue, {
+		// 			keys: [(item) => item.attributes.OBJ_PAV],
+		// 			threshold: matchSorter.rankings.MATCHES,
+		// 			sorter: (matchedItems) =>
+		// 				matchedItems.sort((a, b) => {
+		// 					const rankA = a.rank || 0
+		// 					const rankB = b.rank || 0
+		// 					if (rankA !== rankB) {
+		// 						return rankB - rankA
+		// 					}
+		// 					return a.rankedValue.localeCompare(b.rankedValue)
+		// 				}),
+		// 		})
+		// 	)
+		// } else {
+		// 	setTableObjectsList(
+		// 		matchSorter(searchObjectsList, "", {
+		// 			keys: [(item) => item.attributes.OBJ_PAV],
+		// 			threshold: matchSorter.rankings.MATCHES,
+		// 			sorter: (matchedItems) =>
+		// 				matchedItems.sort((a, b) => {
+		// 					return a.rankedValue.localeCompare(b.rankedValue)
+		// 				}),
+		// 		})
+		// 	)
+		// }
 	}, [searchObjectsList])
 
 	useEffect(() => {

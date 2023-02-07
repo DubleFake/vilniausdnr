@@ -98,7 +98,7 @@ const Legends = (props) => {
 												inheritViewBox
 											/>
 											<Typography sx={{ ml: 1 }} variant="body2">
-												{obj.name}
+												{obj.name} (pašalintas objektas) 
 											</Typography>
 										</ListItem>
 									</>
