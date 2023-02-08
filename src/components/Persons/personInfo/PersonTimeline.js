@@ -134,31 +134,35 @@ const PersonTimeline = (props) => {
 										fontWeight: "600",
 										textTransform: "capitalize",
 										fontSize: 18,
-										mr: 1,
+										mr: feature.attributes.Fakto_tipas ? 1 : 0,
 									}}
 								>
 									{isNaN(feature.attributes.Fakto_tipas)
 										? feature.attributes.Fakto_tipas
 										: domain[feature.attributes.Fakto_tipas]}
 								</Typography>
-								<Chip
-									sx={{
-										mr: 1,
-										color: "white",
-										backgroundColor: "#CBCBCB",
-										fontWeight: 400,
-										fontSize: isDownSm ? 12 : 14,
-									}}
-									label={`${
-										feature.attributes.Fakto_data
-											? new Date(feature.attributes.Fakto_data).toLocaleDateString("lt-LT")
-											: feature.attributes.Fakto_datos_intervalo_pradžia
-											? feature.attributes.Fakto_datos_intervalo_pradžia
-											: feature.attributes.Fakto_datos_intervalo_pabaiga
-											? feature.attributes.Fakto_datos_intervalo_pabaiga
-											: feature.attributes.Fakto_data_tekstu
-									}`}
-								/>
+								{(feature.attributes.Fakto_data ||
+									feature.attributes.Fakto_datos_intervalo_pradžia ||
+									feature.attributes.Fakto_data_tekstu) && (
+									<Chip
+										sx={{
+											mr: 1,
+											color: "white",
+											backgroundColor: "#CBCBCB",
+											fontWeight: 400,
+											fontSize: isDownSm ? 12 : 14,
+										}}
+										label={`${
+											feature.attributes.Fakto_data
+												? new Date(feature.attributes.Fakto_data).toLocaleDateString("lt-LT")
+												: feature.attributes.Fakto_datos_intervalo_pradžia
+												? feature.attributes.Fakto_datos_intervalo_pradžia
+												: feature.attributes.Fakto_datos_intervalo_pabaiga
+												? feature.attributes.Fakto_datos_intervalo_pabaiga
+												: feature.attributes.Fakto_data_tekstu
+										}`}
+									/>
+								)}
 								{feature.attributes.Fakto_vieta && (
 									<Chip
 										sx={{
