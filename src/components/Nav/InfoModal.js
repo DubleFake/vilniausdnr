@@ -80,31 +80,31 @@ const InfoModal = () => {
 				break
 			case "maps":
 				handleFirstLevel(1, "first", true)
-				handleSecondLevelSecond(0, "second")
+				handleSecondLevelSecond(0, "second", true)
 				break
 			case "streets":
 				handleFirstLevel(1, "first", true)
-				handleSecondLevelSecond(1, "second")
+				handleSecondLevelSecond(1, "second", true)
 				break
 			case "persons":
 				handleFirstLevel(1, "first", true)
-				handleSecondLevelSecond(2, "second")
+				handleSecondLevelSecond(2, "second", true)
 				break
 			case "foto":
 				handleFirstLevel(1, "first", true)
-				handleSecondLevelSecond(3, "second")
+				handleSecondLevelSecond(3, "second", true)
 				break
 			case "plaques":
 				handleFirstLevel(1, "first", true)
-				handleSecondLevelSecond(4, "second")
+				handleSecondLevelSecond(4, "second", true)
 				break
 			case "periods":
 				handleFirstLevel(1, "first", true)
-				handleSecondLevelSecond(5, "second")
+				handleSecondLevelSecond(5, "second", true)
 				break
 			case "events":
 				handleFirstLevel(1, "first", true)
-				handleSecondLevelSecond(6, "second")
+				handleSecondLevelSecond(6, "second", true)
 				break
 		}
 		setOpen(true)
@@ -283,12 +283,12 @@ const InfoModal = () => {
 		}
 	}
 
-	const handleSecondLevelSecond = (index, text) => {
+	const handleSecondLevelSecond = (index, text, once = false) => {
 		const tempSecondLevelSecond = [...secondLevelSecond]
 		if (tempSecondLevelSecond[index] === false) {
 			tempSecondLevelSecond.fill(false)
 		}
-		tempSecondLevelSecond[index] = !tempSecondLevelSecond[index]
+		tempSecondLevelSecond[index] = once ? true : !tempSecondLevelSecond[index]
 		setSecondLevelSecond(tempSecondLevelSecond)
 
 		let tempRenderBlock
