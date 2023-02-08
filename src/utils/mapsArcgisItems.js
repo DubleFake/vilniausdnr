@@ -7,7 +7,7 @@ import BasemapGallery from "@arcgis/core/widgets/BasemapGallery"
 import Expand from "@arcgis/core/widgets/Expand"
 import Locate from "@arcgis/core/widgets/Locate"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
-import FeatureTable from "@arcgis/core/widgets/FeatureTable";
+import FeatureTable from "@arcgis/core/widgets/FeatureTable"
 
 // export const objects = new MapImageLayer({
 // 	url: "https://www.geoportal.lt/mapproxy/gisc_vilnius_ort_1944/MapServer",
@@ -15,7 +15,7 @@ import FeatureTable from "@arcgis/core/widgets/FeatureTable";
 // })
 
 export const maps = new FeatureLayer({
-  url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/91",
+	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/91",
 })
 
 const basemap1 = new Basemap({
@@ -78,7 +78,7 @@ export const view = new MapView({
 		haloColor: "#FF0026",
 		haloOpacity: 1,
 	},
-  constraints: {
+	constraints: {
 		geometry: {
 			type: "extent",
 			spatialReference: 2600,
@@ -96,7 +96,7 @@ export const view2 = new MapView({
 	slider: false,
 	constraints: {
 		// snapToZoom: false,
-    geometry: {
+		geometry: {
 			type: "extent",
 			spatialReference: 2600,
 			xmin: 566176.6289999997,

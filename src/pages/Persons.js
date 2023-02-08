@@ -25,7 +25,6 @@ const Persons = () => {
 				outFields: [
 					"OBJECTID",
 					"Vardas_lietuviskai",
-					"Pavarde_lietuviskai",
 					"Asmenybes_ID",
 					"Pagrindine_veikla",
 					"Veiklos_detalizavimas",

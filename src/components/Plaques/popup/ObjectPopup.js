@@ -131,8 +131,8 @@ const ObjectPopup = (props) => {
 							const allPersons = []
 							objects
 								.queryRelatedFeatures({
-									outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai"],
-									relationshipId: 0,
+									outFields: ["Asmenybes_ID", "Vardas_lietuviskai"],
+									relationshipId: 1,
 									objectIds: OBJECTID,
 								})
 								.then((response) => {
@@ -159,7 +159,7 @@ const ObjectPopup = (props) => {
 									objectIds: OBJECTID,
 								})
 								.then((response) => {
-                  console.log(response)
+									console.log(response)
 									setRelatedEvents(response[OBJECTID].features)
 								})
 								.catch((error) => {
@@ -507,7 +507,7 @@ const ObjectPopup = (props) => {
 																rel="noopener"
 																textAlign="left"
 																variant="body2"
-															>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
+															>{`${objectPer[per].attributes.Vardas_lietuviskai}`}</Link>
 															<br></br>
 														</div>
 													))}

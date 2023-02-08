@@ -186,8 +186,8 @@ const ObjectPopup = (props) => {
 			.then((response) => {
 				objects
 					.queryRelatedFeatures({
-						outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
-						relationshipId: 3,
+						outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Asmenybes_ID"],
+						relationshipId: 4,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
 					.then((response_related) => {
@@ -210,7 +210,7 @@ const ObjectPopup = (props) => {
 				objects
 					.queryRelatedFeatures({
 						outFields: ["Pavadinimas", "GlobalID", "Data_tekstu"],
-						relationshipId: 11,
+						relationshipId: 6,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
 					.then((response_related) => {
@@ -419,7 +419,7 @@ const ObjectPopup = (props) => {
 																	// 		`/vilniausdnr/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
 																	// 	)
 																	// }}
-																>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
+																>{`${objectPer[per].attributes.Vardas_lietuviskai}`}</Link>
 																<br></br>
 															</div>
 														))}

@@ -479,7 +479,7 @@ const ObjectPopupTimeline = (props) => {
 															// 		`/vilniausdnr/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
 															// 	)
 															// }}
-														>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
+														>{`${objectPer[per].attributes.Vardas_lietuviskai}`}</Link>
 														<br></br>
 													</div>
 												))}

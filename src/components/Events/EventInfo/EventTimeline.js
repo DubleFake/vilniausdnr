@@ -169,13 +169,13 @@ const EventTimeline = (props) => {
 							if (personQueryWhere !== "") {
 								persons
 									.queryFeatures({
-										outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
+										outFields: ["Vardas_lietuviskai", "Asmenybes_ID"],
 										where: personQueryWhere,
 									})
 									.then((response_persons) => {
 										for (let person of response_persons.features) {
 											tempPersons.push({
-												name: `${person.attributes.Vardas_lietuviskai} ${person.attributes.Pavarde_lietuviskai}`,
+												name: `${person.attributes.Vardas_lietuviskai}`,
 												id: person.attributes.Asmenybes_ID,
 											})
 										}
@@ -323,13 +323,13 @@ const EventTimeline = (props) => {
 							if (personQueryWhere !== "") {
 								persons
 									.queryFeatures({
-										outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
+										outFields: ["Vardas_lietuviskai", "Asmenybes_ID"],
 										where: personQueryWhere,
 									})
 									.then((response_persons) => {
 										for (let person of response_persons.features) {
 											tempPersons.push({
-												name: `${person.attributes.Vardas_lietuviskai} ${person.attributes.Pavarde_lietuviskai}`,
+												name: `${person.attributes.Vardas_lietuviskai}`,
 												id: person.attributes.Asmenybes_ID,
 											})
 										}
