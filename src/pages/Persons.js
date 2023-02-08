@@ -72,7 +72,12 @@ const Persons = () => {
 								/>
 							</Collapse>
 
-							<PersonInfo visible={visible} setVisible={setVisible} setSelectedObject={setSelectedObject} />
+							<PersonInfo
+								visible={visible}
+								setVisible={setVisible}
+								setSelectedObject={setSelectedObject}
+								initialObjectsList={initialObjectsList}
+							/>
 							<Outlet />
 						</Grid>
 					</>

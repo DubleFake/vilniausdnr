@@ -222,6 +222,14 @@ const App = () => {
 							flexDirection: "column",
 						},
 					},
+					{
+						props: {
+							variant: "graph",
+						},
+						style: {
+							marginLeft: -(optionsWidth / 2),
+						},
+					},
 				],
 				defaultProps: {
 					maxWidth: "false",

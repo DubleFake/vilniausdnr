@@ -7,6 +7,7 @@ import PersonRelated from "./PersonRelated"
 import PersonGeneral from "./PersonGeneral"
 import PersonHeader from "./PersonHeader"
 import EmptyPlaceholder from "../../../utils/misc/EmptyPlaceholder"
+import ForceGraph from "./ForceGraph"
 
 import { useTheme } from "@mui/material/styles"
 import useMediaQuery from "@mui/material/useMediaQuery"
@@ -72,12 +73,7 @@ const PersonInfo = (props) => {
 				</IconButton>
 			)}
 			{displayEmpty ? (
-				<>
-					<EmptyPlaceholder
-						display={displayEmpty}
-						text={"Pasirinkite konkrečią asmenybę iš sąrašo kairėje"}
-					/>
-				</>
+				<ForceGraph initialObjectsList={props.initialObjectsList} />
 			) : isDownSm ? (
 				<Box
 					sx={{
