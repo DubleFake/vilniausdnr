@@ -561,7 +561,7 @@ const EventTimeline = (props) => {
 																			target="_blank"
 																			href={
 																				"https://zemelapiai.vplanas.lt" +
-																				`/vilniausdnr/${i18n.language}/persons/${person.id.replace(
+																				`/vilniausdnrtest/${i18n.language}/persons/${person.id.replace(
 																					/[{}]/g,
 																					""
 																				)}`
@@ -622,7 +622,7 @@ const EventTimeline = (props) => {
 																		target="_blank"
 																		href={
 																			"https://zemelapiai.vplanas.lt" +
-																			`/vilniausdnr/${
+																			`/vilniausdnrtest/${
 																				i18n.language
 																			}/maps/compare/review/${map.attributes.GlobalID_zemelapio.replace(
 																				/[{}]/g,
@@ -670,7 +670,7 @@ const EventTimeline = (props) => {
 																		target="_blank"
 																		href={
 																			"https://zemelapiai.vplanas.lt" +
-																			`/vilniausdnr/${
+																			`/vilniausdnrtest/${
 																				i18n.language
 																			}/plaques/object/${plaque.attributes.GlobalID.replace(/[{}]/g, "")}`
 																		}
@@ -715,7 +715,7 @@ const EventTimeline = (props) => {
 																		target="_blank"
 																		href={
 																			"https://zemelapiai.vplanas.lt" +
-																			`/vilniausdnr/${
+																			`/vilniausdnrtest/${
 																				i18n.language
 																			}/foto/object/${foto.attributes.GlobalID.replace(/[{}]/g, "")}`
 																		}

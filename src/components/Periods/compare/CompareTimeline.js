@@ -104,7 +104,7 @@ const CompareTimeline = (props) => {
 						size="large"
 						variant="timeline"
 						onClick={() => {
-							navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[0].metai)}`)
+							navigate(`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[0].metai)}`)
 						}}
 					>
 						<Typography variant="button">1808</Typography>
@@ -121,7 +121,7 @@ const CompareTimeline = (props) => {
 						size="large"
 						variant="timeline"
 						onClick={() => {
-							navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[1].metai)}`)
+							navigate(`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[1].metai)}`)
 						}}
 					>
 						<Typography variant="button">1845</Typography>
@@ -138,7 +138,7 @@ const CompareTimeline = (props) => {
 						size="large"
 						variant="timeline"
 						onClick={() => {
-							navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[2].metai)}`)
+							navigate(`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[2].metai)}`)
 						}}
 					>
 						<Typography variant="button">1911</Typography>
@@ -155,7 +155,7 @@ const CompareTimeline = (props) => {
 						size="large"
 						variant="timeline"
 						onClick={() => {
-							navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[3].metai)}`)
+							navigate(`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[3].metai)}`)
 						}}
 					>
 						<Typography variant="button">1938</Typography>
@@ -172,7 +172,7 @@ const CompareTimeline = (props) => {
 						size="large"
 						variant="timeline"
 						onClick={() => {
-							navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[4].metai)}`)
+							navigate(`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[4].metai)}`)
 						}}
 					>
 						<Typography variant="button">1977</Typography>
@@ -189,7 +189,7 @@ const CompareTimeline = (props) => {
 						size="large"
 						variant="timeline"
 						onClick={() => {
-							navigate(`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[5].metai)}`)
+							navigate(`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[5].metai)}`)
 						}}
 					>
 						<Typography variant="button">2023</Typography>

@@ -14,13 +14,13 @@ const HomeIcon = () => {
 		// <img
 		// 	src={vlnIcon}
 		// 	sx={{ ml: 2, color: "white", width: 10, flex: 1, cursor: "pointer" }}
-		// 	onClick={() => navigate(`/vilniausdnr/${i18n.language}`)}
+		// 	onClick={() => navigate(`/vilniausdnrtest/${i18n.language}`)}
 		// />
 		<Box
 			sx={{ my: 2, ml: 1, height: "85%", resizeMode: "contain", cursor: "pointer" }}
 			component="img"
 			src={vlnIcon}
-			onClick={() => navigate(`/vilniausdnr/${i18n.language}`)}
+			onClick={() => navigate(`/vilniausdnrtest/${i18n.language}`)}
 		/>
 	)
 }

@@ -52,14 +52,14 @@ const CompareSwipe = (props) => {
 		handleCloseLeft()
 
 		const mapByIndex = mapList[event.target.value]
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`)
+		navigate(`/vilniausdnrtest/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`)
 	}
 
 	const handleRightSelect = (event) => {
 		handleCloseRight()
 
 		const mapByIndex = mapList[event.target.value]
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`)
+		navigate(`/vilniausdnrtest/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`)
 	}
 
 	const handleClickAway = (event) => {

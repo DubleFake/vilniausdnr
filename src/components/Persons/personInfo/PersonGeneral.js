@@ -187,7 +187,7 @@ const PersonGeneral = (props) => {
 													target="_blank"
 													href={
 														"https://zemelapiai.vplanas.lt" +
-														`/vilniausdnr/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
+														`/vilniausdnrtest/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
 															/[{}]/g,
 															""
 														)}`
@@ -235,7 +235,7 @@ const PersonGeneral = (props) => {
 													target="_blank"
 													href={
 														"https://zemelapiai.vplanas.lt" +
-														`/vilniausdnr/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
+														`/vilniausdnrtest/${i18n.language}/plaques/object/${obj.attributes.GlobalID.replace(
 															/[{}]/g,
 															""
 														)}`
@@ -281,7 +281,7 @@ const PersonGeneral = (props) => {
 											target="_blank"
 											href={
 												"https://zemelapiai.vplanas.lt" +
-												`/vilniausdnr/${i18n.language}/streets/object/${obj.attributes.GAT_ID}`
+												`/vilniausdnrtest/${i18n.language}/streets/object/${obj.attributes.GAT_ID}`
 											}
 											rel="noopener"
 											textAlign="left"

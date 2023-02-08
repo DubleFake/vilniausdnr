@@ -23,15 +23,15 @@ const CompareType = (props) => {
 		setSelectedCompare(event.target.value)
 		switch (event.target.value) {
 			case 0:
-				navigate(`/vilniausdnr/${i18n.language}/streets/compare/timeline`)
+				navigate(`/vilniausdnrtest/${i18n.language}/streets/compare/timeline`)
 				break
 
 			case 1:
-				navigate(`/vilniausdnr/${i18n.language}/streets/compare/swipe`)
+				navigate(`/vilniausdnrtest/${i18n.language}/streets/compare/swipe`)
 				break
 
 			case 2:
-				navigate(`/vilniausdnr/${i18n.language}/streets/compare/window`)
+				navigate(`/vilniausdnrtest/${i18n.language}/streets/compare/window`)
 				break
 		}
 	}

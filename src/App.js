@@ -464,7 +464,7 @@ const App = () => {
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/vilniausdnr/:lng" element={<Nav />}>
+					<Route path="/vilniausdnrtest/:lng" element={<Nav />}>
 						<Route index element={<Home />} />
 						<Route path="periods/*" element={<Periods />} />
 						<Route path="plaques/*" element={<Plaques />} />
@@ -476,7 +476,7 @@ const App = () => {
 						<Route path="buildings/*" element={<Buildings />} />
 						<Route path="events/*" element={<Events />} />
 					</Route>
-					<Route path="*" element={<Navigate to={`/vilniausdnr/${i18n.language}`} />} />
+					<Route path="*" element={<Navigate to={`/vilniausdnrtest/${i18n.language}`} />} />
 				</Routes>
 			</BrowserRouter>
 		</ThemeProvider>

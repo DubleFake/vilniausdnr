@@ -324,7 +324,7 @@ const PersonRelated = (props) => {
 									target="_blank"
 									href={
 										"https://zemelapiai.vplanas.lt" +
-										`/vilniausdnr/${i18n.language}/events#${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`
+										`/vilniausdnrtest/${i18n.language}/events#${event.attributes.Ivykio_ID.replace(/[{}]/g, "")}`
 									}
 									rel="noopener"
 									// component="button"
@@ -381,7 +381,7 @@ const PersonRelated = (props) => {
 														variant="body2"
 														onClick={() => {
 															navigate(
-																`/vilniausdnr/${
+																`/vilniausdnrtest/${
 																	i18n.language
 																}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
 															)
@@ -470,7 +470,7 @@ const PersonRelated = (props) => {
 													variant="body2"
 													onClick={() => {
 														navigate(
-															`/vilniausdnr/${
+															`/vilniausdnrtest/${
 																i18n.language
 															}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
 														)
@@ -531,7 +531,7 @@ const PersonRelated = (props) => {
 														variant="body2"
 														onClick={() => {
 															navigate(
-																`/vilniausdnr/${
+																`/vilniausdnrtest/${
 																	i18n.language
 																}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
 															)
@@ -621,7 +621,7 @@ const PersonRelated = (props) => {
 														variant="body2"
 														onClick={() => {
 															navigate(
-																`/vilniausdnr/${
+																`/vilniausdnrtest/${
 																	i18n.language
 																}/persons/${person.attributes.Susijes_asmuo_is_saraso.replace(/[{}]/g, "")}`
 															)

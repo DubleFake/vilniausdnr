@@ -45,7 +45,7 @@ const ObjectPopup = (props) => {
 	const [shareTooltip, setShareTooltip] = useState(false)
 
 	const handlePage = (event, value) => {
-		navigate(`/vilniausdnr/${i18n.language}/streets/object/${queryObjects[value - 1].attributes.GAT_ID}`)
+		navigate(`/vilniausdnrtest/${i18n.language}/streets/object/${queryObjects[value - 1].attributes.GAT_ID}`)
 	}
 
 	const BootstrapTooltip = styled(({ className, ...props }) => (
@@ -100,7 +100,7 @@ const ObjectPopup = (props) => {
 					}
 
 					if (response.features.length === 0) {
-						navigate(`/vilniausdnr/${i18n.language}/streets`)
+						navigate(`/vilniausdnrtest/${i18n.language}/streets`)
 						return
 					}
 
@@ -233,7 +233,7 @@ const ObjectPopup = (props) => {
 													aria-label="close"
 													size="large"
 													onClick={() => {
-														navigate(`/vilniausdnr/${i18n.language}/streets`)
+														navigate(`/vilniausdnrtest/${i18n.language}/streets`)
 													}}
 												>
 													<CloseIcon style={{ fontSize: 30 }} />
@@ -311,7 +311,7 @@ const ObjectPopup = (props) => {
 															variant="body2"
 															onClick={() => {
 																navigate(
-																	`/vilniausdnr/${i18n.language}/plaques/person/${objectPer[per].attributes.OBJECTID}`
+																	`/vilniausdnrtest/${i18n.language}/plaques/person/${objectPer[per].attributes.OBJECTID}`
 																)
 															}}
 														>{`${objectPer[per].attributes.Vardas__liet_} ${objectPer[per].attributes.Pavardė__liet_}`}</Link>

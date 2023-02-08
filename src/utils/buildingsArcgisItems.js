@@ -136,7 +136,7 @@ const basemap1 = new Basemap({
 		}),
 	],
 	id: "light",
-	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_light.png`,
+	thumbnailUrl: `${origin}/vilniausdnrtest/signIcons/basemap_light.png`,
 })
 const basemap2 = new Basemap({
 	baseLayers: [
@@ -146,7 +146,7 @@ const basemap2 = new Basemap({
 		}),
 	],
 	id: "dark",
-	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_dark.png`,
+	thumbnailUrl: `${origin}/vilniausdnrtest/signIcons/basemap_dark.png`,
 })
 const basemap3 = new Basemap({
 	baseLayers: [
@@ -155,7 +155,7 @@ const basemap3 = new Basemap({
 		}),
 	],
 	id: "orto",
-	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_orto.png`,
+	thumbnailUrl: `${origin}/vilniausdnrtest/signIcons/basemap_orto.png`,
 })
 export const basemaps = [basemap1, basemap2, basemap3]
 

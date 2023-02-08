@@ -18,7 +18,7 @@ const LanguageList = (props) => {
 	const handleLanguageChange = (lng) => {
 		if (i18n.language !== lng) {
 			intl.setLocale(lng)
-			navigate(`/vilniausdnr/${lng}/${window.location.pathname.slice(16)}`)
+			navigate(`/vilniausdnrtest/${lng}/${window.location.pathname.slice(16)}`)
 		}
 		props.setLanguageOpen(false)
 	}

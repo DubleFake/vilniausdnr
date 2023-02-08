@@ -468,7 +468,7 @@ const InfoModal = () => {
 	}
 
 	// useEffect(() => {
-	// 	if (window.location.pathname === "/vilniausdnr/lt") {
+	// 	if (window.location.pathname === "/vilniausdnrtest/lt") {
 	// 		setOpen(true)
 	// 	}
 	// }, [])

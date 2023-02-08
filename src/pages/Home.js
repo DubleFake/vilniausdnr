@@ -13,7 +13,7 @@ import { ReactComponent as personsIcon } from "../utils/icons/homeIcons/persons.
 import { ReactComponent as signsIcon } from "../utils/icons/homeIcons/plaques.svg"
 import { ReactComponent as streetsIcon } from "../utils/icons/homeIcons/streets.svg"
 import VilniausSkyline from "../utils/icons/homeIcons/vilniaus_skyline.svg"
-import VilniausLogo from "../utils/icons/homeIcons/vilniausdnr_logo.svg"
+import VilniausLogo from "../utils/icons/homeIcons/dnr_logo.svg"
 
 import { useTheme } from "@mui/material/styles"
 import Grid from "@mui/material/Grid"
@@ -44,7 +44,7 @@ function Tile(props) {
 		<Button
 			fullWidth
 			component={Link}
-			onClick={() => location.pathname !== `/vilniausdnr/${i18n.language}` && setMenuOpen(false)}
+			onClick={() => location.pathname !== `/vilniausdnrtest/${i18n.language}` && setMenuOpen(false)}
 			to={`${propTo}`}
 			variant="contained"
 			sx={
@@ -189,8 +189,8 @@ const Home = (props) => {
 
 	return (
 		<Container sx={{ overflowY: "auto", overflowX: "hidden", height: window.innerHeight - 90 }}>
-			{(location.pathname === `/vilniausdnr/${i18n.language}` ||
-				location.pathname === `/vilniausdnr/${i18n.language}/`) && (
+			{(location.pathname === `/vilniausdnrtest/${i18n.language}` ||
+				location.pathname === `/vilniausdnrtest/${i18n.language}/`) && (
 				<Box sx={{ height: 510, width: "100%", backgroundColor: bgGray }}>
 					<Grid
 						sx={{ position: "relative", zIndex: 100, top: "10vh", height: "auto" }}

@@ -220,7 +220,7 @@ const PersonPopup = (props) => {
 												aria-label="close"
 												size="large"
 												onClick={() => {
-													navigate(`/vilniausdnr/${i18n.language}/plaques`)
+													navigate(`/vilniausdnrtest/${i18n.language}/plaques`)
 												}}
 											>
 												<CloseIcon style={{ fontSize: 30 }} />
@@ -304,7 +304,7 @@ const PersonPopup = (props) => {
 														variant="body2"
 														onClick={() => {
 															navigate(
-																`/vilniausdnr/${i18n.language}/plaques/object/${personObj[
+																`/vilniausdnrtest/${i18n.language}/plaques/object/${personObj[
 																	obj
 																].attributes.GlobalID.replace(/[{}]/g, "")}`
 															)

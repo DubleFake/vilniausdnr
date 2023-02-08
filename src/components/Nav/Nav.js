@@ -31,7 +31,7 @@ const Nav = () => {
 		if (lng === "lt" || lng === "en") {
 			i18n.changeLanguage(lng)
 		} else {
-			navigate(`/vilniausdnr/lt`)
+			navigate(`/vilniausdnrtest/lt`)
 		}
 	}, [lng])
 
@@ -47,7 +47,7 @@ const Nav = () => {
 
 							<LanguageSelect languageOpen={languageOpen} setLanguageOpen={setLanguageOpen} />
               
-							{location.pathname !== `/vilniausdnr/${i18n.language}` ? (
+							{location.pathname !== `/vilniausdnrtest/${i18n.language}` ? (
 								<MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 							) : (
 								<Box></Box>
@@ -59,7 +59,7 @@ const Nav = () => {
 
 			<LanguageList languageOpen={languageOpen} setLanguageOpen={setLanguageOpen} />
 
-			{location.pathname !== `/vilniausdnr/${i18n.language}` && (
+			{location.pathname !== `/vilniausdnrtest/${i18n.language}` && (
 				<Collapse sx={{ width: "100%", position: "absolute", zIndex: 99 }} in={menuOpen}>
 					<Home setMenuOpen={setMenuOpen} />
 				</Collapse>

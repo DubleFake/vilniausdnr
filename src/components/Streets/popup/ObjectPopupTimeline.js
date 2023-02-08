@@ -52,7 +52,7 @@ const ObjectPopupTimeline = (props) => {
 
 	const handlePage = (event, value) => {
 		navigate(
-			`/vilniausdnr/${i18n.language}/streets/compare/timeline/${queryObjects[
+			`/vilniausdnrtest/${i18n.language}/streets/compare/timeline/${queryObjects[
 				value - 1
 			].attributes.GlobalID.replace(/[{}]/g, "")}`
 		)
@@ -281,7 +281,7 @@ const ObjectPopupTimeline = (props) => {
 												aria-label="close"
 												size="small"
 												onClick={() => {
-													navigate(`/vilniausdnr/${i18n.language}/streets/compare/timeline`)
+													navigate(`/vilniausdnrtest/${i18n.language}/streets/compare/timeline`)
 												}}
 												sx={{
 													mt: 0.5,
@@ -355,7 +355,7 @@ const ObjectPopupTimeline = (props) => {
 																// target="_blank"
 																// href={
 																// 	"https://zemelapiai.vplanas.lt" +
-																// 	`/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[street].attributes.GAT_ID}`
+																// 	`/vilniausdnrtest/${i18n.language}/streets/object/${relatedStreets[street].attributes.GAT_ID}`
 																// }
 																// rel="noopener"
 																// textAlign="left"
@@ -369,7 +369,7 @@ const ObjectPopupTimeline = (props) => {
 																	map.removeAll()
 																	map.add(objects)
 																	navigate(
-																		`/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[street].attributes.GAT_ID}`
+																		`/vilniausdnrtest/${i18n.language}/streets/object/${relatedStreets[street].attributes.GAT_ID}`
 																	)
 																}}
 															>{`${relatedStreets[street].attributes.PAV}`}</Link>
@@ -398,7 +398,7 @@ const ObjectPopupTimeline = (props) => {
 															target="_blank"
 															href={
 																"https://zemelapiai.vplanas.lt" +
-																`/vilniausdnr/${i18n.language}/maps/compare/review/${relatedMaps[
+																`/vilniausdnrtest/${i18n.language}/maps/compare/review/${relatedMaps[
 																	map
 																].attributes.GlobalID_zemelapio.replace(/[{}]/g, "")}?x=${view.center.x}&y=${
 																	view.center.y
@@ -413,7 +413,7 @@ const ObjectPopupTimeline = (props) => {
 															// variant="body2"
 															// onClick={() => {
 															// 	navigate(
-															// 		`/vilniausdnr/${i18n.language}/streets/object/${relatedMaps[
+															// 		`/vilniausdnrtest/${i18n.language}/streets/object/${relatedMaps[
 															// 			map
 															// 		].attributes.GlobalID_zemelapio.replace(/[{}]/g, "")}`
 															// 	)
@@ -463,7 +463,7 @@ const ObjectPopupTimeline = (props) => {
 															target="_blank"
 															href={
 																"https://zemelapiai.vplanas.lt" +
-																`/vilniausdnr/${i18n.language}/persons/${objectPer[
+																`/vilniausdnrtest/${i18n.language}/persons/${objectPer[
 																	per
 																].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
 															}
@@ -476,7 +476,7 @@ const ObjectPopupTimeline = (props) => {
 															// variant="body2"
 															// onClick={() => {
 															// 	navigate(
-															// 		`/vilniausdnr/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
+															// 		`/vilniausdnrtest/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
 															// 	)
 															// }}
 														>{`${objectPer[per].attributes.Vardas_lietuviskai}`}</Link>
@@ -512,7 +512,7 @@ const ObjectPopupTimeline = (props) => {
 																	href={
 																		""
 																		// "https://zemelapiai.vplanas.lt" +
-																		// `/vilniausdnr/${i18n.language}/streets/object/${relatedStreets[
+																		// `/vilniausdnrtest/${i18n.language}/streets/object/${relatedStreets[
 																		// 	street
 																		// ].Asmenybes_ID.replace(/[{}]/g, "")}`
 																	}

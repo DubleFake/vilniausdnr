@@ -49,7 +49,7 @@ const CompareTimeline = (props) => {
 
 						props.setMapQuery(tempFeatures)
 						navigate(
-							`/vilniausdnr/${
+							`/vilniausdnrtest/${
 								i18n.language
 							}/streets/compare/timeline/${tempFeatures[0].attributes.GlobalID.replace(/[{}]/g, "")}`
 						)
