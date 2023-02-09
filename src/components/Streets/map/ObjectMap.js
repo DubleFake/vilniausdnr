@@ -132,6 +132,23 @@ const ObjectMap = (props) => {
 			})
 		)
 
+		viewHandles.push(
+			view.on("pointer-move", (event) => {
+				view.hitTest(event, { exclude: view.graphics }).then((response) => {
+					const graphicHits = response.results?.filter((hitResult) => hitResult.type === "graphic")
+					if (
+						graphicHits?.length > 0 &&
+						!window.location.pathname.includes("window") &&
+						!window.location.pathname.includes("swipe")
+					) {
+						document.getElementById("view1Div").style.cursor = "pointer"
+					} else {
+						document.getElementById("view1Div").style.cursor = "default"
+					}
+				})
+			})
+		)
+
 		if (!props.historyToggle) {
 			objects
 				.when(() => {
