@@ -399,6 +399,8 @@ const App = () => {
 								backgroundColor: red,
 							},
 						},
+					},
+					{
 						props: {
 							variant: "sidebarToggle",
 						},
