@@ -178,6 +178,7 @@ const CompareSwipe = (props) => {
 						.whenOnce(() => view.updating === false)
 						.then(() => {
 							setViewUpdating(false)
+              props.setInitialLoading(true)
 							const swipeSelectBottom = document.getElementById("swipe-select-bottom")
 							const swipePopover = document.getElementById("swipe-popover")
 

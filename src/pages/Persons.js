@@ -4,6 +4,7 @@ import { Routes, Route, Outlet } from "react-router-dom"
 import Options from "../components/Persons/options/Options"
 import PersonInfo from "../components/Persons/personInfo/PersonInfo"
 import { persons } from "../utils/personsArcgisItems"
+import InfoTooltip from "../utils/misc/InfoTooltip"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
@@ -18,6 +19,9 @@ const Persons = () => {
 	const [visible, setVisible] = useState(true)
 	const theme = useTheme()
 	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
+
+	const [open, setOpen] = useState(false)
+	const [anchorEl, setAnchorEl] = useState(null)
 
 	useEffect(() => {
 		persons
@@ -36,6 +40,13 @@ const Persons = () => {
 				if (response) {
 					setInitialLoading(false)
 					setInitialObjectsList(response.features)
+
+					const infoButton = document.getElementById("info_button")
+					setAnchorEl(infoButton)
+					setOpen(true)
+					setTimeout(() => {
+						setOpen(false)
+					}, 4000)
 				}
 			})
 	}, [])
@@ -79,6 +90,7 @@ const Persons = () => {
 							/>
 							<Outlet />
 						</Grid>
+						<InfoTooltip open={open} setOpen={setOpen} anchorEl={anchorEl} />
 					</>
 				}
 			>

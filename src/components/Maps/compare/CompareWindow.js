@@ -39,7 +39,8 @@ const CompareWindow = (props) => {
 
 	const [anchorElRight, setAnchorElRight] = React.useState(null)
 	const openRight = Boolean(anchorElRight)
-	const [viewUpdating, setViewUpdating] = useState(false)
+	const [view1Updating, setView1Updating] = useState(true)
+	const [view2Updating, setView2Updating] = useState(false)
 
 	const handleClickRight = (e) => setAnchorElRight(e.currentTarget)
 
@@ -48,7 +49,9 @@ const CompareWindow = (props) => {
 	const handleLeftSelect = (event) => {
 		handleCloseLeft()
 		const mapByIndex = mapList[event.target.value]
-		navigate(`/vilniausdnrtest/${i18n.language}/maps/compare/window/${mapByIndex.globalid_map}/${globalIDRight}`)
+		navigate(
+			`/vilniausdnrtest/${i18n.language}/maps/compare/window/${mapByIndex.globalid_map}/${globalIDRight}`
+		)
 
 		map.remove(mapList[selectedLeftMap])
 		map.add(mapList[event.target.value])
@@ -59,7 +62,9 @@ const CompareWindow = (props) => {
 	const handleRightSelect = (event) => {
 		handleCloseRight()
 		const mapByIndex = mapList[event.target.value]
-		navigate(`/vilniausdnrtest/${i18n.language}/maps/compare/window/${globalIDLeft}/${mapByIndex.globalid_map}`)
+		navigate(
+			`/vilniausdnrtest/${i18n.language}/maps/compare/window/${globalIDLeft}/${mapByIndex.globalid_map}`
+		)
 
 		map2.remove(mapList[selectedRightMap])
 		map2.add(mapList[event.target.value])
@@ -68,7 +73,6 @@ const CompareWindow = (props) => {
 	}
 
 	useEffect(() => {
-		setViewUpdating(true)
 		const tempMaps = []
 
 		maps
@@ -145,7 +149,7 @@ const CompareWindow = (props) => {
 						reactiveUtils
 							.whenOnce(() => view.updating === false)
 							.then(() => {
-								setViewUpdating(false)
+								setView1Updating(false)
 							})
 					} else if (mapByIndex.globalid_map === globalIDRight) {
 						setSelectedRightMap(index)
@@ -159,7 +163,7 @@ const CompareWindow = (props) => {
 						reactiveUtils
 							.whenOnce(() => view2.updating === false)
 							.then(() => {
-								setViewUpdating(false)
+								setView2Updating(false)
 							})
 					}
 				})
@@ -167,6 +171,13 @@ const CompareWindow = (props) => {
 				props.setToggleCompareWindow(true)
 			})
 	}, [globalIDLeft, globalIDRight])
+
+	useEffect(() => {
+		console.log(view1Updating, view2Updating)
+		if (!view1Updating && !view2Updating) {
+			props.setInitialLoading(true)
+		}
+	}, [view1Updating, view2Updating])
 
 	useEffect(() => {
 		return () => {
@@ -179,7 +190,10 @@ const CompareWindow = (props) => {
 
 	return (
 		<>
-			<Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={viewUpdating}>
+			<Backdrop
+				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+				open={view1Updating && view2Updating}
+			>
 				<DNRSpinner />
 			</Backdrop>
 			<Grid

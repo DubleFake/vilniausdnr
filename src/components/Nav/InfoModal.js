@@ -499,6 +499,7 @@ const InfoModal = () => {
 					},
 				}}
 				onClick={handleOpen}
+				id="info_button"
 			/>
 
 			<Modal
@@ -566,7 +567,7 @@ const InfoModal = () => {
 										index={1}
 										text={"first"}
 										level={firstLevel}
-										elText={"Kaip naudotis portalu"}
+										elText={"Naudojimo instrukcija"}
 										fontSize={"18px"}
 									/>
 									<Collapse sx={{ ml: 1 }} in={firstLevel[1] === true}>
@@ -670,7 +671,7 @@ const InfoModal = () => {
 									index={1}
 									text={"first"}
 									level={firstLevel}
-									elText={"Kaip naudotis portalu"}
+									elText={"Naudojimo instrukcija"}
 									fontSize={"18px"}
 								/>
 								<Collapse sx={{ ml: 1 }} in={firstLevel[1] === true}>

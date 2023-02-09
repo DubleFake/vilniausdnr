@@ -4,13 +4,11 @@ import { Routes, Route, Outlet } from "react-router-dom"
 import Options from "../components/Events/options/Options"
 import EventTimeline from "../components/Events/EventInfo/EventTimeline"
 import { events } from "../utils/eventsArcgisItems"
-import TooltipPlaceholder from "../utils/misc/TooltipPlaceholder"
 import DNRSpinner from "../utils/misc/DNRSpinner"
+import InfoTooltip from "../utils/misc/InfoTooltip"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
-import Collapse from "@mui/material/Collapse"
-import CircularProgress from "@mui/material/CircularProgress"
 import Backdrop from "@mui/material/Backdrop"
 
 const Persons = () => {
@@ -19,6 +17,9 @@ const Persons = () => {
 	const [selectedEvent, setSelectedEvent] = useState()
 	const [selectedGroup, setSelectedGroup] = useState("")
 
+	const [open, setOpen] = useState(false)
+	const [anchorEl, setAnchorEl] = useState(null)
+
 	useEffect(() => {
 		events
 			.queryFeatures({
@@ -26,6 +27,13 @@ const Persons = () => {
 				outFields: ["*"],
 			})
 			.then((response) => {
+				const infoButton = document.getElementById("info_button")
+				setAnchorEl(infoButton)
+				setOpen(true)
+				setTimeout(() => {
+					setOpen(false)
+				}, 4000)
+
 				const tempFeatures = response.features
 				tempFeatures.sort((a, b) => a.attributes.Ivykio_data - b.attributes.Ivykio_data)
 				setEventsFiltered(tempFeatures)
@@ -67,6 +75,7 @@ const Persons = () => {
 							)}
 							<Outlet />
 						</Grid>
+						<InfoTooltip open={open} setOpen={setOpen} anchorEl={anchorEl} />
 					</>
 				}
 			></Route>

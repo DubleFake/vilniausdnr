@@ -182,6 +182,7 @@ const CompareReview = (props) => {
 
 									navigate(`${location.pathname}?${searchParams.toString()}`)
 								}
+								props.setInitialLoading(true)
 								setViewUpdating(false)
 							})
 					}

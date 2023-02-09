@@ -8,16 +8,13 @@ import ObjectPopup from "../components/Streets/popup/ObjectPopup"
 import OptionsToggle from "../components/Streets/options/OptionsToggle"
 import Options from "../components/Streets/options/Options"
 import CompareToggle from "../components/Streets/compare/CompareToggle"
+import InfoTooltip from "../utils/misc/InfoTooltip"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
 import Collapse from "@mui/material/Collapse"
 import CircularProgress from "@mui/material/CircularProgress"
 import Backdrop from "@mui/material/Backdrop"
-
-// filtrai
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#reorder
-// vaizdavimo select rodymas pagal route?
 
 const Plaques = () => {
 	const [selectedObject, setSelectedObject] = useState("")
@@ -30,10 +27,22 @@ const Plaques = () => {
 	const [historyToggle, setHistoryToggle] = useState(false)
 	const [once, setOnce] = useState(false)
 
+	const [open, setOpen] = useState(false)
+	const [anchorEl, setAnchorEl] = useState(null)
+
 	const theme = useTheme()
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
 
 	useEffect(() => {
+		if (!initialLoading || (initialLoading && historyToggle)) {
+			const infoButton = document.getElementById("info_button")
+			setAnchorEl(infoButton)
+			setOpen(true)
+			setTimeout(() => {
+				setOpen(false)
+			}, 4000)
+		}
+
 		if (!historyToggle && !initialLoading && !isMobile) {
 			setVisible(true)
 		} else {
@@ -91,6 +100,7 @@ const Plaques = () => {
 								<Outlet />
 							</Grid>
 						</Grid>
+						<InfoTooltip open={open} setOpen={setOpen} anchorEl={anchorEl} />
 					</>
 				}
 			>
