@@ -51,6 +51,39 @@ const EventTimeline = (props) => {
 		setShareTooltip(true)
 	}
 
+	const toRomanCentury = (date_epoch) => {
+		const date = new Date(date_epoch).toLocaleDateString("lt-LT")
+
+		let year = parseInt(date.split("-")[0])
+		let century = Math.floor(year / 100) + 1
+
+		let roman = ""
+		const numerals = [
+			["M", 1000],
+			["CM", 900],
+			["D", 500],
+			["CD", 400],
+			["C", 100],
+			["XC", 90],
+			["L", 50],
+			["XL", 40],
+			["X", 10],
+			["IX", 9],
+			["V", 5],
+			["IV", 4],
+			["I", 1],
+		]
+
+		for (let i = 0; i < numerals.length; i++) {
+			while (century >= numerals[i][1]) {
+				roman += numerals[i][0]
+				century -= numerals[i][1]
+			}
+		}
+
+		return roman
+	}
+
 	useEffect(() => {
 		if (!props.selectedGroup) {
 			const eventByID = props.eventsFiltered.find(
@@ -136,7 +169,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Susijes_asmuo_is_saraso", "Susijes_asmuo_irasant_tekstu"],
-							relationshipId: 27,
+							relationshipId: 17,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
@@ -203,7 +236,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Saltinio_pavadinimas", "Saltinio_URL"],
-							relationshipId: 28,
+							relationshipId: 19,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
@@ -224,7 +257,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Pavadinimas", "GlobalID_zemelapio"],
-							relationshipId: 29,
+							relationshipId: 18,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
@@ -266,7 +299,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Pavadinimas", "GlobalID"],
-							relationshipId: 19,
+							relationshipId: 17,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
@@ -441,7 +474,23 @@ const EventTimeline = (props) => {
 						>
 							<TimelineSeparator sx={{ mx: "3%" }}>
 								<TimelineConnector sx={{ backgroundColor: "white", width: "1px" }} />
-								<TimelineDot sx={{ backgroundColor: "white", m: 0, borderWidth: "1px" }} />
+								<TimelineDot sx={{ backgroundColor: "white", m: 0, borderWidth: "1px" }}>
+									<Typography
+										sx={{
+											ml: index % 2 === 0 ? "calc(-37px - 5%)" : "5%",
+											mt: -1.2,
+											color: "lightgray",
+											fontWeight: 400,
+											fontSize: "14px",
+											position: "absolute",
+										}}
+										variant="body2"
+										component="div"
+									>
+										{toRomanCentury(event.attributes.Ivykio_data)} a.
+									</Typography>
+								</TimelineDot>
+
 								<TimelineConnector sx={{ backgroundColor: "white", width: "1px" }} />
 							</TimelineSeparator>
 							<TimelineContent>
@@ -454,6 +503,7 @@ const EventTimeline = (props) => {
 											zIndex: 1,
 											cursor: "pointer",
 											textAlign: "left",
+											minHeight: 250,
 										}}
 										component="div"
 										// id={event.attributes.Ivykio_ID.replace(/[{}]/g, "")}

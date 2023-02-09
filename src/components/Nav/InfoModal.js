@@ -566,7 +566,7 @@ const InfoModal = () => {
 										index={1}
 										text={"first"}
 										level={firstLevel}
-										elText={"Pagalba"}
+										elText={"Kaip naudotis portalu"}
 										fontSize={"18px"}
 									/>
 									<Collapse sx={{ ml: 1 }} in={firstLevel[1] === true}>
@@ -670,7 +670,7 @@ const InfoModal = () => {
 									index={1}
 									text={"first"}
 									level={firstLevel}
-									elText={"Pagalba"}
+									elText={"Kaip naudotis portalu"}
 									fontSize={"18px"}
 								/>
 								<Collapse sx={{ ml: 1 }} in={firstLevel[1] === true}>
