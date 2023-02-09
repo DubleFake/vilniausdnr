@@ -54,6 +54,7 @@ const ObjectMap = (props) => {
 		bgExpand.content.source.basemaps.items[2].title = t("plaques.map.basemapOrto")
 
 		view.ui.components = []
+		view2.ui.components = []
 		view.ui.components = ["zoom"]
 		view.ui.add(bgExpand, "top-left")
 		view.ui.add(locateWidget, "top-left")
@@ -126,7 +127,14 @@ const ObjectMap = (props) => {
 					width: "100%",
 					height: "100%",
 				}}
-			></div>
+			>
+				<div className="attribution">
+					<div className="attribution_text">
+						© 2023 Vilniaus miesto savivaldybė © 2023 UAB "Vilniaus Planas"
+					</div>
+					<div className="attribution_esri">Powered by Esri</div>
+				</div>
+			</div>
 			<div
 				id="view2Div"
 				ref={mapDiv2}
@@ -137,12 +145,6 @@ const ObjectMap = (props) => {
 				}}
 			></div>
 			{/* <div id="view2Div" ref={mapDiv2} style={{ float: "left", width: "50%", height: "100%" }}></div> */}
-			<div className="attribution">
-				<div className="attribution_text">
-					© 2023 Vilniaus miesto savivaldybė © 2023 UAB "Vilniaus Planas"
-				</div>
-				<div className="attribution_esri">Powered by Esri</div>
-			</div>
 		</>
 	)
 }

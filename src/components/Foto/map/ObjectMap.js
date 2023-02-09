@@ -16,7 +16,7 @@ const ObjectMap = (props) => {
 	useEffect(() => {
 		view.container = mapDiv.current
 
-    let pt = new Point({
+		let pt = new Point({
 			x: 582527.5805600522,
 			y: 6061855.557955307,
 			spatialReference: {
@@ -116,10 +116,9 @@ const ObjectMap = (props) => {
 							if (response.features.length > 0) {
 								props.setMapQuery(response.features)
 								navigate(
-									`/vilniausdnrtest/${i18n.language}/foto/object/${response.features[0].attributes.GlobalID.replace(
-										/[{}]/g,
-										""
-									)}`
+									`/vilniausdnrtest/${
+										i18n.language
+									}/foto/object/${response.features[0].attributes.GlobalID.replace(/[{}]/g, "")}`
 								)
 							}
 						})
@@ -133,10 +132,11 @@ const ObjectMap = (props) => {
 		bgExpand.content.source.basemaps.items[1].title = t("plaques.map.basemapDark")
 		bgExpand.content.source.basemaps.items[2].title = t("plaques.map.basemapOrto")
 
-		view.ui.empty("top-left")
-
+		view.ui.components = []
+		view.ui.components = ["zoom"]
 		view.ui.add(bgExpand, "top-left")
 		view.ui.add(locateWidget, "top-left")
+		view.ui.move("zoom", "top-left")
 	}, [i18n.language])
 
 	useEffect(() => {
@@ -150,7 +150,18 @@ const ObjectMap = (props) => {
 		}
 	}, [])
 
-	return <div className="map" ref={mapDiv}></div>
+	return (
+		<>
+			<div className="map" ref={mapDiv}>
+				<div className="attribution">
+					<div className="attribution_text">
+						© 2023 Vilniaus miesto savivaldybė © 2023 UAB "Vilniaus Planas"
+					</div>
+					<div className="attribution_esri">Powered by Esri</div>
+				</div>
+			</div>
+		</>
+	)
 }
 
 export default ObjectMap
