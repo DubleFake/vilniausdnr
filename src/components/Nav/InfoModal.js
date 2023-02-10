@@ -467,11 +467,12 @@ const InfoModal = () => {
 		setToggleSidebar(false)
 	}
 
-	// useEffect(() => {
-	// 	if (window.location.pathname === "/vilniausdnrtest/lt") {
-	// 		setOpen(true)
-	// 	}
-	// }, [])
+	useEffect(() => {
+		if (window.location.pathname === "/vilniausdnrtest/lt") {
+			setOpen(true)
+			handleFirstLevel(1, "first", true)
+		}
+	}, [])
 
 	return (
 		<div>

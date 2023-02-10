@@ -126,7 +126,7 @@ const gatves_1977 = new FeatureLayer({
 	metai: 1977,
 })
 const gatves_2023 = new FeatureLayer({
-	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/93",
+	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/94",
 	outFields: ["*"],
 	title: "2023",
 })
