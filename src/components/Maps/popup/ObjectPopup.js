@@ -139,12 +139,18 @@ const ObjectPopup = (props) => {
 		}
 	}, [])
 
-	const matches = useMediaQuery("(min-width:995px)")
+	const matches = useMediaQuery("(min-width:600px)")
 	return (
 		<Box sx={{ visibility: popupOpen ? "visible" : "hidden" }}>
-			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
+			{!matches && (
+				<Backdrop
+					sx={{ color: "#fff", zIndex: 2 }}
+					open={popupOpen}
+					onClick={() => setPopupOpen(false)}
+				></Backdrop>
+			)}
 			<Fade in={true} timeout={300} unmountOnExit>
-				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3, mt: 0.5 }}>
+				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 10, mt: 0.5 }}>
 					<Card variant="popup">
 						<CardContent sx={{ pt: 0, px: 4, pb: "24px !important" }}>
 							{pageCount > 1 ? (
@@ -159,7 +165,7 @@ const ObjectPopup = (props) => {
 							) : (
 								<>
 									<CardHeader
-										sx={{ p: 0, mt: 0 }}
+										sx={{ p: 0, mt: 1 }}
 										action={
 											<IconButton
 												color="primary"
@@ -169,8 +175,8 @@ const ObjectPopup = (props) => {
 													setPopupOpen(false)
 												}}
 												sx={{
-													mt: 0.5,
-													mr: 1,
+													mt: 1,
+													mr: -1.5,
 													backgroundColor: "#F6F6F6",
 													"&:hover": {
 														transition: "0.3s",

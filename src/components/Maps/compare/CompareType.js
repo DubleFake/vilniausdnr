@@ -8,6 +8,7 @@ import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import SvgIcon from "@mui/material/SvgIcon"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 import { ReactComponent as reviewIcon } from "../../../utils/icons/compareTypeIcons/perziura.svg"
 import { ReactComponent as swipeIcon } from "../../../utils/icons/compareTypeIcons/slenkanti.svg"
@@ -16,6 +17,8 @@ import { ReactComponent as windowIcon } from "../../../utils/icons/compareTypeIc
 const CompareType = (props) => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
+
+	const isMobile = useMediaQuery("(min-width:600px)")
 
 	const handleCompareChange = (event) => {
 		props.setSelectedCompare(event.target.value)
@@ -61,7 +64,14 @@ const CompareType = (props) => {
 	}
 
 	return (
-		<Grid variant="compareType" container direction="row" justifyContent="left" alignItems="flex-start">
+		<Grid
+			sx={{ ml: isMobile ? "inherit" : -2.25 }}
+			variant="compareType"
+			container
+			direction="row"
+			justifyContent={isMobile ? "left" : "center"}
+			alignItems="flex-start"
+		>
 			<FormControl
 				sx={{
 					width: "auto",

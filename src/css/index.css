@@ -77,6 +77,10 @@ body {
 	z-index: 5;
 }
 
+.esri-expand__container {
+	max-height: 50%;
+}
+
 .attribution {
 	--lumo-base-color: #fff;
 	--lumo-tint-5pct: hsla(0, 0%, 100%, 0.3);

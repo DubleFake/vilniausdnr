@@ -134,7 +134,7 @@ const App = () => {
 						},
 						style: {
 							backgroundColor: "transparent",
-							width: "100%",
+							width: "80%",
 							height: "0%",
 							bottom: window.innerHeight - appBarHeight,
 							left: 50,
@@ -434,7 +434,7 @@ const App = () => {
 							top: 0 + appBarHeight,
 							right: 0,
 							position: "fixed",
-							zIndex: 3,
+							zIndex: 10,
 							maxHeight: window.innerHeight - appBarHeight - 16,
 							overflowY: "auto",
 							overflowX: "hidden",

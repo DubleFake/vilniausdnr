@@ -10,10 +10,13 @@ import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import ClickAwayListener from "@mui/material/ClickAwayListener"
 import Popover from "@mui/material/Popover"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 const CompareSwipe = (props) => {
 	const [selectedLeftPeriod, setSelectedLeftPeriod] = useState(0)
 	const [selectedRightPeriod, setSelectedRightPeriod] = useState(5)
+
+	const isMobile = useMediaQuery("(min-width:600px)")
 
 	const handleLeftSelect = (event) => {
 		setSelectedLeftPeriod(event.target.value)
@@ -134,32 +137,34 @@ const CompareSwipe = (props) => {
 			alignItems="flex-start"
 			id="swipe-select"
 		>
-			<ClickAwayListener mouseEvent="onPointerDown" touchEvent="onTouchStart" onClickAway={handleClickAway}>
-				<Popover
-					sx={{ top: "calc(50% + 50px)", pointerEvents: "none" }}
-					id="swipe-popover"
-					open={!props.once}
-					anchorReference="anchorPosition"
-					anchorPosition={{ top: 0, left: 0 }}
-					anchorOrigin={{
-						vertical: "top",
-						horizontal: "left",
-					}}
-					transformOrigin={{
-						vertical: "top",
-						horizontal: "right",
-					}}
-				>
-					<Typography sx={{ m: 1, textTransform: "none", color: "black" }} variant="body1">
-						Slinkite juostą ir lyginkite abu žemėlapius
-					</Typography>
-				</Popover>
-			</ClickAwayListener>
+			{isMobile && (
+				<ClickAwayListener mouseEvent="onPointerDown" touchEvent="onTouchStart" onClickAway={handleClickAway}>
+					<Popover
+						sx={{ top: "calc(50% + 50px)", pointerEvents: "none" }}
+						id="swipe-popover"
+						open={!props.once}
+						anchorReference="anchorPosition"
+						anchorPosition={{ top: 0, left: 0 }}
+						anchorOrigin={{
+							vertical: "top",
+							horizontal: "left",
+						}}
+						transformOrigin={{
+							vertical: "top",
+							horizontal: "right",
+						}}
+					>
+						<Typography sx={{ m: 1, textTransform: "none", color: "black" }} variant="body1">
+							Slinkite juostą ir lyginkite abu žemėlapius
+						</Typography>
+					</Popover>
+				</ClickAwayListener>
+			)}
 			<FormControl
 				sx={{
 					bottom: 16,
 					mt: -7.5,
-					mr: 8,
+					mr: isMobile ? 8 : 18,
 					width: "auto",
 					height: "45px",
 					backgroundColor: "white",
@@ -214,7 +219,7 @@ const CompareSwipe = (props) => {
 				sx={{
 					bottom: 16,
 					mt: -7.5,
-					ml: 8,
+					ml: isMobile ? 8 : 19.5,
 					width: "auto",
 					height: "45px",
 					backgroundColor: "white",

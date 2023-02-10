@@ -8,12 +8,15 @@ import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Grid from "@mui/material/Grid"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 const viewHandles = []
 
 const CompareTimeline = (props) => {
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
+
+	const isMobile = useMediaQuery("(min-width:600px)")
 
 	useEffect(() => {
 		map.removeAll()
@@ -174,6 +177,7 @@ const CompareTimeline = (props) => {
 						background: props.toggle1808 ? "#55AFB0" : "white",
 						color: props.toggle1808 ? "white" : "black",
 						"&:hover": { backgroundColor: "#55AFB0", color: "white" },
+						width: isMobile ? "auto" : 50,
 					}}
 					size="large"
 					variant="timeline"
@@ -188,6 +192,7 @@ const CompareTimeline = (props) => {
 						background: props.toggle1845 ? "#407D5C" : "white",
 						color: props.toggle1845 ? "white" : "black",
 						"&:hover": { backgroundColor: "#407D5C", color: "white" },
+						width: isMobile ? "auto" : 50,
 					}}
 					size="large"
 					variant="timeline"
@@ -202,6 +207,7 @@ const CompareTimeline = (props) => {
 						background: props.toggle1911 ? "#007FCC" : "white",
 						color: props.toggle1911 ? "white" : "black",
 						"&:hover": { backgroundColor: "#007FCC", color: "white" },
+						width: isMobile ? "auto" : 50,
 					}}
 					size="large"
 					variant="timeline"
@@ -216,6 +222,7 @@ const CompareTimeline = (props) => {
 						background: props.toggle1938 ? "#823F86" : "white",
 						color: props.toggle1938 ? "white" : "black",
 						"&:hover": { backgroundColor: "#823F86", color: "white" },
+						width: isMobile ? "auto" : 50,
 					}}
 					size="large"
 					variant="timeline"
@@ -230,6 +237,7 @@ const CompareTimeline = (props) => {
 						background: props.toggle1977 ? "#EE5066" : "white",
 						color: props.toggle1977 ? "white" : "black",
 						"&:hover": { backgroundColor: "#EE5066", color: "white" },
+						width: isMobile ? "auto" : 50,
 					}}
 					size="large"
 					variant="timeline"
@@ -244,6 +252,7 @@ const CompareTimeline = (props) => {
 						background: props.toggle2023 ? "#FFAF28" : "white",
 						color: props.toggle2023 ? "white" : "black",
 						"&:hover": { backgroundColor: "#FFAF28", color: "white" },
+						width: isMobile ? "auto" : 50,
 					}}
 					size="large"
 					variant="timeline"

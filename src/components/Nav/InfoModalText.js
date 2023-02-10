@@ -194,7 +194,7 @@ export const textDict = {
 							sx={{ my: 2, mr: 2, width: "60%", height: "100%", resizeMode: "contain" }}
 							component="img"
 							src="https://i.ibb.co/hFtkgz3/25-01-2023-19-43-51-REC-Adobe-Express.gif"
-              className="helpGif"
+							className="helpGif"
 						/>
 					</Grid>
 					<li style={{ paddingLeft: 4 }}>
@@ -291,7 +291,7 @@ export const textDict = {
 							sx={{ my: 2, mr: 2, width: "60%", height: "100%", resizeMode: "contain" }}
 							component="img"
 							src="https://i.ibb.co/tYYZQ1X/25-01-2023-21-06-44-REC-Adobe-Express.gif"
-              className="helpGif"
+							className="helpGif"
 						/>
 					</Grid>
 					<li style={{ paddingLeft: 4 }}>
@@ -547,7 +547,7 @@ export const textDict = {
 							sx={{ my: 2, mr: 2, width: "60%", height: "100%", resizeMode: "contain" }}
 							component="img"
 							src="https://i.ibb.co/pWh75Hk/25-01-2023-20-41-12-REC-Adobe-Express.gif"
-              className="helpGif"
+							className="helpGif"
 						/>
 					</Grid>
 					<li style={{ paddingLeft: 4 }}>
@@ -607,7 +607,7 @@ export const textDict = {
 							sx={{ my: 2, mr: 2, width: "30%", height: "100%", resizeMode: "contain" }}
 							component="img"
 							src="https://i.ibb.co/jZfR5Kv/25-01-2023-20-59-25-REC-Adobe-Express.gif"
-              className="helpGifTall"
+							className="helpGifTall"
 						/>
 					</Grid>
 					<li style={{ paddingLeft: 4 }}>
@@ -619,7 +619,7 @@ export const textDict = {
 							sx={{ my: 2, mr: 2, width: "30%", height: "100%", resizeMode: "contain" }}
 							component="img"
 							src="https://i.ibb.co/zH7nTpc/25-01-2023-20-54-44-REC-Adobe-Express.gif"
-              className="helpGifTall"
+							className="helpGifTall"
 						/>
 					</Grid>
 				</ol>
@@ -656,7 +656,7 @@ export const textDict = {
 					component="img"
 					src={pin}
 				/>
-				<Button
+				{/* <Button
 					sx={{
 						borderRadius: 10,
 						backgroundColor: "#D72E30",
@@ -675,7 +675,13 @@ export const textDict = {
 					onClick={() => window.open("mailto:info@vplanas.lt?subject=Vilniaus DNR paklausimas", "_self")}
 				>
 					Susisiekti
-				</Button>
+				</Button> */}
+				<Typography sx={{ color: "white", fontSize: "16px", fontWeight: 400, mt: 20 }}>
+					Elektroninis paštas:
+				</Typography>
+				<Typography sx={{ color: "white", fontSize: "18px", fontWeight: 500, mt: 1 }}>
+					vilniusdnr@vplanas.lt
+				</Typography>
 			</Grid>
 		</Box>
 	),

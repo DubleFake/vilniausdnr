@@ -283,12 +283,18 @@ const ObjectPopup = (props) => {
 		}
 	}, [])
 
-	const matches = useMediaQuery("(min-width:995px)")
+	const matches = useMediaQuery("(min-width:600px)")
 	return (
 		<>
-			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
+			{!matches && (
+				<Backdrop
+					sx={{ color: "#fff", zIndex: 2 }}
+					open={popupOpen}
+					onClick={() => setPopupOpen(false)}
+				></Backdrop>
+			)}
 			<Fade in={true} timeout={300} unmountOnExit>
-				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
+				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 10, mt: 0.5 }}>
 					<Card variant="popup">
 						<CardContent sx={{ pt: 0, px: 4, pb: "8px !important" }}>
 							{pageCount > 1 ? (
@@ -303,7 +309,7 @@ const ObjectPopup = (props) => {
 							) : (
 								<>
 									<CardHeader
-										sx={{ p: 0, mt: 0 }}
+										sx={{ p: 0, mt: 1 }}
 										action={
 											<IconButton
 												color="primary"
@@ -313,8 +319,8 @@ const ObjectPopup = (props) => {
 													navigate(`/vilniausdnrtest/${i18n.language}/streets`)
 												}}
 												sx={{
-													mt: 0.5,
-													mr: 1,
+													mt: 1,
+													mr: -1.5,
 													backgroundColor: "#F6F6F6",
 													"&:hover": {
 														transition: "0.3s",
@@ -513,10 +519,9 @@ const ObjectPopup = (props) => {
 															target="_blank"
 															href={
 																"https://zemelapiai.vplanas.lt" +
-																`/vilniausdnrtest/${i18n.language}/foto/object/${foto.attributes.GlobalID.replace(
-																	/[{}]/g,
-																	""
-																)}`
+																`/vilniausdnrtest/${
+																	i18n.language
+																}/foto/object/${foto.attributes.GlobalID.replace(/[{}]/g, "")}`
 															}
 															rel="noopener"
 															textAlign="left"

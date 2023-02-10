@@ -7,10 +7,13 @@ import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 const CompareWindow = (props) => {
 	const [selectedLeftPeriod, setSelectedLeftPeriod] = useState(0)
 	const [selectedRightPeriod, setSelectedRightPeriod] = useState(5)
+
+	const isMobile = useMediaQuery("(min-width:600px)")
 
 	useEffect(() => {
 		map.removeAll()
@@ -87,7 +90,7 @@ const CompareWindow = (props) => {
 				sx={{
 					bottom: 16,
 					mt: -7.5,
-					mr: 8,
+					mr: isMobile ? 8 : 18,
 					width: "auto",
 					height: "45px",
 					backgroundColor: "white",
@@ -125,7 +128,7 @@ const CompareWindow = (props) => {
 										whiteSpace: "unset",
 										"&.Mui-selected": {
 											color: "#D72E30",
-                      backgroundColor: "#F7D5D6",
+											backgroundColor: "#F7D5D6",
 										},
 										justifyContent: "center",
 									}}
@@ -142,7 +145,7 @@ const CompareWindow = (props) => {
 				sx={{
 					bottom: 16,
 					mt: -7.5,
-					ml: 8,
+					ml: isMobile ? 8 : 19.5,
 					width: "auto",
 					height: "45px",
 					backgroundColor: "white",
@@ -180,7 +183,7 @@ const CompareWindow = (props) => {
 										whiteSpace: "unset",
 										"&.Mui-selected": {
 											color: "#D72E30",
-                      backgroundColor: "#F7D5D6",
+											backgroundColor: "#F7D5D6",
 										},
 										justifyContent: "center",
 									}}

@@ -15,6 +15,7 @@ import Slider from "@mui/material/Slider"
 import { NestedMenuItem } from "mui-nested-menu"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import Backdrop from "@mui/material/Backdrop"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
@@ -56,6 +57,8 @@ const CompareReview = (props) => {
 
 	const [sliderValue, setSliderValue] = useState(100)
 	const [viewUpdating, setViewUpdating] = useState(false)
+
+	const isMobile = useMediaQuery("(min-width:600px)")
 
 	const handleSliderChange = (event, newValue) => {
 		map.layers.items[0].opacity = newValue / 100
@@ -279,7 +282,14 @@ const CompareReview = (props) => {
 					))}
 				</Menu>
 			</Grid>
-			<Grid variant="compareType" container direction="row" justifyContent="left" alignItems="flex-start">
+			<Grid
+				sx={{ ml: isMobile ? "inherit" : -2.25 }}
+				variant="compareType"
+				container
+				direction="row"
+				justifyContent={isMobile ? "left" : "center"}
+				alignItems="flex-start"
+			>
 				<Box sx={{ mt: 9, ml: 2, width: 177, height: 45, borderRadius: 10, backgroundColor: "white" }}>
 					<Grid container direction="row" justifyContent="center" alignItems="center">
 						<Typography sx={{ mt: 0.4, mb: -1.4 }}>Permatomumas</Typography>

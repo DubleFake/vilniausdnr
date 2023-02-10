@@ -6,12 +6,13 @@ import CompareTimeline from "../compare/CompareTimeline"
 import CompareSwipe from "../compare/CompareSwipe"
 import CompareWindow from "../compare/CompareWindow"
 import ObjectPopupTimeline from "../../../components/Streets/popup/ObjectPopupTimeline"
+import CompareType from "./CompareType"
 
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Grid from "@mui/material/Grid"
-import CompareType from "./CompareType"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 const CompareLayers = (props) => {
 	const navigate = useNavigate()
@@ -22,6 +23,8 @@ const CompareLayers = (props) => {
 	const [toggle1938, setToggle1938] = useState(false)
 	const [toggle1977, setToggle1977] = useState(false)
 	const [toggle2023, setToggle2023] = useState(false)
+
+	const isMobile = useMediaQuery("(min-width:600px)")
 
 	useEffect(() => {
 		if (window.location.href.includes("compare")) {
@@ -35,8 +38,15 @@ const CompareLayers = (props) => {
 
 	return (
 		<>
-			<Grid variant="compareType" container direction="row" justifyContent="center" alignItems="flex-start">
-				<ButtonGroup sx={{ mt: 1.5, ml: -12.5 }}>
+			<Grid
+				sx={{ width: isMobile ? "100%" : "80%" }}
+				variant="compareType"
+				container
+				direction="row"
+				justifyContent="center"
+				alignItems="center"
+			>
+				<ButtonGroup sx={{ mt: 1.5, ml: isMobile ? -12.5 : -2.5 }}>
 					<Button
 						variant="timeline"
 						sx={{

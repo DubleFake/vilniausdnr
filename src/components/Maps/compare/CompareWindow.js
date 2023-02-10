@@ -13,6 +13,7 @@ import Menu from "@mui/material/Menu"
 import { NestedMenuItem } from "mui-nested-menu"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import Backdrop from "@mui/material/Backdrop"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
@@ -41,6 +42,8 @@ const CompareWindow = (props) => {
 	const openRight = Boolean(anchorElRight)
 	const [view1Updating, setView1Updating] = useState(true)
 	const [view2Updating, setView2Updating] = useState(false)
+
+	const isMobile = useMediaQuery("(min-width:600px)")
 
 	const handleClickRight = (e) => setAnchorElRight(e.currentTarget)
 
@@ -204,23 +207,25 @@ const CompareWindow = (props) => {
 					position: "relative",
 				}}
 				container
-				direction="row"
+				direction={isMobile ? "row" : "column"}
 				justifyContent="center"
-				alignItems="flex-start"
+				alignItems={isMobile ? "flex-start" : "center"}
 			>
 				{mapList.length && (
 					<>
 						<Button
 							sx={{
 								bottom: 16,
-								mt: -7.5,
-								mr: 85,
+								mt: isMobile ? -7.5 : -14,
+								mr: isMobile ? 85 : 0,
 								width: "auto",
 								height: "45px",
 								borderRadius: "30px",
 								backgroundColor: "white",
 								"&:hover": { backgroundColor: "white" },
 								textTransform: "none",
+								position: "relative",
+								zIndex: 5,
 							}}
 							onClick={handleClickLeft}
 							endIcon={<ArrowDropDownIcon />}
@@ -261,7 +266,7 @@ const CompareWindow = (props) => {
 													whiteSpace: "unset",
 													color: map.globalid_map === globalIDLeft && "#D72E30",
 													backgroundColor: map.globalid_map === globalIDLeft && "#F7D5D6",
-													justifyContent: "center",
+													justifyContent: isMobile ? "center" : "flex-start",
 												}}
 												key={index}
 												value={index}
@@ -281,14 +286,16 @@ const CompareWindow = (props) => {
 						<Button
 							sx={{
 								bottom: 16,
-								mt: -7.5,
-								ml: 85,
+								mt: isMobile ? -7.5 : 1,
+								ml: isMobile ? 85 : 0,
 								width: "auto",
 								height: "45px",
 								borderRadius: "30px",
 								backgroundColor: "white",
 								"&:hover": { backgroundColor: "white" },
 								textTransform: "none",
+								position: "relative",
+								zIndex: 5,
 							}}
 							onClick={handleClickRight}
 							endIcon={<ArrowDropDownIcon />}
@@ -339,7 +346,7 @@ const CompareWindow = (props) => {
 													whiteSpace: "unset",
 													color: map.globalid_map === globalIDRight && "#D72E30",
 													backgroundColor: map.globalid_map === globalIDRight && "#F7D5D6",
-													justifyContent: "center",
+													justifyContent: isMobile ? "center" : "flex-start",
 												}}
 												key={index}
 												value={index}

@@ -102,12 +102,12 @@ const ObjectPopupTimeline = (props) => {
 							map.removeAll()
 							map.add(period)
 
-              props.setToggle1808(false)
-              props.setToggle1845(false)
-              props.setToggle1911(false)
-              props.setToggle1938(false)
-              props.setToggle1977(false)
-              props.setToggle2023(false)
+							props.setToggle1808(false)
+							props.setToggle1845(false)
+							props.setToggle1911(false)
+							props.setToggle1938(false)
+							props.setToggle1977(false)
+							props.setToggle2023(false)
 
 							switch (period.metai) {
 								case 1808:
@@ -248,12 +248,18 @@ const ObjectPopupTimeline = (props) => {
 		}
 	}, [])
 
-	const matches = useMediaQuery("(min-width:995px)")
+	const matches = useMediaQuery("(min-width:600px)")
 	return (
 		<>
-			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
+			{!matches && (
+				<Backdrop
+					sx={{ color: "#fff", zIndex: 2 }}
+					open={popupOpen}
+					onClick={() => setPopupOpen(false)}
+				></Backdrop>
+			)}
 			<Fade in={true} timeout={300} unmountOnExit>
-				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
+				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 10, mt: 0.5 }}>
 					<Card variant="popup">
 						<CardContent sx={{ pt: 0, px: 4 }}>
 							{pageCount > 1 ? (
@@ -274,7 +280,7 @@ const ObjectPopupTimeline = (props) => {
 							) : (
 								<>
 									<CardHeader
-										sx={{ p: 0, mt: 0 }}
+										sx={{ p: 0, mt: 1 }}
 										action={
 											<IconButton
 												color="primary"
@@ -284,8 +290,8 @@ const ObjectPopupTimeline = (props) => {
 													navigate(`/vilniausdnrtest/${i18n.language}/streets/compare/timeline`)
 												}}
 												sx={{
-													mt: 0.5,
-													mr: 1,
+													mt: 1,
+													mr: -1.5,
 													backgroundColor: "#F6F6F6",
 													"&:hover": {
 														transition: "0.3s",
