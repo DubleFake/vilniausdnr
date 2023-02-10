@@ -73,7 +73,13 @@ const PersonInfo = (props) => {
 				</IconButton>
 			)}
 			{displayEmpty ? (
-				<ForceGraph initialObjectsList={props.initialObjectsList} />
+				<>
+					{/* <ForceGraph initialObjectsList={props.initialObjectsList} /> */}
+					<EmptyPlaceholder
+						display={displayEmpty}
+						text={"Pasirinkite konkrečią asmenybę iš sąrašo kairėje"}
+					/>
+				</>
 			) : isDownSm ? (
 				<Box
 					sx={{

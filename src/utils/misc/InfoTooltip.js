@@ -49,7 +49,7 @@ const InfoTooltip = (props) => {
 			>
 				{({ TransitionProps }) => (
 					<Fade {...TransitionProps}>
-						<Box sx={{ p: 1, bgcolor: "white", borderRadius: 1 }}>
+						<Box sx={{ p: 1, bgcolor: "white", borderRadius: 1, boxShadow: 5 }}>
 							<div className="triangle_top_info"></div>
 							<Typography variant="body2">
 								Kaip naudotis?
