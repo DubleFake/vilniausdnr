@@ -169,7 +169,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Susijes_asmuo_is_saraso", "Susijes_asmuo_irasant_tekstu"],
-							relationshipId: 17,
+							relationshipId: 18,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
@@ -236,7 +236,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Saltinio_pavadinimas", "Saltinio_URL"],
-							relationshipId: 19,
+							relationshipId: 17,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
@@ -257,7 +257,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Pavadinimas", "GlobalID_zemelapio"],
-							relationshipId: 18,
+							relationshipId: 19,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
@@ -299,7 +299,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Pavadinimas", "GlobalID"],
-							relationshipId: 17,
+							relationshipId: 9,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
@@ -323,7 +323,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Susijes_asmuo_is_saraso", "Susijes_asmuo_irasant_tekstu"],
-							relationshipId: 27,
+							relationshipId: 18,
 							returnGeometry: false,
 							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
 						})
@@ -390,7 +390,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Saltinio_pavadinimas", "Saltinio_URL"],
-							relationshipId: 28,
+							relationshipId: 17,
 							returnGeometry: false,
 							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
 						})
@@ -408,7 +408,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Pavadinimas", "GlobalID_zemelapio"],
-							relationshipId: 29,
+							relationshipId: 19,
 							returnGeometry: false,
 							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
 						})
@@ -445,7 +445,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Pavadinimas", "GlobalID"],
-							relationshipId: 19,
+							relationshipId: 9,
 							returnGeometry: false,
 							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
 						})
