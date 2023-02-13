@@ -64,7 +64,7 @@ const PersonInfo = (props) => {
 						mt: 1,
 						mr: 1.5,
 						position: "absolute",
-						zIndex: 200,
+						zIndex: 50,
 						right: 0,
 						left: "auto",
 						backgroundColor: "#D72E30",

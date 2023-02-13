@@ -90,43 +90,43 @@ export const objectRenderer = {
 }
 
 export const objects = new FeatureLayer({
-	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/50",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/50",
 	outFields: ["*"],
 	title: "Gatvės",
 })
 
 const gatves_1808 = new FeatureLayer({
-	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/76",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/76",
 	outFields: ["*"],
 	title: "1808",
 	metai: 1808,
 })
 const gatves_1845 = new FeatureLayer({
-	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/89",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/89",
 	outFields: ["*"],
 	title: "1845",
 	metai: 1845,
 })
 const gatves_1911 = new FeatureLayer({
-	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/82",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/82",
 	outFields: ["*"],
 	title: "1911",
 	metai: 1911,
 })
 const gatves_1938 = new FeatureLayer({
-	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/81",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/81",
 	outFields: ["*"],
 	title: "1938",
 	metai: 1938,
 })
 const gatves_1977 = new FeatureLayer({
-	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/90",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/90",
 	outFields: ["*"],
 	title: "1977",
 	metai: 1977,
 })
 const gatves_2023 = new FeatureLayer({
-	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/94",
+	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/94",
 	outFields: ["*"],
 	title: "2023",
 })

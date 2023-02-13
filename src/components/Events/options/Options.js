@@ -159,7 +159,7 @@ const Options = (props) => {
 	}, [props.selectedGroup])
 
 	return (
-		<Container variant="optionsDiv">
+		<Container variant="optionsDivEvents">
 			{isDownSm && (
 				<IconButton
 					color="primary"
@@ -169,10 +169,10 @@ const Options = (props) => {
 						props.setVisible(false)
 					}}
 					sx={{
-						mt: -1,
+						mt: 1,
 						mr: 1,
 						position: "absolute",
-						zIndex: 200,
+						zIndex: 50,
 						right: 0,
 						left: "auto",
 						backgroundColor: "#EBEBEB",

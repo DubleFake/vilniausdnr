@@ -213,6 +213,16 @@ const App = () => {
 					},
 					{
 						props: {
+							variant: "optionsDivEvents",
+						},
+						style: {
+							width: optionsWidth,
+							height: window.innerHeight - appBarHeight,
+							overflowY: "auto",
+						},
+					},
+					{
+						props: {
 							variant: "optionsVisualizeTab",
 						},
 						style: {

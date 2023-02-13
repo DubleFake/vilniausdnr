@@ -477,7 +477,7 @@ const EventTimeline = (props) => {
 						mt: 1,
 						mr: 1.5,
 						position: "absolute",
-						zIndex: 200,
+						zIndex: 50,
 						right: 0,
 						left: "auto",
 						backgroundColor: "#D72E30",
@@ -628,7 +628,8 @@ const EventTimeline = (props) => {
 																	{person.id !== null ? (
 																		<Link
 																			sx={{
-																				p: 0.5,
+																				p: 0.3,
+                                        pl: 0.5,
 																				ml: 1.5,
 																				width: "100%",
 																				position: "relative",
@@ -655,7 +656,8 @@ const EventTimeline = (props) => {
 																				fontSize: "14px",
 																				color: "white",
 																				ml: 1.5,
-																				p: 0.5,
+																				p: 0.3,
+                                        pl: 0.5,
 																				fontWeight: 400,
 																			}}
 																			variant="body2"
@@ -689,7 +691,8 @@ const EventTimeline = (props) => {
 																<Box sx={{ width: "100%", display: "flex" }} key={index}>
 																	<Link
 																		sx={{
-																			p: 0.5,
+																			p: 0.3,
+                                      pl: 0.5,
 																			ml: 1.5,
 																			width: "100%",
 																			position: "relative",
@@ -737,7 +740,8 @@ const EventTimeline = (props) => {
 																<Box sx={{ width: "100%", display: "flex" }} key={index}>
 																	<Link
 																		sx={{
-																			p: 0.5,
+																			p: 0.3,
+                                      pl: 0.5,
 																			ml: 1.5,
 																			width: "100%",
 																			position: "relative",
@@ -782,7 +786,8 @@ const EventTimeline = (props) => {
 																<Box sx={{ width: "100%", display: "flex" }} key={index}>
 																	<Link
 																		sx={{
-																			p: 0.5,
+																			p: 0.3,
+                                      pl: 0.5,
 																			ml: 1.5,
 																			width: "100%",
 																			position: "relative",
@@ -828,7 +833,8 @@ const EventTimeline = (props) => {
 																	<Link
 																		sx={{
 																			ml: 1.5,
-																			p: 0.5,
+																			p: 0.3,
+                                      pl: 0.5,
 																			width: "100%",
 																			position: "relative",
 																			fontSize: "14px",
