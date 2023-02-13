@@ -38,6 +38,8 @@ const PersonInfo = (props) => {
 			.then((response) => {
 				setBiographyFeatures(response.features)
 				setDisplayEmpty(false)
+
+				document.getElementById("main-grid").scroll(0, 0)
 			})
 	}, [globalID])
 
@@ -49,7 +51,7 @@ const PersonInfo = (props) => {
 	}, [])
 
 	return (
-		<Grid container spacing={0} variant="main">
+		<Grid container spacing={0} variant="main" id="main-grid">
 			{isDownSm && (
 				<IconButton
 					color="primary"
@@ -75,14 +77,21 @@ const PersonInfo = (props) => {
 			{displayEmpty ? (
 				<>
 					{/* <ForceGraph initialObjectsList={props.initialObjectsList} /> */}
-					<EmptyPlaceholder
-						display={displayEmpty}
-						text={"Pasirinkite konkrečią asmenybę iš sąrašo kairėje"}
-					/>
+					{isDownSm ? (
+						<Box sx={{ ml: "calc(50% - 73px)" }}>
+							<EmptyPlaceholder display={displayEmpty} text={"Pasirinkite konkrečią asmenybę iš sąrašo"} />
+						</Box>
+					) : (
+						<EmptyPlaceholder
+							display={displayEmpty}
+							text={"Pasirinkite konkrečią asmenybę iš sąrašo kairėje"}
+						/>
+					)}
 				</>
 			) : isDownSm ? (
 				<Box
 					sx={{
+						pb: "45px",
 						display: "grid",
 						gap: 0,
 						gridTemplateColumns: "repeat(1, 1fr)",

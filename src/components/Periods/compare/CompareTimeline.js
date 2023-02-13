@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography"
 import Grid from "@mui/material/Grid"
 import Slider from "@mui/material/Slider"
 import Box from "@mui/material/Box"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 const CompareTimeline = (props) => {
 	const { globalID } = useParams()
@@ -17,6 +18,8 @@ const CompareTimeline = (props) => {
 	const { t, i18n } = useTranslation()
 
 	const [sliderValue, setSliderValue] = useState(100)
+
+	const isMobile = useMediaQuery("(min-width:600px)")
 
 	const handleSliderChange = (event, newValue) => {
 		map.layers.items[0].opacity = newValue / 100
@@ -100,11 +103,14 @@ const CompareTimeline = (props) => {
 								backgroundColor: "#55AFB0",
 								color: "white",
 							},
+							width: isMobile ? "auto" : 50,
 						}}
 						size="large"
 						variant="timeline"
 						onClick={() => {
-							navigate(`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[0].metai)}`)
+							navigate(
+								`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[0].metai)}`
+							)
 						}}
 					>
 						<Typography variant="button">1808</Typography>
@@ -117,11 +123,14 @@ const CompareTimeline = (props) => {
 								backgroundColor: "#407D5C",
 								color: "white",
 							},
+							width: isMobile ? "auto" : 50,
 						}}
 						size="large"
 						variant="timeline"
 						onClick={() => {
-							navigate(`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[1].metai)}`)
+							navigate(
+								`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[1].metai)}`
+							)
 						}}
 					>
 						<Typography variant="button">1845</Typography>
@@ -134,11 +143,14 @@ const CompareTimeline = (props) => {
 								backgroundColor: "#007FCC",
 								color: "white",
 							},
+							width: isMobile ? "auto" : 50,
 						}}
 						size="large"
 						variant="timeline"
 						onClick={() => {
-							navigate(`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[2].metai)}`)
+							navigate(
+								`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[2].metai)}`
+							)
 						}}
 					>
 						<Typography variant="button">1911</Typography>
@@ -151,11 +163,14 @@ const CompareTimeline = (props) => {
 								backgroundColor: "#823F86",
 								color: "white",
 							},
+							width: isMobile ? "auto" : 50,
 						}}
 						size="large"
 						variant="timeline"
 						onClick={() => {
-							navigate(`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[3].metai)}`)
+							navigate(
+								`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[3].metai)}`
+							)
 						}}
 					>
 						<Typography variant="button">1938</Typography>
@@ -168,11 +183,14 @@ const CompareTimeline = (props) => {
 								backgroundColor: "#EE5066",
 								color: "white",
 							},
+							width: isMobile ? "auto" : 50,
 						}}
 						size="large"
 						variant="timeline"
 						onClick={() => {
-							navigate(`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[4].metai)}`)
+							navigate(
+								`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[4].metai)}`
+							)
 						}}
 					>
 						<Typography variant="button">1977</Typography>
@@ -185,18 +203,28 @@ const CompareTimeline = (props) => {
 								backgroundColor: "#FFAF28",
 								color: "white",
 							},
+							width: isMobile ? "auto" : 50,
 						}}
 						size="large"
 						variant="timeline"
 						onClick={() => {
-							navigate(`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[5].metai)}`)
+							navigate(
+								`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[5].metai)}`
+							)
 						}}
 					>
 						<Typography variant="button">2023</Typography>
 					</Button>
 				</ButtonGroup>
 			</Grid>
-			<Grid variant="compareType" container direction="row" justifyContent="left" alignItems="flex-start">
+			<Grid
+				sx={{ ml: isMobile ? "inherit" : -2.25 }}
+				variant="compareType"
+				container
+				direction="row"
+				justifyContent={isMobile ? "left" : "center"}
+				alignItems="flex-start"
+			>
 				<Box sx={{ mt: 9, ml: 2, width: 206, height: 45, borderRadius: 10, backgroundColor: "white" }}>
 					<Grid container direction="row" justifyContent="center" alignItems="center">
 						<Typography sx={{ mt: 0.4, mb: -1.4 }}>Permatomumas</Typography>

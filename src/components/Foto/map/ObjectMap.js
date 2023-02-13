@@ -172,7 +172,7 @@ const ObjectMap = (props) => {
 			<div id="view1Div" className="map" ref={mapDiv}>
 				<div className="attribution">
 					<div className="attribution_text">
-						© 2023 Vilniaus miesto savivaldybė © 2023 UAB "Vilniaus Planas"
+						© 2023 UAB "Vilniaus Planas" © 2023 Vilniaus miesto savivaldybė
 					</div>
 					<div className="attribution_esri">Powered by Esri</div>
 				</div>

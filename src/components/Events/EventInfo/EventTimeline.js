@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from "react"
-import { useParams, useNavigate, useLocation } from "react-router-dom"
+import React, { useEffect, useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { HashScroll } from "react-hash-scroll"
 
-import { events, sources, persons } from "../../../utils/eventsArcgisItems"
+import { events, persons } from "../../../utils/eventsArcgisItems"
 
 import Grid from "@mui/material/Grid"
 import Timeline from "@mui/lab/Timeline"
@@ -11,12 +11,9 @@ import TimelineItem from "@mui/lab/TimelineItem"
 import TimelineSeparator from "@mui/lab/TimelineSeparator"
 import TimelineConnector from "@mui/lab/TimelineConnector"
 import TimelineContent from "@mui/lab/TimelineContent"
-import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
 import TimelineDot from "@mui/lab/TimelineDot"
+import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
 import Box from "@mui/material/Box"
-import Card from "@mui/material/Card"
-import CardActions from "@mui/material/CardActions"
-import CardContent from "@mui/material/CardContent"
 import Skeleton from "@mui/material/Skeleton"
 import Typography from "@mui/material/Typography"
 import Link from "@mui/material/Link"
@@ -24,6 +21,8 @@ import IconButton from "@mui/material/IconButton"
 import ShareIcon from "@mui/icons-material/Share"
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip"
 import { styled } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
+import SearchIcon from "@mui/icons-material/Search"
 
 const EventTimeline = (props) => {
 	const navigate = useNavigate()
@@ -33,6 +32,8 @@ const EventTimeline = (props) => {
 	const [expandedList, setExpandedList] = useState([])
 	const [relations, setRelations] = useState({})
 	const [shareTooltip, setShareTooltip] = useState(false)
+
+	const isMobile = useMediaQuery("(min-width:600px)")
 
 	const BootstrapTooltip = styled(({ className, ...props }) => (
 		<Tooltip {...props} arrow classes={{ popper: className }} />
@@ -464,20 +465,45 @@ const EventTimeline = (props) => {
 
 	return (
 		<Grid sx={{ backgroundColor: "#707070" }} container spacing={0} variant="main">
+			{!isMobile && (
+				<IconButton
+					color="primary"
+					aria-label="close"
+					size="small"
+					onClick={() => {
+						props.setVisible(true)
+					}}
+					sx={{
+						mt: 1,
+						mr: 1.5,
+						position: "absolute",
+						zIndex: 200,
+						right: 0,
+						left: "auto",
+						backgroundColor: "#D72E30",
+						color: "white",
+					}}
+				>
+					<SearchIcon sx={{ fontSize: 25 }} />
+				</IconButton>
+			)}
+
 			{props.eventsFiltered.length > 0 && (
-				<Timeline position="alternate" id="eventsTimeline">
+				<Timeline position={isMobile ? "alternate" : "right"} id="eventsTimeline">
 					{props.eventsFiltered.map((event, index) => (
 						<TimelineItem
-							sx={{ mt: index === 0 ? 0 : "-12%", mx: "5%" }}
+							sx={{ mt: isMobile ? (index === 0 ? 0 : "-12%") : 0, mx: "5%" }}
 							key={index}
 							id={event.attributes.Ivykio_ID.replace(/[{}]/g, "")}
 						>
+							{isMobile ? null : <TimelineOppositeContent sx={{ maxWidth: 0 }}></TimelineOppositeContent>}
+
 							<TimelineSeparator sx={{ mx: "3%" }}>
 								<TimelineConnector sx={{ backgroundColor: "white", width: "1px" }} />
 								<TimelineDot sx={{ backgroundColor: "white", m: 0, borderWidth: "1px" }}>
 									<Typography
 										sx={{
-											ml: index % 2 === 0 ? "calc(-37px - 5%)" : "5%",
+											ml: isMobile ? (index % 2 === 0 ? "calc(-37px - 5%)" : "5%") : "calc(-37px - 5%)",
 											mt: -1.2,
 											color: "lightgray",
 											fontWeight: 400,
@@ -493,7 +519,7 @@ const EventTimeline = (props) => {
 
 								<TimelineConnector sx={{ backgroundColor: "white", width: "1px" }} />
 							</TimelineSeparator>
-							<TimelineContent>
+							<TimelineContent sx={{ my: isMobile ? 0 : 1 }}>
 								<HashScroll hash={event.attributes.Ivykio_ID.replace(/[{}]/g, "")} position="center">
 									<Box
 										sx={{

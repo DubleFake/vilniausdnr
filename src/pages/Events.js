@@ -10,12 +10,18 @@ import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
 import Backdrop from "@mui/material/Backdrop"
+import { useTheme } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
+import Collapse from "@mui/material/Collapse"
 
 const Persons = () => {
 	const [eventsList, setEventsList] = useState([])
 	const [eventsFiltered, setEventsFiltered] = useState([])
 	const [selectedEvent, setSelectedEvent] = useState()
 	const [selectedGroup, setSelectedGroup] = useState("")
+	const [visible, setVisible] = useState(true)
+	const theme = useTheme()
+	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
 
 	const [open, setOpen] = useState(false)
 	const [anchorEl, setAnchorEl] = useState(null)
@@ -41,6 +47,12 @@ const Persons = () => {
 			})
 	}, [])
 
+	useEffect(() => {
+		if (selectedEvent && isDownSm) {
+			setVisible(false)
+		}
+	}, [selectedEvent])
+
 	return (
 		<Routes>
 			<Route
@@ -54,25 +66,63 @@ const Persons = () => {
 							>
 								<DNRSpinner />
 							</Backdrop>
-							<Options
-								eventsList={eventsList}
-								setEventsFiltered={setEventsFiltered}
-								selectedEvent={selectedEvent}
-								setSelectedEvent={setSelectedEvent}
-								selectedGroup={selectedGroup}
-								setSelectedGroup={setSelectedGroup}
-							/>
-							{eventsFiltered.length > 0 && (
-								<EventTimeline
-									eventsFiltered={eventsFiltered}
-									setEventsFiltered={setEventsFiltered}
-									setSelectedEvent={setSelectedEvent}
-									selectedGroup={selectedGroup}
-									setSelectedGroup={setSelectedGroup}
-									eventsList={eventsList}
-									selectedEvent={selectedEvent}
-								/>
-							)}
+
+							{isDownSm
+								? eventsFiltered.length > 0 && (
+										<>
+											{!visible && (
+												<EventTimeline
+													eventsFiltered={eventsFiltered}
+													setEventsFiltered={setEventsFiltered}
+													setSelectedEvent={setSelectedEvent}
+													selectedGroup={selectedGroup}
+													setSelectedGroup={setSelectedGroup}
+													eventsList={eventsList}
+													selectedEvent={selectedEvent}
+													visible={visible}
+													setVisible={setVisible}
+												/>
+											)}
+											<Collapse orientation="horizontal" in={visible}>
+												<Options
+													eventsList={eventsList}
+													setEventsFiltered={setEventsFiltered}
+													selectedEvent={selectedEvent}
+													setSelectedEvent={setSelectedEvent}
+													selectedGroup={selectedGroup}
+													setSelectedGroup={setSelectedGroup}
+													visible={visible}
+													setVisible={setVisible}
+												/>
+											</Collapse>
+										</>
+								  )
+								: eventsFiltered.length > 0 && (
+										<>
+											<Options
+												eventsList={eventsList}
+												setEventsFiltered={setEventsFiltered}
+												selectedEvent={selectedEvent}
+												setSelectedEvent={setSelectedEvent}
+												selectedGroup={selectedGroup}
+												setSelectedGroup={setSelectedGroup}
+												visible={visible}
+												setVisible={setVisible}
+											/>
+											<EventTimeline
+												eventsFiltered={eventsFiltered}
+												setEventsFiltered={setEventsFiltered}
+												setSelectedEvent={setSelectedEvent}
+												selectedGroup={selectedGroup}
+												setSelectedGroup={setSelectedGroup}
+												eventsList={eventsList}
+												selectedEvent={selectedEvent}
+												visible={visible}
+												setVisible={setVisible}
+											/>
+										</>
+								  )}
+
 							<Outlet />
 						</Grid>
 						<InfoTooltip open={open} setOpen={setOpen} anchorEl={anchorEl} />
