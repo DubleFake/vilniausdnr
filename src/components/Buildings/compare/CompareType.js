@@ -15,15 +15,15 @@ const CompareType = () => {
 	const handleCompareChange = (event) => {
 		switch (event.target.value) {
 			case 0:
-				navigate(`/vilniausdnrtest/${i18n.language}/buildings/compare/timeline`)
+				navigate(`/vilniausdnr/${i18n.language}/buildings/compare/timeline`)
 				break
 
 			case 1:
-				navigate(`/vilniausdnrtest/${i18n.language}/buildings/compare/swipe`)
+				navigate(`/vilniausdnr/${i18n.language}/buildings/compare/swipe`)
 				break
 
 			case 2:
-				navigate(`/vilniausdnrtest/${i18n.language}/buildings/compare/window`)
+				navigate(`/vilniausdnr/${i18n.language}/buildings/compare/window`)
 				break
 		}
 	}

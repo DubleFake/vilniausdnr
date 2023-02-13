@@ -109,7 +109,7 @@ const CompareTimeline = (props) => {
 						variant="timeline"
 						onClick={() => {
 							navigate(
-								`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[0].metai)}`
+								`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[0].metai)}`
 							)
 						}}
 					>
@@ -129,7 +129,7 @@ const CompareTimeline = (props) => {
 						variant="timeline"
 						onClick={() => {
 							navigate(
-								`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[1].metai)}`
+								`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[1].metai)}`
 							)
 						}}
 					>
@@ -149,7 +149,7 @@ const CompareTimeline = (props) => {
 						variant="timeline"
 						onClick={() => {
 							navigate(
-								`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[2].metai)}`
+								`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[2].metai)}`
 							)
 						}}
 					>
@@ -169,7 +169,7 @@ const CompareTimeline = (props) => {
 						variant="timeline"
 						onClick={() => {
 							navigate(
-								`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[3].metai)}`
+								`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[3].metai)}`
 							)
 						}}
 					>
@@ -189,7 +189,7 @@ const CompareTimeline = (props) => {
 						variant="timeline"
 						onClick={() => {
 							navigate(
-								`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[4].metai)}`
+								`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[4].metai)}`
 							)
 						}}
 					>
@@ -209,7 +209,7 @@ const CompareTimeline = (props) => {
 						variant="timeline"
 						onClick={() => {
 							navigate(
-								`/vilniausdnrtest/${i18n.language}/periods/compare/timeline/${String(periods[5].metai)}`
+								`/vilniausdnr/${i18n.language}/periods/compare/timeline/${String(periods[5].metai)}`
 							)
 						}}
 					>

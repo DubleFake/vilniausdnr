@@ -468,7 +468,7 @@ const InfoModal = () => {
 	}
 
 	useEffect(() => {
-		if (window.location.pathname === "/vilniausdnrtest/lt") {
+		if (window.location.pathname === "/vilniausdnr/lt") {
 			setOpen(true)
 			handleFirstLevel(1, "first", true)
 		}

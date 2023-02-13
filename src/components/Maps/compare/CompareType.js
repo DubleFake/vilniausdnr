@@ -39,7 +39,7 @@ const CompareType = (props) => {
 		switch (event.target.value) {
 			case 0:
 				navigate(
-					`/vilniausdnrtest/${i18n.language}/maps/compare/review/${
+					`/vilniausdnr/${i18n.language}/maps/compare/review/${
 						props.selectedMaps[0] === leftMap ? props.selectedMaps[0] : leftMap
 					}`
 				)
@@ -47,7 +47,7 @@ const CompareType = (props) => {
 
 			case 1:
 				navigate(
-					`/vilniausdnrtest/${i18n.language}/maps/compare/swipe/${
+					`/vilniausdnr/${i18n.language}/maps/compare/swipe/${
 						props.selectedMaps[0] === leftMap ? props.selectedMaps[0] : leftMap
 					}/${props.selectedMaps[1] === rightMap ? props.selectedMaps[1] : rightMap}`
 				)
@@ -55,7 +55,7 @@ const CompareType = (props) => {
 
 			case 2:
 				navigate(
-					`/vilniausdnrtest/${i18n.language}/maps/compare/window/${
+					`/vilniausdnr/${i18n.language}/maps/compare/window/${
 						props.selectedMaps[0] === leftMap ? props.selectedMaps[0] : leftMap
 					}/${props.selectedMaps[1] === rightMap ? props.selectedMaps[1] : rightMap}`
 				)

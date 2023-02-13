@@ -56,7 +56,7 @@ const CompareSwipe = (props) => {
 
 		const mapByIndex = mapList[event.target.value]
 		navigate(
-			`/vilniausdnrtest/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`
+			`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`
 		)
 	}
 
@@ -65,7 +65,7 @@ const CompareSwipe = (props) => {
 
 		const mapByIndex = mapList[event.target.value]
 		navigate(
-			`/vilniausdnrtest/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`
+			`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`
 		)
 	}
 

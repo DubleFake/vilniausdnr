@@ -53,7 +53,7 @@ const CompareWindow = (props) => {
 		handleCloseLeft()
 		const mapByIndex = mapList[event.target.value]
 		navigate(
-			`/vilniausdnrtest/${i18n.language}/maps/compare/window/${mapByIndex.globalid_map}/${globalIDRight}`
+			`/vilniausdnr/${i18n.language}/maps/compare/window/${mapByIndex.globalid_map}/${globalIDRight}`
 		)
 
 		map.remove(mapList[selectedLeftMap])
@@ -66,7 +66,7 @@ const CompareWindow = (props) => {
 		handleCloseRight()
 		const mapByIndex = mapList[event.target.value]
 		navigate(
-			`/vilniausdnrtest/${i18n.language}/maps/compare/window/${globalIDLeft}/${mapByIndex.globalid_map}`
+			`/vilniausdnr/${i18n.language}/maps/compare/window/${globalIDLeft}/${mapByIndex.globalid_map}`
 		)
 
 		map2.remove(mapList[selectedRightMap])

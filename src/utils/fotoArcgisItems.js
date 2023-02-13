@@ -18,7 +18,7 @@ export const objects = new FeatureLayer({
 		type: "simple",
 		symbol: {
 			type: "picture-marker",
-			url: `${origin}/vilniausdnrtest/fotoIcons/nuotraukos.svg`,
+			url: `${origin}/vilniausdnr/fotoIcons/nuotraukos.svg`,
 			width: 20,
 			height: 23, //*1.15 ratio to width
 		},
@@ -33,7 +33,7 @@ const basemap1 = new Basemap({
 		}),
 	],
 	id: "light",
-	thumbnailUrl: `${origin}/vilniausdnrtest/signIcons/basemap_light.png`,
+	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_light.png`,
 })
 const basemap2 = new Basemap({
 	baseLayers: [
@@ -43,7 +43,7 @@ const basemap2 = new Basemap({
 		}),
 	],
 	id: "dark",
-	thumbnailUrl: `${origin}/vilniausdnrtest/signIcons/basemap_dark.png`,
+	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_dark.png`,
 })
 const basemap3 = new Basemap({
 	baseLayers: [
@@ -52,7 +52,7 @@ const basemap3 = new Basemap({
 		}),
 	],
 	id: "orto",
-	thumbnailUrl: `${origin}/vilniausdnrtest/signIcons/basemap_orto.png`,
+	thumbnailUrl: `${origin}/vilniausdnr/signIcons/basemap_orto.png`,
 })
 export const basemaps = [basemap1, basemap2, basemap3]
 

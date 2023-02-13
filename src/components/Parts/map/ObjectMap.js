@@ -118,7 +118,7 @@ const ObjectMap = (props) => {
 		// 					if (response.features.length > 0) {
 		// 						props.setMapQuery(response.features)
 		// 						navigate(
-		// 							`/vilniausdnrtest/${i18n.language}/plaques/object/${response.features[0].attributes.GlobalID.replace(
+		// 							`/vilniausdnr/${i18n.language}/plaques/object/${response.features[0].attributes.GlobalID.replace(
 		// 								/[{}]/g,
 		// 								""
 		// 							)}`

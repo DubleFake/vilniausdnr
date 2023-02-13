@@ -288,7 +288,7 @@ const ObjectPopup = (props) => {
 														target="_blank"
 														href={
 															"https://zemelapiai.vplanas.lt" +
-															`/vilniausdnrtest/${
+															`/vilniausdnr/${
 																i18n.language
 															}/maps/compare/review/${map.features[0].attributes.GlobalID_zemelapio.replace(
 																/[{}]/g,

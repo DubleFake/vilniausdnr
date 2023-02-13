@@ -72,7 +72,7 @@ const CompareReview = (props) => {
 	const handleMapChange = (event) => {
 		handleClose()
 		const mapByIndex = mapList[event.target.value]
-		navigate(`/vilniausdnrtest/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
 	}
 
 	useEffect(() => {
