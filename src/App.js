@@ -17,7 +17,7 @@ import Nav from "./components/Nav/Nav"
 import "./i18n"
 import "./css/index.css"
 
-import { createTheme, ThemeProvider, experimental_sx as sx } from "@mui/material/styles"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { useTheme } from "@mui/material/styles"
 import useMediaQuery from "@mui/material/useMediaQuery"
 
@@ -62,7 +62,7 @@ const App = () => {
 
 			MuiAppBar: {
 				styleOverrides: {
-					root: sx({
+					root: orgTheme.unstable_sx({
 						height: appBarHeight,
 					}),
 				},
@@ -372,7 +372,7 @@ const App = () => {
 
 			MuiTabs: {
 				styleOverrides: {
-					root: sx({
+					root: orgTheme.unstable_sx({
 						"& .MuiTabs-indicator": {
 							display: "flex",
 							justifyContent: "center",
@@ -383,7 +383,7 @@ const App = () => {
 
 			MuiTab: {
 				styleOverrides: {
-					root: sx({
+					root: orgTheme.unstable_sx({
 						height: tabsHeight,
 						backgroundColor: lightGray,
 					}),
