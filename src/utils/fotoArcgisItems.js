@@ -11,7 +11,7 @@ const url = window.location.href
 const origin = new URL(url).origin
 
 export const objects = new FeatureLayer({
-	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/93",
+	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/93",
 	outFields: ["*"],
 	title: "Foto",
 	renderer: {

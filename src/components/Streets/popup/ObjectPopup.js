@@ -186,8 +186,8 @@ const ObjectPopup = (props) => {
 			.then((response) => {
 				objects
 					.queryRelatedFeatures({
-						outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
-						relationshipId: 3,
+						outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Asmenybes_ID"],
+						relationshipId: 4,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
 					.then((response_related) => {
@@ -210,7 +210,7 @@ const ObjectPopup = (props) => {
 				objects
 					.queryRelatedFeatures({
 						outFields: ["Pavadinimas", "GlobalID", "Data_tekstu"],
-						relationshipId: 11,
+						relationshipId: 6,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
 					.then((response_related) => {
@@ -283,12 +283,18 @@ const ObjectPopup = (props) => {
 		}
 	}, [])
 
-	const matches = useMediaQuery("(min-width:995px)")
+	const matches = useMediaQuery("(min-width:600px)")
 	return (
 		<>
-			{!matches && <Backdrop sx={{ color: "#fff", zIndex: 2 }} open={popupOpen}></Backdrop>}
+			{!matches && (
+				<Backdrop
+					sx={{ color: "#fff", zIndex: 2 }}
+					open={popupOpen}
+					onClick={() => setPopupOpen(false)}
+				></Backdrop>
+			)}
 			<Fade in={true} timeout={300} unmountOnExit>
-				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 3 }}>
+				<Box sx={{ top: 90, right: 0, position: "fixed", zIndex: 10, mt: 0.5 }}>
 					<Card variant="popup">
 						<CardContent sx={{ pt: 0, px: 4, pb: "8px !important" }}>
 							{pageCount > 1 ? (
@@ -303,7 +309,7 @@ const ObjectPopup = (props) => {
 							) : (
 								<>
 									<CardHeader
-										sx={{ p: 0, mt: 0 }}
+										sx={{ p: 0, mt: 1 }}
 										action={
 											<IconButton
 												color="primary"
@@ -313,8 +319,8 @@ const ObjectPopup = (props) => {
 													navigate(`/vilniausdnr/${i18n.language}/streets`)
 												}}
 												sx={{
-													mt: 0.5,
-													mr: 1,
+													mt: 1,
+													mr: -1.5,
 													backgroundColor: "#F6F6F6",
 													"&:hover": {
 														transition: "0.3s",
@@ -419,7 +425,7 @@ const ObjectPopup = (props) => {
 																	// 		`/vilniausdnr/${i18n.language}/persons/${objectPer[per].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`
 																	// 	)
 																	// }}
-																>{`${objectPer[per].attributes.Vardas_lietuviskai} ${objectPer[per].attributes.Pavarde_lietuviskai}`}</Link>
+																>{`${objectPer[per].attributes.Vardas_lietuviskai}`}</Link>
 																<br></br>
 															</div>
 														))}
@@ -513,10 +519,9 @@ const ObjectPopup = (props) => {
 															target="_blank"
 															href={
 																"https://zemelapiai.vplanas.lt" +
-																`/vilniausdnr/${i18n.language}/foto/object/${foto.attributes.GlobalID.replace(
-																	/[{}]/g,
-																	""
-																)}`
+																`/vilniausdnr/${
+																	i18n.language
+																}/foto/object/${foto.attributes.GlobalID.replace(/[{}]/g, "")}`
 															}
 															rel="noopener"
 															textAlign="left"

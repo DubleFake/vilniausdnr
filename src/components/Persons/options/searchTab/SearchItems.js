@@ -44,13 +44,7 @@ const TableItems = (props) => {
 								navigate(`${tableObjectsList[index].attributes.Asmenybes_ID.replace(/[{}]/g, "")}`)
 							}}
 						>
-							<ListItemText
-								primary={
-									tableObjectsList[index].attributes.Vardas_lietuviskai +
-									" " +
-									tableObjectsList[index].attributes.Pavarde_lietuviskai
-								}
-							/>
+							<ListItemText primary={tableObjectsList[index].attributes.Vardas_lietuviskai} />
 						</ListItemButton>
 					</ListItem>
 				</CellMeasurer>

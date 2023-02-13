@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import { useNavigate } from "react-router-dom"
 
-import Grid from "@mui/material/Grid"
+import Container from "@mui/material/Container"
 import Typography from "@mui/material/Typography"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
@@ -11,6 +11,10 @@ import Box from "@mui/material/Box"
 import Accordion from "@mui/material/Accordion"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import AccordionSummary from "@mui/material/AccordionSummary"
+import { useTheme } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
+import CloseIcon from "@mui/icons-material/Close"
+import IconButton from "@mui/material/IconButton"
 
 function CustomAccordion(props) {
 	const { group, expanded, selectedGroup, handleChange, eventsList, selectedEvent, setSelectedEvent } = props
@@ -42,6 +46,7 @@ function CustomAccordion(props) {
 				<Typography
 					sx={{
 						ml: 4,
+						mr: 2,
 						fontWeight: group === selectedGroup ? 500 : 400,
 						fontSize: "18px",
 						color: group === selectedGroup ? "#D72E30" : "black",
@@ -112,10 +117,13 @@ CustomAccordion.propTypes = {
 }
 
 const Options = (props) => {
-  const navigate = useNavigate()
-  
+	const navigate = useNavigate()
+
 	const [eventGroups, setEventGroups] = useState([])
 	const [expanded, setExpanded] = useState(false)
+
+	const theme = useTheme()
+	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
 
 	const handleChange = (panel) => (event, isExpanded) => {
 		props.setSelectedGroup(panel)
@@ -151,7 +159,29 @@ const Options = (props) => {
 	}, [props.selectedGroup])
 
 	return (
-		<Grid sx={{ overflowY: "auto" }} variant="options">
+		<Container variant="optionsDivEvents">
+			{isDownSm && (
+				<IconButton
+					color="primary"
+					aria-label="close"
+					size="small"
+					onClick={() => {
+						props.setVisible(false)
+					}}
+					sx={{
+						mt: 1,
+						mr: 1,
+						position: "absolute",
+						zIndex: 50,
+						right: 0,
+						left: "auto",
+						backgroundColor: "#EBEBEB",
+					}}
+				>
+					<CloseIcon sx={{ fontSize: 25 }} />
+				</IconButton>
+			)}
+
 			<Typography sx={{ ml: 4, mt: 2 }} variant="h5">
 				Istorinių įvykių juosta
 			</Typography>
@@ -272,7 +302,7 @@ const Options = (props) => {
 						</ListItem>
 					))}
 			</List> */}
-		</Grid>
+		</Container>
 	)
 }
 

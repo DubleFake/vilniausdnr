@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from "react"
-import { useParams, useNavigate, useLocation } from "react-router-dom"
+import React, { useEffect, useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { HashScroll } from "react-hash-scroll"
 
-import { events, sources, persons } from "../../../utils/eventsArcgisItems"
+import { events, persons } from "../../../utils/eventsArcgisItems"
 
 import Grid from "@mui/material/Grid"
 import Timeline from "@mui/lab/Timeline"
@@ -11,12 +11,9 @@ import TimelineItem from "@mui/lab/TimelineItem"
 import TimelineSeparator from "@mui/lab/TimelineSeparator"
 import TimelineConnector from "@mui/lab/TimelineConnector"
 import TimelineContent from "@mui/lab/TimelineContent"
-import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
 import TimelineDot from "@mui/lab/TimelineDot"
+import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent"
 import Box from "@mui/material/Box"
-import Card from "@mui/material/Card"
-import CardActions from "@mui/material/CardActions"
-import CardContent from "@mui/material/CardContent"
 import Skeleton from "@mui/material/Skeleton"
 import Typography from "@mui/material/Typography"
 import Link from "@mui/material/Link"
@@ -24,6 +21,8 @@ import IconButton from "@mui/material/IconButton"
 import ShareIcon from "@mui/icons-material/Share"
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip"
 import { styled } from "@mui/material/styles"
+import useMediaQuery from "@mui/material/useMediaQuery"
+import SearchIcon from "@mui/icons-material/Search"
 
 const EventTimeline = (props) => {
 	const navigate = useNavigate()
@@ -33,6 +32,8 @@ const EventTimeline = (props) => {
 	const [expandedList, setExpandedList] = useState([])
 	const [relations, setRelations] = useState({})
 	const [shareTooltip, setShareTooltip] = useState(false)
+
+	const isMobile = useMediaQuery("(min-width:600px)")
 
 	const BootstrapTooltip = styled(({ className, ...props }) => (
 		<Tooltip {...props} arrow classes={{ popper: className }} />
@@ -49,6 +50,39 @@ const EventTimeline = (props) => {
 	const handleShare = async () => {
 		await navigator.clipboard.writeText(window.location.href)
 		setShareTooltip(true)
+	}
+
+	const toRomanCentury = (date_epoch) => {
+		const date = new Date(date_epoch).toLocaleDateString("lt-LT")
+
+		let year = parseInt(date.split("-")[0])
+		let century = Math.floor(year / 100) + 1
+
+		let roman = ""
+		const numerals = [
+			["M", 1000],
+			["CM", 900],
+			["D", 500],
+			["CD", 400],
+			["C", 100],
+			["XC", 90],
+			["L", 50],
+			["XL", 40],
+			["X", 10],
+			["IX", 9],
+			["V", 5],
+			["IV", 4],
+			["I", 1],
+		]
+
+		for (let i = 0; i < numerals.length; i++) {
+			while (century >= numerals[i][1]) {
+				roman += numerals[i][0]
+				century -= numerals[i][1]
+			}
+		}
+
+		return roman
 	}
 
 	useEffect(() => {
@@ -136,7 +170,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Susijes_asmuo_is_saraso", "Susijes_asmuo_irasant_tekstu"],
-							relationshipId: 27,
+							relationshipId: 18,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
@@ -169,13 +203,13 @@ const EventTimeline = (props) => {
 							if (personQueryWhere !== "") {
 								persons
 									.queryFeatures({
-										outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
+										outFields: ["Vardas_lietuviskai", "Asmenybes_ID"],
 										where: personQueryWhere,
 									})
 									.then((response_persons) => {
 										for (let person of response_persons.features) {
 											tempPersons.push({
-												name: `${person.attributes.Vardas_lietuviskai} ${person.attributes.Pavarde_lietuviskai}`,
+												name: `${person.attributes.Vardas_lietuviskai}`,
 												id: person.attributes.Asmenybes_ID,
 											})
 										}
@@ -203,7 +237,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Saltinio_pavadinimas", "Saltinio_URL"],
-							relationshipId: 28,
+							relationshipId: 17,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
@@ -224,7 +258,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Pavadinimas", "GlobalID_zemelapio"],
-							relationshipId: 29,
+							relationshipId: 19,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
@@ -266,7 +300,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Pavadinimas", "GlobalID"],
-							relationshipId: 19,
+							relationshipId: 9,
 							returnGeometry: false,
 							objectIds: props.eventsFiltered[eventIndex].attributes.OBJECTID,
 						})
@@ -290,7 +324,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Susijes_asmuo_is_saraso", "Susijes_asmuo_irasant_tekstu"],
-							relationshipId: 27,
+							relationshipId: 18,
 							returnGeometry: false,
 							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
 						})
@@ -323,13 +357,13 @@ const EventTimeline = (props) => {
 							if (personQueryWhere !== "") {
 								persons
 									.queryFeatures({
-										outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai", "Asmenybes_ID"],
+										outFields: ["Vardas_lietuviskai", "Asmenybes_ID"],
 										where: personQueryWhere,
 									})
 									.then((response_persons) => {
 										for (let person of response_persons.features) {
 											tempPersons.push({
-												name: `${person.attributes.Vardas_lietuviskai} ${person.attributes.Pavarde_lietuviskai}`,
+												name: `${person.attributes.Vardas_lietuviskai}`,
 												id: person.attributes.Asmenybes_ID,
 											})
 										}
@@ -357,7 +391,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Saltinio_pavadinimas", "Saltinio_URL"],
-							relationshipId: 28,
+							relationshipId: 17,
 							returnGeometry: false,
 							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
 						})
@@ -375,7 +409,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Pavadinimas", "GlobalID_zemelapio"],
-							relationshipId: 29,
+							relationshipId: 19,
 							returnGeometry: false,
 							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
 						})
@@ -412,7 +446,7 @@ const EventTimeline = (props) => {
 					await events
 						.queryRelatedFeatures({
 							outFields: ["Pavadinimas", "GlobalID"],
-							relationshipId: 19,
+							relationshipId: 9,
 							returnGeometry: false,
 							objectIds: fromInitial[eventIndex].attributes.OBJECTID,
 						})
@@ -431,20 +465,61 @@ const EventTimeline = (props) => {
 
 	return (
 		<Grid sx={{ backgroundColor: "#707070" }} container spacing={0} variant="main">
+			{!isMobile && (
+				<IconButton
+					color="primary"
+					aria-label="close"
+					size="small"
+					onClick={() => {
+						props.setVisible(true)
+					}}
+					sx={{
+						mt: 1,
+						mr: 1.5,
+						position: "absolute",
+						zIndex: 50,
+						right: 0,
+						left: "auto",
+						backgroundColor: "#D72E30",
+						color: "white",
+					}}
+				>
+					<SearchIcon sx={{ fontSize: 25 }} />
+				</IconButton>
+			)}
+
 			{props.eventsFiltered.length > 0 && (
-				<Timeline position="alternate" id="eventsTimeline">
+				<Timeline position={isMobile ? "alternate" : "right"} id="eventsTimeline">
 					{props.eventsFiltered.map((event, index) => (
 						<TimelineItem
-							sx={{ mt: index === 0 ? 0 : "-12%", mx: "5%" }}
+							sx={{ mt: isMobile ? (index === 0 ? 0 : "-12%") : 0, mx: "5%" }}
 							key={index}
 							id={event.attributes.Ivykio_ID.replace(/[{}]/g, "")}
 						>
+							{isMobile ? null : <TimelineOppositeContent sx={{ maxWidth: 0 }}></TimelineOppositeContent>}
+
 							<TimelineSeparator sx={{ mx: "3%" }}>
 								<TimelineConnector sx={{ backgroundColor: "white", width: "1px" }} />
-								<TimelineDot sx={{ backgroundColor: "white", m: 0, borderWidth: "1px" }} />
+								<TimelineDot sx={{ backgroundColor: "white", m: 0, borderWidth: "1px" }}>
+									<Typography
+										sx={{
+											ml: isMobile ? (index % 2 === 0 ? "calc(-37px - 5%)" : "5%") : "calc(-37px - 5%)",
+											mt: -1.2,
+											color: "lightgray",
+											fontWeight: 400,
+											fontSize: "14px",
+											position: "absolute",
+										}}
+										variant="body2"
+										component="div"
+									>
+										{toRomanCentury(event.attributes.Ivykio_data)} a.
+									</Typography>
+								</TimelineDot>
+
 								<TimelineConnector sx={{ backgroundColor: "white", width: "1px" }} />
 							</TimelineSeparator>
-							<TimelineContent>
+							<TimelineContent sx={{ my: isMobile ? 0 : 1 }}>
 								<HashScroll hash={event.attributes.Ivykio_ID.replace(/[{}]/g, "")} position="center">
 									<Box
 										sx={{
@@ -454,6 +529,7 @@ const EventTimeline = (props) => {
 											zIndex: 1,
 											cursor: "pointer",
 											textAlign: "left",
+											minHeight: 250,
 										}}
 										component="div"
 										// id={event.attributes.Ivykio_ID.replace(/[{}]/g, "")}
@@ -552,7 +628,8 @@ const EventTimeline = (props) => {
 																	{person.id !== null ? (
 																		<Link
 																			sx={{
-																				p: 0.5,
+																				p: 0.3,
+                                        pl: 0.5,
 																				ml: 1.5,
 																				width: "100%",
 																				position: "relative",
@@ -579,7 +656,8 @@ const EventTimeline = (props) => {
 																				fontSize: "14px",
 																				color: "white",
 																				ml: 1.5,
-																				p: 0.5,
+																				p: 0.3,
+                                        pl: 0.5,
 																				fontWeight: 400,
 																			}}
 																			variant="body2"
@@ -613,7 +691,8 @@ const EventTimeline = (props) => {
 																<Box sx={{ width: "100%", display: "flex" }} key={index}>
 																	<Link
 																		sx={{
-																			p: 0.5,
+																			p: 0.3,
+                                      pl: 0.5,
 																			ml: 1.5,
 																			width: "100%",
 																			position: "relative",
@@ -661,7 +740,8 @@ const EventTimeline = (props) => {
 																<Box sx={{ width: "100%", display: "flex" }} key={index}>
 																	<Link
 																		sx={{
-																			p: 0.5,
+																			p: 0.3,
+                                      pl: 0.5,
 																			ml: 1.5,
 																			width: "100%",
 																			position: "relative",
@@ -706,7 +786,8 @@ const EventTimeline = (props) => {
 																<Box sx={{ width: "100%", display: "flex" }} key={index}>
 																	<Link
 																		sx={{
-																			p: 0.5,
+																			p: 0.3,
+                                      pl: 0.5,
 																			ml: 1.5,
 																			width: "100%",
 																			position: "relative",
@@ -752,7 +833,8 @@ const EventTimeline = (props) => {
 																	<Link
 																		sx={{
 																			ml: 1.5,
-																			p: 0.5,
+																			p: 0.3,
+                                      pl: 0.5,
 																			width: "100%",
 																			position: "relative",
 																			fontSize: "14px",

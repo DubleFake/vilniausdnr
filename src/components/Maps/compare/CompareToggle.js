@@ -42,12 +42,12 @@ const CompareLayers = (props) => {
 					element={
 						<>
 							<ObjectPopup />
-							<CompareReview />
+							<CompareReview setInitialLoading={props.setInitialLoading} />
 							<CompareType
 								selectedCompare={selectedCompare}
 								setSelectedCompare={setSelectedCompare}
 								selectedMaps={selectedMaps}
-                setSelectedMaps={setSelectedMaps}
+								setSelectedMaps={setSelectedMaps}
 							/>
 						</>
 					}
@@ -56,12 +56,16 @@ const CompareLayers = (props) => {
 					path="compare/swipe/:globalIDLeft/:globalIDRight"
 					element={
 						<>
-							<CompareSwipe once={props.once} setOnce={props.setOnce} />
+							<CompareSwipe
+								once={props.once}
+								setOnce={props.setOnce}
+								setInitialLoading={props.setInitialLoading}
+							/>
 							<CompareType
 								selectedCompare={selectedCompare}
 								setSelectedCompare={setSelectedCompare}
 								selectedMaps={selectedMaps}
-                setSelectedMaps={setSelectedMaps}
+								setSelectedMaps={setSelectedMaps}
 							/>
 						</>
 					}
@@ -70,12 +74,15 @@ const CompareLayers = (props) => {
 					path="compare/window/:globalIDLeft/:globalIDRight"
 					element={
 						<>
-							<CompareWindow setToggleCompareWindow={props.setToggleCompareWindow} />
+							<CompareWindow
+								setToggleCompareWindow={props.setToggleCompareWindow}
+								setInitialLoading={props.setInitialLoading}
+							/>
 							<CompareType
 								selectedCompare={selectedCompare}
 								setSelectedCompare={setSelectedCompare}
 								selectedMaps={selectedMaps}
-                setSelectedMaps={setSelectedMaps}
+								setSelectedMaps={setSelectedMaps}
 							/>
 						</>
 					}

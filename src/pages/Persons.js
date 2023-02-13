@@ -4,6 +4,7 @@ import { Routes, Route, Outlet } from "react-router-dom"
 import Options from "../components/Persons/options/Options"
 import PersonInfo from "../components/Persons/personInfo/PersonInfo"
 import { persons } from "../utils/personsArcgisItems"
+import InfoTooltip from "../utils/misc/InfoTooltip"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
@@ -19,13 +20,15 @@ const Persons = () => {
 	const theme = useTheme()
 	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
 
+	const [open, setOpen] = useState(false)
+	const [anchorEl, setAnchorEl] = useState(null)
+
 	useEffect(() => {
 		persons
 			.queryFeatures({
 				outFields: [
 					"OBJECTID",
 					"Vardas_lietuviskai",
-					"Pavarde_lietuviskai",
 					"Asmenybes_ID",
 					"Pagrindine_veikla",
 					"Veiklos_detalizavimas",
@@ -37,6 +40,13 @@ const Persons = () => {
 				if (response) {
 					setInitialLoading(false)
 					setInitialObjectsList(response.features)
+
+					const infoButton = document.getElementById("info_button")
+					setAnchorEl(infoButton)
+					setOpen(true)
+					setTimeout(() => {
+						setOpen(false)
+					}, 4000)
 				}
 			})
 	}, [])
@@ -72,9 +82,15 @@ const Persons = () => {
 								/>
 							</Collapse>
 
-							<PersonInfo visible={visible} setVisible={setVisible} setSelectedObject={setSelectedObject} />
+							<PersonInfo
+								visible={visible}
+								setVisible={setVisible}
+								setSelectedObject={setSelectedObject}
+								initialObjectsList={initialObjectsList}
+							/>
 							<Outlet />
 						</Grid>
+						<InfoTooltip open={open} setOpen={setOpen} anchorEl={anchorEl} />
 					</>
 				}
 			>

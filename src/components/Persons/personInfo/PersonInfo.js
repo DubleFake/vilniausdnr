@@ -7,6 +7,7 @@ import PersonRelated from "./PersonRelated"
 import PersonGeneral from "./PersonGeneral"
 import PersonHeader from "./PersonHeader"
 import EmptyPlaceholder from "../../../utils/misc/EmptyPlaceholder"
+import ForceGraph from "./ForceGraph"
 
 import { useTheme } from "@mui/material/styles"
 import useMediaQuery from "@mui/material/useMediaQuery"
@@ -37,6 +38,8 @@ const PersonInfo = (props) => {
 			.then((response) => {
 				setBiographyFeatures(response.features)
 				setDisplayEmpty(false)
+
+				document.getElementById("main-grid").scroll(0, 0)
 			})
 	}, [globalID])
 
@@ -48,7 +51,7 @@ const PersonInfo = (props) => {
 	}, [])
 
 	return (
-		<Grid container spacing={0} variant="main">
+		<Grid container spacing={0} variant="main" id="main-grid">
 			{isDownSm && (
 				<IconButton
 					color="primary"
@@ -61,7 +64,7 @@ const PersonInfo = (props) => {
 						mt: 1,
 						mr: 1.5,
 						position: "absolute",
-						zIndex: 200,
+						zIndex: 50,
 						right: 0,
 						left: "auto",
 						backgroundColor: "#D72E30",
@@ -73,14 +76,22 @@ const PersonInfo = (props) => {
 			)}
 			{displayEmpty ? (
 				<>
-					<EmptyPlaceholder
-						display={displayEmpty}
-						text={"Pasirinkite konkrečią asmenybę iš sąrašo kairėje"}
-					/>
+					{/* <ForceGraph initialObjectsList={props.initialObjectsList} /> */}
+					{isDownSm ? (
+						<Box sx={{ ml: "calc(50% - 73px)" }}>
+							<EmptyPlaceholder display={displayEmpty} text={"Pasirinkite konkrečią asmenybę iš sąrašo"} />
+						</Box>
+					) : (
+						<EmptyPlaceholder
+							display={displayEmpty}
+							text={"Pasirinkite konkrečią asmenybę iš sąrašo kairėje"}
+						/>
+					)}
 				</>
 			) : isDownSm ? (
 				<Box
 					sx={{
+						pb: "45px",
 						display: "grid",
 						gap: 0,
 						gridTemplateColumns: "repeat(1, 1fr)",

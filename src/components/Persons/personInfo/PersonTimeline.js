@@ -163,7 +163,7 @@ const PersonTimeline = (props) => {
 										}`}
 									/>
 								)}
-								{feature.attributes.Fakto_vieta && (
+								{feature.attributes.Fakto_vieta && feature.attributes.Fakto_vieta.length < 50 && ( //laikinai nerodyti ilgu Chips
 									<Chip
 										sx={{
 											mr: 1,

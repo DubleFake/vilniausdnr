@@ -38,7 +38,7 @@ const Nav = () => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
-				<AppBar position="relative">
+				<AppBar sx={{ zIndex: 500 }} position="relative">
 					<Toolbar className="homeNav">
 						<HomeIcon />
 
@@ -46,7 +46,7 @@ const Nav = () => {
 							<InfoModal />
 
 							<LanguageSelect languageOpen={languageOpen} setLanguageOpen={setLanguageOpen} />
-              
+
 							{location.pathname !== `/vilniausdnr/${i18n.language}` ? (
 								<MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 							) : (

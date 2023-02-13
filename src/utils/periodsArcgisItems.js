@@ -90,7 +90,7 @@ export const objectRenderer = {
 }
 
 export const maps = new FeatureLayer({
-	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/91",
+	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/91",
 	outFields: ["*"],
 	// renderer: objectRenderer,
 })
@@ -105,34 +105,34 @@ export const objects = new FeatureLayer({
 const period_1808 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1808_m_Vector/MapServer",
 	title: "1808",
-  metai: 1808
+	metai: 1808,
 })
 const period_1845 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1845_m_Vector/MapServer",
 	title: "1845",
-  metai: 1845
+	metai: 1845,
 })
 const period_1911 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1911_m_Vector/MapServer",
 	title: "1911",
-  metai: 1911
+	metai: 1911,
 })
 const period_1938 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1938_m_Vector/MapServer",
 	title: "1938",
-  metai: 1938
+	metai: 1938,
 })
 const period_1977 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/1977_m_Vector/MapServer",
 	title: "1977",
-  metai: 1977
+	metai: 1977,
 })
-const period_2021 = new TileLayer({
+const period_2023 = new TileLayer({
 	url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/2022_m_Vector/MapServer",
 	title: "2023",
-  metai: 2023
+	metai: 2023,
 })
-export const periods = [period_1808, period_1845, period_1911, period_1938, period_1977, period_2021]
+export const periods = [period_1808, period_1845, period_1911, period_1938, period_1977, period_2023]
 
 const basemap1 = new Basemap({
 	baseLayers: [
@@ -195,7 +195,7 @@ export const view = new MapView({
 		haloColor: "#FF0026",
 		haloOpacity: 1,
 	},
-  constraints: {
+	constraints: {
 		geometry: {
 			type: "extent",
 			spatialReference: 2600,
@@ -213,7 +213,7 @@ export const view2 = new MapView({
 	slider: false,
 	constraints: {
 		// snapToZoom: false,
-    geometry: {
+		geometry: {
 			type: "extent",
 			spatialReference: 2600,
 			xmin: 566176.6289999997,

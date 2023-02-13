@@ -17,7 +17,7 @@ import Nav from "./components/Nav/Nav"
 import "./i18n"
 import "./css/index.css"
 
-import { createTheme, ThemeProvider, experimental_sx as sx } from "@mui/material/styles"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { useTheme } from "@mui/material/styles"
 import useMediaQuery from "@mui/material/useMediaQuery"
 
@@ -62,7 +62,7 @@ const App = () => {
 
 			MuiAppBar: {
 				styleOverrides: {
-					root: sx({
+					root: orgTheme.unstable_sx({
 						height: appBarHeight,
 					}),
 				},
@@ -134,7 +134,7 @@ const App = () => {
 						},
 						style: {
 							backgroundColor: "transparent",
-							width: "100%",
+							width: "80%",
 							height: "0%",
 							bottom: window.innerHeight - appBarHeight,
 							left: 50,
@@ -213,6 +213,16 @@ const App = () => {
 					},
 					{
 						props: {
+							variant: "optionsDivEvents",
+						},
+						style: {
+							width: optionsWidth,
+							height: window.innerHeight - appBarHeight,
+							overflowY: "auto",
+						},
+					},
+					{
+						props: {
 							variant: "optionsVisualizeTab",
 						},
 						style: {
@@ -220,6 +230,14 @@ const App = () => {
 							height: "100vh",
 							display: "flex",
 							flexDirection: "column",
+						},
+					},
+					{
+						props: {
+							variant: "graph",
+						},
+						style: {
+							marginLeft: -(optionsWidth / 2),
 						},
 					},
 				],
@@ -354,7 +372,7 @@ const App = () => {
 
 			MuiTabs: {
 				styleOverrides: {
-					root: sx({
+					root: orgTheme.unstable_sx({
 						"& .MuiTabs-indicator": {
 							display: "flex",
 							justifyContent: "center",
@@ -365,7 +383,7 @@ const App = () => {
 
 			MuiTab: {
 				styleOverrides: {
-					root: sx({
+					root: orgTheme.unstable_sx({
 						height: tabsHeight,
 						backgroundColor: lightGray,
 					}),
@@ -391,6 +409,8 @@ const App = () => {
 								backgroundColor: red,
 							},
 						},
+					},
+					{
 						props: {
 							variant: "sidebarToggle",
 						},
@@ -424,7 +444,7 @@ const App = () => {
 							top: 0 + appBarHeight,
 							right: 0,
 							position: "fixed",
-							zIndex: 3,
+							zIndex: 10,
 							maxHeight: window.innerHeight - appBarHeight - 16,
 							overflowY: "auto",
 							overflowX: "hidden",

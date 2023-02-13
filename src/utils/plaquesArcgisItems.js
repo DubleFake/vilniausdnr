@@ -163,7 +163,7 @@ export const memoryRenderer = {
 }
 
 export const objects = new FeatureLayer({
-	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/1",
+	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/1",
 	outFields: [
 		"OBJECTID",
 		"TIPAS",
@@ -197,9 +197,9 @@ objects.when(() => {
 })
 
 export const persons = new FeatureLayer({
-	url: "https://atviras.vplanas.lt/arcgis/rest/services/VilniausDNR/VilniausDNR/MapServer/3",
+	url: "https://opencity.vplanas.lt/arcgis/rest/services/P_VilniausDNR/VilniausDNR/MapServer/3",
 	title: "Asmenys",
-	outFields: ["Asmenybes_ID", "Vardas_lietuviskai", "Pavarde_lietuviskai"],
+	outFields: ["Asmenybes_ID", "Vardas_lietuviskai"],
 })
 
 const basemap1 = new Basemap({

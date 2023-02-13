@@ -29,6 +29,7 @@
     "mui-nested-menu": "^3.1.0",
     "react": "latest",
     "react-dom": "latest",
+    "react-force-graph-2d": "^1.24.0",
     "react-hash-scroll": "^1.4.7",
     "react-i18next": "^11.15.4",
     "react-responsive-carousel": "^3.2.23",

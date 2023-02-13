@@ -467,11 +467,12 @@ const InfoModal = () => {
 		setToggleSidebar(false)
 	}
 
-	// useEffect(() => {
-	// 	if (window.location.pathname === "/vilniausdnr/lt") {
-	// 		setOpen(true)
-	// 	}
-	// }, [])
+	useEffect(() => {
+		if (window.location.pathname === "/vilniausdnr/lt") {
+			setOpen(true)
+			handleFirstLevel(1, "first", true)
+		}
+	}, [])
 
 	return (
 		<div>
@@ -499,6 +500,7 @@ const InfoModal = () => {
 					},
 				}}
 				onClick={handleOpen}
+				id="info_button"
 			/>
 
 			<Modal
@@ -566,7 +568,7 @@ const InfoModal = () => {
 										index={1}
 										text={"first"}
 										level={firstLevel}
-										elText={"Pagalba"}
+										elText={"Naudojimo instrukcija"}
 										fontSize={"18px"}
 									/>
 									<Collapse sx={{ ml: 1 }} in={firstLevel[1] === true}>
@@ -670,7 +672,7 @@ const InfoModal = () => {
 									index={1}
 									text={"first"}
 									level={firstLevel}
-									elText={"Pagalba"}
+									elText={"Naudojimo instrukcija"}
 									fontSize={"18px"}
 								/>
 								<Collapse sx={{ ml: 1 }} in={firstLevel[1] === true}>

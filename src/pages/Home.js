@@ -13,7 +13,7 @@ import { ReactComponent as personsIcon } from "../utils/icons/homeIcons/persons.
 import { ReactComponent as signsIcon } from "../utils/icons/homeIcons/plaques.svg"
 import { ReactComponent as streetsIcon } from "../utils/icons/homeIcons/streets.svg"
 import VilniausSkyline from "../utils/icons/homeIcons/vilniaus_skyline.svg"
-import VilniausLogo from "../utils/icons/homeIcons/vilniausdnr_logo.svg"
+import VilniausLogo from "../utils/icons/homeIcons/dnr_logo.svg"
 
 import { useTheme } from "@mui/material/styles"
 import Grid from "@mui/material/Grid"
@@ -63,7 +63,7 @@ function Tile(props) {
 							"& .hoverIcon": {
 								mt: propHeight === 480 ? 10 : 4,
 								color: propIconColor,
-								fontSize: propHeight === 480 ? 80 : 32,
+								fontSize: propHeight === 480 ? 80 : 45,
 								transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
 							},
 							"& .hoverMore": {
@@ -90,7 +90,7 @@ function Tile(props) {
 								"& .hoverIcon": {
 									mt: propHeight === 480 ? 10 : 4,
 									color: propIconColor,
-									fontSize: propHeight === 480 ? 80 : 32,
+									fontSize: propHeight === 480 ? 80 : 40,
 									transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
 								},
 								"& .hoverMore": {
@@ -99,7 +99,7 @@ function Tile(props) {
 									transition: "opacity 0.3s",
 								},
 								"& .hoverTitle": {
-									mb: propHeight === 480 ? 5 : 3,
+									mb: propHeight === 480 ? 5 : 2,
 									transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
 								},
 							},
@@ -124,19 +124,31 @@ function Tile(props) {
 						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
 					}}
 				/>
-				<Typography
+				<Box
 					className="hoverTitle"
 					sx={{
-						mb: propHeight === 480 ? 8 : 6,
-						color: propTextColor,
-						fontSize: "22px",
+						height: "66px",
+						mb: propHeight === 480 ? 8 : 5,
+						mx: 3,
 						transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
+						display: "flex",
+						alignItems: "center",
 					}}
-					variant="body1"
-					align="center"
 				>
-					{propText}
-				</Typography>
+					<Typography
+						// className="hoverTitle"
+						sx={{
+							// transition: "0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550)",
+							color: propTextColor,
+							fontSize: "22px",
+							textAlign: "center",
+						}}
+						variant="body1"
+						align="center"
+					>
+						{propText}
+					</Typography>
+				</Box>
 			</Grid>
 
 			<Grid
@@ -223,7 +235,10 @@ const Home = (props) => {
 								marginRight: "5px",
 							}}
 						/>
-						<Typography sx={{ fontSize: "22px", color: "white", mt: "50px", mx: isDownSm ? 5 : 20 }} align="center">
+						<Typography
+							sx={{ fontSize: isDownSm ? "20px" : "22px", color: "white", mt: "50px", mx: isDownSm ? 5 : 20 }}
+							align="center"
+						>
 							Atverkite virtualius Vilniaus istorijos vartus ir pažinkite sostinę tyrinėdami istorinius
 							žemėlapius, senąsias fotografijas bei svarbiausius miesto įvykius.
 							<br />
@@ -239,7 +254,7 @@ const Home = (props) => {
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={isDownSm ? 370 : isDownLg ? 302 : 480}
-							propBackgroundColor={bgGray}
+							propBackgroundColor={isDownSm ? bgRed : bgGray}
 							propTo={"maps/compare/review/42e1492a-d5ac-4d09-ac03-90a6efb54d6e"}
 							propIcon={mapsIcon}
 							propIconColor={"white"}
@@ -254,7 +269,7 @@ const Home = (props) => {
 						<Tile
 							setMenuOpen={props.setMenuOpen}
 							propHeight={isDownSm ? 370 : isDownLg ? 302 : 480}
-							propBackgroundColor={bgRed}
+							propBackgroundColor={isDownSm ? bgGray : bgRed}
 							propTo={"streets"}
 							propIcon={streetsIcon}
 							propIconColor={"white"}

@@ -16,6 +16,7 @@ import { NestedMenuItem } from "mui-nested-menu"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import ClickAwayListener from "@mui/material/ClickAwayListener"
 import Backdrop from "@mui/material/Backdrop"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 import TileLayer from "@arcgis/core/layers/TileLayer"
 import MapImageLayer from "@arcgis/core/layers/MapImageLayer"
@@ -44,6 +45,8 @@ const CompareSwipe = (props) => {
 	const openRight = Boolean(anchorElRight)
 	const [viewUpdating, setViewUpdating] = useState(false)
 
+	const isMobile = useMediaQuery("(min-width:600px)")
+
 	const handleClickRight = (e) => setAnchorElRight(e.currentTarget)
 
 	const handleCloseRight = () => setAnchorElRight(null)
@@ -52,14 +55,18 @@ const CompareSwipe = (props) => {
 		handleCloseLeft()
 
 		const mapByIndex = mapList[event.target.value]
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`)
+		navigate(
+			`/vilniausdnr/${i18n.language}/maps/compare/swipe/${mapByIndex.globalid_map}/${globalIDRight}`
+		)
 	}
 
 	const handleRightSelect = (event) => {
 		handleCloseRight()
 
 		const mapByIndex = mapList[event.target.value]
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`)
+		navigate(
+			`/vilniausdnr/${i18n.language}/maps/compare/swipe/${globalIDLeft}/${mapByIndex.globalid_map}`
+		)
 	}
 
 	const handleClickAway = (event) => {
@@ -178,6 +185,7 @@ const CompareSwipe = (props) => {
 						.whenOnce(() => view.updating === false)
 						.then(() => {
 							setViewUpdating(false)
+							props.setInitialLoading(true)
 							const swipeSelectBottom = document.getElementById("swipe-select-bottom")
 							const swipePopover = document.getElementById("swipe-popover")
 
@@ -243,56 +251,60 @@ const CompareSwipe = (props) => {
 					position: "relative",
 				}}
 				container
-				direction="row"
+				direction={isMobile ? "row" : "column"}
 				justifyContent="center"
-				alignItems="flex-start"
+				alignItems={isMobile ? "flex-start" : "center"}
 				id="swipe-select-bottom"
 			>
 				{mapList.length && (
 					<>
-						<ClickAwayListener
-							mouseEvent="onPointerDown"
-							touchEvent="onTouchStart"
-							onClickAway={handleClickAway}
-						>
-							<Popover
-								sx={{ top: "calc(50% + 50px)", pointerEvents: "none" }}
-								id="swipe-popover"
-								open={!props.once && !viewUpdating}
-								anchorReference="anchorPosition"
-								anchorPosition={{ top: 0, left: 0 }}
-								anchorOrigin={{
-									vertical: "top",
-									horizontal: "left",
-								}}
-								transformOrigin={{
-									vertical: "top",
-									horizontal: "right",
-								}}
+						{isMobile && (
+							<ClickAwayListener
+								mouseEvent="onPointerDown"
+								touchEvent="onTouchStart"
+								onClickAway={handleClickAway}
 							>
-								<Typography
-									sx={{
-										m: 1,
-										textTransform: "none",
-										color: "black",
+								<Popover
+									sx={{ top: "calc(50% + 50px)", pointerEvents: "none" }}
+									id="swipe-popover"
+									open={!props.once && !viewUpdating}
+									anchorReference="anchorPosition"
+									anchorPosition={{ top: 0, left: 0 }}
+									anchorOrigin={{
+										vertical: "top",
+										horizontal: "left",
 									}}
-									variant="body1"
+									transformOrigin={{
+										vertical: "top",
+										horizontal: "right",
+									}}
 								>
-									Slinkite juostą ir lyginkite abu žemėlapius
-								</Typography>
-							</Popover>
-						</ClickAwayListener>
+									<Typography
+										sx={{
+											m: 1,
+											textTransform: "none",
+											color: "black",
+										}}
+										variant="body1"
+									>
+										Slinkite juostą ir lyginkite abu žemėlapius
+									</Typography>
+								</Popover>
+							</ClickAwayListener>
+						)}
 						<Button
 							sx={{
 								bottom: 16,
-								mt: -7.5,
-								mr: 85,
+								mt: isMobile ? -7.5 : -14,
+								mr: isMobile ? 85 : 0,
 								width: "auto",
 								height: "45px",
 								borderRadius: "30px",
 								backgroundColor: "white",
 								"&:hover": { backgroundColor: "white" },
 								textTransform: "none",
+								position: "relative",
+								zIndex: 5,
 							}}
 							onClick={handleClickLeft}
 							endIcon={<ArrowDropDownIcon />}
@@ -333,7 +345,7 @@ const CompareSwipe = (props) => {
 													whiteSpace: "unset",
 													color: map.globalid_map === globalIDLeft && "#D72E30",
 													backgroundColor: map.globalid_map === globalIDLeft && "#F7D5D6",
-													justifyContent: "center",
+													justifyContent: isMobile ? "center" : "flex-start",
 												}}
 												key={index}
 												value={index}
@@ -353,14 +365,16 @@ const CompareSwipe = (props) => {
 						<Button
 							sx={{
 								bottom: 16,
-								mt: -7.5,
-								ml: 85,
+								mt: isMobile ? -7.5 : 1,
+								ml: isMobile ? 85 : 0,
 								width: "auto",
 								height: "45px",
 								borderRadius: "30px",
 								backgroundColor: "white",
 								"&:hover": { backgroundColor: "white" },
 								textTransform: "none",
+								position: "relative",
+								zIndex: 5,
 							}}
 							onClick={handleClickRight}
 							endIcon={<ArrowDropDownIcon />}
@@ -411,7 +425,7 @@ const CompareSwipe = (props) => {
 													whiteSpace: "unset",
 													color: map.globalid_map === globalIDRight && "#D72E30",
 													backgroundColor: map.globalid_map === globalIDRight && "#F7D5D6",
-													justifyContent: "center",
+													justifyContent: isMobile ? "center" : "flex-start",
 												}}
 												key={index}
 												value={index}

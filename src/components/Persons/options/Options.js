@@ -5,13 +5,14 @@ import CloseIcon from "@mui/icons-material/Close"
 import IconButton from "@mui/material/IconButton"
 import { useTheme } from "@mui/material/styles"
 import useMediaQuery from "@mui/material/useMediaQuery"
+import Container from "@mui/material/Container"
 
 const Options = (props) => {
 	const theme = useTheme()
 	const isDownSm = useMediaQuery(theme.breakpoints.down("sm"))
 
 	return (
-		<div style={{ position: "relative" }}>
+		<Container variant="optionsDiv">
 			{isDownSm && (
 				<IconButton
 					color="primary"
@@ -24,7 +25,7 @@ const Options = (props) => {
 						mt: 1,
 						mr: 1,
 						position: "absolute",
-						zIndex: 200,
+						zIndex: 50,
 						right: 0,
 						left: "auto",
 						backgroundColor: "#EBEBEB",
@@ -39,7 +40,7 @@ const Options = (props) => {
 				setSelectedObject={props.setSelectedObject}
 				selectedObject={props.selectedObject}
 			/>
-		</div>
+		</Container>
 	)
 }
 

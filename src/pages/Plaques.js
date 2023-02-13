@@ -8,6 +8,7 @@ import ObjectPopup from "../components/Plaques/popup/ObjectPopup"
 import TableToggle from "../components/Plaques/options/OptionsToggle"
 import Options from "../components/Plaques/options/Options"
 import DNRSpinner from "../utils/misc/DNRSpinner"
+import InfoTooltip from "../utils/misc/InfoTooltip"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
@@ -22,10 +23,22 @@ const Plaques = () => {
 	const [mapQuery, setMapQuery] = useState([])
 	const [visible, setVisible] = useState(false)
 
+	const [open, setOpen] = useState(false)
+	const [anchorEl, setAnchorEl] = useState(null)
+
 	const theme = useTheme()
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
 
 	useEffect(() => {
+		if (!initialLoading) {
+			const infoButton = document.getElementById("info_button")
+			setAnchorEl(infoButton)
+			setOpen(true)
+			setTimeout(() => {
+				setOpen(false)
+			}, 4000)
+		}
+
 		if (!initialLoading && !isMobile) {
 			setVisible(true)
 		} else {
@@ -51,7 +64,7 @@ const Plaques = () => {
 									initialObjectsList={initialObjectsList}
 									setSelectedObject={setSelectedObject}
 									selectedObject={selectedObject}
-                  setVisible={setVisible}
+									setVisible={setVisible}
 								/>
 							</Collapse>
 
@@ -65,6 +78,7 @@ const Plaques = () => {
 								<Outlet />
 							</Grid>
 						</Grid>
+						<InfoTooltip open={open} setOpen={setOpen} anchorEl={anchorEl} />
 					</>
 				}
 			>

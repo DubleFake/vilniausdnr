@@ -184,13 +184,13 @@ const PersonRelated = (props) => {
 						if (!tempPersons[person].attributes.Susijes_asmuo_irasant_tekstu) {
 							persons
 								.queryFeatures({
-									outFields: ["Vardas_lietuviskai", "Pavarde_lietuviskai"],
+									outFields: ["Vardas_lietuviskai"],
 									where: `Asmenybes_ID = '${tempPersons[person].attributes.Susijes_asmuo_is_saraso}'`,
 								})
 								.then((response) => {
 									tempPersons[
 										person
-									].attributes.Susijes_asmuo_irasant_tekstu = `${response.features[0].attributes.Vardas_lietuviskai} ${response.features[0].attributes.Pavarde_lietuviskai}`
+									].attributes.Susijes_asmuo_irasant_tekstu = `${response.features[0].attributes.Vardas_lietuviskai}`
 
 									queryCount++
 									if (queryCount === personsCount) {
@@ -263,12 +263,13 @@ const PersonRelated = (props) => {
 			.then((response) => {
 				persons
 					.queryRelatedFeatures({
-						outFields: ["*"],
-						relationshipId: 23,
+						outFields: ["Ivykio_ID"],
+						relationshipId: 12,
 						returnGeometry: false,
 						objectIds: response.features[0].attributes.OBJECTID,
 					})
 					.then((response_related) => {
+						console.log(response_related)
 						if (Object.keys(response_related).length !== 0) {
 							const tempEvents = []
 							let eventsCount = response_related[response.features[0].attributes.OBJECTID].features.length
@@ -277,7 +278,7 @@ const PersonRelated = (props) => {
 							for (let feature in response_related[response.features[0].attributes.OBJECTID].features) {
 								related_events
 									.queryFeatures({
-										outFields: ["*"],
+										outFields: ["Istorinis_ivykis ", "Ivykio_ID"],
 										where: `Ivykio_ID = '${
 											response_related[response.features[0].attributes.OBJECTID].features[feature].attributes
 												.Ivykio_ID

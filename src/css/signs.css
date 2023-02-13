@@ -19,6 +19,7 @@ body {
 	margin: 0;
 	height: calc(100vh - 90px);
 	width: 100%;
+	position: relative;
 }
 .esri-view .esri-view-surface--inset-outline:focus::after {
 	outline: none !important;

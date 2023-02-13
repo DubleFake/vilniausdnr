@@ -8,11 +8,11 @@ import ObjectPopup from "../components/Foto/popup/ObjectPopup"
 import TableToggle from "../components/Foto/options/OptionsToggle"
 import Options from "../components/Foto/options/Options"
 import DNRSpinner from "../utils/misc/DNRSpinner"
+import InfoTooltip from "../utils/misc/InfoTooltip"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
 import Collapse from "@mui/material/Collapse"
-import CircularProgress from "@mui/material/CircularProgress"
 import Backdrop from "@mui/material/Backdrop"
 
 const Foto = () => {
@@ -25,7 +25,19 @@ const Foto = () => {
 	const theme = useTheme()
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
 
+	const [open, setOpen] = useState(false)
+	const [anchorEl, setAnchorEl] = useState(null)
+
 	useEffect(() => {
+		if (!initialLoading) {
+			const infoButton = document.getElementById("info_button")
+			setAnchorEl(infoButton)
+			setOpen(true)
+			setTimeout(() => {
+				setOpen(false)
+			}, 4000)
+		}
+
 		if (!initialLoading && !isMobile) {
 			setVisible(true)
 		} else {
@@ -40,7 +52,10 @@ const Foto = () => {
 				element={
 					<>
 						<Grid container spacing={0}>
-							<Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={initialLoading}>
+							<Backdrop
+								sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+								open={initialLoading}
+							>
 								<DNRSpinner />
 							</Backdrop>
 
@@ -49,7 +64,7 @@ const Foto = () => {
 									initialObjectsList={initialObjectsList}
 									setSelectedObject={setSelectedObject}
 									selectedObject={selectedObject}
-                  setVisible={setVisible}
+									setVisible={setVisible}
 								/>
 							</Collapse>
 
@@ -63,6 +78,7 @@ const Foto = () => {
 								<Outlet />
 							</Grid>
 						</Grid>
+						<InfoTooltip open={open} setOpen={setOpen} anchorEl={anchorEl} />
 					</>
 				}
 			>

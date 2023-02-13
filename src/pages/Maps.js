@@ -2,20 +2,18 @@ import React, { useState, useEffect } from "react"
 import { Routes, Route, Outlet, useLocation, useNavigate } from "react-router-dom"
 
 import ObjectMap from "../components/Maps/map/ObjectMap"
-// // import ObjectPopup from "../components/Periods/popup/ObjectPopup"
-// // import OptionsToggle from "../components/Periods/options/OptionsToggle"
 import Options from "../components/Periods/options/Options"
 import CompareToggle from "../components/Maps/compare/CompareToggle"
+import InfoTooltip from "../utils/misc/InfoTooltip"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
 import Collapse from "@mui/material/Collapse"
-// import CircularProgress from "@mui/material/CircularProgress"
-// import Backdrop from "@mui/material/Backdrop"
 
 const Maps = () => {
 	const [selectedObject, setSelectedObject] = useState("")
-	const [initialLoading, setInitialLoading] = useState(true)
+	const [initialLoading, setInitialLoading] = useState(false)
+	const [initialLoadingOnce, setInitialLoadingOnce] = useState(true)
 	const [initialObjectsList, setInitialObjectsList] = useState([])
 	const [initialObjectsClasses, setInitialObjectsClasses] = useState([[], []])
 	const [mapQuery, setMapQuery] = useState([])
@@ -24,14 +22,23 @@ const Maps = () => {
 	const [historyToggle, setHistoryToggle] = useState(false)
 	const [once, setOnce] = useState(false)
 
+	const [open, setOpen] = useState(false)
+	const [anchorEl, setAnchorEl] = useState(null)
+
 	let location = useLocation()
 	let navigate = useNavigate()
-  
+
 	useEffect(() => {
-		if (!location.pathname.includes("compare")) {
-			navigate("compare/review")
+		if (initialLoading && initialLoadingOnce) {
+			setInitialLoadingOnce(false)
+			const infoButton = document.getElementById("info_button")
+			setAnchorEl(infoButton)
+			setOpen(true)
+			setTimeout(() => {
+				setOpen(false)
+			}, 4000)
 		}
-	}, [location])
+	}, [initialLoading])
 
 	useEffect(() => {
 		if (historyToggle) {
@@ -76,6 +83,7 @@ const Maps = () => {
 										toggleCompareWindow={toggleCompareWindow}
 									/>
 									<CompareToggle
+										setInitialLoading={setInitialLoading}
 										setToggleCompareWindow={setToggleCompareWindow}
 										historyToggle={historyToggle}
 										setHistoryToggle={setHistoryToggle}
@@ -85,6 +93,7 @@ const Maps = () => {
 									<Outlet />
 								</Grid>
 							</Grid>
+							<InfoTooltip open={open} setOpen={setOpen} anchorEl={anchorEl} />
 						</>
 					}
 				></Route>

@@ -14,9 +14,7 @@ const PersonHeader = (props) => {
 					component="div"
 					align="left"
 				>
-					{props.biographyFeatures[0].attributes.Vardas_lietuviskai +
-						" " +
-						props.biographyFeatures[0].attributes.Pavarde_lietuviskai}
+					{props.biographyFeatures[0].attributes.Vardas_lietuviskai}
 				</Typography>
 
 				{props.biographyFeatures[0].attributes.Vardas_pavarde_EN ? (
