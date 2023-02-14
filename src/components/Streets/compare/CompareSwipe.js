@@ -51,9 +51,9 @@ const CompareSwipe = (props) => {
 				}
 			})
 
-		view.when(() => {
-			view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
-		})
+		// view.when(() => {
+		// 	view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+		// })
 
 		const swipeWidgetFind = view.ui.find("swipe-layers")
 		if (swipeWidgetFind !== null) {

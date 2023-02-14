@@ -15,8 +15,8 @@ const ObjectMap = (props) => {
 		view.container = mapDiv.current
 
 		let pt = new Point({
-			x: 583417.5449750205,
-			y: 6061705.226068436,
+			x: 583032.6956837717,
+			y: 6061494.761669048,
 			spatialReference: {
 				wkid: 2600,
 			},

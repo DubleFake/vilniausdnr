@@ -24,7 +24,18 @@ function CustomAccordion(props) {
 
 	return (
 		<Box
-			sx={{ width: "100", cursor: "pointer", p: 1, mt: index === 0 ? 1 : 0 }}
+			sx={{
+				width: "100",
+				cursor: "pointer",
+				p: 1,
+				mt: index === 0 ? 1 : 0,
+				"&:hover": {
+					"& .accordionText": {
+						transition: "0.3s",
+						color: "#941818",
+					},
+				},
+			}}
 			onClick={() => handleLevel(index, text)}
 		>
 			<Typography
@@ -33,11 +44,9 @@ function CustomAccordion(props) {
 					color: level[index] ? "#D72E30" : "white",
 					fontSize: fontSize,
 					fontWeight: 400,
-					"&:hover": {
-						transition: "0.3s",
-						color: "#941818",
-					},
+					transition: "0.3s",
 				}}
+				className="accordionText"
 			>
 				{elText}
 			</Typography>
@@ -491,9 +500,11 @@ const InfoModal = () => {
 					"& .st0_info": {
 						fill: "#DC2829",
 						stroke: "none",
+						transition: "0.3s",
 					},
 					"& .st1_info": {
 						fill: "none",
+						transition: "0.3s",
 					},
 					"&:hover": {
 						"& .st0_info": { transition: "0.3s", fill: "#941818" },
@@ -533,6 +544,7 @@ const InfoModal = () => {
 							right: 0,
 							mr: 1,
 							mt: 1,
+							transition: "0.3s",
 							"&:hover": {
 								transition: "0.3s",
 								backgroundColor: "#941818",

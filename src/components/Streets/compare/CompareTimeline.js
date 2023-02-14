@@ -37,9 +37,9 @@ const CompareTimeline = (props) => {
 				}
 			})
 
-		view.when(() => {
-			view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
-		})
+		// view.when(() => {
+		// 	view.goTo({ target: periods[0].fullExtent.center, zoom: 4 })
+		// })
 
 		viewHandles.push(
 			view.on("click", function (event) {
@@ -81,9 +81,9 @@ const CompareTimeline = (props) => {
 				}
 			})
 
-		view.when(() => {
-			view.goTo({ target: props.initialPeriod.fullExtent.center, zoom: 4 })
-		})
+		// view.when(() => {
+		// 	view.goTo({ target: props.initialPeriod.fullExtent.center, zoom: 4 })
+		// })
 
 		// props.setToggle1808(false)
 		// switch (parseInt(props.initialPeriod.title.replace(/\D/g, ""))) {

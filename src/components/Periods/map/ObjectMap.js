@@ -27,18 +27,20 @@ const ObjectMap = (props) => {
 		view.container = mapDiv.current
 
 		let pt = new Point({
-			x: 582527.5805600522,
-			y: 6061855.557955307,
+			x: 583032.6956837717,
+			y: 6061494.761669048,
 			spatialReference: {
 				wkid: 2600,
 			},
 		})
-		// view.center = pt
-		// view2.center = pt
+		view.center = pt
+		view.zoom = 3
+		view2.center = pt
+		view2.zoom = 3
 
-		view.when(() => {
-			view.goTo({ target: pt, zoom: 4 })
-		})
+		// view.when(() => {
+		// 	view.goTo({ target: pt, zoom: 4 })
+		// })
 
 		viewHandles.forEach((handle) => {
 			handle.remove()

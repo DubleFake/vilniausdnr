@@ -22,7 +22,7 @@ import ShareIcon from "@mui/icons-material/Share"
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip"
 import { styled } from "@mui/material/styles"
 import useMediaQuery from "@mui/material/useMediaQuery"
-import SearchIcon from "@mui/icons-material/Search"
+import SegmentIcon from '@mui/icons-material/Segment';
 
 const EventTimeline = (props) => {
 	const navigate = useNavigate()
@@ -484,7 +484,7 @@ const EventTimeline = (props) => {
 						color: "white",
 					}}
 				>
-					<SearchIcon sx={{ fontSize: 25 }} />
+					<SegmentIcon sx={{ fontSize: 25 }} />
 				</IconButton>
 			)}
 

@@ -9,6 +9,7 @@ import OptionsToggle from "../components/Streets/options/OptionsToggle"
 import Options from "../components/Streets/options/Options"
 import CompareToggle from "../components/Streets/compare/CompareToggle"
 import InfoTooltip from "../utils/misc/InfoTooltip"
+import DNRSpinner from "../utils/misc/DNRSpinner"
 import "../css/signs.css"
 
 import Grid from "@mui/material/Grid"
@@ -48,6 +49,10 @@ const Plaques = () => {
 		} else {
 			setVisible(false)
 		}
+
+		if (window.location.href.includes("compare")) {
+			setInitialLoading(false)
+		}
 	}, [isMobile, historyToggle, initialLoading])
 
 	return (
@@ -57,12 +62,13 @@ const Plaques = () => {
 				element={
 					<>
 						<Grid container spacing={0}>
-							<Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={false}>
-								<CircularProgress
-									sx={{ position: "fixed", top: window.innerHeight / 2 + 25 }}
-									color="inherit"
-								/>
+							<Backdrop
+								sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+								open={initialLoading}
+							>
+								<DNRSpinner />
 							</Backdrop>
+
 							<Collapse variant="options" orientation="horizontal" in={visible}>
 								<Options
 									initialObjectsList={initialObjectsList}
