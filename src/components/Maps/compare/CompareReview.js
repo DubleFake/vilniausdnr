@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useParams, useNavigate, useLocation } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
 import { map, maps, view } from "../../../utils/mapsArcgisItems"
@@ -28,24 +28,6 @@ const CompareReview = (props) => {
 	const { globalID } = useParams()
 	const navigate = useNavigate()
 	const { t, i18n } = useTranslation()
-	const location = useLocation()
-
-	// const searchParams = new URLSearchParams(location.search)
-	// const x = searchParams.get("x")
-	// const y = searchParams.get("y")
-	// const zoom = searchParams.get("zoom")
-
-	// if (x && y && zoom) {
-	// 	view.center = {
-	// 		x: x,
-	// 		y: y,
-	// 		spatialReference: {
-	// 			wkid: 2600,
-	// 		},
-	// 	}
-	// 	view.zoom = zoom
-	// } else {
-	// }
 
 	const [mapList, setMapList] = useState([])
 	const [groupList, setGroupList] = useState([])
@@ -60,6 +42,35 @@ const CompareReview = (props) => {
 
 	const isMobile = useMediaQuery("(min-width:600px)")
 
+	const onViewpointChange = () => {
+		const { center, zoom } = view
+		const params = new URLSearchParams({ x: center.x, y: center.y, zoom })
+		window.history.pushState({}, "", `?${params}`)
+	}
+
+	const onPopstate = () => {
+		const params = new URLSearchParams(window.location.search)
+		const x = params.get("x")
+		const y = params.get("y")
+		const zoom = params.get("zoom")
+
+		if (x && y && zoom) {
+			const pt = new Point({
+				x: x,
+				y: y,
+				spatialReference: {
+					wkid: 2600,
+				},
+			})
+
+			console.log("first", x, y, zoom)
+			view.goTo({
+				target: pt,
+				zoom: zoom,
+			})
+		}
+	}
+
 	const handleSliderChange = (event, newValue) => {
 		map.layers.items[0].opacity = newValue / 100
 		setSliderValue(newValue)
@@ -72,13 +83,21 @@ const CompareReview = (props) => {
 	const handleMapChange = (event) => {
 		handleClose()
 		const mapByIndex = mapList[event.target.value]
-		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}`)
+		const urlSearchParams = new URLSearchParams(location.search)
+		const existingParams = "?" + urlSearchParams.toString()
+		navigate(`/vilniausdnr/${i18n.language}/maps/compare/review/${mapByIndex.globalid_map}${existingParams}`)
 	}
+
+	useEffect(() => {
+		window.addEventListener("popstate", onPopstate)
+	}, [])
 
 	useEffect(() => {
 		setViewUpdating(true)
 
 		view.when(() => {
+			onPopstate()
+
 			viewHandles.forEach((handle) => {
 				handle.remove()
 			})
@@ -88,12 +107,7 @@ const CompareReview = (props) => {
 				reactiveUtils.when(
 					() => !view.interacting,
 					() => {
-						const searchParams = new URLSearchParams()
-						searchParams.set("x", view.center.x)
-						searchParams.set("y", view.center.y)
-						searchParams.set("zoom", view.zoom)
-
-						navigate(`${location.pathname}?${searchParams.toString()}`)
+						onViewpointChange()
 					}
 				)
 			)
@@ -159,32 +173,6 @@ const CompareReview = (props) => {
 						reactiveUtils
 							.whenOnce(() => view.updating === false)
 							.then(() => {
-								if (window.location.search) {
-									const search = window.location.search.substring(1)
-									const x = search.split("&")[0].split("=")[1]
-									const y = search.split("&")[1].split("=")[1]
-									const zoom = search.split("&")[2].split("=")[1]
-
-									const pt = new Point({
-										x: x,
-										y: y,
-										spatialReference: {
-											wkid: 2600,
-										},
-									})
-
-									view.goTo({
-										target: pt,
-										zoom: zoom,
-									})
-								} else {
-									const searchParams = new URLSearchParams()
-									searchParams.set("x", view.center.x)
-									searchParams.set("y", view.center.y)
-									searchParams.set("zoom", view.zoom)
-
-									navigate(`${location.pathname}?${searchParams.toString()}`)
-								}
 								props.setInitialLoading(true)
 								setViewUpdating(false)
 							})
@@ -199,6 +187,8 @@ const CompareReview = (props) => {
 				handle.remove()
 			})
 			viewHandles.length = 0
+
+			window.removeEventListener("popstate", onPopstate)
 		}
 	}, [])
 
