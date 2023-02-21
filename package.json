@@ -2,7 +2,7 @@
   "name": "create-react-app",
   "version": "5.0.0",
   "private": true,
-  "homepage": "https://zemelapiai.vplanas.lt/vilniausdnr/",
+  "homepage": "./vilniausdnr/",
   "engines": {
     "node": "18.x"
   },
